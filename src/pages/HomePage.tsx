@@ -2,6 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const Banner = styled.div`
+  top: 80px;
   background-color: #dfc6a9;
   width: 100%;
   height: 500px;
