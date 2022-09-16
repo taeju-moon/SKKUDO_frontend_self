@@ -1,11 +1,14 @@
 import {
   Button,
   Card,
+  CardActionArea,
   CardActions,
   CardContent,
+  CardMedia,
   Typography,
 } from "@mui/material";
 import styled from "styled-components";
+import exampleImage from "../assets/images/example.png";
 
 const MyPageContainer = styled.div`
   padding-top: 80px;
@@ -42,30 +45,24 @@ function MyPage() {
       <SectionContainer>
         <Title>내 동아리</Title>
         <ClubCardsContainer>
-          <Card sx={{ minWidth: 275, maxWidth: 300 }}>
-            <CardContent>
-              <Typography
-                sx={{ fontSize: 14 }}
-                color="text.secondary"
-                gutterBottom
-              >
-                Word of the Day
-              </Typography>
-              <Typography variant="h5" component="div">
-                benevolent
-              </Typography>
-              <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                adjective
-              </Typography>
-              <Typography variant="body2">
-                well meaning and kindly.
-                <br />
-                {'"a benevolent smile"'}
-              </Typography>
-            </CardContent>
-            <CardActions>
-              <Button size="small">Learn More</Button>
-            </CardActions>
+          <Card sx={{ maxWidth: 345 }}>
+            <CardActionArea>
+              <CardMedia
+                component="img"
+                height="140"
+                image={exampleImage}
+                alt="green iguana"
+              />
+              <CardContent>
+                <Typography gutterBottom variant="h5" component="div">
+                  Lizard
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  Lizards are a widespread group of squamate reptiles, with over
+                  6,000 species, ranging across all continents except Antarctica
+                </Typography>
+              </CardContent>
+            </CardActionArea>
           </Card>
         </ClubCardsContainer>
       </SectionContainer>
