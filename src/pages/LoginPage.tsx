@@ -6,7 +6,6 @@ const LoginPageContainer = styled.div`
   display: flex;
   width: 100vw;
   height: 100vh;
-  background-color: aliceblue;
   justify-content: center;
   align-items: center;
   flex-direction: column;

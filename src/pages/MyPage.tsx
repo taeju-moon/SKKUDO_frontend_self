@@ -14,9 +14,14 @@ const SectionContainer = styled.div`
 const Title = styled.div`
   width: 100%;
   max-width: 1024px;
+  font-size: 2.5rem;
 `;
 
-const ClubCardsContainer = styled.div``;
+const ClubCardsContainer = styled.div`
+  flex-wrap: wrap;
+`;
+
+const ClubCard = styled.div``;
 
 function MyPage() {
   return (
