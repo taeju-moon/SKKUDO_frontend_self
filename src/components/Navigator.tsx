@@ -1,8 +1,10 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { IoPersonOutline } from "react-icons/io5";
+import { useState } from "react";
 
 const NavigatorContainer = styled.header`
+  position: fixed;
   width: 100%;
   height: 80px;
   background-color: whitesmoke;
@@ -13,7 +15,7 @@ const ItemsContainer = styled.div`
   /* background-color: bisque; */
   display: flex;
   height: 100%;
-  max-width: 1200px;
+  max-width: 1400px;
 `;
 
 const LogoContainer = styled(Link)`
@@ -54,12 +56,42 @@ const NavigationLink = styled(Link)`
 `;
 
 const LoginBtn = styled.button`
+  position: relative;
   border: none;
   background-color: transparent;
   margin-left: auto;
 `;
 
+interface ILoginOptionContainer {
+  isLoginOptionOpened: boolean;
+}
+const LoginOptionContainer = styled.ul<ILoginOptionContainer>`
+  position: absolute;
+  width: 100px;
+  background-color: aliceblue;
+  right: 0;
+  border-radius: 5px;
+  display: ${(props) => (props.isLoginOptionOpened ? "block" : "none")};
+`;
+
+const LoginOption = styled.li`
+  text-align: start;
+  width: 100%;
+  height: 40px;
+  padding: 10px;
+  font-size: 1.3rem;
+  padding-top: 20px;
+`;
+
+const LoginLink = styled(Link)`
+  text-decoration: none;
+`;
+
 function Navigator() {
+  const [isLoginOptionOpened, setIsLoginOptionOpened] = useState(false);
+  const handleLoginBtnClick = () => {
+    setIsLoginOptionOpened((prev) => !prev);
+  };
   return (
     <NavigatorContainer>
       <ItemsContainer>
@@ -79,8 +111,16 @@ function Navigator() {
             </NavigationLi>
           </NavigationUl>
         </NavigationContainer>
-        <LoginBtn>
+        <LoginBtn onClick={handleLoginBtnClick}>
           <IoPersonOutline size="2.3rem" />
+          <LoginOptionContainer isLoginOptionOpened={isLoginOptionOpened}>
+            <LoginOption>
+              <LoginLink to="/login">로그인</LoginLink>
+            </LoginOption>
+            <LoginOption>
+              <LoginLink to="/signup">회원가입</LoginLink>
+            </LoginOption>
+          </LoginOptionContainer>
         </LoginBtn>
       </ItemsContainer>
     </NavigatorContainer>
