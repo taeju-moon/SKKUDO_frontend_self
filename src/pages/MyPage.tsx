@@ -12,20 +12,25 @@ const MyPageContainer = styled.div`
 `;
 
 const SectionContainer = styled.div`
-  margin-top: 80px;
+  margin-top: 70px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 30px;
 `;
 
 const Title = styled.div`
   width: 100%;
   max-width: 1024px;
   font-size: 2.5rem;
+  border-bottom: solid;
+  padding-bottom: 10px;
+  margin-bottom: 50px;
 `;
 
 const ClubCardsContainer = styled.div`
   width: 100%;
+  max-width: 1150px;
   flex-wrap: wrap;
 `;
 
