@@ -1,12 +1,11 @@
 import {
-  Button,
   Card,
   CardActionArea,
-  CardActions,
   CardContent,
   CardMedia,
   Typography,
 } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import exampleImage from "../assets/images/example.png";
 
@@ -15,7 +14,7 @@ const MyPageContainer = styled.div`
 `;
 
 const SectionContainer = styled.div`
-  margin-top: 70px;
+  margin-top: 60px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -26,7 +25,7 @@ const Title = styled.div`
   width: 100%;
   max-width: 1024px;
   font-size: 2.5rem;
-  border-bottom: solid;
+  /* border-bottom: solid; */
   padding-bottom: 10px;
   margin-bottom: 50px;
 `;
@@ -37,13 +36,40 @@ const ClubCardsContainer = styled.div`
   flex-wrap: wrap;
 `;
 
-const ClubCard = styled.div``;
-
 function MyPage() {
+  const navigate = useNavigate();
+
+  const handleMyClubCardClick = () => {
+    navigate("/");
+  };
   return (
     <MyPageContainer>
       <SectionContainer>
         <Title>내 동아리</Title>
+        <ClubCardsContainer>
+          <Card sx={{ maxWidth: 345 }}>
+            <CardActionArea onClick={() => console.log("clivked")}>
+              <CardMedia
+                component="img"
+                height="140"
+                image={exampleImage}
+                alt="green iguana"
+                sx={{ objectFit: "contain" }}
+              />
+              <CardContent>
+                <Typography gutterBottom variant="h5" component="div">
+                  Club Name
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  My Postion
+                </Typography>
+              </CardContent>
+            </CardActionArea>
+          </Card>
+        </ClubCardsContainer>
+      </SectionContainer>
+      <SectionContainer>
+        <Title>지원중인 동아리</Title>
         <ClubCardsContainer>
           <Card sx={{ maxWidth: 345 }}>
             <CardActionArea>
@@ -52,14 +78,14 @@ function MyPage() {
                 height="140"
                 image={exampleImage}
                 alt="green iguana"
+                sx={{ objectFit: "contain" }}
               />
               <CardContent>
                 <Typography gutterBottom variant="h5" component="div">
-                  Lizard
+                  Club Name
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                  Lizards are a widespread group of squamate reptiles, with over
-                  6,000 species, ranging across all continents except Antarctica
+                  My Postion
                 </Typography>
               </CardContent>
             </CardActionArea>
