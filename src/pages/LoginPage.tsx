@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
+import { isLoggedInState } from "../atoms/loginAtom";
 
 const LoginPageContainer = styled.div`
   display: flex;
@@ -32,6 +34,7 @@ const LoginInput = styled.input``;
 const LoginButton = styled.button``;
 
 function LoginPage() {
+  const setIsLoggedIn = useSetRecoilState(isLoggedInState);
   const navigate = useNavigate();
   const [ID, setID] = useState("");
   const [PW, setPW] = useState("");
@@ -47,6 +50,7 @@ function LoginPage() {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     console.log(ID, PW);
+    setIsLoggedIn(true);
     navigate("/myPage");
   };
 

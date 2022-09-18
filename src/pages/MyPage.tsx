@@ -40,15 +40,16 @@ function MyPage() {
   const navigate = useNavigate();
 
   const handleMyClubCardClick = () => {
-    navigate("/");
+    navigate("/club/1398/notice");
   };
+
   return (
     <MyPageContainer>
       <SectionContainer>
         <Title>내 동아리</Title>
         <ClubCardsContainer>
           <Card sx={{ maxWidth: 345 }}>
-            <CardActionArea onClick={() => console.log("clivked")}>
+            <CardActionArea onClick={handleMyClubCardClick}>
               <CardMedia
                 component="img"
                 height="140"
