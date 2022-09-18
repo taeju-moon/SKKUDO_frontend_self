@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { IoPersonOutline } from "react-icons/io5";
 import { useState } from "react";
+import ClubDetailNavigator from "./ClubDetailNavigator";
 
 const NavigatorContainer = styled.header`
   position: fixed;
@@ -60,6 +61,7 @@ const LoginBtn = styled.button`
   border: none;
   background-color: transparent;
   margin-left: auto;
+  margin-right: 20px;
 `;
 
 interface ILoginOptionContainer {
