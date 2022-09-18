@@ -1,4 +1,5 @@
 import React from "react";
+import { RecoilRoot } from "recoil";
 import AppRouter from "./AppRouter";
 import GlobalStyles from "./GlobalStyled";
 
@@ -6,7 +7,9 @@ function App() {
   return (
     <>
       <GlobalStyles />
-      <AppRouter />
+      <RecoilRoot>
+        <AppRouter />
+      </RecoilRoot>
     </>
   );
 }
