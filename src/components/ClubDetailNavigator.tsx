@@ -20,6 +20,19 @@ const NavigationButton = styled.button`
   padding-top: 80px;
 `;
 
+const DrawerTitle = styled.div`
+  width: 300px;
+`;
+
+const NavigateToManagePageButton = styled.button`
+  width: 100%;
+  height: 60px;
+  background-color: transparent;
+  border: none;
+  text-align: start;
+  padding-left: 15px;
+`;
+
 const navigationList = [
   { navigationTitle: "공지사항", navigationPath: "notice" },
   { navigationTitle: "동아리 일정", navigationPath: "calendar" },
@@ -39,7 +52,7 @@ function ClubDetailNavigator() {
       onClick={() => toggleDrawer(false)}
       onKeyDown={() => toggleDrawer(false)}
     >
-      <div>Club Name</div>
+      <DrawerTitle>Club Name</DrawerTitle>
       <Divider />
       <List>
         {navigationList.map((navigationItem, index) => (
@@ -52,6 +65,10 @@ function ClubDetailNavigator() {
           </ListItem>
         ))}
       </List>
+      <Divider />
+      <NavigateToManagePageButton>
+        <ListItemText>동아리 관리</ListItemText>
+      </NavigateToManagePageButton>
     </Box>
   );
   return (

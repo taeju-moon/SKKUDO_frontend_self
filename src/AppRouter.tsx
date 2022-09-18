@@ -3,6 +3,7 @@ import Navigator from "./components/Navigator";
 import AboutPage from "./pages/AboutPage";
 import CalendarPage from "./pages/CalendarPage";
 import ClubDetailPage from "./pages/ClubDetailPage";
+import ClubManagePage from "./pages/ClubManagePage";
 import ClubsPage from "./pages/ClubsPage";
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
@@ -27,6 +28,7 @@ function AppRouter() {
           <Route path="calendar" element={<CalendarPage />} />
           <Route path="members" element={<MembersPage />} />
         </Route>
+        <Route path="/manage/:clubID" element={<ClubManagePage />} />
       </Routes>
     </BrowserRouter>
   );
