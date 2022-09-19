@@ -7,9 +7,13 @@ import ClubManagePage from "./pages/ClubManagePage";
 import ClubsPage from "./pages/ClubsPage";
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
+import ManageMain from "./pages/ManageMain";
+import ManageRecruit from "./pages/ManageRecruit";
+import ManageUser from "./pages/ManageUser";
 import MembersPage from "./pages/MembersPage";
 import MyPage from "./pages/MyPage";
 import NoticePage from "./pages/NoticePage";
+import Page404 from "./pages/Page404";
 import SignupPage from "./pages/SignupPage";
 
 function AppRouter() {
@@ -28,7 +32,12 @@ function AppRouter() {
           <Route path="calendar" element={<CalendarPage />} />
           <Route path="members" element={<MembersPage />} />
         </Route>
-        <Route path="/manage/:clubID" element={<ClubManagePage />} />
+        <Route path="/manage/:clubID" element={<ClubManagePage />}>
+          <Route path="main" element={<ManageMain />} />
+          <Route path="user" element={<ManageUser />} />
+          <Route path="recruit" element={<ManageRecruit />} />
+        </Route>
+        <Route path="*" element={<Page404 />} />
       </Routes>
     </BrowserRouter>
   );
