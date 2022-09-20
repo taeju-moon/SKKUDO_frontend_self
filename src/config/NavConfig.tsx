@@ -25,7 +25,7 @@ const navConfig = [
   },
   {
     title: "blog/권한관리",
-    path: "/dashboard/blog",
+    path: "/manage/1398/auth",
     icon: getIcon("eva:file-text-fill"),
   },
   {

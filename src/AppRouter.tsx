@@ -16,6 +16,7 @@ import MyPage from "./pages/MyPage";
 import NoticePage from "./pages/NoticePage";
 import Page404 from "./pages/Page404";
 import SignupPage from "./pages/SignupPage";
+import ManageAuth from "./pages/managePages/ManageAuth";
 
 function AppRouter() {
   return (
@@ -37,6 +38,7 @@ function AppRouter() {
           <Route path="main" element={<ManageMain />} />
           <Route path="user" element={<ManageUser />} />
           <Route path="recruit" element={<ManageRecruit />} />
+          <Route path="auth" element={<ManageAuth />} />
         </Route>
         <Route path="*" element={<Page404 />} />
       </Routes>

@@ -43,7 +43,7 @@ Scrollbar.propTypes = {
 
 interface IScrollbar {
   children: React.ReactNode;
-  sx: object;
+  sx?: object;
   [x: string]: any;
 }
 
