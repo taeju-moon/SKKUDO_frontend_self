@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { useSetRecoilState } from "recoil";
-import { isManageState } from "../atoms/NavigatorAtom";
+import { isManageState } from "../../atoms/NavigatorAtom";
 import { Outlet } from "react-router-dom";
 // material
 import { styled } from "@mui/material/styles";
-import DashboardNavBar from "../components/DashboardNavBar";
+import DashboardNavBar from "../../components/dashboardComponents/DashboardNavBar";
+import DashboardSidebar from "../../components/dashboardComponents/DashboardSideBar";
 //
-// import DashboardNavbar from './DashboardNavbar';
 // import DashboardSidebar from './DashboardSidebar';
 
 const APP_BAR_MOBILE = 64;
@@ -42,7 +42,10 @@ function ClubManagePage() {
   return (
     <RootStyle>
       <DashboardNavBar onOpenSidebar={() => setOpen(true)} />
-      {/* <DashboardSidebar isOpenSidebar={open} onCloseSidebar={() => setOpen(false)} /> */}
+      <DashboardSidebar
+        isOpenSidebar={open}
+        onCloseSidebar={() => setOpen(false)}
+      />
       <MainStyle>
         <Outlet />
       </MainStyle>

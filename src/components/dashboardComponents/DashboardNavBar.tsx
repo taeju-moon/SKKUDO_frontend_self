@@ -1,11 +1,10 @@
 import { alpha, styled } from "@mui/material/styles";
 import { Box, Stack, AppBar, Toolbar, IconButton } from "@mui/material";
-import Iconify from "./Iconify";
+import Iconify from "../Iconify";
+import AccountPopover from "./AcoountPopover";
+import NotificationsPopover from "./NotificationPopover";
 // components
-// import Iconify from '../../components/Iconify';
 // //
-// import AccountPopover from './AccountPopover';
-// import NotificationsPopover from './NotificationsPopover';
 
 const DRAWER_WIDTH = 280;
 const APPBAR_MOBILE = 64;
@@ -45,10 +44,14 @@ function DashboardNavBar({ onOpenSidebar }: IDashboardNavBar) {
 
         <Box sx={{ flexGrow: 1 }} />
 
-        {/* <Stack direction="row" alignItems="center" spacing={{ xs: 0.5, sm: 1.5 }}>
-      <NotificationsPopover />
-      <AccountPopover />
-    </Stack> */}
+        <Stack
+          direction="row"
+          alignItems="center"
+          spacing={{ xs: 0.5, sm: 1.5 }}
+        >
+          <NotificationsPopover />
+          <AccountPopover />
+        </Stack>
       </ToolbarStyle>
     </RootStyle>
   );

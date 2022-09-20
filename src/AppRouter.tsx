@@ -3,13 +3,14 @@ import Navigator from "./components/Navigator";
 import AboutPage from "./pages/AboutPage";
 import CalendarPage from "./pages/CalendarPage";
 import ClubDetailPage from "./pages/ClubDetailPage";
-import ClubManagePage from "./pages/ClubManagePage";
+import ClubManagePage from "./pages/managePages/ClubManagePage";
 import ClubsPage from "./pages/ClubsPage";
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
-import ManageMain from "./pages/ManageMain";
-import ManageRecruit from "./pages/ManageRecruit";
-import ManageUser from "./pages/ManageUser";
+import ManageMain from "./pages/managePages/ManageMain";
+import ManageRecruit from "./pages/managePages/ManageRecruit";
+import ManageUser from "./pages/managePages/ManageUser";
+
 import MembersPage from "./pages/MembersPage";
 import MyPage from "./pages/MyPage";
 import NoticePage from "./pages/NoticePage";
