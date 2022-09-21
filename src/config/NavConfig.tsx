@@ -20,7 +20,7 @@ const navConfig = [
   },
   {
     title: "product/회의록",
-    path: "/dashboard/products",
+    path: "/manage/1398/notes",
     icon: getIcon("eva:shopping-bag-fill"),
   },
   {
