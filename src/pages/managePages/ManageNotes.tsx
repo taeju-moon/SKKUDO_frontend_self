@@ -34,7 +34,7 @@ function ManageNotes() {
   return (
     <Container>
       <Typography variant="h4" sx={{ mb: 5 }}>
-        Products
+        Notes
       </Typography>
 
       <Stack
