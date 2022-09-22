@@ -1,0 +1,11 @@
+export type RoleType = "회장단" | "운영진" | "부원";
+
+export type LocationType = "인사캠" | "자과캠";
+
+export type ValueType = "string" | "number" | "boolean";
+
+export interface ColumnType {
+  _id: string;
+  key: string;
+  valueType: ValueType;
+}

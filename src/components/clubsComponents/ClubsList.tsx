@@ -3,12 +3,6 @@ import PropTypes from "prop-types";
 import { Grid } from "@mui/material";
 import ClubCard from "./ClubCard";
 
-// ----------------------------------------------------------------------
-
-// ProductList.propTypes = {
-//   products: PropTypes.array.isRequired
-// };
-
 interface IProduct {
   id: number;
   name: string;
@@ -23,7 +17,7 @@ interface IClubsList {
 
 export default function ClubsList({ products, ...other }: IClubsList) {
   return (
-    <Grid container spacing={3} {...other}>
+    <Grid sx={{ marginBottom: "40px" }} container spacing={3} {...other}>
       {products.map((product) => (
         <Grid key={product.id} item xs={12} sm={6} md={3}>
           <ClubCard product={product} />
