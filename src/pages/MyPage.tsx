@@ -1,18 +1,20 @@
 import {
-  Button,
   Card,
-  CardActions,
+  CardActionArea,
   CardContent,
+  CardMedia,
   Typography,
 } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import exampleImage from "../assets/images/example.png";
 
 const MyPageContainer = styled.div`
   padding-top: 80px;
 `;
 
 const SectionContainer = styled.div`
-  margin-top: 70px;
+  margin-top: 60px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -23,7 +25,7 @@ const Title = styled.div`
   width: 100%;
   max-width: 1024px;
   font-size: 2.5rem;
-  border-bottom: solid;
+  /* border-bottom: solid; */
   padding-bottom: 10px;
   margin-bottom: 50px;
 `;
@@ -34,38 +36,60 @@ const ClubCardsContainer = styled.div`
   flex-wrap: wrap;
 `;
 
-const ClubCard = styled.div``;
-
 function MyPage() {
+  const navigate = useNavigate();
+
+  const handleMyClubCardClick = () => {
+    navigate("/club/1398/notice");
+  };
+
   return (
     <MyPageContainer>
       <SectionContainer>
         <Title>내 동아리</Title>
         <ClubCardsContainer>
-          <Card sx={{ minWidth: 275, maxWidth: 300 }}>
-            <CardContent>
-              <Typography
-                sx={{ fontSize: 14 }}
-                color="text.secondary"
-                gutterBottom
-              >
-                Word of the Day
-              </Typography>
-              <Typography variant="h5" component="div">
-                benevolent
-              </Typography>
-              <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                adjective
-              </Typography>
-              <Typography variant="body2">
-                well meaning and kindly.
-                <br />
-                {'"a benevolent smile"'}
-              </Typography>
-            </CardContent>
-            <CardActions>
-              <Button size="small">Learn More</Button>
-            </CardActions>
+          <Card sx={{ maxWidth: 345 }}>
+            <CardActionArea onClick={handleMyClubCardClick}>
+              <CardMedia
+                component="img"
+                height="140"
+                image={exampleImage}
+                alt="green iguana"
+                sx={{ objectFit: "contain" }}
+              />
+              <CardContent>
+                <Typography gutterBottom variant="h5" component="div">
+                  Club Name
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  My Postion
+                </Typography>
+              </CardContent>
+            </CardActionArea>
+          </Card>
+        </ClubCardsContainer>
+      </SectionContainer>
+      <SectionContainer>
+        <Title>지원중인 동아리</Title>
+        <ClubCardsContainer>
+          <Card sx={{ maxWidth: 345 }}>
+            <CardActionArea>
+              <CardMedia
+                component="img"
+                height="140"
+                image={exampleImage}
+                alt="green iguana"
+                sx={{ objectFit: "contain" }}
+              />
+              <CardContent>
+                <Typography gutterBottom variant="h5" component="div">
+                  Club Name
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  My Postion
+                </Typography>
+              </CardContent>
+            </CardActionArea>
           </Card>
         </ClubCardsContainer>
       </SectionContainer>

@@ -2,12 +2,19 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { IoPersonOutline } from "react-icons/io5";
 import { useState } from "react";
+import ClubDetailNavigator from "./ClubDetailNavigator";
+import { useRecoilValue } from "recoil";
+import { isManageState } from "../atoms/NavigatorAtom";
 
-const NavigatorContainer = styled.header`
+interface INavigationConatiner {
+  isManage: boolean;
+}
+const NavigatorContainer = styled.header<INavigationConatiner>`
   position: fixed;
   width: 100%;
   height: 80px;
   background-color: whitesmoke;
+  display: ${(props) => (props.isManage ? "none" : "block")};
 `;
 
 const ItemsContainer = styled.div`
@@ -60,6 +67,7 @@ const LoginBtn = styled.button`
   border: none;
   background-color: transparent;
   margin-left: auto;
+  margin-right: 20px;
 `;
 
 interface ILoginOptionContainer {
@@ -89,11 +97,12 @@ const LoginLink = styled(Link)`
 
 function Navigator() {
   const [isLoginOptionOpened, setIsLoginOptionOpened] = useState(false);
+  const isManage = useRecoilValue(isManageState);
   const handleLoginBtnClick = () => {
     setIsLoginOptionOpened((prev) => !prev);
   };
   return (
-    <NavigatorContainer>
+    <NavigatorContainer isManage={isManage}>
       <ItemsContainer>
         <LogoContainer to="/">
           <Logo>SKKUDO</Logo>
