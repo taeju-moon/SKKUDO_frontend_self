@@ -1,9 +1,15 @@
+import { useTheme } from "@mui/material";
+import { Theme } from "@mui/system";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
+interface IBanner {
+  theme: Theme;
+}
+
 const Banner = styled.div`
   padding-top: 100px;
-  background-color: #dfc6a9;
+  background-color: beige;
   width: 100%;
   height: 500px;
   display: flex;
@@ -50,6 +56,7 @@ const MainPageBtn = styled.button`
 
 function HomePage() {
   const navigate = useNavigate();
+  const theme = useTheme();
   const handleMainPageBtnClick = (btnType: string) => {
     if (btnType == "search") {
       navigate("/clubs");

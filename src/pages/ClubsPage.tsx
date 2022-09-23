@@ -108,10 +108,6 @@ function ClubsPage() {
 
   return (
     <Container sx={{ paddingTop: "80px" }}>
-      <Typography variant="h4" sx={{ mb: 5 }}>
-        Notes
-      </Typography>
-
       <Stack
         direction="row"
         flexWrap="wrap-reverse"
@@ -132,13 +128,13 @@ function ClubsPage() {
           <Typography variant="h4" sx={{ mb: 5 }}>
             모집중인 동아리/학회
           </Typography>
-          <ClubsList products={PRODUCTS} />
+          <ClubsList clubs={ALL_CLUBS_LIST} />
         </div>
         <div>
-          <Typography variant="h4" sx={{ mb: 5 }}>
+          <Typography variant="h4" sx={{ mb: 5, marginTop: "40px" }}>
             모든 동아리/학회
           </Typography>
-          <ClubsList products={PRODUCTS} />
+          <ClubsList clubs={RECRUITING_CLUBS_LIST} />
         </div>
       </Stack>
     </Container>
