@@ -17,18 +17,32 @@ import {
 } from "@mui/material";
 
 import Select, { SelectChangeEvent } from "@mui/material/Select";
-// components
-// mock
-
-// ----------------------------------------------------------------------
-
-// ----------------------------------------------------------------------
+import { AUTH_LABEL_LIST, AUTH_LIST } from "../../constants/AuthManageContants";
 
 export default function ManageAuth() {
-  const [age, setAge] = useState("");
+  // const [auth, setAuth] = useState("회장까지");
+  const [authAuth, setAuthAuth] = useState("회장까지");
+  const [memberAuth, setMemberAuth] = useState("회장까지");
+  const [notesAuth, setNotesAuth] = useState("회장까지");
+  const [recruitAuth, setRecruitAuth] = useState("회장까지");
+  const [noticeAuth, setNoticeAuth] = useState("회장까지");
+  const [calendarAuth, setCalendarAuth] = useState("회장까지");
 
-  const handleChange = (event: SelectChangeEvent) => {
-    setAge(event.target.value);
+  const handleChange = (event: SelectChangeEvent, authKey: string) => {
+    // setAuth(event.target.value);
+    if (authKey == "auth") {
+      setAuthAuth(event.target.value);
+    } else if (authKey == "member") {
+      setMemberAuth(event.target.value);
+    } else if (authKey == "notes") {
+      setNotesAuth(event.target.value);
+    } else if (authKey == "recruit") {
+      setRecruitAuth(event.target.value);
+    } else if (authKey == "notice") {
+      setNoticeAuth(event.target.value);
+    } else if (authKey == "calendar") {
+      setCalendarAuth(event.target.value);
+    }
   };
 
   return (
@@ -53,7 +67,40 @@ export default function ManageAuth() {
         }}
       >
         <List>
-          <ListItem
+          {AUTH_LABEL_LIST.map((authItem) => (
+            <ListItem
+              key={authItem.key}
+              sx={{ marginBottom: "50px", bgcolor: "whitesmoke" }}
+              disablePadding
+            >
+              <ListItemButton sx={{ paddingLeft: "40px" }}>
+                <ListItemText primary={authItem.label} />
+                <Box sx={{ minWidth: 120 }}>
+                  <FormControl fullWidth>
+                    <InputLabel id="demo-simple-select-label">권한</InputLabel>
+                    <Select
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      value={authItem.key}
+                      label={authItem.label}
+                      onChange={(event) => handleChange(event, authItem.key)}
+                    >
+                      {/* {AUTH_LIST.map((auth, index) => (
+                        <MenuItem key={auth} value={index * 10 + 10}>
+                          {auth}
+                        </MenuItem>
+                      ))} */}
+                      <MenuItem value={10}>회장까지</MenuItem>
+                      <MenuItem value={20}>부회장까지</MenuItem>
+                      <MenuItem value={30}>임원까지</MenuItem>
+                      <MenuItem value={40}>모든 사람이</MenuItem>
+                    </Select>
+                  </FormControl>
+                </Box>
+              </ListItemButton>
+            </ListItem>
+          ))}
+          {/* <ListItem
             sx={{ marginBottom: "50px", bgcolor: "whitesmoke" }}
             disablePadding
           >
@@ -102,7 +149,7 @@ export default function ManageAuth() {
                 </FormControl>
               </Box>
             </ListItemButton>
-          </ListItem>
+          </ListItem> */}
         </List>
       </Box>
     </Container>

@@ -1,4 +1,4 @@
-import { User } from "./user";
+import { UserType } from "./user";
 
 export interface NoticeTag {
   _id: string;
@@ -10,7 +10,7 @@ export interface NoticeTag {
 
 export interface Notice {
   _id: string;
-  writer: User;
+  writer: UserType;
   clubId: string; //동아리 ID
   title: string; //제목
   content: string; //내용

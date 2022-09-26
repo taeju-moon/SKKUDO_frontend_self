@@ -1,6 +1,6 @@
 import { RoleType, LocationType, ColumnType } from "./common";
 
-export interface RegisteredClub {
+export interface RegisteredClubType {
   _id: string;
   clubId: string;
   role: RoleType;
@@ -12,12 +12,12 @@ export interface RegisteredClub {
   updatedAt: Date;
 }
 
-export interface User {
+export interface UserType {
   _id: string;
   studentId: string;
   password: string;
   location: Location;
-  registeredClubs: RegisteredClub[];
+  registeredClubs: RegisteredClubType[];
   name: string;
   major: string;
   createdAt: Date;

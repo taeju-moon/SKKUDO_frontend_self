@@ -1,4 +1,4 @@
-import { User } from "./user";
+import { UserType } from "./user";
 
 export interface ToDoTag {
   _id: string;
@@ -11,7 +11,7 @@ export interface ToDoTag {
 export interface ToDo {
   _id: string;
   clubId: string;
-  writer: User;
+  writer: UserType;
   title: string;
   content: string;
   date: Date;

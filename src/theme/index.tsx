@@ -49,6 +49,15 @@ declare module "@mui/material/styles" {
       error?: string;
     };
   }
+
+  interface PaletteColor {
+    darker?: string;
+    lighter?: string;
+  }
+  interface SimplePaletteColorOptions {
+    darker?: string;
+    lighter?: string;
+  }
 }
 
 interface IThemeProvider {

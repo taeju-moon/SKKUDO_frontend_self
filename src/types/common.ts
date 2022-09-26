@@ -1,4 +1,4 @@
-export type RoleType = "회장단" | "운영진" | "부원";
+export type RoleType = "회장" | "부회장" | "운영진" | "부원";
 
 export type LocationType = "인사캠" | "자과캠";
 

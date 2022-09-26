@@ -18,6 +18,7 @@ import Page404 from "./pages/Page404";
 import SignupPage from "./pages/SignupPage";
 import ManageAuth from "./pages/managePages/ManageAuth";
 import ManageNotes from "./pages/managePages/ManageNotes";
+import DashboardApp from "./pages/managePages/DashboardApp";
 
 function AppRouter() {
   return (
@@ -36,7 +37,7 @@ function AppRouter() {
           <Route path="members" element={<MembersPage />} />
         </Route>
         <Route path="/manage/:clubID" element={<ClubManagePage />}>
-          <Route path="main" element={<ManageMain />} />
+          <Route path="main" element={<DashboardApp />} />
           <Route path="user" element={<ManageUser />} />
           <Route path="recruit" element={<ManageRecruit />} />
           <Route path="auth" element={<ManageAuth />} />
