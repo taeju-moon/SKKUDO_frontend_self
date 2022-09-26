@@ -16,7 +16,7 @@ export interface UserType {
   _id: string;
   studentId: string;
   password: string;
-  location: Location;
+  location: LocationType;
   registeredClubs: RegisteredClubType[];
   name: string;
   major: string;

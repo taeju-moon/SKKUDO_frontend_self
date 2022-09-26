@@ -37,53 +37,57 @@ import UserListHead from "../../components/userComponents/UserListHead";
 import UserMoreMenu from "../../components/userComponents/UserMoreMenu";
 import Label from "../../components/userComponents/Label";
 import SearchNotFound from "../../components/userComponents/SearchNotFound";
+// import { MemberType } from "../../types/user";
 
 // ----------------------------------------------------------------------
 
-interface IUser {
-  id: number;
-  avatarUrl: string;
+interface MemberType {
+  _id: string;
+  studentId: string;
   name: string;
-  company: string;
-  isVerified: boolean;
   status: "active" | "banned";
-  role: "Backend Developer" | "Full Stack Developer";
+  role: string;
+  major: string;
 }
-const USERLIST: IUser[] = [
+const USERLIST: MemberType[] = [
   {
-    id: 1,
-    avatarUrl: "",
+    _id: "1",
+    studentId: "123123",
+
     name: "eric",
-    company: "meta",
-    isVerified: true,
+
     status: "active",
-    role: "Backend Developer",
+    role: "회장",
+    major: "메타버스학과",
   },
   {
-    id: 2,
-    avatarUrl: "",
+    _id: "2",
+    studentId: "1212",
     name: "tonny",
-    company: "tiktok",
-    isVerified: false,
     status: "banned",
-    role: "Full Stack Developer",
+    role: "부회장",
+    major: "소맥학과",
   },
 ];
 
 const TABLE_HEAD = [
-  { id: "name", label: "Name", alignRight: false },
-  { id: "company", label: "Company", alignRight: false },
-  { id: "role", label: "Role", alignRight: false },
-  { id: "isVerified", label: "Verified", alignRight: false },
+  { id: "name", label: "이름", alignRight: false },
+  { id: "studentId", label: "학번", alignRight: false },
+  { id: "role", label: "역할", alignRight: false },
+  { id: "major", label: "학과", alignRight: false },
   { id: "status", label: "Status", alignRight: false },
 ];
 
 // ----------------------------------------------------------------------
 
 type orderType = "desc" | "asc";
-type orderByType = "name" | "company" | "role" | "isVerified" | "status";
+type orderByType = "name" | "studentId" | "role" | "major" | "status";
 
-function descendingComparator(a: IUser, b: IUser, orderBy: orderByType) {
+function descendingComparator(
+  a: MemberType,
+  b: MemberType,
+  orderBy: orderByType
+) {
   if (b[orderBy] < a[orderBy]) {
     return -1;
   }
@@ -95,16 +99,16 @@ function descendingComparator(a: IUser, b: IUser, orderBy: orderByType) {
 
 function getComparator(order: orderType, orderBy: orderByType) {
   return order === "desc"
-    ? (a: IUser, b: IUser) => descendingComparator(a, b, orderBy)
-    : (a: IUser, b: IUser) => -descendingComparator(a, b, orderBy);
+    ? (a: MemberType, b: MemberType) => descendingComparator(a, b, orderBy)
+    : (a: MemberType, b: MemberType) => -descendingComparator(a, b, orderBy);
 }
 
 function applySortFilter(
-  array: IUser[],
-  comparator: (a: IUser, b: IUser) => number,
+  array: MemberType[],
+  comparator: (a: MemberType, b: MemberType) => number,
   query: string
 ) {
-  const stabilizedThis: [IUser, number][] = array.map((el, index) => [
+  const stabilizedThis: [MemberType, number][] = array.map((el, index) => [
     el,
     index,
   ]);
@@ -236,21 +240,13 @@ export default function User() {
                 {filteredUsers
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map((row) => {
-                    const {
-                      id,
-                      name,
-                      role,
-                      status,
-                      company,
-                      avatarUrl,
-                      isVerified,
-                    } = row;
+                    const { _id, studentId, name, role, status, major } = row;
                     const isItemSelected = selected.indexOf(name) !== -1;
 
                     return (
                       <TableRow
                         hover
-                        key={id}
+                        key={_id}
                         tabIndex={-1}
                         role="checkbox"
                         selected={isItemSelected}
@@ -268,17 +264,14 @@ export default function User() {
                             alignItems="center"
                             spacing={2}
                           >
-                            <Avatar alt={name} src={avatarUrl} />
                             <Typography variant="subtitle2" noWrap>
                               {name}
                             </Typography>
                           </Stack>
                         </TableCell>
-                        <TableCell align="left">{company}</TableCell>
+                        <TableCell align="left">{studentId}</TableCell>
                         <TableCell align="left">{role}</TableCell>
-                        <TableCell align="left">
-                          {isVerified ? "Yes" : "No"}
-                        </TableCell>
+                        <TableCell align="left">{major}</TableCell>
                         <TableCell align="left">
                           <Label
                             variant="ghost"
