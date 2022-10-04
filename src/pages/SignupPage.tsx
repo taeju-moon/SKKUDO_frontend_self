@@ -1,11 +1,12 @@
-import { MenuItem, SelectChangeEvent, TextField } from "@mui/material";
+import { Button, MenuItem, SelectChangeEvent, TextField } from "@mui/material";
 import React, { useState } from "react";
 import { Loadable } from "recoil";
 import styled from "styled-components";
 import { LocationType } from "../types/common";
 
 const SignupPageContainer = styled.form`
-  padding-top: 120px;
+  position: relative;
+  padding-top: 150px;
   max-width: 1024px;
   width: 100%;
   background-color: #c9c5c5;
@@ -123,7 +124,13 @@ function SignupPage() {
           required
         /> */}
       </SignupInputContainer>
-      <button type="submit">submit</button>
+      <Button
+        sx={{ position: "absolute", right: "20px" }}
+        type="submit"
+        variant="outlined"
+      >
+        submit
+      </Button>
     </SignupPageContainer>
   );
 }
