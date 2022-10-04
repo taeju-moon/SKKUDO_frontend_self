@@ -1,10 +1,12 @@
 import styled from "styled-components";
 import Calendar from "react-calendar";
 import React, { useState } from "react";
-import "react-calendar/dist/Calendar.css";
+// import "react-calendar/dist/Calendar.css";
+import "./CustomCalendarStyle.css";
+import moment from "moment";
 
 const CalendarContainer = styled.div`
-  padding-top: 80px;
+  padding-top: 200px;
   display: flex;
   justify-content: center;
 `;
@@ -36,12 +38,22 @@ const DayDetailBoard = styled.div<IDayDetailOverlay>`
   display: ${(props) => (props.isDayDetailOpened ? "flex" : "none")};
 `;
 
+const Dot = styled.div`
+  height: 8px;
+  width: 8px;
+  background-color: #f87171;
+  border-radius: 50%;
+  display: flex;
+  margin: 0 auto;
+`;
+
 function CalendarPage() {
   const [value, onChange] = useState(new Date());
   const handleDayClick = () => {
     setIsDayDetailOpened((prev) => !prev);
   };
 
+  const mark = ["2022-10-02", "2022-10-23"];
   const [isDayDetailOpened, setIsDayDetailOpened] = useState(false);
   return (
     <>
@@ -50,6 +62,14 @@ function CalendarPage() {
           onChange={onChange}
           value={value}
           onClickDay={handleDayClick}
+          formatDay={(locale, date) => moment(date).format("DD")}
+          tileContent={({ date, view }) => {
+            if (mark.find((x) => x === moment(date).format("YYYY-MM-DD"))) {
+              return <Dot></Dot>;
+            } else {
+              return <div></div>;
+            }
+          }}
         />
       </CalendarContainer>
       <DayDetailOverlay
