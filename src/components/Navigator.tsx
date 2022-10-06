@@ -15,6 +15,8 @@ const NavigatorContainer = styled.header<INavigationConatiner>`
   height: 80px;
   background-color: whitesmoke;
   display: ${(props) => (props.isManage ? "none" : "block")};
+  z-index: 100;
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.3);
 `;
 
 const ItemsContainer = styled.div`

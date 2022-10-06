@@ -17,18 +17,49 @@ import {
 } from "@mui/material";
 
 import Select, { SelectChangeEvent } from "@mui/material/Select";
-// components
-// mock
-
-// ----------------------------------------------------------------------
-
-// ----------------------------------------------------------------------
+import { AUTH_LABEL_LIST, AUTH_LIST } from "../../constants/AuthManageContants";
+import { RoleType } from "../../types/common";
 
 export default function ManageAuth() {
-  const [age, setAge] = useState("");
+  // const [auth, setAuth] = useState("회장까지");
+  const [authAuth, setAuthAuth] = useState<string>("회장");
+  const [memberAuth, setMemberAuth] = useState("회장");
+  const [notesAuth, setNotesAuth] = useState("회장");
+  const [recruitAuth, setRecruitAuth] = useState("회장");
+  const [noticeAuth, setNoticeAuth] = useState("회장");
+  const [calendarAuth, setCalendarAuth] = useState("회장");
 
-  const handleChange = (event: SelectChangeEvent) => {
-    setAge(event.target.value);
+  const returnSelectValue = (authKey: string) => {
+    if (authKey == "auth") {
+      return authAuth;
+    } else if (authKey == "member") {
+      return memberAuth;
+    } else if (authKey == "notes") {
+      return notesAuth;
+    } else if (authKey == "recruit") {
+      return recruitAuth;
+    } else if (authKey == "notice") {
+      return noticeAuth;
+    } else {
+      return calendarAuth;
+    }
+  };
+
+  const handleChange = (event: SelectChangeEvent, authKey: string) => {
+    // setAuth(event.target.value);
+    if (authKey == "auth") {
+      setAuthAuth(event.target.value);
+    } else if (authKey == "member") {
+      setMemberAuth(event.target.value);
+    } else if (authKey == "notes") {
+      setNotesAuth(event.target.value);
+    } else if (authKey == "recruit") {
+      setRecruitAuth(event.target.value);
+    } else if (authKey == "notice") {
+      setNoticeAuth(event.target.value);
+    } else if (authKey == "calendar") {
+      setCalendarAuth(event.target.value);
+    }
   };
 
   return (
@@ -53,7 +84,7 @@ export default function ManageAuth() {
         }}
       >
         <List>
-          <ListItem
+          {/* <ListItem
             sx={{ marginBottom: "50px", bgcolor: "whitesmoke" }}
             disablePadding
           >
@@ -61,48 +92,53 @@ export default function ManageAuth() {
               <ListItemText primary="권한 관리기능 권한 설정" />
               <Box sx={{ minWidth: 120 }}>
                 <FormControl fullWidth>
-                  <InputLabel id="demo-simple-select-label">Age</InputLabel>
+                  <InputLabel id="demo-simple-select-label">권한</InputLabel>
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
-                    value={age}
-                    label="Age"
-                    onChange={handleChange}
+                    value={authAuth}
+                    label="권한"
+                    onChange={(event) =>
+                      handleChange(event, AUTH_LABEL_LIST[0].key)
+                    }
                   >
-                    <MenuItem value={10}>회장까지</MenuItem>
-                    <MenuItem value={20}>부회장까지</MenuItem>
-                    <MenuItem value={30}>임원까지</MenuItem>
-                    <MenuItem value={40}>모든 사람이</MenuItem>
+                    <MenuItem value={"회장"}>회장까지</MenuItem>
+                    <MenuItem value={"부회장"}>부회장까지</MenuItem>
+                    <MenuItem value={"운영진"}>운영진까지</MenuItem>
+                    <MenuItem value={"부원"}>모든 사람이</MenuItem>
                   </Select>
                 </FormControl>
               </Box>
             </ListItemButton>
-          </ListItem>
-          <ListItem
-            sx={{ marginBottom: "50px", bgcolor: "whitesmoke" }}
-            disablePadding
-          >
-            <ListItemButton sx={{ paddingLeft: "40px" }}>
-              <ListItemText primary="권한 관리기능 권한 설정" />
-              <Box sx={{ minWidth: 120 }}>
-                <FormControl fullWidth>
-                  <InputLabel id="demo-simple-select-label">Age</InputLabel>
-                  <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    value={age}
-                    label="Age"
-                    onChange={handleChange}
-                  >
-                    <MenuItem value={10}>회장까지</MenuItem>
-                    <MenuItem value={20}>부회장까지</MenuItem>
-                    <MenuItem value={30}>임원까지</MenuItem>
-                    <MenuItem value={40}>모든 사람이</MenuItem>
-                  </Select>
-                </FormControl>
-              </Box>
-            </ListItemButton>
-          </ListItem>
+          </ListItem> */}
+          {AUTH_LABEL_LIST.map((ele) => (
+            <ListItem
+              key={ele.key}
+              sx={{ marginBottom: "50px", bgcolor: "whitesmoke" }}
+              disablePadding
+            >
+              <ListItemButton sx={{ paddingLeft: "40px" }}>
+                <ListItemText primary="권한 관리기능 권한 설정" />
+                <Box sx={{ minWidth: 120 }}>
+                  <FormControl fullWidth>
+                    <InputLabel id="demo-simple-select-label">권한</InputLabel>
+                    <Select
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      value={returnSelectValue(ele.key)}
+                      label="권한"
+                      onChange={(event) => handleChange(event, ele.key)}
+                    >
+                      <MenuItem value={"회장"}>회장까지</MenuItem>
+                      <MenuItem value={"부회장"}>부회장까지</MenuItem>
+                      <MenuItem value={"운영진"}>운영진까지</MenuItem>
+                      <MenuItem value={"부원"}>모든 사람이</MenuItem>
+                    </Select>
+                  </FormControl>
+                </Box>
+              </ListItemButton>
+            </ListItem>
+          ))}
         </List>
       </Box>
     </Container>

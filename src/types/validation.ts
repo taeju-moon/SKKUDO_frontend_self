@@ -1,6 +1,6 @@
 import { RoleType } from "./common";
 
-export interface Validation {
+export interface ValidationType {
   _id: string;
   clubId: string;
   noticeRead: RoleType;

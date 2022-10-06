@@ -3,14 +3,10 @@ import { Link as RouterLink } from "react-router-dom";
 // material
 import { Box, Card, Link, Typography, Stack } from "@mui/material";
 import { styled } from "@mui/material/styles";
-// utils
-
-// components
-// import Label from "../../../components/Label";
 
 import Label from "../userComponents/Label";
-
-// ----------------------------------------------------------------------
+import { ClubType } from "../../types/club";
+import { flexbox } from "@mui/system";
 
 const ProductImgStyle = styled("img")({
   top: 0,
@@ -20,11 +16,11 @@ const ProductImgStyle = styled("img")({
   position: "absolute",
 });
 
-// ----------------------------------------------------------------------
-
-// ShopProductCard.propTypes = {
-//   product: PropTypes.object,
-// };
+const ClubInfoContainer = styled("div")({
+  display: "flex",
+  justifyContent: "space-between",
+  width: "100%",
+});
 
 interface IProduct {
   name: string;
@@ -32,16 +28,16 @@ interface IProduct {
   status: string;
 }
 
-interface INoteCard {
-  product: IProduct;
+interface IClubCard {
+  club: ClubType;
 }
-export default function ClubCard({ product }: INoteCard) {
-  const { name, cover, status } = product;
+export default function ClubCard({ club }: IClubCard) {
+  const { _id, name, location, type } = club;
 
   return (
     <Card>
       <Box sx={{ pt: "100%", position: "relative" }}>
-        {status && (
+        {/* {status && (
           <Label
             variant="filled"
             color={(status === "sale" && "error") || "info"}
@@ -55,8 +51,8 @@ export default function ClubCard({ product }: INoteCard) {
           >
             {status}
           </Label>
-        )}
-        <ProductImgStyle alt={name} src={cover} />
+        )} */}
+        <ProductImgStyle alt={name} src={""} />
       </Box>
 
       <Stack spacing={2} sx={{ p: 3 }}>
@@ -71,16 +67,28 @@ export default function ClubCard({ product }: INoteCard) {
           alignItems="center"
           justifyContent="space-between"
         >
-          <Typography variant="subtitle1">
-            <Typography
-              component="span"
-              variant="body1"
-              sx={{
-                color: "text.disabled",
-                textDecoration: "line-through",
-              }}
-            ></Typography>
-            &nbsp;
+          <Typography variant="subtitle1" sx={{ width: "100%" }}>
+            <ClubInfoContainer>
+              <Typography
+                component="span"
+                variant="body1"
+                sx={{
+                  color: "text.disabled",
+                }}
+              >
+                {type.name}
+              </Typography>
+              <Typography
+                component="span"
+                variant="body1"
+                sx={{
+                  color: "text.disabled",
+                }}
+              >
+                {location}
+              </Typography>
+            </ClubInfoContainer>
+            {/* &nbsp; */}
           </Typography>
         </Stack>
       </Stack>

@@ -1,6 +1,6 @@
-import { User } from "./user";
+import { UserType } from "./user";
 
-export interface NoticeTag {
+export interface NoticeTagType {
   _id: string;
   clubId: string;
   name: string;
@@ -8,13 +8,13 @@ export interface NoticeTag {
   updatedAt: Date;
 }
 
-export interface Notice {
+export interface NoticeType {
   _id: string;
-  writer: User;
+  writer: UserType;
   clubId: string; //동아리 ID
   title: string; //제목
   content: string; //내용
-  tags: NoticeTag[]; //태그
+  tags: NoticeTagType[]; //태그
   createdAt: Date;
   updatedAt: Date;
 }
