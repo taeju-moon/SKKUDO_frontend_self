@@ -19,6 +19,7 @@ import SignupPage from "./pages/SignupPage";
 import ManageAuth from "./pages/managePages/ManageAuth";
 import ManageNotes from "./pages/managePages/ManageNotes";
 import DashboardApp from "./pages/managePages/DashboardApp";
+import ApplyClubPage from "./pages/ApplyClubPage";
 
 function AppRouter() {
   return (
@@ -31,6 +32,7 @@ function AppRouter() {
         <Route path="/myPage" element={<MyPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
+        <Route path="/applyClub" element={<ApplyClubPage />} />
         <Route path="/club/:clubID" element={<ClubDetailPage />}>
           <Route path="notice" element={<NoticePage />} />
           <Route path="calendar" element={<CalendarPage />} />

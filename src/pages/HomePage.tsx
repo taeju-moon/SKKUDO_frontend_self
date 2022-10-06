@@ -61,7 +61,7 @@ function HomePage() {
     if (btnType == "search") {
       navigate("/clubs");
     } else if (btnType == "make") {
-      navigate("/about");
+      navigate("/applyClub");
     } else {
       return;
     }
