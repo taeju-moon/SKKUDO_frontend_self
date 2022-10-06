@@ -77,12 +77,12 @@ function SignupPage() {
         <TextField
           required
           sx={{ width: "40%" }}
-          label="아이디"
+          label="동아리 주제 ex)농구, 밴드, 코딩..."
           variant="outlined"
         />
         <TextField
           sx={{ width: "40%" }}
-          label="비밀번호"
+          label="동아리 모집 방식"
           variant="outlined"
           required
         />
