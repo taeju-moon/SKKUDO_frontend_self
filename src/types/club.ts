@@ -10,8 +10,8 @@ export interface ClubType {
   userColumns: ColumnType[];
   //description
   recruitType: RecruitType;
-  recruitStart: Date | null; //모집 시작일
-  recruitEnd: Date | null; //모집 종료일
+  recruitStart: string | null; //모집 시작일
+  recruitEnd: string | null; //모집 종료일
   createdAt: Date;
   updatedAt: Date;
 }
