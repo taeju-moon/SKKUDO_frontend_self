@@ -9,6 +9,7 @@ const ApplyClubPageContainer = styled("form")({
   maxWidth: "1024px",
   backgroundColor: "beige",
   margin: "0 auto",
+  paddingBottom: "300px",
 });
 
 const ApplyInputContainer = styled("div")({
