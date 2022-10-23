@@ -5,9 +5,16 @@ import {
   CardMedia,
   Typography,
 } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { useMutation, useQuery } from "react-query";
+import { redirect, useNavigate } from "react-router-dom";
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import exampleImage from "../assets/images/example.png";
+import { isLoggedInState } from "../atoms/loginAtom";
+import { userIDState } from "../atoms/userAtom";
+import { UserType } from "../types/user";
+import { getOneUser, verifyUser } from "../utils/fetch";
 
 const MyPageContainer = styled.div`
   padding-top: 80px;
@@ -38,9 +45,29 @@ const ClubCardsContainer = styled.div`
 
 function MyPage() {
   const navigate = useNavigate();
+  // const userID = useRecoilValue(userIDState);
+  const userID = localStorage.getItem("userID");
+  console.log(userID);
+  const { data, isLoading, isError } = useQuery<UserType>("getOneUser", () =>
+    getOneUser(userID || "")
+  );
 
-  const handleMyClubCardClick = () => {
-    navigate("/club/1398/notice");
+  //need to fix
+  useEffect(() => {
+    if (localStorage.getItem("isLoggedIn") !== "true") {
+      navigate("/login");
+    }
+  }, []);
+
+  // const { mutate, isLoading, data, isError } = useMutation(verifyUser, {
+  //   onSuccess: (data) => console.log(data),
+  //   onError: (error) => console.log(error),
+  // });
+  // useEffect(() => {
+  //   mutate();
+  // }, []);
+  const handleMyClubCardClick = (clubID: string) => {
+    navigate(`/club/${clubID}/notice`);
   };
 
   return (
@@ -48,27 +75,54 @@ function MyPage() {
       <SectionContainer>
         <Title>내 동아리</Title>
         <ClubCardsContainer>
-          <Card sx={{ maxWidth: 345 }}>
-            <CardActionArea onClick={handleMyClubCardClick}>
-              <CardMedia
-                component="img"
-                height="140"
-                image={exampleImage}
-                alt="green iguana"
-                sx={{ objectFit: "contain" }}
-              />
-              <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
-                  Club Name
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  My Postion
-                </Typography>
-              </CardContent>
-            </CardActionArea>
-          </Card>
+          {isLoading ? (
+            <Card sx={{ maxWidth: 345 }}>
+              <CardActionArea>
+                <CardMedia
+                  component="img"
+                  height="140"
+                  image={exampleImage}
+                  alt="green iguana"
+                  sx={{ objectFit: "contain" }}
+                />
+                <CardContent>
+                  <Typography gutterBottom variant="h5" component="div">
+                    Club Name
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    My Postion
+                  </Typography>
+                </CardContent>
+              </CardActionArea>
+            </Card>
+          ) : (
+            data?.registeredClubs.map((club) => (
+              <Card key={club.clubId} sx={{ maxWidth: 345 }}>
+                <CardActionArea
+                  onClick={() => handleMyClubCardClick(club.clubId)}
+                >
+                  <CardMedia
+                    component="img"
+                    height="140"
+                    image={exampleImage}
+                    alt="green iguana"
+                    sx={{ objectFit: "contain" }}
+                  />
+                  <CardContent>
+                    <Typography gutterBottom variant="h5" component="div">
+                      user registered club
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                      {club.role}
+                    </Typography>
+                  </CardContent>
+                </CardActionArea>
+              </Card>
+            ))
+          )}
         </ClubCardsContainer>
       </SectionContainer>
+
       <SectionContainer>
         <Title>지원중인 동아리</Title>
         <ClubCardsContainer>
