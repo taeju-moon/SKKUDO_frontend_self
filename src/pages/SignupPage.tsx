@@ -1,8 +1,12 @@
 import { Button, MenuItem, SelectChangeEvent, TextField } from "@mui/material";
 import React, { useState } from "react";
+import { useMutation } from "react-query";
 import { Loadable } from "recoil";
 import styled from "styled-components";
 import { LocationType } from "../types/common";
+import { createUser } from "../utils/fetch";
+import { NewUserType } from "../types/user";
+import { useNavigate } from "react-router-dom";
 
 const SignupPageContainer = styled.form`
   position: relative;
@@ -27,9 +31,21 @@ const SignupInput = styled.input`
 `;
 
 function SignupPage() {
-  const [name, setName] = useState("Name");
-  const [studentID, setStudentID] = useState("학번");
+  const [name, setName] = useState("");
+  const [studentId, setStudentId] = useState("");
+  const [userID, setUserID] = useState("");
+  const [password, setPassword] = useState("");
   const [location, setLocation] = useState<LocationType>("인사캠");
+  const [major, setMajor] = useState("");
+  const navigate = useNavigate();
+
+  const { mutate, isLoading } = useMutation(
+    (newUser: NewUserType) => createUser(newUser),
+    {
+      onSuccess: (data) => console.log(data),
+      onError: (error) => console.log(error),
+    }
+  );
 
   const locationList = [
     {
@@ -44,18 +60,47 @@ function SignupPage() {
 
   const handleSignupFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log("name submitted");
+    // mutate({ name, studentId, userID, password, location, major });
+
+    navigate("/");
   };
+
   const handleNameChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    console.log(event.target.value);
+    setName(event.target.value);
   };
+
+  const handleStudentIdChange = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setStudentId(event.target.value);
+  };
+
   const handleLocationChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     setLocation(event.target.value as LocationType);
   };
+
+  const handleUserIDChange = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setUserID(event.target.value);
+  };
+
+  const handlePasswordChange = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setPassword(event.target.value);
+  };
+
+  const handleMajorChange = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setMajor(event.target.value);
+  };
+
   return (
     <SignupPageContainer onSubmit={handleSignupFormSubmit}>
       <SignupInputContainer>
@@ -65,26 +110,33 @@ function SignupPage() {
           label="이름"
           variant="outlined"
           onChange={handleNameChange}
+          value={name}
         />
         <TextField
           sx={{ width: "40%" }}
           label="학번"
           variant="outlined"
           required
+          value={studentId}
+          onChange={handleStudentIdChange}
         />
       </SignupInputContainer>
       <SignupInputContainer>
         <TextField
           required
           sx={{ width: "40%" }}
-          label="동아리 주제 ex)농구, 밴드, 코딩..."
+          label="아이디"
           variant="outlined"
+          value={userID}
+          onChange={handleUserIDChange}
         />
         <TextField
           sx={{ width: "40%" }}
-          label="동아리 모집 방식"
+          label="비밀번호"
           variant="outlined"
           required
+          value={password}
+          onChange={handlePasswordChange}
         />
       </SignupInputContainer>
       <SignupInputContainer>
@@ -108,22 +160,24 @@ function SignupPage() {
           label="학과"
           variant="outlined"
           required
+          value={major}
+          onChange={handleMajorChange}
         />
       </SignupInputContainer>
-      <SignupInputContainer>
+      {/* <SignupInputContainer>
         <TextField
           required
           sx={{ width: "40%" }}
           label="이메일"
           variant="outlined"
-        />
-        {/* <TextField
+        /> */}
+      {/* <TextField
           sx={{ width: "40%" }}
           label="학과"
           variant="outlined"
           required
         /> */}
-      </SignupInputContainer>
+      {/* </SignupInputContainer> */}
       <Button
         sx={{ position: "absolute", right: "20px" }}
         type="submit"

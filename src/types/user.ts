@@ -12,6 +12,14 @@ export interface RegisteredClubType {
   updatedAt: Date;
 }
 
+export interface NewUserType {
+  name: string;
+  studentId: string;
+  userID: string;
+  password: string;
+  location: string;
+  major: string;
+}
 export interface UserType {
   _id: string;
   studentId: string;

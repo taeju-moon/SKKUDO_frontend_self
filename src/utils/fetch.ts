@@ -1,3 +1,4 @@
+import { NewUserType } from "./../types/user";
 import axios from "axios";
 
 const BASE_URL = "http://54.180.91.71:8000";
@@ -37,3 +38,9 @@ const GET_CLUB_MEMBERS_URL = `${BASE_URL}/users/byClub/`;
 
 export const getClubMembers = async (clubID: string) =>
   axios.get(GET_CLUB_MEMBERS_URL.concat(clubID)).then((res) => res.data.data);
+
+const CREATE_USER_URL = `${BASE_URL}/users`;
+
+export const createUser = async (userInfo: NewUserType) => {
+  axios.post(CREATE_USER_URL, userInfo).then((res) => res.data);
+};
