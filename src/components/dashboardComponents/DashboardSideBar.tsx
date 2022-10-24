@@ -12,16 +12,7 @@ import {
   Avatar,
   Stack,
 } from "@mui/material";
-// mock
 
-// hooks
-// import useResponsive from "../../hooks/useResponsive";
-// components
-// import Logo from "../../components/Logo";
-// import Scrollbar from "../../components/Scrollbar";
-// import NavSection from "../../components/NavSection";
-//
-// import navConfig from "./NavConfig";
 import useResponsive from "../../hooks/useResponsive";
 import Scrollbar from "./Scrollbar";
 import NavSection from "./NavSection";

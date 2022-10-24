@@ -11,7 +11,9 @@ export const getAllClubs = async () =>
 const LOGIN_URL = `${BASE_URL}/auth/login`;
 
 export const loginFromServer = async (userID: string, password: string) =>
-  axios.post(LOGIN_URL, { userID, password }).then((res) => res.data);
+  axios
+    .post(LOGIN_URL, { userID, password }, { withCredentials: true })
+    .then((res) => res.data);
 
 const VERIFY_URL = `${BASE_URL}/auth/verify`;
 

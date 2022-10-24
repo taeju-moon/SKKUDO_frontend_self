@@ -61,6 +61,7 @@ interface INavItem {
 }
 
 function NavItem({ item, active }: INavItem) {
+  const currentClubID = localStorage.getItem("currentClubID") || "";
   const theme = useTheme();
 
   const isActiveRoot = active(item.path);
@@ -158,7 +159,7 @@ function NavItem({ item, active }: INavItem) {
   return (
     <ListItemStyle
       component={RouterLink}
-      to={path}
+      to={path.replace(":clubID", currentClubID)}
       sx={{
         ...(isActiveRoot && activeRootStyle),
       }}
