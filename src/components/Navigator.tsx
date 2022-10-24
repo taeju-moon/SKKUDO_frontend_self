@@ -13,7 +13,7 @@ const NavigatorContainer = styled.header<INavigationConatiner>`
   position: fixed;
   width: 100%;
   height: 80px;
-  background-color: whitesmoke;
+  background-color: #0c4426;
   display: ${(props) => (props.isManage ? "none" : "block")};
   z-index: 100;
   box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.3);
@@ -21,7 +21,7 @@ const NavigatorContainer = styled.header<INavigationConatiner>`
 
 const ItemsContainer = styled.div`
   margin: 0 auto;
-  /* background-color: bisque; */
+
   display: flex;
   height: 100%;
   max-width: 1400px;
@@ -30,7 +30,6 @@ const ItemsContainer = styled.div`
 const LogoContainer = styled(Link)`
   height: 100%;
   width: 200px;
-  /* background-color: aliceblue; */
   text-decoration: none;
   display: flex;
   align-items: center;
@@ -38,8 +37,8 @@ const LogoContainer = styled(Link)`
 `;
 
 const Logo = styled.div`
-  color: black;
   font-size: 3rem;
+  color: #dde143;
 `;
 
 const NavigationContainer = styled.nav`
@@ -60,7 +59,7 @@ const NavigationLi = styled.li`
 
 const NavigationLink = styled(Link)`
   text-decoration: none;
-  color: black;
+  color: #dde143;
   font-size: 2rem;
 `;
 
@@ -70,6 +69,7 @@ const LoginBtn = styled.button`
   background-color: transparent;
   margin-left: auto;
   margin-right: 20px;
+  color: #dde143;
 `;
 
 interface ILoginOptionContainer {
