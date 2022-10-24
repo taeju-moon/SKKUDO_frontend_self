@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import * as React from "react";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
@@ -10,6 +10,9 @@ import ListItemText from "@mui/material/ListItemText";
 import styled from "styled-components";
 import { AiOutlineMenu } from "react-icons/ai";
 import { GiHamburgerMenu } from "react-icons/gi";
+import { getOneClub } from "../utils/fetch";
+import { useQuery } from "react-query";
+import { ClubType } from "../types/club";
 
 const NavigationButton = styled.button`
   position: fixed;
@@ -40,6 +43,13 @@ const navigationList = [
 ];
 
 function ClubDetailNavigator() {
+  const { clubID } = useParams();
+
+  const { data: clubData, isLoading: isClubLoading } = useQuery<ClubType>(
+    "getOneClub",
+    () => getOneClub(clubID || "")
+  );
+
   const [state, setState] = React.useState(false);
   const navigate = useNavigate();
 
@@ -52,7 +62,7 @@ function ClubDetailNavigator() {
       onClick={() => toggleDrawer(false)}
       onKeyDown={() => toggleDrawer(false)}
     >
-      <DrawerTitle>Club Name</DrawerTitle>
+      <DrawerTitle>{isClubLoading ? "" : clubData?.name}</DrawerTitle>
       <Divider />
       <List>
         {navigationList.map((navigationItem, index) => (
@@ -66,7 +76,9 @@ function ClubDetailNavigator() {
         ))}
       </List>
       <Divider />
-      <NavigateToManagePageButton>
+      <NavigateToManagePageButton
+        onClick={() => navigate(`/manage/${clubID}/main`)}
+      >
         <ListItemText>동아리 관리</ListItemText>
       </NavigateToManagePageButton>
     </Box>

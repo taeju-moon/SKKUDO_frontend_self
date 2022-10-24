@@ -1,8 +1,11 @@
 import React, { useState } from "react";
+import { useMutation, useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { isLoggedInState } from "../atoms/loginAtom";
+import { userIDState } from "../atoms/userAtom";
+import { loginFromServer } from "../utils/fetch";
 
 const LoginPageContainer = styled.div`
   display: flex;
@@ -35,9 +38,24 @@ const LoginButton = styled.button``;
 
 function LoginPage() {
   const setIsLoggedIn = useSetRecoilState(isLoggedInState);
+  const setUserID = useSetRecoilState(userIDState);
   const navigate = useNavigate();
   const [ID, setID] = useState("");
   const [PW, setPW] = useState("");
+
+  const { mutate, isLoading, data, isError } = useMutation(
+    () => loginFromServer(ID, PW),
+    {
+      //need to fix
+      onSuccess: (data) => {
+        console.log(data);
+        localStorage.setItem("isLoggedIn", "true");
+        localStorage.setItem("userID", data.data.userID);
+        setUserID(data.data.userID);
+      },
+      onError: (error) => console.log(error),
+    }
+  );
 
   const handleIDChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setID(event.target.value);
@@ -49,8 +67,9 @@ function LoginPage() {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log(ID, PW);
-    setIsLoggedIn(true);
+    // console.log(ID, PW);
+    // setIsLoggedIn(true);
+    mutate();
     navigate("/myPage");
   };
 

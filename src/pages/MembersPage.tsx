@@ -7,6 +7,10 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+import { useParams } from "react-router-dom";
+import { useQuery } from "react-query";
+import { UserType } from "../types/user";
+import { getClubMembers } from "../utils/fetch";
 
 function createData(
   name: string,
@@ -21,12 +25,14 @@ function createData(
 const rows = [
   createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
   createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
-  createData("Eclair", 262, 16.0, 24, 6.0),
-  createData("Cupcake", 305, 3.7, 67, 4.3),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
 ];
 
 function BasicTable() {
+  const { clubID } = useParams();
+
+  const { data, isLoading } = useQuery<UserType[]>("getClubMembers", () =>
+    getClubMembers(clubID || "")
+  );
   return (
     <TableContainer
       sx={{
@@ -49,17 +55,35 @@ function BasicTable() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
-            <TableRow key={row.name}>
-              <TableCell component="th" scope="row">
-                {row.name}
-              </TableCell>
-              <TableCell align="right">{row.calories}</TableCell>
-              <TableCell align="right">{row.fat}</TableCell>
-              <TableCell align="right">{row.carbs}</TableCell>
-              <TableCell align="right">{row.protein}</TableCell>
-            </TableRow>
-          ))}
+          {isLoading
+            ? rows.map((row) => (
+                <TableRow key={row.name}>
+                  <TableCell component="th" scope="row">
+                    {row.name}
+                  </TableCell>
+                  <TableCell align="right">{row.calories}</TableCell>
+                  <TableCell align="right">{row.fat}</TableCell>
+                  <TableCell align="right">{row.carbs}</TableCell>
+                  <TableCell align="right">{row.protein}</TableCell>
+                </TableRow>
+              ))
+            : data?.map((member) => (
+                <TableRow key={member._id}>
+                  <TableCell component="th" scope="row">
+                    {member.name}
+                  </TableCell>
+                  <TableCell align="right">{member.studentId}</TableCell>
+                  <TableCell align="right">
+                    {
+                      member.registeredClubs.filter(
+                        (club) => club.clubId === clubID
+                      )[0].role
+                    }
+                  </TableCell>
+                  <TableCell align="right">{member.major}</TableCell>
+                  <TableCell align="right">{member.location}</TableCell>
+                </TableRow>
+              ))}
         </TableBody>
       </Table>
     </TableContainer>
