@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { IoPersonOutline } from "react-icons/io5";
 import { useState } from "react";
-import ClubDetailNavigator from "./ClubDetailNavigator";
 import { useRecoilValue } from "recoil";
 import { isManageState } from "../atoms/NavigatorAtom";
 
