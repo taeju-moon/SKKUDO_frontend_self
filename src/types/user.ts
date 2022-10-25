@@ -3,6 +3,7 @@ import { RoleType, LocationType, ColumnType } from "./common";
 export interface RegisteredClubType {
   _id: string;
   clubId: string;
+  clubName: string;
   role: RoleType;
   moreColumns: {
     column: ColumnType;

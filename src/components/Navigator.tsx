@@ -82,6 +82,7 @@ const LoginOptionContainer = styled.ul<ILoginOptionContainer>`
   right: 0;
   border-radius: 5px;
   display: ${(props) => (props.isLoginOptionOpened ? "block" : "none")};
+  padding-bottom: 20px;
 `;
 
 const LoginOption = styled.li`
@@ -95,6 +96,7 @@ const LoginOption = styled.li`
 
 const LoginLink = styled(Link)`
   text-decoration: none;
+  color: black;
 `;
 
 function Navigator() {

@@ -1,3 +1,5 @@
+import { NewClubType } from "./../types/club";
+import { NewNoticeType } from "./../types/notice";
 import { NewUserType } from "./../types/user";
 import axios from "axios";
 
@@ -7,6 +9,9 @@ const GET_ALL_CLUBS_URL = `${BASE_URL}/clubs/clubs`;
 
 export const getAllClubs = async () =>
   axios.get(GET_ALL_CLUBS_URL).then((res) => res.data.data);
+
+export const createClub = async (newClub: NewClubType) =>
+  axios.post(GET_ALL_CLUBS_URL, newClub).then((res) => res.data);
 
 const LOGIN_URL = `${BASE_URL}/auth/login`;
 
@@ -25,6 +30,9 @@ const GET_ALL_NOTICES_URL = `${BASE_URL}/notices/notices`;
 
 export const getAllNotices = async () =>
   axios.get(GET_ALL_NOTICES_URL).then((res) => res.data.data);
+
+export const createNotice = async (newNotice: NewNoticeType) =>
+  axios.post(GET_ALL_NOTICES_URL, newNotice).then((res) => res.data);
 
 const GET_ONE_USER_URL = `${BASE_URL}/users/`;
 

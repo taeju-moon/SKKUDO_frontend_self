@@ -76,7 +76,7 @@ function NavItem({ item, active }: INavItem) {
   };
 
   const activeRootStyle = {
-    color: "primary.main",
+    color: "#dde143",
     fontWeight: "fontWeightMedium",
     bgcolor: alpha(
       theme.palette.primary.main,
@@ -164,7 +164,9 @@ function NavItem({ item, active }: INavItem) {
         ...(isActiveRoot && activeRootStyle),
       }}
     >
-      <ListItemIconStyle>{icon && icon}</ListItemIconStyle>
+      <ListItemIconStyle sx={{ color: "#dde143" }}>
+        {icon && icon}
+      </ListItemIconStyle>
       <ListItemText disableTypography primary={title} />
     </ListItemStyle>
   );

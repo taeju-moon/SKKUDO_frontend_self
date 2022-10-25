@@ -7,15 +7,19 @@ import { LocationType } from "../types/common";
 import { createUser } from "../utils/fetch";
 import { NewUserType } from "../types/user";
 import { useNavigate } from "react-router-dom";
+import TopBlank from "../components/TopBlank";
+import FormTitle from "../components/FormTitle";
 
 const SignupPageContainer = styled.form`
   position: relative;
-  padding-top: 150px;
+  padding-top: 50px;
   max-width: 1024px;
   width: 100%;
-  background-color: #c9c5c5;
-  height: 100%;
+  background-color: #fff;
+  border-radius: 3px;
+  padding-bottom: 100px;
   margin: 0 auto;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
 `;
 
 const SignupInputContainer = styled.div`
@@ -102,90 +106,94 @@ function SignupPage() {
   };
 
   return (
-    <SignupPageContainer onSubmit={handleSignupFormSubmit}>
-      <SignupInputContainer>
-        <TextField
-          required
-          sx={{ width: "40%" }}
-          label="이름"
-          variant="outlined"
-          onChange={handleNameChange}
-          value={name}
-        />
-        <TextField
-          sx={{ width: "40%" }}
-          label="학번"
-          variant="outlined"
-          required
-          value={studentId}
-          onChange={handleStudentIdChange}
-        />
-      </SignupInputContainer>
-      <SignupInputContainer>
-        <TextField
-          required
-          sx={{ width: "40%" }}
-          label="아이디"
-          variant="outlined"
-          value={userID}
-          onChange={handleUserIDChange}
-        />
-        <TextField
-          sx={{ width: "40%" }}
-          label="비밀번호"
-          variant="outlined"
-          required
-          value={password}
-          onChange={handlePasswordChange}
-        />
-      </SignupInputContainer>
-      <SignupInputContainer>
-        <TextField
-          select
-          required
-          sx={{ width: "40%" }}
-          label="지역"
-          variant="outlined"
-          value={location}
-          onChange={handleLocationChange}
-        >
-          {locationList.map((option) => (
-            <MenuItem key={option.value} value={option.value}>
-              {option.value}
-            </MenuItem>
-          ))}
-        </TextField>
-        <TextField
-          sx={{ width: "40%" }}
-          label="학과"
-          variant="outlined"
-          required
-          value={major}
-          onChange={handleMajorChange}
-        />
-      </SignupInputContainer>
-      {/* <SignupInputContainer>
+    <>
+      <TopBlank />
+      <SignupPageContainer onSubmit={handleSignupFormSubmit}>
+        <FormTitle title="회원가입" />
+        <SignupInputContainer>
+          <TextField
+            required
+            sx={{ width: "40%" }}
+            label="이름"
+            variant="outlined"
+            onChange={handleNameChange}
+            value={name}
+          />
+          <TextField
+            sx={{ width: "40%" }}
+            label="학번"
+            variant="outlined"
+            required
+            value={studentId}
+            onChange={handleStudentIdChange}
+          />
+        </SignupInputContainer>
+        <SignupInputContainer>
+          <TextField
+            required
+            sx={{ width: "40%" }}
+            label="아이디"
+            variant="outlined"
+            value={userID}
+            onChange={handleUserIDChange}
+          />
+          <TextField
+            sx={{ width: "40%" }}
+            label="비밀번호"
+            variant="outlined"
+            required
+            value={password}
+            onChange={handlePasswordChange}
+          />
+        </SignupInputContainer>
+        <SignupInputContainer>
+          <TextField
+            select
+            required
+            sx={{ width: "40%" }}
+            label="지역"
+            variant="outlined"
+            value={location}
+            onChange={handleLocationChange}
+          >
+            {locationList.map((option) => (
+              <MenuItem key={option.value} value={option.value}>
+                {option.value}
+              </MenuItem>
+            ))}
+          </TextField>
+          <TextField
+            sx={{ width: "40%" }}
+            label="학과"
+            variant="outlined"
+            required
+            value={major}
+            onChange={handleMajorChange}
+          />
+        </SignupInputContainer>
+        {/* <SignupInputContainer>
         <TextField
           required
           sx={{ width: "40%" }}
           label="이메일"
           variant="outlined"
         /> */}
-      {/* <TextField
+        {/* <TextField
           sx={{ width: "40%" }}
           label="학과"
           variant="outlined"
           required
         /> */}
-      {/* </SignupInputContainer> */}
-      <Button
-        sx={{ position: "absolute", right: "20px" }}
-        type="submit"
-        variant="outlined"
-      >
-        submit
-      </Button>
-    </SignupPageContainer>
+        {/* </SignupInputContainer> */}
+        <Button
+          sx={{ position: "absolute", right: "20px" }}
+          type="submit"
+          variant="outlined"
+        >
+          submit
+        </Button>
+      </SignupPageContainer>
+    </>
   );
 }
 
