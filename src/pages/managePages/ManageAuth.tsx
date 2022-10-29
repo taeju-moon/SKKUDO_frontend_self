@@ -20,17 +20,24 @@ import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { AUTH_LABEL_LIST, AUTH_LIST } from "../../constants/AuthManageContants";
 import { RoleType } from "../../types/common";
 import { useQuery } from "react-query";
-import { ValidationType } from "../../types/validation";
+import { ValidationKeyType, ValidationType } from "../../types/validation";
 import { getValidatonByClubID } from "../../utils/fetch";
 
 export default function ManageAuth() {
-  // const [auth, setAuth] = useState("회장까지");
-  const [authAuth, setAuthAuth] = useState<string>("회장");
-  const [memberAuth, setMemberAuth] = useState("회장");
-  const [notesAuth, setNotesAuth] = useState("회장");
-  const [recruitAuth, setRecruitAuth] = useState("회장");
-  const [noticeAuth, setNoticeAuth] = useState("회장");
-  const [calendarAuth, setCalendarAuth] = useState("회장");
+  const [noticeRead, setNoticeRead] = useState("회장");
+  const [noticeWrite, setNoticeWrite] = useState("회장");
+  const [userRead, setUserRead] = useState("회장");
+  const [userWrite, setUserWrite] = useState("회장");
+  const [userColumnWrite, setUserColumnWrite] = useState("회장");
+  const [todoRead, setTodoRead] = useState("회장");
+  const [todoWrite, setTodoWrite] = useState("회장");
+  const [applyRead, setApplyRead] = useState("회장");
+  const [applyWrite, setApplyWrite] = useState("회장");
+  const [validationRead, setValidationRead] = useState("회장");
+  const [validationWrite, setValidationWrite] = useState("회장");
+  const [clubRead, setClubRead] = useState("회장");
+  const [clubWrite, setClubWrite] = useState("회장");
+
   const { clubID } = useParams();
   const { data, isLoading } = useQuery<ValidationType>(
     "getValidationByClubID",
@@ -38,35 +45,67 @@ export default function ManageAuth() {
   );
 
   const returnSelectValue = (authKey: string) => {
-    if (authKey == "auth") {
-      return authAuth;
-    } else if (authKey == "member") {
-      return memberAuth;
-    } else if (authKey == "notes") {
-      return notesAuth;
-    } else if (authKey == "recruit") {
-      return recruitAuth;
-    } else if (authKey == "notice") {
-      return noticeAuth;
+    if (authKey === "noticeRead") {
+      return noticeRead;
+    } else if (authKey === "noticeWrite") {
+      return noticeWrite;
+    } else if (authKey === "userRead") {
+      return userRead;
+    } else if (authKey === "userWrite") {
+      return userWrite;
+    } else if (authKey === "userColumnWrite") {
+      return userColumnWrite;
+    } else if (authKey === "todoRead") {
+      return todoRead;
+    } else if (authKey === "todoWrite") {
+      return todoWrite;
+    } else if (authKey === "applyRead") {
+      return applyRead;
+    } else if (authKey === "applyWrite") {
+      return applyWrite;
+    } else if (authKey === "validationRead") {
+      return validationRead;
+    } else if (authKey === "validationWrite") {
+      return validationWrite;
+    } else if (authKey === "clubRead") {
+      return clubRead;
+    } else if (authKey === "clubWrite") {
+      return clubWrite;
     } else {
-      return calendarAuth;
+      return noticeRead;
     }
   };
 
   const handleChange = (event: SelectChangeEvent, authKey: string) => {
     // setAuth(event.target.value);
-    if (authKey == "auth") {
-      setAuthAuth(event.target.value);
-    } else if (authKey == "member") {
-      setMemberAuth(event.target.value);
-    } else if (authKey == "notes") {
-      setNotesAuth(event.target.value);
-    } else if (authKey == "recruit") {
-      setRecruitAuth(event.target.value);
-    } else if (authKey == "notice") {
-      setNoticeAuth(event.target.value);
-    } else if (authKey == "calendar") {
-      setCalendarAuth(event.target.value);
+    if (authKey === "noticeRead") {
+      setNoticeRead(event.target.value);
+    } else if (authKey === "noticeWrite") {
+      setNoticeWrite(event.target.value);
+    } else if (authKey === "userRead") {
+      setUserRead(event.target.value);
+    } else if (authKey === "userWrite") {
+      setUserWrite(event.target.value);
+    } else if (authKey === "userColumnWrite") {
+      setUserColumnWrite(event.target.value);
+    } else if (authKey === "todoRead") {
+      setTodoRead(event.target.value);
+    } else if (authKey === "todoWrite") {
+      setTodoWrite(event.target.value);
+    } else if (authKey === "applyRead") {
+      setApplyRead(event.target.value);
+    } else if (authKey === "applyWrite") {
+      setApplyWrite(event.target.value);
+    } else if (authKey === "validationRead") {
+      setValidationRead(event.target.value);
+    } else if (authKey === "validationWrite") {
+      setValidationWrite(event.target.value);
+    } else if (authKey === "clubRead") {
+      setClubRead(event.target.value);
+    } else if (authKey === "clubWrite") {
+      setClubWrite(event.target.value);
+    } else {
+      setNoticeRead(event.target.value);
     }
   };
 
@@ -106,7 +145,11 @@ export default function ManageAuth() {
                     <Select
                       labelId="demo-simple-select-label"
                       id="demo-simple-select"
-                      value={returnSelectValue(ele.key)}
+                      value={
+                        isLoading
+                          ? returnSelectValue(ele.key)
+                          : data![ele.key as ValidationKeyType]
+                      }
                       label="권한"
                       onChange={(event) => handleChange(event, ele.key)}
                     >
