@@ -4,6 +4,8 @@ import { IoPersonOutline } from "react-icons/io5";
 import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import { isManageState } from "../atoms/NavigatorAtom";
+import { useMutation } from "react-query";
+import { logoutFromServer } from "../utils/fetch";
 
 interface INavigationConatiner {
   isManage: boolean;
@@ -104,6 +106,13 @@ function Navigator() {
   const handleLoginBtnClick = () => {
     setIsLoginOptionOpened((prev) => !prev);
   };
+  const { mutate } = useMutation(logoutFromServer, {
+    onSuccess: (data) => console.log("success"),
+    onError: (data) => console.log("error"),
+  });
+  const handleLogoutBtnClick = () => {
+    mutate();
+  };
   return (
     <NavigatorContainer isManage={isManage}>
       <ItemsContainer>
@@ -131,6 +140,9 @@ function Navigator() {
             </LoginOption>
             <LoginOption>
               <LoginLink to="/signup">회원가입</LoginLink>
+            </LoginOption>
+            <LoginOption>
+              <div onClick={handleLogoutBtnClick}>로그아웃</div>
             </LoginOption>
           </LoginOptionContainer>
         </LoginBtn>

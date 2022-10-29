@@ -1,4 +1,4 @@
-import { Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink, useParams } from "react-router-dom";
 import { useState } from "react";
 // material
 import {
@@ -19,6 +19,9 @@ import {
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { AUTH_LABEL_LIST, AUTH_LIST } from "../../constants/AuthManageContants";
 import { RoleType } from "../../types/common";
+import { useQuery } from "react-query";
+import { ValidationType } from "../../types/validation";
+import { getValidatonByClubID } from "../../utils/fetch";
 
 export default function ManageAuth() {
   // const [auth, setAuth] = useState("회장까지");
@@ -28,6 +31,11 @@ export default function ManageAuth() {
   const [recruitAuth, setRecruitAuth] = useState("회장");
   const [noticeAuth, setNoticeAuth] = useState("회장");
   const [calendarAuth, setCalendarAuth] = useState("회장");
+  const { clubID } = useParams();
+  const { data, isLoading } = useQuery<ValidationType>(
+    "getValidationByClubID",
+    () => getValidatonByClubID(clubID || "")
+  );
 
   const returnSelectValue = (authKey: string) => {
     if (authKey == "auth") {
@@ -84,33 +92,6 @@ export default function ManageAuth() {
         }}
       >
         <List>
-          {/* <ListItem
-            sx={{ marginBottom: "50px", bgcolor: "whitesmoke" }}
-            disablePadding
-          >
-            <ListItemButton sx={{ paddingLeft: "40px" }}>
-              <ListItemText primary="권한 관리기능 권한 설정" />
-              <Box sx={{ minWidth: 120 }}>
-                <FormControl fullWidth>
-                  <InputLabel id="demo-simple-select-label">권한</InputLabel>
-                  <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    value={authAuth}
-                    label="권한"
-                    onChange={(event) =>
-                      handleChange(event, AUTH_LABEL_LIST[0].key)
-                    }
-                  >
-                    <MenuItem value={"회장"}>회장까지</MenuItem>
-                    <MenuItem value={"부회장"}>부회장까지</MenuItem>
-                    <MenuItem value={"운영진"}>운영진까지</MenuItem>
-                    <MenuItem value={"부원"}>모든 사람이</MenuItem>
-                  </Select>
-                </FormControl>
-              </Box>
-            </ListItemButton>
-          </ListItem> */}
           {AUTH_LABEL_LIST.map((ele) => (
             <ListItem
               key={ele.key}
@@ -118,7 +99,7 @@ export default function ManageAuth() {
               disablePadding
             >
               <ListItemButton sx={{ paddingLeft: "40px" }}>
-                <ListItemText primary="권한 관리기능 권한 설정" />
+                <ListItemText primary={ele.label} />
                 <Box sx={{ minWidth: 120 }}>
                   <FormControl fullWidth>
                     <InputLabel id="demo-simple-select-label">권한</InputLabel>

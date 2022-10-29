@@ -58,8 +58,8 @@ const LoginButton = styled.button`
 `;
 
 function LoginPage() {
-  const setIsLoggedIn = useSetRecoilState(isLoggedInState);
-  const setUserID = useSetRecoilState(userIDState);
+  // const setIsLoggedIn = useSetRecoilState(isLoggedInState);
+  // const setUserID = useSetRecoilState(userIDState);
   const navigate = useNavigate();
   const [ID, setID] = useState("");
   const [PW, setPW] = useState("");
@@ -70,9 +70,9 @@ function LoginPage() {
       //need to fix
       onSuccess: (data) => {
         console.log(data);
-        localStorage.setItem("isLoggedIn", "true");
-        localStorage.setItem("userID", data.data.userID);
-        setUserID(data.data.userID);
+        // localStorage.setItem("isLoggedIn", "true");
+        // localStorage.setItem("userID", data.data.userID);
+        // setUserID(data.data.userID);
       },
       onError: (error) => console.log(error),
     }
