@@ -6,9 +6,9 @@ import {
   Typography,
 } from "@mui/material";
 import { useEffect } from "react";
-import { useMutation, useQuery } from "react-query";
-import { redirect, useNavigate } from "react-router-dom";
-import { useRecoilValue } from "recoil";
+import { useQuery } from "react-query";
+import { useNavigate } from "react-router-dom";
+
 import styled from "styled-components";
 import exampleImage from "../assets/images/example.png";
 import { isLoggedInState } from "../atoms/loginAtom";
@@ -33,8 +33,8 @@ const Title = styled.div`
   max-width: 1024px;
   font-size: 2.5rem;
   /* border-bottom: solid; */
-  padding-bottom: 10px;
-  margin-bottom: 50px;
+
+  margin-bottom: 40px;
 `;
 
 const ClubCardsContainer = styled.div`
