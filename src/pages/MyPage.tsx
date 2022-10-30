@@ -6,7 +6,8 @@ import {
   Typography,
 } from "@mui/material";
 import { useEffect } from "react";
-import { useQuery } from "react-query";
+import { useCookies } from "react-cookie";
+import { useMutation, useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
 
 import styled from "styled-components";
@@ -46,23 +47,38 @@ const ClubCardsContainer = styled.div`
 function MyPage() {
   const navigate = useNavigate();
   // const userID = useRecoilValue(userIDState);
-  const userID = localStorage.getItem("userID");
-  console.log(userID);
-  const { data, isLoading, isError } = useQuery<UserType>("getOneUser", () =>
-    getOneUser(userID || "")
-  );
+  // const userID = localStorage.getItem("userID");
+  // console.log(userID);
+
+  // const { data, isLoading, isError } = useQuery<UserType>("getOneUser", () =>
+  //   getOneUser(userID || "")
+  // );
 
   //need to fix
+  // useEffect(() => {
+  //   if (localStorage.getItem("isLoggedIn") !== "true") {
+  //     navigate("/login");
+  //   }
+  // }, []);
+
+  const { mutate, data, isLoading } = useMutation(verifyUser, {
+    onSuccess: (data) => console.log(data),
+    onError: (error) => console.log(error),
+  });
+
+  const cookie = useCookies(["x_auth"]);
+
   useEffect(() => {
-    if (localStorage.getItem("isLoggedIn") !== "true") {
-      navigate("/login");
+    if (cookie) {
+      console.log(cookie);
     }
+    mutate();
   }, []);
 
-  // const { mutate, isLoading, data, isError } = useMutation(verifyUser, {
-  //   onSuccess: (data) => console.log(data),
-  //   onError: (error) => console.log(error),
-  // });
+  if (!isLoading) {
+    console.log(data);
+  }
+
   // useEffect(() => {
   //   mutate();
   // }, []);
@@ -74,7 +90,7 @@ function MyPage() {
     <MyPageContainer>
       <SectionContainer>
         <Title>내 동아리</Title>
-        <ClubCardsContainer>
+        {/* <ClubCardsContainer>
           {isLoading ? (
             <Card sx={{ maxWidth: 345 }}>
               <CardActionArea>
@@ -120,7 +136,7 @@ function MyPage() {
               </Card>
             ))
           )}
-        </ClubCardsContainer>
+        </ClubCardsContainer> */}
       </SectionContainer>
 
       <SectionContainer>

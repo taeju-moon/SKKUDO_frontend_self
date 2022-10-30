@@ -6,7 +6,10 @@ import ClubDetailNavigator from "../components/ClubDetailNavigator";
 
 function ClubDetailPage() {
   const setIsManage = useSetRecoilState(isManageState);
-  setIsManage(false);
+  useEffect(() => {
+    setIsManage(false);
+  }, []);
+
   return (
     <>
       <ClubDetailNavigator />
