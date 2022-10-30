@@ -31,7 +31,7 @@ export const logoutFromServer = async () =>
 const VERIFY_URL = `${BASE_URL}/auth/verify`;
 
 export const verifyUser = async () => {
-  axios.post(VERIFY_URL, {}).then((res) => res.data);
+  axios.post(VERIFY_URL, {}).then((res) => res.data.data);
 };
 
 const GET_ALL_NOTICES_URL = `${BASE_URL}/notices/notices`;
@@ -69,3 +69,5 @@ export const getValidatonByClubID = async (clubID: string) =>
   axios
     .get(GET_VALIDATON_BY_CLUBID_URL.concat(clubID))
     .then((res) => res.data.data);
+
+// export const update

@@ -6,6 +6,7 @@ import {
   Typography,
 } from "@mui/material";
 import { useEffect } from "react";
+import { useCookies } from "react-cookie";
 import { useMutation, useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
 
@@ -48,6 +49,7 @@ function MyPage() {
   // const userID = useRecoilValue(userIDState);
   // const userID = localStorage.getItem("userID");
   // console.log(userID);
+
   // const { data, isLoading, isError } = useQuery<UserType>("getOneUser", () =>
   //   getOneUser(userID || "")
   // );
@@ -59,14 +61,23 @@ function MyPage() {
   //   }
   // }, []);
 
-  const { mutate, isLoading, data, isError } = useMutation(verifyUser, {
+  const { mutate, data, isLoading } = useMutation(verifyUser, {
     onSuccess: (data) => console.log(data),
-    onError: (error) => console.log("error"),
+    onError: (error) => console.log(error),
   });
 
+  const cookie = useCookies(["x_auth"]);
+
   useEffect(() => {
+    if (cookie) {
+      console.log(cookie);
+    }
     mutate();
   }, []);
+
+  if (!isLoading) {
+    console.log(data);
+  }
 
   // useEffect(() => {
   //   mutate();

@@ -5,6 +5,7 @@ import GlobalStyles from "./GlobalStyled";
 import ThemeProvider from "./theme";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { Global } from "@emotion/react";
+import { CookiesProvider } from "react-cookie";
 
 function App() {
   const queryClient = new QueryClient();
@@ -22,7 +23,9 @@ function App() {
         <QueryClientProvider client={queryClient}>
           <ReactQueryDevtools initialIsOpen={true} />
           <RecoilRoot>
-            <AppRouter />
+            <CookiesProvider>
+              <AppRouter />
+            </CookiesProvider>
           </RecoilRoot>
         </QueryClientProvider>
       </ThemeProvider>

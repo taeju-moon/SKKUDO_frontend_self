@@ -22,6 +22,9 @@ import { RoleType } from "../../types/common";
 import { useQuery } from "react-query";
 import { ValidationKeyType, ValidationType } from "../../types/validation";
 import { getValidatonByClubID } from "../../utils/fetch";
+import AlertDialog from "../../components/manageAuthComponents/AuthConfirmAlert";
+import { useSetRecoilState } from "recoil";
+import { isAuthConfirmAlertOpenState } from "../../atoms/alertAtom";
 
 export default function ManageAuth() {
   const [noticeRead, setNoticeRead] = useState("회장");
@@ -43,7 +46,9 @@ export default function ManageAuth() {
     "getValidationByClubID",
     () => getValidatonByClubID(clubID || "")
   );
-
+  const [selectedLabel, setSelectedLabel] = useState("");
+  const [selectedKey, setSelectedKey] = useState("");
+  const [selectedValue, setSelectedValue] = useState("");
   const returnSelectValue = (authKey: string) => {
     if (authKey === "noticeRead") {
       return noticeRead;
@@ -76,39 +81,52 @@ export default function ManageAuth() {
     }
   };
 
-  const handleChange = (event: SelectChangeEvent, authKey: string) => {
-    // setAuth(event.target.value);
-    if (authKey === "noticeRead") {
-      setNoticeRead(event.target.value);
-    } else if (authKey === "noticeWrite") {
-      setNoticeWrite(event.target.value);
-    } else if (authKey === "userRead") {
-      setUserRead(event.target.value);
-    } else if (authKey === "userWrite") {
-      setUserWrite(event.target.value);
-    } else if (authKey === "userColumnWrite") {
-      setUserColumnWrite(event.target.value);
-    } else if (authKey === "todoRead") {
-      setTodoRead(event.target.value);
-    } else if (authKey === "todoWrite") {
-      setTodoWrite(event.target.value);
-    } else if (authKey === "applyRead") {
-      setApplyRead(event.target.value);
-    } else if (authKey === "applyWrite") {
-      setApplyWrite(event.target.value);
-    } else if (authKey === "validationRead") {
-      setValidationRead(event.target.value);
-    } else if (authKey === "validationWrite") {
-      setValidationWrite(event.target.value);
-    } else if (authKey === "clubRead") {
-      setClubRead(event.target.value);
-    } else if (authKey === "clubWrite") {
-      setClubWrite(event.target.value);
-    } else {
-      setNoticeRead(event.target.value);
-    }
-  };
+  // const handleChange = (event: SelectChangeEvent, authKey: string) => {
+  //   // setAuth(event.target.value);
+  //   if (authKey === "noticeRead") {
+  //     setNoticeRead(event.target.value);
+  //   } else if (authKey === "noticeWrite") {
+  //     setNoticeWrite(event.target.value);
+  //   } else if (authKey === "userRead") {
+  //     setUserRead(event.target.value);
+  //   } else if (authKey === "userWrite") {
+  //     setUserWrite(event.target.value);
+  //   } else if (authKey === "userColumnWrite") {
+  //     setUserColumnWrite(event.target.value);
+  //   } else if (authKey === "todoRead") {
+  //     setTodoRead(event.target.value);
+  //   } else if (authKey === "todoWrite") {
+  //     setTodoWrite(event.target.value);
+  //   } else if (authKey === "applyRead") {
+  //     setApplyRead(event.target.value);
+  //   } else if (authKey === "applyWrite") {
+  //     setApplyWrite(event.target.value);
+  //   } else if (authKey === "validationRead") {
+  //     setValidationRead(event.target.value);
+  //   } else if (authKey === "validationWrite") {
+  //     setValidationWrite(event.target.value);
+  //   } else if (authKey === "clubRead") {
+  //     setClubRead(event.target.value);
+  //   } else if (authKey === "clubWrite") {
+  //     setClubWrite(event.target.value);
+  //   } else {
+  //     setNoticeRead(event.target.value);
+  //   }
+  // };
 
+  const setIsAuthConfirmAlertOpen = useSetRecoilState(
+    isAuthConfirmAlertOpenState
+  );
+  const handleChange = (
+    event: SelectChangeEvent,
+    authLabel: string,
+    authKey: string
+  ) => {
+    setSelectedLabel(authLabel);
+    setSelectedKey(authKey);
+    setSelectedValue(event.target.value);
+    setIsAuthConfirmAlertOpen(true);
+  };
   return (
     <Container>
       <Stack
@@ -151,7 +169,10 @@ export default function ManageAuth() {
                           : data![ele.key as ValidationKeyType]
                       }
                       label="권한"
-                      onChange={(event) => handleChange(event, ele.key)}
+                      // onChange={(event) => handleChange(event, ele.key)}
+                      onChange={(event) =>
+                        handleChange(event, ele.label, ele.key)
+                      }
                     >
                       <MenuItem value={"회장"}>회장까지</MenuItem>
                       <MenuItem value={"부회장"}>부회장까지</MenuItem>
@@ -165,6 +186,11 @@ export default function ManageAuth() {
           ))}
         </List>
       </Box>
+      <AlertDialog
+        selectedLabel={selectedLabel}
+        selectedKey={selectedKey}
+        selectedValue={selectedValue}
+      />
     </Container>
   );
 }
