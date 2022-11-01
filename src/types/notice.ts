@@ -23,3 +23,9 @@ export interface NoticeType {
   createdAt: Date;
   updatedAt: Date;
 }
+
+export interface ClickedNoticeInfoType {
+  writer: string;
+  title: string;
+  content: string;
+}

@@ -57,7 +57,8 @@ function AddNoticePage() {
     () => createNotice({ clubId: clubID || "", title, content }),
     {
       onSuccess: (data) => {
-        console.log(data);
+        navigate(`/club/${clubID}/notice`);
+        window.location.reload();
       },
       onError: (error) => console.log(error),
     }
@@ -78,7 +79,6 @@ function AddNoticePage() {
   const handleNewNoticeSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     mutate();
-    navigate(`/club/${clubID}/notice`);
   };
   // const { mutate } = useMutation(() => );
   return (

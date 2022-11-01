@@ -22,12 +22,22 @@ import ApplyClubPage from "./pages/ApplyClubPage";
 import AddNoticePage from "./pages/AddNoticePage";
 import { useMutation } from "react-query";
 import { verifyUser } from "./utils/fetch";
+import { useSetRecoilState } from "recoil";
+import { isLoggedInState } from "./atoms/loginAtom";
+import { useEffect } from "react";
 
 function AppRouter() {
-  const { mutate, data, isLoading } = useMutation(verifyUser, {
-    onSuccess: (data) => console.log(data),
+  const setIsLoggedIn = useSetRecoilState(isLoggedInState);
+  const { mutate } = useMutation(verifyUser, {
+    onSuccess: (data) => {
+      setIsLoggedIn(true);
+    },
     onError: (error) => console.log("error"),
   });
+
+  useEffect(() => {
+    mutate();
+  }, []);
 
   return (
     <BrowserRouter>
