@@ -97,7 +97,7 @@ function NoticePage() {
     setClickedNotiiceInfo({ writer, title, content });
     setIsNoticeDetailOpen(true);
   };
-  console.log(noticeData);
+  // console.log(noticeData);
   return (
     <>
       <ClubDetailHeader pageType="공지사항" />
@@ -142,7 +142,11 @@ function NoticePage() {
               >
                 <NoticeTitle
                   onClick={() =>
-                    handleTitleClick("anonymous", notice.title, notice.content)
+                    handleTitleClick(
+                      notice.writer || "unknown",
+                      notice.title,
+                      notice.content
+                    )
                   }
                 >
                   {notice.title}

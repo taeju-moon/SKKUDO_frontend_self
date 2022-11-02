@@ -4,6 +4,8 @@ import { display, flexbox } from "@mui/system";
 import React, { useState } from "react";
 import { useMutation } from "react-query";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
+import { useRecoilValue } from "recoil";
+import { userNameState } from "../atoms/userAtom";
 import { createNotice } from "../utils/fetch";
 
 // const Blank = styled("div")({
@@ -52,9 +54,11 @@ function AddNoticePage() {
   const { clubID } = useParams();
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const userName = useRecoilValue(userNameState);
 
   const { mutate } = useMutation(
-    () => createNotice({ clubId: clubID || "", title, content }),
+    () =>
+      createNotice({ clubId: clubID || "", title, content, writer: userName }),
     {
       onSuccess: (data) => {
         navigate(`/club/${clubID}/notice`);

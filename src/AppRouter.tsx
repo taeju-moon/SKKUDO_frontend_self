@@ -25,12 +25,16 @@ import { verifyUser } from "./utils/fetch";
 import { useSetRecoilState } from "recoil";
 import { isLoggedInState } from "./atoms/loginAtom";
 import { useEffect } from "react";
+import { VerifyUserResponseType } from "./types/user";
+import { userNameState } from "./atoms/userAtom";
 
 function AppRouter() {
   const setIsLoggedIn = useSetRecoilState(isLoggedInState);
-  const { mutate } = useMutation(verifyUser, {
+  const setUserName = useSetRecoilState(userNameState);
+  const { mutate } = useMutation<VerifyUserResponseType>(verifyUser, {
     onSuccess: (data) => {
       setIsLoggedIn(true);
+      setUserName(data.authUser.name);
     },
     onError: (error) => console.log("error"),
   });

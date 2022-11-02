@@ -1,4 +1,3 @@
-import { Dispatch, SetStateAction } from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { isNoticeDetailOpenState } from "../../atoms/utilAtom";
@@ -27,7 +26,12 @@ const NoticeBoard = styled.div<NoticeDetailElementType>`
   height: 800px;
   background-color: aliceblue;
   display: ${(props) => (props.isNoticeDetailOpen ? "flex" : "none")};
+  flex-direction: column;
 `;
+
+const NoticeTitle = styled.div``;
+const NoticeWriter = styled.div``;
+const NoticeContent = styled.div``;
 
 function NoticeDetail({ noticeInfo }: { noticeInfo: ClickedNoticeInfoType }) {
   const [isNoticeDetailOpen, setIsNoticeDetailOpen] = useRecoilState(
@@ -37,14 +41,17 @@ function NoticeDetail({ noticeInfo }: { noticeInfo: ClickedNoticeInfoType }) {
     setIsNoticeDetailOpen(false);
   };
 
-  console.log(noticeInfo.content);
   return (
     <>
       <NoticeDetailOverlay
         isNoticeDetailOpen={isNoticeDetailOpen}
         onClick={handleOverlayClick}
       />
-      <NoticeBoard isNoticeDetailOpen={isNoticeDetailOpen}></NoticeBoard>
+      <NoticeBoard isNoticeDetailOpen={isNoticeDetailOpen}>
+        <NoticeTitle>{noticeInfo.title}</NoticeTitle>
+        <NoticeWriter>{noticeInfo.writer}</NoticeWriter>
+        <NoticeContent>{noticeInfo.content}</NoticeContent>
+      </NoticeBoard>
     </>
   );
 }
