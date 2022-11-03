@@ -30,3 +30,8 @@ export interface ClickedNoticeInfoType {
   title: string;
   content: string;
 }
+
+export interface DeleteNoticetype {
+  clubID: string;
+  noticeID: string;
+}

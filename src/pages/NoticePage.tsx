@@ -1,9 +1,13 @@
 import { Paper, Stack, styled } from "@mui/material";
-import { useQuery } from "react-query";
+import { useMutation, useQuery } from "react-query";
 import { BiMessageSquareAdd } from "react-icons/bi";
 
-import { getAllNotices } from "../utils/fetch";
-import { ClickedNoticeInfoType, NoticeType } from "../types/notice";
+import { deleteNotice, getAllNotices } from "../utils/fetch";
+import {
+  ClickedNoticeInfoType,
+  DeleteNoticetype,
+  NoticeType,
+} from "../types/notice";
 
 import ClubDetailHeader from "../components/ClubDetailHeader";
 import { flexbox } from "@mui/system";
@@ -97,6 +101,25 @@ function NoticePage() {
     setClickedNotiiceInfo({ writer, title, content });
     setIsNoticeDetailOpen(true);
   };
+
+  const { mutate } = useMutation(
+    (deleteNoticeInfo: DeleteNoticetype) => deleteNotice(deleteNoticeInfo),
+    {
+      onSuccess: (data) => {
+        console.log(data);
+        window.location.reload();
+      },
+      onError: (error) => {
+        console.log(error);
+      },
+    }
+  );
+  //need to fix this axios error
+  const handleNoticeDeleteBtnClick = (deleteNoticeInfo: DeleteNoticetype) => {
+    mutate(deleteNoticeInfo);
+    console.log(deleteNoticeInfo.clubID);
+    console.log(deleteNoticeInfo.noticeID);
+  };
   // console.log(noticeData);
   return (
     <>
@@ -158,7 +181,16 @@ function NoticePage() {
                       isOptionOpened && clickedNoticeID === notice._id
                     }
                   >
-                    <Option>삭제</Option>
+                    <Option
+                      onClick={() =>
+                        handleNoticeDeleteBtnClick({
+                          noticeID: notice._id,
+                          clubID: notice.clubId,
+                        })
+                      }
+                    >
+                      삭제
+                    </Option>
                     <Option>수정</Option>
                   </OptionContainer>
                 </OptionBtn>
