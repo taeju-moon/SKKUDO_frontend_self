@@ -6,7 +6,9 @@ import { deleteNotice, getAllNotices } from "../utils/fetch";
 import {
   ClickedNoticeInfoType,
   DeleteNoticetype,
+  NewNoticeType,
   NoticeType,
+  UpdateNoticeType,
 } from "../types/notice";
 
 import ClubDetailHeader from "../components/ClubDetailHeader";
@@ -120,6 +122,19 @@ function NoticePage() {
     console.log(deleteNoticeInfo.clubID);
     console.log(deleteNoticeInfo.noticeID);
   };
+  const localStorage = window.localStorage;
+
+  const handleNoticeUpdateBtnClick = (newNoticeInfo: UpdateNoticeType) => {
+    localStorage.setItem(
+      "noticeData",
+      JSON.stringify({
+        writer: newNoticeInfo.writer,
+        title: newNoticeInfo.title,
+        content: newNoticeInfo.content,
+      })
+    );
+    navigate(`${newNoticeInfo.noticeID}`);
+  };
   // console.log(noticeData);
   return (
     <>
@@ -191,7 +206,19 @@ function NoticePage() {
                     >
                       삭제
                     </Option>
-                    <Option>수정</Option>
+                    <Option
+                      onClick={() =>
+                        handleNoticeUpdateBtnClick({
+                          noticeID: notice._id,
+                          writer: notice.writer,
+                          title: notice.title,
+                          content: notice.content,
+                          clubId: notice.clubId,
+                        })
+                      }
+                    >
+                      수정
+                    </Option>
                   </OptionContainer>
                 </OptionBtn>
               </Item>

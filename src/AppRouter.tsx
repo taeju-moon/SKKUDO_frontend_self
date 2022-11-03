@@ -27,6 +27,7 @@ import { isLoggedInState } from "./atoms/loginAtom";
 import { useEffect } from "react";
 import { VerifyUserResponseType } from "./types/user";
 import { userNameState } from "./atoms/userAtom";
+import UpdateNoticePage from "./pages/UpdateNoticePage";
 
 function AppRouter() {
   const setIsLoggedIn = useSetRecoilState(isLoggedInState);
@@ -59,6 +60,7 @@ function AppRouter() {
           <Route path="calendar" element={<CalendarPage />} />
           <Route path="members" element={<MembersPage />} />
           <Route path="notice/add" element={<AddNoticePage />} />
+          <Route path="notice/:noticeID" element={<UpdateNoticePage />} />
         </Route>
         <Route path="/manage/:clubID" element={<ClubManagePage />}>
           <Route path="main" element={<DashboardApp />} />

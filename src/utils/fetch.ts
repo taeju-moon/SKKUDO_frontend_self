@@ -1,5 +1,9 @@
 import { NewClubType } from "./../types/club";
-import { DeleteNoticetype, NewNoticeType } from "./../types/notice";
+import {
+  DeleteNoticetype,
+  NewNoticeType,
+  UpdateNoticeType,
+} from "./../types/notice";
 import { NewUserType } from "./../types/user";
 import axios from "axios";
 
@@ -46,6 +50,11 @@ export const deleteNotice = async (deleteNoticeInfo: DeleteNoticetype) =>
     .delete(GET_ALL_NOTICES_URL.concat("/", deleteNoticeInfo.noticeID), {
       data: { clubId: deleteNoticeInfo.clubID },
     })
+    .then((res) => res.data);
+
+export const updateNotice = async (newNotice: UpdateNoticeType) =>
+  axios
+    .patch(GET_ALL_NOTICES_URL.concat("/", newNotice.noticeID), newNotice)
     .then((res) => res.data);
 
 const GET_ONE_USER_URL = `${BASE_URL}/users/`;

@@ -35,3 +35,7 @@ export interface DeleteNoticetype {
   clubID: string;
   noticeID: string;
 }
+
+export interface UpdateNoticeType extends NewNoticeType {
+  noticeID: string;
+}
