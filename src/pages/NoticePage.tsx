@@ -154,7 +154,7 @@ function NoticePage() {
     );
     navigate(`${newNoticeInfo.noticeID}`);
   };
-  // console.log(noticeData);
+  console.log(noticeData);
   return (
     <>
       <ClubDetailHeader pageType="공지사항" />
@@ -187,8 +187,8 @@ function NoticePage() {
                 spacing={2}
                 direction={"row"}
               >
-                {notice.tags.map((tag) => (
-                  <div key={tag._id}>{tag.name}</div>
+                {notice.noticeTags.map((tag) => (
+                  <div key={tag}>{tag}</div>
                 ))}
               </Stack>
               <Item
@@ -235,7 +235,7 @@ function NoticePage() {
                           title: notice.title,
                           content: notice.content,
                           clubId: notice.clubId,
-                          tags: notice.tags,
+                          noticeTags: notice.noticeTags,
                         })
                       }
                     >

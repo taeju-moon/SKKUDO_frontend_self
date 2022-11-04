@@ -131,7 +131,7 @@ function AddNoticePage() {
         title,
         content,
         writer: userName,
-        tags: categories,
+        noticeTags: categories,
       }),
     {
       onSuccess: (data) => {

@@ -54,13 +54,18 @@ const Dot = styled.div`
 function CalendarPage() {
   const [value, onChange] = useState(new Date());
   const { clubID } = useParams();
-  const handleDayClick = () => {
+  const handleDayClick = (value: Date) => {
+    console.log(value);
     setIsDayDetailOpened((prev) => !prev);
   };
 
-  // const { data, isLoading } = useQuery("getTodosByClubID", () =>
-  //   getTodosByClubID(clubID || "")
-  // );
+  console.log(clubID);
+
+  const { data, isLoading } = useQuery("getTodosByClubID", () =>
+    getTodosByClubID(clubID || "")
+  );
+
+  console.log(data);
 
   const mark = ["2022-10-02", "2022-10-23"];
   const [isDayDetailOpened, setIsDayDetailOpened] = useState(false);
@@ -84,7 +89,7 @@ function CalendarPage() {
       </CalendarContainer>
       <DayDetailOverlay
         isDayDetailOpened={isDayDetailOpened}
-        onClick={handleDayClick}
+        onClick={() => setIsDayDetailOpened(false)}
       ></DayDetailOverlay>
       <DayDetailBoard isDayDetailOpened={isDayDetailOpened}></DayDetailBoard>
     </>
