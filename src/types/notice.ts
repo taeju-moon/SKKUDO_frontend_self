@@ -18,7 +18,7 @@ export interface NewNoticeType {
   title: string;
   content: string;
   writer: string;
-  tags: NoticeTagType[];
+  noticeTags: NoticeTagType[];
 }
 export interface NoticeType {
   _id: string;
@@ -26,7 +26,7 @@ export interface NoticeType {
   clubId: string; //동아리 ID
   title: string; //제목
   content: string; //내용
-  tags: NoticeTagType[]; //태그
+  noticeTags: string[]; //태그
   createdAt: Date;
   updatedAt: Date;
 }
@@ -42,6 +42,11 @@ export interface DeleteNoticetype {
   noticeID: string;
 }
 
-export interface UpdateNoticeType extends NewNoticeType {
+export interface UpdateNoticeType {
   noticeID: string;
+  clubId: string;
+  title: string;
+  content: string;
+  writer: string;
+  noticeTags: string[];
 }

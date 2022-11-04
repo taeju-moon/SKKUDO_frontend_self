@@ -8,6 +8,9 @@ import ClubDetailHeader from "../components/ClubDetailHeader";
 import { getTodosByClubID } from "../utils/fetch";
 import { useParams } from "react-router-dom";
 import { useQuery } from "react-query";
+import { ToDoType } from "../types/todo";
+import DayDetailBoard from "../components/calendarComponents/DayDetailBoard";
+import TodoCategoryDialog from "../components/calendarComponents/TodoCategoryDialog";
 
 const CalendarContainer = styled.div`
   padding-top: 80px;
@@ -15,7 +18,8 @@ const CalendarContainer = styled.div`
   justify-content: center;
 `;
 
-interface IDayDetailOverlay {
+const AddCategoryBtn = styled("button")({});
+export interface IDayDetailOverlay {
   isDayDetailOpened: boolean;
 }
 const DayDetailOverlay = styled.div<IDayDetailOverlay>`
@@ -30,18 +34,6 @@ const DayDetailOverlay = styled.div<IDayDetailOverlay>`
   align-items: center;
 `;
 
-const DayDetailBoard = styled.div<IDayDetailOverlay>`
-  position: fixed;
-  top: 10%;
-  transform: translateX(-50%);
-  left: 50%;
-  width: 100%;
-  max-width: 1024px;
-  height: 800px;
-  background-color: aliceblue;
-  display: ${(props) => (props.isDayDetailOpened ? "flex" : "none")};
-`;
-
 const Dot = styled.div`
   height: 8px;
   width: 8px;
@@ -54,19 +46,34 @@ const Dot = styled.div`
 function CalendarPage() {
   const [value, onChange] = useState(new Date());
   const { clubID } = useParams();
-  const handleDayClick = () => {
+  const handleDayClick = (value: Date) => {
+    console.log(value);
     setIsDayDetailOpened((prev) => !prev);
   };
 
-  // const { data, isLoading } = useQuery("getTodosByClubID", () =>
-  //   getTodosByClubID(clubID || "")
-  // );
+  const [isCategoryDialogOpen, setIsCategoryDialogOpen] = useState(false);
+
+  const handleClose = () => {
+    setIsCategoryDialogOpen(false);
+  };
+
+  const handlClickOpen = () => {
+    setIsCategoryDialogOpen(true);
+  };
+
+  const { data, isLoading } = useQuery<ToDoType[]>("getTodosByClubID", () =>
+    getTodosByClubID(clubID || "")
+  );
+
+  // console.log(data);
 
   const mark = ["2022-10-02", "2022-10-23"];
   const [isDayDetailOpened, setIsDayDetailOpened] = useState(false);
   return (
     <>
       <ClubDetailHeader pageType="일정" />
+      <AddCategoryBtn onClick={handlClickOpen}>카테고리 추가</AddCategoryBtn>
+      <TodoCategoryDialog open={isCategoryDialogOpen} onClose={handleClose} />
       <CalendarContainer>
         <Calendar
           onChange={onChange}
@@ -84,7 +91,7 @@ function CalendarPage() {
       </CalendarContainer>
       <DayDetailOverlay
         isDayDetailOpened={isDayDetailOpened}
-        onClick={handleDayClick}
+        onClick={() => setIsDayDetailOpened(false)}
       ></DayDetailOverlay>
       <DayDetailBoard isDayDetailOpened={isDayDetailOpened}></DayDetailBoard>
     </>

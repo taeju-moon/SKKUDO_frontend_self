@@ -36,7 +36,7 @@ function AppRouter() {
     onSuccess: (data) => {
       setIsLoggedIn(true);
       setUserName(data.authUser.name);
-      console.log(data);
+      // console.log(data);
     },
     onError: (error: any) => console.log(error.response.data.error),
   });
