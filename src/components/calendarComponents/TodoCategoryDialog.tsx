@@ -5,9 +5,22 @@ import DialogTitle from "@mui/material/DialogTitle";
 import Dialog from "@mui/material/Dialog";
 
 import { Box, TextField } from "@mui/material";
-import { useMutation } from "react-query";
-import { createNoticeTag, createTodoTag } from "../../utils/fetch";
+import { useMutation, useQuery, useQueryClient } from "react-query";
+import {
+  createNoticeTag,
+  createTodoTag,
+  deleteTodoTag,
+  getTodoTagsByClubID,
+} from "../../utils/fetch";
 import { useParams } from "react-router-dom";
+import {
+  CategoryDeleteBtn,
+  CategoryLabel,
+  CategoryList,
+  CategoryListItem,
+} from "../noticeComponents/CategoryAddDialog";
+import { DeleteNoticetype } from "../../types/notice";
+import { DeleteTodoType, ToDoTagType } from "../../types/todo";
 
 export interface SimpleDialogProps {
   open: boolean;
@@ -17,14 +30,31 @@ export interface SimpleDialogProps {
 function TodoCategoryDialog(props: SimpleDialogProps) {
   const { clubID } = useParams();
   const [newCategory, setNewCategory] = React.useState("");
+  const queryClient = useQueryClient();
   const { onClose, open } = props;
 
-  const { mutate } = useMutation(
+  const { data, isLoading } = useQuery<ToDoTagType[]>(
+    "getTodoTagsByClubID",
+    () => getTodoTagsByClubID(clubID || "")
+  );
+
+  const { mutate: createTodoTagMutate } = useMutation(
     () => createTodoTag({ clubId: clubID || "", name: newCategory }),
     {
       onSuccess: (data) => {
-        onClose();
-        window.location.reload();
+        queryClient.invalidateQueries("getTodoTagsByClubID");
+      },
+      onError: (error) => {
+        console.log(error);
+      },
+    }
+  );
+
+  const { mutate: deleteTodoTagMutate } = useMutation(
+    (tagInfo: DeleteTodoType) => deleteTodoTag(tagInfo),
+    {
+      onSuccess: (data) => {
+        queryClient.invalidateQueries("getTodoTagsByClubID");
       },
       onError: (error) => {
         console.log(error);
@@ -42,7 +72,13 @@ function TodoCategoryDialog(props: SimpleDialogProps) {
   };
   const handleNewCategorySubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    mutate();
+    createTodoTagMutate();
+  };
+
+  const handleCategoryDeleteBtnClick = (tagID: string) => {
+    if (clubID) {
+      deleteTodoTagMutate({ _id: tagID, clubId: clubID });
+    }
   };
   return (
     <Dialog onClose={handleClose} open={open}>
@@ -74,6 +110,22 @@ function TodoCategoryDialog(props: SimpleDialogProps) {
           Success
         </Button>
       </Box>
+      <CategoryList>
+        {isLoading ? (
+          <div>no category</div>
+        ) : (
+          data?.map((category) => (
+            <CategoryListItem key={category._id}>
+              <CategoryLabel>{category.name}</CategoryLabel>
+              <CategoryDeleteBtn
+                onClick={() => handleCategoryDeleteBtnClick(category._id)}
+              >
+                Delete
+              </CategoryDeleteBtn>
+            </CategoryListItem>
+          ))
+        )}
+      </CategoryList>
     </Dialog>
   );
 }

@@ -1,4 +1,4 @@
-import { NewToDoType } from "./../types/todo";
+import { DeleteTodoType, NewToDoType } from "./../types/todo";
 import { NewClubType } from "./../types/club";
 import {
   DeleteNoticetype,
@@ -54,7 +54,7 @@ export const createNotice = async (newNotice: NewNoticeType) =>
 
 export const deleteNotice = async (deleteNoticeInfo: DeleteNoticetype) =>
   axios
-    .delete(GET_ALL_NOTICES_URL.concat("/", deleteNoticeInfo.noticeID), {
+    .delete(GET_ALL_NOTICES_URL.concat("/", deleteNoticeInfo._id), {
       data: { clubId: deleteNoticeInfo.clubID },
     })
     .then((res) => res.data);
@@ -74,6 +74,13 @@ export const getNoticeTagsByClubID = async (clubID: string) =>
     .get(GET_ALL_NOTICE_TAGS_URL.concat("/", clubID))
     .then((res) => res.data.data)
     .catch((error) => console.log(error));
+
+export const deleteNoticeTag = async (deleteNoticeTagInfo: DeleteNoticetype) =>
+  axios
+    .delete(GET_ALL_NOTICE_TAGS_URL.concat("/", deleteNoticeTagInfo._id), {
+      data: { clubId: deleteNoticeTagInfo.clubID },
+    })
+    .then((res) => res.data);
 const GET_ONE_USER_URL = `${BASE_URL}/users/`;
 
 export const getOneUser = async (userID: string) =>
@@ -112,6 +119,13 @@ export const getTodosByClubID = async (clubID: string) =>
 export const createTodo = async (newTodo: NewToDoType) =>
   axios.post(GET_ALL_TODOS_URL, newTodo).then((res) => res.data.data);
 
+export const deleteTodo = async (deleteTodoInfo: DeleteTodoType) =>
+  axios
+    .delete(GET_ALL_TODOS_URL.concat("/", deleteTodoInfo._id), {
+      data: { clubId: deleteTodoInfo.clubId },
+    })
+    .then((res) => res.data);
+
 const GET_ALL_TODO_TAGS_URL = `${BASE_URL}/todos/toDoTags`;
 
 export const getTodoTagsByClubID = async (clubID: string) =>
@@ -121,3 +135,12 @@ export const getTodoTagsByClubID = async (clubID: string) =>
 
 export const createTodoTag = async (newTag: NewNoticeTagType) =>
   axios.post(GET_ALL_TODO_TAGS_URL, newTag).then((res) => res.data);
+
+export const deleteTodoTag = async (tagInfo: DeleteTodoType) =>
+  axios
+    .delete(GET_ALL_TODO_TAGS_URL.concat("/", tagInfo._id), {
+      data: {
+        clubId: tagInfo.clubId,
+      },
+    })
+    .then((res) => res.data);

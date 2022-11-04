@@ -139,7 +139,7 @@ function NoticePage() {
   const handleNoticeDeleteBtnClick = (deleteNoticeInfo: DeleteNoticetype) => {
     mutate(deleteNoticeInfo);
     console.log(deleteNoticeInfo.clubID);
-    console.log(deleteNoticeInfo.noticeID);
+    console.log(deleteNoticeInfo._id);
   };
   const localStorage = window.localStorage;
 
@@ -220,7 +220,7 @@ function NoticePage() {
                     <Option
                       onClick={() =>
                         handleNoticeDeleteBtnClick({
-                          noticeID: notice._id,
+                          _id: notice._id,
                           clubID: notice.clubId,
                         })
                       }

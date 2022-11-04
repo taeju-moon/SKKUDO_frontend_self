@@ -39,7 +39,7 @@ export interface ClickedNoticeInfoType {
 
 export interface DeleteNoticetype {
   clubID: string;
-  noticeID: string;
+  _id: string;
 }
 
 export interface UpdateNoticeType {
