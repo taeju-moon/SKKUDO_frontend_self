@@ -5,13 +5,23 @@ import DialogTitle from "@mui/material/DialogTitle";
 import Dialog from "@mui/material/Dialog";
 
 import { Box, TextField } from "@mui/material";
-import { useMutation } from "react-query";
-import { createNoticeTag } from "../../utils/fetch";
+import { useMutation, useQuery, useQueryClient } from "react-query";
+import {
+  createNoticeTag,
+  deleteNoticeTag,
+  getNoticeTagsByClubID,
+} from "../../utils/fetch";
 import { useParams } from "react-router-dom";
 import styled from "@emotion/styled";
+import { DeleteNoticetype, NoticeTagType } from "../../types/notice";
 
-const NewCategoryForm = styled("form")({});
-
+export const CategoryList = styled.ul``;
+export const CategoryListItem = styled.li`
+  margin-bottom: 30px;
+  display: flex;
+`;
+export const CategoryLabel = styled.div``;
+export const CategoryDeleteBtn = styled.button``;
 export interface SimpleDialogProps {
   open: boolean;
   onClose: () => void;
@@ -22,16 +32,35 @@ function CategoryAddDialog(props: SimpleDialogProps) {
   const [newCategory, setNewCategory] = React.useState("");
   const { onClose, open } = props;
 
-  const { mutate } = useMutation(
+  const queryClient = useQueryClient();
+
+  const { data, isLoading } = useQuery<NoticeTagType[]>(
+    "getNoticeTagsByClubID",
+    () => getNoticeTagsByClubID(clubID || ""),
+    {
+      onSuccess: (data) => console.log(data),
+    }
+  );
+
+  const { mutate: createNoticeTagMutate } = useMutation(
     () => createNoticeTag({ clubId: clubID || "", name: newCategory }),
     {
       onSuccess: (data) => {
-        console.log(data);
-        onClose();
+        queryClient.invalidateQueries("getNoticeTagsByClubID");
       },
       onError: (error) => {
         console.log(error);
       },
+    }
+  );
+
+  const { mutate: deleteNoticeTagMutate } = useMutation(
+    (tagInfo: DeleteNoticetype) => deleteNoticeTag(tagInfo),
+    {
+      onSuccess: (data) => {
+        queryClient.invalidateQueries("getNoticeTagsByClubID");
+      },
+      onError: (error) => console.log(error),
     }
   );
   const handleClose = () => {
@@ -45,7 +74,13 @@ function CategoryAddDialog(props: SimpleDialogProps) {
   };
   const handleNewCategorySubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    mutate();
+    createNoticeTagMutate();
+  };
+
+  const handleCategoryDeleteBtnClick = (tagID: string) => {
+    if (clubID) {
+      deleteNoticeTagMutate({ _id: tagID, clubID: clubID });
+    }
   };
   return (
     <Dialog onClose={handleClose} open={open}>
@@ -77,6 +112,22 @@ function CategoryAddDialog(props: SimpleDialogProps) {
           Success
         </Button>
       </Box>
+      <CategoryList>
+        {isLoading ? (
+          <div>no category</div>
+        ) : (
+          data?.map((category) => (
+            <CategoryListItem key={category._id}>
+              <CategoryLabel>{category.name}</CategoryLabel>
+              <CategoryDeleteBtn
+                onClick={() => handleCategoryDeleteBtnClick(category._id)}
+              >
+                Delete
+              </CategoryDeleteBtn>
+            </CategoryListItem>
+          ))
+        )}
+      </CategoryList>
     </Dialog>
   );
 }

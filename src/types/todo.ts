@@ -33,3 +33,8 @@ export interface NewToDoType {
   attendingUsers: string[];
   tags: ToDoTagType[];
 }
+
+export interface DeleteTodoType {
+  clubId: string;
+  _id: string;
+}

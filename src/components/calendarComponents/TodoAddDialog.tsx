@@ -22,11 +22,10 @@ import { useParams } from "react-router-dom";
 import {
   createTodo,
   getClubMembers,
-  getTodosByClubID,
   getTodoTagsByClubID,
 } from "../../utils/fetch";
 import { UserType } from "../../types/user";
-import { NewToDoType, ToDoTagType, ToDoType } from "../../types/todo";
+import { NewToDoType, ToDoTagType } from "../../types/todo";
 import { TimePicker } from "@mui/x-date-pickers";
 
 const NewTodoForm = styled.form`
@@ -73,16 +72,6 @@ let rawTags: string[] = [];
 
 function TodoAddDialog(props: SimpleDialogProps) {
   const { clubID } = useParams();
-
-  const { data: todosData, isLoading: isTodosLoading } = useQuery<ToDoType[]>(
-    "getTodosByClubID",
-    () => getTodosByClubID(clubID || ""),
-    {
-      onSuccess: (data) => {
-        console.log(data);
-      },
-    }
-  );
 
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");

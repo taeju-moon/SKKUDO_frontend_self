@@ -46,6 +46,7 @@ const Dot = styled.div`
 function CalendarPage() {
   const [value, onChange] = useState(new Date());
   const { clubID } = useParams();
+  const [mark, setMark] = useState<string[]>(["2022-10-02", "2022-10-23"]);
   const handleDayClick = (value: Date) => {
     console.log(value);
     setIsDayDetailOpened((prev) => !prev);
@@ -61,13 +62,21 @@ function CalendarPage() {
     setIsCategoryDialogOpen(true);
   };
 
-  const { data, isLoading } = useQuery<ToDoType[]>("getTodosByClubID", () =>
-    getTodosByClubID(clubID || "")
+  const { data, isLoading } = useQuery<ToDoType[]>(
+    "getTodosByClubID",
+    () => getTodosByClubID(clubID || ""),
+    {
+      onSuccess: (data) => {
+        const newMark: string[] = [];
+        data.map((todo) =>
+          newMark.push(moment(todo.date).format("YYYY-MM=DD"))
+        );
+        setMark(newMark);
+        console.log(data);
+      },
+    }
   );
 
-  // console.log(data);
-
-  const mark = ["2022-10-02", "2022-10-23"];
   const [isDayDetailOpened, setIsDayDetailOpened] = useState(false);
   return (
     <>
