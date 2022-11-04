@@ -1,3 +1,4 @@
+import { NewToDoType } from "./../types/todo";
 import { NewClubType } from "./../types/club";
 import {
   DeleteNoticetype,
@@ -107,3 +108,16 @@ export const getTodosByClubID = async (clubID: string) =>
   axios
     .get(GET_ALL_TODOS_URL.concat("/club/", clubID))
     .then((res) => res.data.data);
+
+export const createTodo = async (newTodo: NewToDoType) =>
+  axios.post(GET_ALL_TODOS_URL, newTodo).then((res) => res.data.data);
+
+const GET_ALL_TODO_TAGS_URL = `${BASE_URL}/todos/toDoTags`;
+
+export const getTodoTagsByClubID = async (clubID: string) =>
+  axios
+    .get(GET_ALL_TODO_TAGS_URL.concat("/club/", clubID))
+    .then((res) => res.data.data);
+
+export const createTodoTag = async (newTag: NewNoticeTagType) =>
+  axios.post(GET_ALL_TODO_TAGS_URL, newTag).then((res) => res.data);

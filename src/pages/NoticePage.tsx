@@ -154,7 +154,7 @@ function NoticePage() {
     );
     navigate(`${newNoticeInfo.noticeID}`);
   };
-  console.log(noticeData);
+  // console.log(noticeData);
   return (
     <>
       <ClubDetailHeader pageType="공지사항" />

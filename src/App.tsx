@@ -4,27 +4,25 @@ import AppRouter from "./AppRouter";
 import GlobalStyles from "./GlobalStyled";
 import ThemeProvider from "./theme";
 import { ReactQueryDevtools } from "react-query/devtools";
-import { Global } from "@emotion/react";
+
 import { CookiesProvider } from "react-cookie";
+import { LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 
 function App() {
   const queryClient = new QueryClient();
   return (
     <>
       <GlobalStyles />
-      {/* <Global
-        styles={{
-          body: {
-            backgroundColor: "#0C4426",
-          },
-        }}
-      /> */}
+
       <ThemeProvider>
         <QueryClientProvider client={queryClient}>
           <ReactQueryDevtools initialIsOpen={true} />
           <RecoilRoot>
             <CookiesProvider>
-              <AppRouter />
+              <LocalizationProvider dateAdapter={AdapterMoment}>
+                <AppRouter />
+              </LocalizationProvider>
             </CookiesProvider>
           </RecoilRoot>
         </QueryClientProvider>
