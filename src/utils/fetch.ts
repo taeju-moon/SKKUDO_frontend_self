@@ -1,4 +1,9 @@
-import { DeleteTodoType, NewToDoType } from "./../types/todo";
+import {
+  DeleteTodoType,
+  NewToDoType,
+  ToDoType,
+  UpdateTodoType,
+} from "./../types/todo";
 import { NewClubType } from "./../types/club";
 import {
   DeleteNoticetype,
@@ -124,6 +129,11 @@ export const deleteTodo = async (deleteTodoInfo: DeleteTodoType) =>
     .delete(GET_ALL_TODOS_URL.concat("/", deleteTodoInfo._id), {
       data: { clubId: deleteTodoInfo.clubId },
     })
+    .then((res) => res.data);
+
+export const updateTodo = async (todoInfo: UpdateTodoType) =>
+  axios
+    .patch(GET_ALL_TODOS_URL.concat("/", todoInfo._id), todoInfo)
     .then((res) => res.data);
 
 const GET_ALL_TODO_TAGS_URL = `${BASE_URL}/todos/toDoTags`;

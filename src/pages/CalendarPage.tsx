@@ -11,6 +11,8 @@ import { useQuery } from "react-query";
 import { ToDoType } from "../types/todo";
 import DayDetailBoard from "../components/calendarComponents/DayDetailBoard";
 import TodoCategoryDialog from "../components/calendarComponents/TodoCategoryDialog";
+import { useRecoilState } from "recoil";
+import { dayDetailState } from "../atoms/calendarAtom";
 
 const CalendarContainer = styled.div`
   padding-top: 80px;
@@ -47,10 +49,8 @@ function CalendarPage() {
   const [value, onChange] = useState(new Date());
   const { clubID } = useParams();
   const [mark, setMark] = useState<string[]>(["2022-10-02", "2022-10-23"]);
-  const handleDayClick = (value: Date) => {
-    console.log(value);
-    setIsDayDetailOpened((prev) => !prev);
-  };
+
+  const [dayDetail, setDayDetail] = useRecoilState(dayDetailState);
 
   const [isCategoryDialogOpen, setIsCategoryDialogOpen] = useState(false);
 
@@ -69,13 +69,27 @@ function CalendarPage() {
       onSuccess: (data) => {
         const newMark: string[] = [];
         data.map((todo) =>
-          newMark.push(moment(todo.date).format("YYYY-MM=DD"))
+          newMark.push(moment(todo.date).format("YYYY-MM-DD"))
         );
         setMark(newMark);
         console.log(data);
       },
     }
   );
+
+  const handleDayClick = (value: Date) => {
+    const selectedDate = moment(value).format("YYYY-MM-DD");
+    const selectedTodos: ToDoType[] = [];
+    if (data) {
+      data.forEach((todo) => {
+        if (moment(todo.date).format("YYYY-MM-DD") === selectedDate) {
+          selectedTodos.push(todo);
+        }
+      });
+    }
+    setDayDetail(selectedTodos);
+    setIsDayDetailOpened((prev) => !prev);
+  };
 
   const [isDayDetailOpened, setIsDayDetailOpened] = useState(false);
   return (

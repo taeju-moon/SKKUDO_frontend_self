@@ -38,7 +38,9 @@ function CategoryAddDialog(props: SimpleDialogProps) {
     "getNoticeTagsByClubID",
     () => getNoticeTagsByClubID(clubID || ""),
     {
-      onSuccess: (data) => console.log(data),
+      onSuccess: (data) => {
+        // console.log(data);
+      },
     }
   );
 

@@ -18,9 +18,9 @@ export interface ToDoType {
   startTime: Date;
   endTime: Date;
   attendingUsers: string[]; //유저들의 studentId의 배열
-  tags: ToDoTagType[];
-  createdAt: Date;
-  updatedAt: Date;
+  tags: string[];
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 export interface NewToDoType {
@@ -31,7 +31,11 @@ export interface NewToDoType {
   startTime: string;
   endTime: string;
   attendingUsers: string[];
-  tags: ToDoTagType[];
+  tags: string[];
+}
+
+export interface UpdateTodoType extends NewToDoType {
+  _id: string;
 }
 
 export interface DeleteTodoType {

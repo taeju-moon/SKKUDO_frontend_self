@@ -14,7 +14,7 @@ import {
   Theme,
   useTheme,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import moment from "moment";
 import { useMutation, useQuery } from "react-query";
@@ -23,10 +23,16 @@ import {
   createTodo,
   getClubMembers,
   getTodoTagsByClubID,
+  updateTodo,
 } from "../../utils/fetch";
 import { UserType } from "../../types/user";
-import { NewToDoType, ToDoTagType } from "../../types/todo";
+import { NewToDoType, ToDoTagType, UpdateTodoType } from "../../types/todo";
 import { TimePicker } from "@mui/x-date-pickers";
+import { useRecoilValue } from "recoil";
+import {
+  isTodoUpdateState,
+  updateTodoInfoState,
+} from "../../atoms/calendarAtom";
 
 const NewTodoForm = styled.form`
   display: flex;
@@ -72,6 +78,8 @@ let rawTags: string[] = [];
 
 function TodoAddDialog(props: SimpleDialogProps) {
   const { clubID } = useParams();
+  const isTodoUpdate = useRecoilValue(isTodoUpdateState);
+  const updateTodoInfo = useRecoilValue(updateTodoInfoState);
 
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
@@ -89,8 +97,6 @@ function TodoAddDialog(props: SimpleDialogProps) {
   const [personName, setPersonName] = useState<string[]>([]);
   const [tags, setTags] = useState<string[]>([]);
 
-  const [tagsStore, setTagsStore] = useState<ToDoTagType[]>([]);
-
   const { data: memebersData, isLoading: isMembersLoading } = useQuery<
     UserType[]
   >("getClubMembers", () => getClubMembers(clubID || ""), {
@@ -107,7 +113,7 @@ function TodoAddDialog(props: SimpleDialogProps) {
     {
       onSuccess: (data) => {
         console.log(data);
-        setTagsStore(data);
+
         const temp: string[] = [];
         data.forEach((tag) => temp.push(tag.name));
         rawTags = temp;
@@ -162,30 +168,74 @@ function TodoAddDialog(props: SimpleDialogProps) {
     );
   };
 
-  const { mutate } = useMutation(
+  useEffect(() => {
+    if (isTodoUpdate) {
+      setTitle(updateTodoInfo.title);
+      setContent(updateTodoInfo.content);
+      setPersonName(updateTodoInfo.attendingUsers);
+      setTags(updateTodoInfo.tags);
+      setDate(updateTodoInfo.date);
+      setStartTime(updateTodoInfo.startTime);
+      setEndTime(updateTodoInfo.endTime);
+    }
+  }, [isTodoUpdate]);
+
+  const { mutate: createTodoMutate } = useMutation(
     (newTodo: NewToDoType) => createTodo(newTodo),
     {
-      onSuccess: (data) => console.log(data),
+      onSuccess: (data) => {
+        // console.log(data);
+        // console.log("success");
+        window.location.reload();
+      },
+      onError: (error) => console.log(error),
+    }
+  );
+
+  const { mutate: updateTodoMutate } = useMutation(
+    (todoInfo: UpdateTodoType) => updateTodo(todoInfo),
+    {
+      onSuccess: (data) => {
+        window.location.reload();
+      },
       onError: (error) => console.log(error),
     }
   );
 
   const handleNewTodoSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const tempSelectedTags = tagsStore.filter((tag) => tags.includes(tag.name));
-    if (clubID && date && startTime && endTime) {
-      const newTodo = {
-        clubId: clubID,
-        title,
-        content,
-        date,
-        startTime,
-        endTime,
-        attendingUsers: personName,
-        tags: tempSelectedTags,
-      };
-      console.log(newTodo);
-      mutate(newTodo);
+    // const tempSelectedTags = tagsStore.filter((tag) => tags.includes(tag.name));
+    if (isTodoUpdate) {
+      if (updateTodoInfo._id && clubID && date && startTime && endTime) {
+        const newTodo = {
+          _id: updateTodoInfo._id,
+          clubId: clubID,
+          title,
+          content,
+          date,
+          startTime,
+          endTime,
+          attendingUsers: personName,
+          tags: tags,
+        };
+
+        updateTodoMutate(newTodo);
+      }
+    } else {
+      if (clubID && date && startTime && endTime) {
+        const newTodo = {
+          clubId: clubID,
+          title,
+          content,
+          date,
+          startTime,
+          endTime,
+          attendingUsers: personName,
+          tags: tags,
+        };
+
+        createTodoMutate(newTodo);
+      }
     }
   };
 
@@ -200,6 +250,7 @@ function TodoAddDialog(props: SimpleDialogProps) {
           label="일정 제목"
           variant="outlined"
           onChange={handleTitleChange}
+          value={title}
           required
         />
         <NewTodoInput
@@ -207,6 +258,7 @@ function TodoAddDialog(props: SimpleDialogProps) {
           required
           label="일정 내용"
           onChange={handleContentChange}
+          value={content}
           variant="outlined"
         />
         <DesktopDatePicker

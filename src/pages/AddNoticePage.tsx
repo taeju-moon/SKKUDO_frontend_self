@@ -155,14 +155,8 @@ function AddNoticePage() {
   };
 
   const handleNewNoticeSubmit = () => {
-    // event.preventDefault();
     console.log(categories);
-    // const newCategories = categories.map((category) => {
-    //   delete category?.__v;
-    //   return category;
-    // });
-    // setCategories(newCategories);
-    // console.log(categories);
+
     mutate();
   };
 
