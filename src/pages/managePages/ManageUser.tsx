@@ -29,37 +29,6 @@ import { useQuery } from "react-query";
 import { getClubMembers } from "../../utils/fetch";
 import { UserType } from "../../types/user";
 
-// ----------------------------------------------------------------------
-
-// interface UserType {
-//   _id: string;
-//   studentId: string;
-//   name: string;
-//   location: string;
-//   role: string;
-//   major: string;
-// }
-// const USERLIST: UserType[] = [
-//   {
-//     _id: "1",
-//     studentId: "123123",
-
-//     name: "eric",
-
-//     location: "자과캠",
-//     role: "회장",
-//     major: "메타버스학과",
-//   },
-//   {
-//     _id: "2",
-//     studentId: "1212",
-//     name: "tonny",
-//     location: "인사캠",
-//     role: "부회장",
-//     major: "소맥학과",
-//   },
-// ];
-
 const TABLE_HEAD = [
   { id: "name", label: "이름", alignRight: false },
   { id: "studentId", label: "학번", alignRight: false },
