@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Link as RouterLink, useLocation } from "react-router-dom";
+import { Link as RouterLink, useLocation, useNavigate } from "react-router-dom";
 // material
 import { styled } from "@mui/material/styles";
 import { Box, Link, Drawer, Typography, Avatar } from "@mui/material";
@@ -27,6 +27,11 @@ const AccountStyle = styled("div")(({ theme }) => ({
   borderRadius: Number(theme.shape.borderRadius) * 1.5,
   backgroundColor: theme.palette.grey[500],
 }));
+
+const Logo = styled(RouterLink)({
+  color: "#dde143",
+  textDecoration: "none",
+});
 
 // ----------------------------------------------------------------------
 
@@ -68,7 +73,7 @@ export default function DashboardSidebar({
     >
       <Box sx={{ px: 2.5, py: 3, display: "inline-flex" }}>
         {/* <Logo /> */}
-        <h1>SKKUDO</h1>
+        <Logo to="/">SKKUDO</Logo>
       </Box>
       {/* NavBar profile section */}
       <Box sx={{ mb: 5, mx: 2.5 }}>
