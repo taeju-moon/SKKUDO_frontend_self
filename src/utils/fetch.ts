@@ -1,3 +1,4 @@
+import { AppliedUserType, ApplyFormType } from "./../types/apply";
 import { UpdateValidationType } from "./../types/validation";
 import {
   DeleteTodoType,
@@ -163,3 +164,15 @@ export const deleteTodoTag = async (tagInfo: DeleteTodoType) =>
       },
     })
     .then((res) => res.data);
+
+const GET_ALL_APPLIERS_URL = `${BASE_URL}/applies/appliers`;
+
+export const getApplierByClubID = (clubID: string) =>
+  axios
+    .get(GET_ALL_APPLIERS_URL.concat("/byClub/", clubID))
+    .then((res) => res.data.data);
+
+const Get_ALL_APPLIED_USERS = `${BASE_URL}/applies/appliedUsers`;
+
+export const createAppliedUser = (applierInfo: ApplyFormType) =>
+  axios.post(Get_ALL_APPLIED_USERS, applierInfo).then((res) => res.data);

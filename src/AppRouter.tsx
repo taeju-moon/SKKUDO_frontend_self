@@ -26,17 +26,23 @@ import { useSetRecoilState } from "recoil";
 import { isLoggedInState } from "./atoms/loginAtom";
 import { useEffect } from "react";
 import { VerifyUserResponseType } from "./types/user";
-import { userNameState } from "./atoms/userAtom";
+import { userInfoState, userNameState } from "./atoms/userAtom";
 import UpdateNoticePage from "./pages/UpdateNoticePage";
 import ApplyPage from "./pages/ApplyPage";
 
 function AppRouter() {
   const setIsLoggedIn = useSetRecoilState(isLoggedInState);
   const setUserName = useSetRecoilState(userNameState);
+  const setUserInfoState = useSetRecoilState(userInfoState);
   const { mutate } = useMutation<VerifyUserResponseType>(verifyUser, {
     onSuccess: (data) => {
       setIsLoggedIn(true);
       setUserName(data.authUser.name);
+      setUserInfoState({
+        studentId: data.authUser.studentId,
+        name: data.authUser.name,
+        major: data.authUser.major,
+      });
       // console.log(data);
     },
     onError: (error: any) => console.log(error.response.data.error),

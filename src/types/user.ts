@@ -37,6 +37,12 @@ export interface UserType {
   updatedAt: Date;
 }
 
+export interface UserApplierType {
+  studentId: string;
+  name: string;
+  major: string;
+}
+
 export interface VerifyUserResponseType {
   authToken: string;
   authUser: UserType;
