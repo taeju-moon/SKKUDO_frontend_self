@@ -1,3 +1,4 @@
+import { UpdateValidationType } from "./../types/validation";
 import {
   DeleteTodoType,
   NewToDoType,
@@ -113,6 +114,14 @@ export const getValidatonByClubID = async (clubID: string) =>
   axios
     .get(GET_VALIDATON_BY_CLUBID_URL.concat(clubID))
     .then((res) => res.data.data);
+
+export const updateValidation = async (
+  clubID: string,
+  validationInfo: UpdateValidationType
+) =>
+  axios
+    .patch(GET_VALIDATON_BY_CLUBID_URL.concat(clubID), validationInfo)
+    .then((res) => res.data);
 
 const GET_ALL_TODOS_URL = `${BASE_URL}/todos/ToDos`;
 
