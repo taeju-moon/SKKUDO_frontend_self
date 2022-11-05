@@ -28,6 +28,7 @@ import { useEffect } from "react";
 import { VerifyUserResponseType } from "./types/user";
 import { userNameState } from "./atoms/userAtom";
 import UpdateNoticePage from "./pages/UpdateNoticePage";
+import ApplyPage from "./pages/ApplyPage";
 
 function AppRouter() {
   const setIsLoggedIn = useSetRecoilState(isLoggedInState);
@@ -56,6 +57,7 @@ function AppRouter() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/applyClub" element={<ApplyClubPage />} />
+        <Route path="/apply/:clubID" element={<ApplyPage />} />
         <Route path="/club/:clubID" element={<ClubDetailPage />}>
           <Route path="notice" element={<NoticePage />}></Route>
           <Route path="calendar" element={<CalendarPage />} />

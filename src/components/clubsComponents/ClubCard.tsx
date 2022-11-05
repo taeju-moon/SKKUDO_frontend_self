@@ -1,12 +1,10 @@
-import PropTypes from "prop-types";
-import { Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink, useNavigate } from "react-router-dom";
 // material
-import { Box, Card, Link, Typography, Stack } from "@mui/material";
+import { Box, Card, Link, Typography, Stack, Button } from "@mui/material";
 import { styled } from "@mui/material/styles";
 
-import Label from "../userComponents/Label";
 import { ClubType } from "../../types/club";
-import { flexbox } from "@mui/system";
+import { motion } from "framer-motion";
 
 const ProductImgStyle = styled("img")({
   top: 0,
@@ -22,18 +20,31 @@ const ClubInfoContainer = styled("div")({
   width: "100%",
 });
 
-interface IProduct {
-  name: string;
-  cover: string;
-  status: string;
-}
+const CardOverlay = styled(motion.div)({
+  width: "100%",
+  height: "100%",
+  backgroundColor: "rgba(0,0,0,0.5)",
+  position: "absolute",
+  top: 0,
+  left: 0,
+  display: "flex",
+  opacity: 0,
+  justifyContent: "center",
+  alignItems: "center",
+  zIndex: "20",
+});
 
+const ApplyBtn = styled(Button)({});
 interface IClubCard {
   club: ClubType;
 }
+
 export default function ClubCard({ club }: IClubCard) {
   const { _id, name, location, type } = club;
-
+  const navigate = useNavigate();
+  const onApplyBtnClick = () => {
+    navigate(`/apply/${_id}`);
+  };
   return (
     <Card>
       <Box sx={{ pt: "100%", position: "relative" }}>
@@ -77,6 +88,11 @@ export default function ClubCard({ club }: IClubCard) {
           </Typography>
         </Stack>
       </Stack>
+      <CardOverlay whileHover={{ opacity: 1 }}>
+        <ApplyBtn variant="contained" onClick={onApplyBtnClick}>
+          지원하기
+        </ApplyBtn>
+      </CardOverlay>
     </Card>
   );
 }
