@@ -176,3 +176,8 @@ const Get_ALL_APPLIED_USERS = `${BASE_URL}/applies/appliedUsers`;
 
 export const createAppliedUser = (applierInfo: ApplyFormType) =>
   axios.post(Get_ALL_APPLIED_USERS, applierInfo).then((res) => res.data);
+
+export const getAppliedUserByClubID = (clubID: string) =>
+  axios
+    .get(Get_ALL_APPLIED_USERS.concat("/byClub/", clubID))
+    .then((res) => res.data.data);
