@@ -1,7 +1,6 @@
 import { RoleType, LocationType, ColumnType } from "./common";
 
 export interface RegisteredClubType {
-  _id: string;
   clubId: string;
   clubName: string;
   role: RoleType;
@@ -22,9 +21,7 @@ export interface NewUserType {
   major: string;
 }
 
-export interface RegisteredClubs {
-  [key: string]: RegisteredClubType;
-}
+export type RegisteredClubs = Map<string, RegisteredClubType>;
 
 export interface UserType {
   _id: string;
@@ -38,6 +35,12 @@ export interface UserType {
   tokenExp: number;
   createdAt: Date;
   updatedAt: Date;
+}
+
+export interface UserApplierType {
+  studentId: string;
+  name: string;
+  major: string;
 }
 
 export interface VerifyUserResponseType {

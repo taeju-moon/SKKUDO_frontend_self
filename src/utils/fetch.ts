@@ -1,3 +1,5 @@
+import { AppliedUserType, ApplyFormType } from "./../types/apply";
+import { UpdateValidationType } from "./../types/validation";
 import {
   DeleteTodoType,
   NewToDoType,
@@ -114,6 +116,14 @@ export const getValidatonByClubID = async (clubID: string) =>
     .get(GET_VALIDATON_BY_CLUBID_URL.concat(clubID))
     .then((res) => res.data.data);
 
+export const updateValidation = async (
+  clubID: string,
+  validationInfo: UpdateValidationType
+) =>
+  axios
+    .patch(GET_VALIDATON_BY_CLUBID_URL.concat(clubID), validationInfo)
+    .then((res) => res.data);
+
 const GET_ALL_TODOS_URL = `${BASE_URL}/todos/ToDos`;
 
 export const getTodosByClubID = async (clubID: string) =>
@@ -154,3 +164,15 @@ export const deleteTodoTag = async (tagInfo: DeleteTodoType) =>
       },
     })
     .then((res) => res.data);
+
+const GET_ALL_APPLIERS_URL = `${BASE_URL}/applies/appliers`;
+
+export const getApplierByClubID = (clubID: string) =>
+  axios
+    .get(GET_ALL_APPLIERS_URL.concat("/byClub/", clubID))
+    .then((res) => res.data.data);
+
+const Get_ALL_APPLIED_USERS = `${BASE_URL}/applies/appliedUsers`;
+
+export const createAppliedUser = (applierInfo: ApplyFormType) =>
+  axios.post(Get_ALL_APPLIED_USERS, applierInfo).then((res) => res.data);

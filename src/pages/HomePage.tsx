@@ -1,7 +1,10 @@
 import { useTheme } from "@mui/material";
+import { useEffect } from "react";
 
 import { useNavigate } from "react-router-dom";
+import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
+import { isManageState } from "../atoms/NavigatorAtom";
 
 const HomePageContainer = styled.div``;
 const Banner = styled.div`
@@ -49,6 +52,10 @@ const MainPageBtn = styled.button`
 
 function HomePage() {
   const navigate = useNavigate();
+  const setIsManage = useSetRecoilState(isManageState);
+  useEffect(() => {
+    setIsManage(false);
+  }, []);
 
   const handleMainPageBtnClick = (btnType: string) => {
     if (btnType == "search") {

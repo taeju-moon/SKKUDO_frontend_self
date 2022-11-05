@@ -114,7 +114,7 @@ export default function ManageAuth() {
   //     setNoticeRead(event.target.value);
   //   }
   // };
-  console.log(data);
+
   const setIsAuthConfirmAlertOpen = useSetRecoilState(
     isAuthConfirmAlertOpenState
   );

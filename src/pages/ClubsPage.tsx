@@ -57,37 +57,8 @@ const ALL_CLUBS_LIST: ClubType[] = [
   },
 ];
 
-const RECRUITING_CLUBS_LIST: ClubType[] = [
-  {
-    _id: "2",
-    name: "hakhae",
-    location: "인사캠",
-    type: {
-      _id: "2",
-      name: "수학",
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    },
-    userColumns: [
-      {
-        _id: "1",
-        key: "newKey",
-        valueType: "string",
-      },
-    ],
-    recruitType: "상시모집",
-    recruitStart: null,
-    recruitEnd: null,
-    createdAt: new Date(),
-    updatedAt: new Date(),
-  },
-];
-
 function ClubsPage() {
-  const { isSuccess, status, data, error, isLoading } = useQuery<ClubType[]>(
-    "getAllClubs",
-    getAllClubs
-  );
+  const { data, isLoading } = useQuery<ClubType[]>("getAllClubs", getAllClubs);
 
   const filterRecruitingClubs = (allClubs: ClubType[] | undefined) => {
     if (typeof allClubs === "undefined") {
@@ -143,11 +114,7 @@ function ClubsPage() {
           <Typography variant="h4" sx={{ mb: 5 }}>
             모든 동아리/학회
           </Typography>
-          {/* {isLoading ? (
-            <ClubsList clubs={ALL_CLUBS_LIST} />
-          ) : (
-            <ClubsList clubs={data!} />
-          )} */}
+
           <ClubsList clubs={isLoading ? ALL_CLUBS_LIST : data!} />
         </div>
         <div>
