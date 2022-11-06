@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { Button, TextField } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useMutation, useQuery } from "react-query";
 import { useParams } from "react-router-dom";
 import { useRecoilValue } from "recoil";
@@ -8,7 +8,12 @@ import { userInfoState } from "../atoms/userAtom";
 import FormTitle from "../components/FormTitle";
 import { AppliedUserType, ApplierType, ApplyFormType } from "../types/apply";
 import { ColumnType } from "../types/common";
-import { createAppliedUser, getApplierByClubID } from "../utils/fetch";
+import { VerifyUserResponseType } from "../types/user";
+import {
+  createAppliedUser,
+  getApplierByClubID,
+  verifyUser,
+} from "../utils/fetch";
 
 const ApplyWrapper = styled("div")({
   paddingTop: "180px",
@@ -54,6 +59,19 @@ type subAnswerType = Map<string, string>;
 function ApplyPage() {
   const { clubID } = useParams();
   const applierInfo = useRecoilValue(userInfoState);
+
+  // const { mutate: validateMutate } = useMutation<VerifyUserResponseType>(
+  //   verifyUser,
+  //   {
+  //     onSuccess: (data) => {
+  //       console.log(data);
+  //     },
+  //     onError: (error: any) => console.log(error.response.data.error),
+  //   }
+  // );
+  // useEffect(() => {
+  //   validateMutate();
+  // }, []);
 
   const { data, isLoading } = useQuery<ApplierType>(
     "getApplierByClubID",

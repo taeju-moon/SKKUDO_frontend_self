@@ -29,7 +29,7 @@ import { VerifyUserResponseType } from "./types/user";
 import { userInfoState, userNameState } from "./atoms/userAtom";
 import UpdateNoticePage from "./pages/UpdateNoticePage";
 import ApplyPage from "./pages/ApplyPage";
-
+// ("Cannot create field '6336bbad1c469c4e2329427e' in element {registeredClubs: []}");
 function AppRouter() {
   const setIsLoggedIn = useSetRecoilState(isLoggedInState);
   const setUserName = useSetRecoilState(userNameState);
@@ -39,7 +39,7 @@ function AppRouter() {
       setIsLoggedIn(true);
       setUserName(data.authUser.name);
       setUserInfoState({
-        userId: data.authUser._id,
+        userId: data.authUser.userID,
         studentId: data.authUser.studentId,
         name: data.authUser.name,
         major: data.authUser.major,
