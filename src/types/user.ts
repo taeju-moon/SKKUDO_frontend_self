@@ -38,6 +38,7 @@ export interface UserType {
 }
 
 export interface UserApplierType {
+  userId: string;
   studentId: string;
   name: string;
   major: string;
@@ -46,4 +47,12 @@ export interface UserApplierType {
 export interface VerifyUserResponseType {
   authToken: string;
   authUser: UserType;
+}
+
+export interface RegisterInfoType {
+  initialRole: RoleType;
+  moreColumns: {
+    column: ColumnType;
+    value: String;
+  }[];
 }

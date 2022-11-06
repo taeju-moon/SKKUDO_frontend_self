@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { IoPersonOutline } from "react-icons/io5";
 import { useState } from "react";
@@ -108,6 +108,7 @@ function Navigator() {
   const handleLoginBtnClick = () => {
     setIsLoginOptionOpened((prev) => !prev);
   };
+  const navigate = useNavigate();
 
   const { mutate: logoutMutate } = useMutation(logoutFromServer, {
     onSuccess: (data) => {
@@ -118,7 +119,10 @@ function Navigator() {
   });
   const handleLogoutBtnClick = () => {
     logoutMutate();
+    navigate("/");
+    window.location.reload();
   };
+
   return (
     <NavigatorContainer isManage={isManage}>
       <ItemsContainer>

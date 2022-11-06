@@ -39,6 +39,7 @@ function AppRouter() {
       setIsLoggedIn(true);
       setUserName(data.authUser.name);
       setUserInfoState({
+        userId: data.authUser._id,
         studentId: data.authUser.studentId,
         name: data.authUser.name,
         major: data.authUser.major,
@@ -47,7 +48,6 @@ function AppRouter() {
     },
     onError: (error: any) => console.log(error.response.data.error),
   });
-
   useEffect(() => {
     mutate();
   }, []);

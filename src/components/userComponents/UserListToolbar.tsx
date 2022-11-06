@@ -1,5 +1,3 @@
-// import PropTypes from "prop-types";
-// material
 import { styled } from "@mui/material/styles";
 import {
   Toolbar,
@@ -10,7 +8,6 @@ import {
   InputAdornment,
 } from "@mui/material";
 import Iconify from "../Iconify";
-// component
 
 // ----------------------------------------------------------------------
 
@@ -33,14 +30,6 @@ const SearchStyle = styled(OutlinedInput)(({ theme }) => ({
     borderColor: `${theme.palette.grey[500]} !important`,
   },
 }));
-
-// ----------------------------------------------------------------------
-
-// UserListToolbar.propTypes = {
-//   numSelected: PropTypes.number,
-//   filterName: PropTypes.string,
-//   onFilterName: PropTypes.func,
-// };
 
 interface IUserListToobar {
   numSelected: number;

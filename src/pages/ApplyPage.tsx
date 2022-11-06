@@ -110,6 +110,7 @@ function ApplyPage() {
     console.log(tempMoreColumns);
     const tempApplyInfo: ApplyFormType = {
       clubId: clubID || "",
+      userID: applierInfo.userId,
       studentId: applierInfo.studentId,
       name: applierInfo.name,
       major: applierInfo.major,
