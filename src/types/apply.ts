@@ -12,6 +12,7 @@ export interface ApplierType {
 
 export interface AppliedUserType {
   _id: string;
+  userId: string;
   clubId: string;
   studentId: string;
   name: string;

@@ -13,7 +13,7 @@ import {
   NewNoticeType,
   UpdateNoticeType,
 } from "./../types/notice";
-import { NewUserType } from "./../types/user";
+import { NewUserType, RegisterInfoType } from "./../types/user";
 import axios from "axios";
 
 axios.defaults.withCredentials = true;
@@ -88,6 +88,7 @@ export const deleteNoticeTag = async (deleteNoticeTagInfo: DeleteNoticetype) =>
       data: { clubId: deleteNoticeTagInfo.clubID },
     })
     .then((res) => res.data);
+
 const GET_ONE_USER_URL = `${BASE_URL}/users/`;
 
 export const getOneUser = async (userID: string) =>
@@ -108,6 +109,17 @@ const CREATE_USER_URL = `${BASE_URL}/users`;
 export const createUser = async (userInfo: NewUserType) => {
   axios.post(CREATE_USER_URL, userInfo).then((res) => res.data);
 };
+
+export const REGISTER_CLUB_URL = `${BASE_URL}/users/club/register/`;
+
+export const registerClub = async (
+  userID: string,
+  clubID: string,
+  registerInfo: RegisterInfoType
+) =>
+  axios
+    .patch(REGISTER_CLUB_URL.concat(userID, "/", clubID), registerInfo)
+    .then((res) => res.data);
 
 const GET_VALIDATON_BY_CLUBID_URL = `${BASE_URL}/validations/`;
 
@@ -181,3 +193,8 @@ export const getAppliedUserByClubID = (clubID: string) =>
   axios
     .get(Get_ALL_APPLIED_USERS.concat("/byClub/", clubID))
     .then((res) => res.data.data);
+
+export const deleteAppliedUser = (applyID: string) =>
+  axios
+    .delete(Get_ALL_APPLIED_USERS.concat("/", applyID))
+    .then((res) => res.data);

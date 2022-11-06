@@ -293,17 +293,6 @@ export default function User() {
                         </TableCell>
                         <TableCell align="left">{major}</TableCell>
                         <TableCell align="left">{location}</TableCell>
-                        {/* <TableCell align="left">
-                          <Label
-                            variant="ghost"
-                            color={
-                              (status === "banned" && "error") || "success"
-                            }
-                          >
-                            
-                            {status}
-                          </Label>
-                        </TableCell> */}
 
                         <TableCell align="right">
                           <UserMoreMenu />
