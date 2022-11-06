@@ -12,7 +12,7 @@ export interface ApplierType {
 
 export interface AppliedUserType {
   _id: string;
-  userId: string;
+  userID: string;
   clubId: string;
   studentId: string;
   name: string;
@@ -32,6 +32,7 @@ export interface AppliedUserType {
 
 export interface ApplyFormType {
   clubId: string;
+  userID: string;
   studentId: string;
   name: string;
   major: string;

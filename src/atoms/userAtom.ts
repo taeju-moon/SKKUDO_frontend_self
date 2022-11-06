@@ -14,5 +14,5 @@ export const userNameState = atom({
 
 export const userInfoState = atom<UserApplierType>({
   key: "userInfoState",
-  default: { studentId: "", name: "", major: "" },
+  default: { studentId: "", name: "", major: "", userId: "" },
 });

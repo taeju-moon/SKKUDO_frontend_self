@@ -198,3 +198,5 @@ export const deleteAppliedUser = (applyID: string) =>
   axios
     .delete(Get_ALL_APPLIED_USERS.concat("/", applyID))
     .then((res) => res.data);
+
+//delte적용 registerClub userID 적용

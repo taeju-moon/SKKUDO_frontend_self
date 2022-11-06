@@ -38,6 +38,7 @@ export interface UserType {
 }
 
 export interface UserApplierType {
+  userId: string;
   studentId: string;
   name: string;
   major: string;

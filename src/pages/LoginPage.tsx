@@ -76,6 +76,7 @@ function LoginPage() {
         console.log(data);
         setIsLoggedIn(true);
         navigate("/");
+        window.location.reload();
       },
       onError: (error) => console.log(error),
     }

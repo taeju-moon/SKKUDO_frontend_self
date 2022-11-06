@@ -1,7 +1,11 @@
 import { useMutation, useQuery, useQueryClient } from "react-query";
 
 import { AppliedUserType } from "../../types/apply";
-import { getAppliedUserByClubID, registerClub } from "../../utils/fetch";
+import {
+  deleteAppliedUser,
+  getAppliedUserByClubID,
+  registerClub,
+} from "../../utils/fetch";
 import { Link as RouterLink, useParams } from "react-router-dom";
 
 import {
@@ -69,6 +73,16 @@ function ManageRecruit() {
     }
   );
 
+  const { mutate: deleteMutate } = useMutation(
+    (applyId: string) => deleteAppliedUser(applyId),
+    {
+      onSuccess: (data) => {
+        console.log(data);
+        queryClient.invalidateQueries("getAppliedUserByClubID");
+      },
+      onError: (error) => console.log(error),
+    }
+  );
   const [order, setOrder] = useState<"desc" | "asc">("asc");
   const [orderBy, setOrderBy] = useState<orderByType>("name");
   const [page, setPage] = useState(0);
@@ -199,10 +213,15 @@ function ManageRecruit() {
       value: String;
     }[]
   ) => {
+    console.log(userID);
     registerMutate({
       userID,
       registerInfo: { moreColumns, initialRole: "부원" },
     });
+  };
+
+  const handleFailBtnClick = (applyId: string) => {
+    deleteMutate(applyId);
   };
 
   const handleDocumentBtnClick = (idx: number) => {
@@ -258,7 +277,7 @@ function ManageRecruit() {
                 {filteredUsers
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map((row, idx) => {
-                    const { _id, studentId, name, major, userId, moreColumns } =
+                    const { _id, studentId, name, major, userID, moreColumns } =
                       row;
                     const isItemSelected = selected.indexOf(name) !== -1;
 
@@ -298,13 +317,14 @@ function ManageRecruit() {
                             variant="contained"
                             color="error"
                             sx={{ marginRight: "10px" }}
+                            onClick={() => handleFailBtnClick(_id)}
                           >
                             불합격
                           </Button>
                           <Button
                             variant="contained"
                             onClick={() =>
-                              handlePassBtnClick(userId, moreColumns)
+                              handlePassBtnClick(userID, moreColumns)
                             }
                           >
                             합격
