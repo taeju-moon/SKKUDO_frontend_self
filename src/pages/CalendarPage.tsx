@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Calendar from "react-calendar";
-import React, { useState } from "react";
+import { useState } from "react";
 // import "react-calendar/dist/Calendar.css";
 import "./CustomCalendarStyle.css";
 import moment from "moment";
@@ -13,14 +13,35 @@ import DayDetailBoard from "../components/calendarComponents/DayDetailBoard";
 import TodoCategoryDialog from "../components/calendarComponents/TodoCategoryDialog";
 import { useRecoilState } from "recoil";
 import { dayDetailState } from "../atoms/calendarAtom";
+import { motion } from "framer-motion";
 
 const CalendarContainer = styled.div`
-  padding-top: 80px;
+  padding-top: 40px;
   display: flex;
   justify-content: center;
 `;
 
-const AddCategoryBtn = styled("button")({});
+const BtnContainer = styled("div")({
+  display: "flex",
+  width: "100%",
+  maxWidth: "1024px",
+  margin: "0 auto",
+  justifyContent: "flex-end",
+  marginTop: "60px",
+  gap: "20px",
+});
+
+const AddCategoryBtn = styled(motion.button)({
+  backgroundColor: "transparent",
+  color: "#0c4426",
+  fontWeight: "600",
+  paddingLeft: "10px",
+  paddingRight: "10px",
+  height: "50px",
+  border: "2px solid ",
+  borderRadius: "10px",
+});
+
 export interface IDayDetailOverlay {
   isDayDetailOpened: boolean;
 }
@@ -95,7 +116,18 @@ function CalendarPage() {
   return (
     <>
       <ClubDetailHeader pageType="일정" />
-      <AddCategoryBtn onClick={handlClickOpen}>카테고리 추가</AddCategoryBtn>
+      <BtnContainer>
+        <AddCategoryBtn
+          whileHover={{
+            backgroundColor: "#0c4426",
+            color: "#FFFFFF",
+            border: "1px solid #FFFFFF",
+          }}
+          onClick={handlClickOpen}
+        >
+          카테고리 추가
+        </AddCategoryBtn>
+      </BtnContainer>
       <TodoCategoryDialog open={isCategoryDialogOpen} onClose={handleClose} />
       <CalendarContainer>
         <Calendar

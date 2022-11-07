@@ -195,8 +195,8 @@ function NoticePage() {
         <AddCategoryBtn
           whileHover={{
             backgroundColor: "#0c4426",
-            color: "white",
-            border: "none",
+            color: "#FFFFFF",
+            border: "1px solid #FFFFFF",
           }}
           onClick={handlClickOpen}
         >
