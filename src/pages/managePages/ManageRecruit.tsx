@@ -52,7 +52,9 @@ function ManageRecruit() {
     "getAppliedUserByClubID",
     () => getAppliedUserByClubID(clubID || ""),
     {
-      onSuccess: (data) => console.log(data),
+      onSuccess: (data) => {
+        console.log(data);
+      },
       onError: (error) => console.log(error),
     }
   );
@@ -67,7 +69,6 @@ function ManageRecruit() {
     {
       onSuccess: (data) => {
         console.log(data);
-        queryClient.invalidateQueries("getAppliedUserByClubID");
       },
       onError: (error) => console.log(error),
     }
@@ -211,13 +212,15 @@ function ManageRecruit() {
     moreColumns: {
       column: ColumnType;
       value: String;
-    }[]
+    }[],
+    applyId: string
   ) => {
     console.log(userID);
     registerMutate({
       userID,
       registerInfo: { moreColumns, initialRole: "부원" },
     });
+    deleteMutate(applyId);
   };
 
   const handleFailBtnClick = (applyId: string) => {
@@ -324,7 +327,7 @@ function ManageRecruit() {
                           <Button
                             variant="contained"
                             onClick={() =>
-                              handlePassBtnClick(userID, moreColumns)
+                              handlePassBtnClick(userID, moreColumns, _id)
                             }
                           >
                             합격

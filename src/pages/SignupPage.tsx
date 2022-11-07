@@ -64,7 +64,7 @@ function SignupPage() {
 
   const handleSignupFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    // mutate({ name, studentId, userID, password, location, major });
+    mutate({ name, studentId, userID, password, location, major });
 
     navigate("/");
   };
