@@ -2,11 +2,7 @@ import { Paper, Stack, styled } from "@mui/material";
 import { useMutation, useQuery } from "react-query";
 import { BiMessageSquareAdd } from "react-icons/bi";
 
-import {
-  deleteNotice,
-  getAllNotices,
-  getNoticesByClubID,
-} from "../utils/fetch";
+import { deleteNotice, getNoticesByClubID } from "../utils/fetch";
 import {
   ClickedNoticeInfoType,
   DeleteNoticetype,
@@ -16,22 +12,40 @@ import {
 } from "../types/notice";
 
 import ClubDetailHeader from "../components/ClubDetailHeader";
-import { flexbox } from "@mui/system";
+
 import { useNavigate, useParams } from "react-router-dom";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { useState } from "react";
 import NoticeDetail from "../components/noticeComponents/NoticeDetail";
-import { useRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 import { isNoticeDetailOpenState } from "../atoms/utilAtom";
 import CategoryAddDialog from "../components/noticeComponents/CategoryAddDialog";
+import { motion } from "framer-motion";
 
-const AddIconContainer = styled("div")({
+const BtnContainer = styled("div")({
+  display: "flex",
   width: "100%",
   maxWidth: "1024px",
   margin: "0 auto",
+  justifyContent: "flex-end",
+  marginTop: "60px",
+  gap: "20px",
+});
+
+const AddCategoryBtn = styled(motion.button)({
+  backgroundColor: "transparent",
+  color: "#0c4426",
+  fontWeight: "600",
+  paddingLeft: "10px",
+  paddingRight: "10px",
+
+  border: "2px solid ",
+  borderRadius: "10px",
+});
+
+const AddIconContainer = styled(motion.div)({
   display: "flex",
   justifyContent: "right",
-  marginTop: "60px",
 });
 
 const OptionBtn = styled("button")({
@@ -43,6 +57,11 @@ const OptionBtn = styled("button")({
 
 const NoticeTitle = styled("div")({
   flex: 1,
+  height: "100%",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "flex-start",
+  paddingLeft: "40px",
 });
 
 interface OptionContainerType {
@@ -79,10 +98,26 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
   width: "100%",
   height: "60px",
-  // maxWidth: "1024px",
 }));
 
-const AddCategoryBtn = styled("button")({});
+const TagContainer = styled("div")({
+  height: "40px",
+  width: "100%",
+  display: "flex",
+  justifyContent: "flex-end",
+});
+
+const Tag = styled("div")({
+  height: "100%",
+  backgroundColor: "#0c4426",
+  color: "white",
+  borderRadius: "4px",
+  padding: "5px",
+  fontSize: "0.8rem",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+});
 
 function NoticePage() {
   const navigate = useNavigate();
@@ -96,9 +131,7 @@ function NoticePage() {
   const [clickedNoticeInfo, setClickedNotiiceInfo] =
     useState<ClickedNoticeInfoType>({ writer: "", title: "", content: "" });
 
-  const [isNoticeDetailOpen, setIsNoticeDetailOpen] = useRecoilState(
-    isNoticeDetailOpenState
-  );
+  const setIsNoticeDetailOpen = useSetRecoilState(isNoticeDetailOpenState);
 
   const [isCategoryDialogOpen, setIsCategoryDialogOpen] = useState(false);
 
@@ -158,13 +191,24 @@ function NoticePage() {
   return (
     <>
       <ClubDetailHeader pageType="공지사항" />
-      <AddIconContainer>
-        <BiMessageSquareAdd size="2.5rem" onClick={onNoticeAddBtnClicked} />
-      </AddIconContainer>
-      <AddCategoryBtn onClick={handlClickOpen}>카테고리 추가</AddCategoryBtn>
+      <BtnContainer>
+        <AddCategoryBtn
+          whileHover={{
+            backgroundColor: "#0c4426",
+            color: "white",
+            border: "none",
+          }}
+          onClick={handlClickOpen}
+        >
+          카테고리 추가
+        </AddCategoryBtn>
+        <AddIconContainer whileHover={{ scale: 1.1 }}>
+          <BiMessageSquareAdd size="2.5rem" onClick={onNoticeAddBtnClicked} />
+        </AddIconContainer>
+      </BtnContainer>
       <CategoryAddDialog open={isCategoryDialogOpen} onClose={handleClose} />
       <Stack
-        spacing={4}
+        spacing={1}
         sx={{
           display: "flex",
           alignItems: "center",
@@ -181,14 +225,23 @@ function NoticePage() {
               key={notice._id}
               spacing={1}
               sx={{ width: "100%", maxWidth: "1024px" }}
+              component={motion.div}
+              whileHover={{
+                scale: 1.1,
+                transition: { duration: 0.2, ease: "easeOut" },
+              }}
             >
               <Stack
-                sx={{ widht: "100%", justifyContent: "flex-end" }}
+                sx={{
+                  widht: "100%",
+                  justifyContent: "flex-end",
+                  height: "30px",
+                }}
                 spacing={2}
                 direction={"row"}
               >
                 {notice.noticeTags.map((tag) => (
-                  <div key={tag}>{tag}</div>
+                  <Tag key={tag}>{tag}</Tag>
                 ))}
               </Stack>
               <Item

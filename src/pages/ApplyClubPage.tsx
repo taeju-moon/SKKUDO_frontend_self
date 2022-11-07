@@ -1,4 +1,4 @@
-import { Button, makeStyles, MenuItem, styled, TextField } from "@mui/material";
+import { Button, MenuItem, styled, TextField } from "@mui/material";
 import React, { useState } from "react";
 import { useMutation } from "react-query";
 import FormTitle from "../components/FormTitle";
@@ -17,7 +17,7 @@ const ApplyClubPageContainer = styled("form")({
   backgroundColor: "#fff",
   borderRadius: "3px",
   margin: "0 auto",
-  paddingBottom: "200px",
+  paddingBottom: "100px",
   position: "relative",
   boxShadow: "5px 5px 5px rgba(0,0,0,0.5)",
 });
@@ -150,7 +150,7 @@ function ApplyClubPage() {
         </ApplyInputContainer>
 
         <Button
-          sx={{ position: "absolute", right: "20px" }}
+          sx={{ position: "absolute", right: "40px", bottom: "40px" }}
           type="submit"
           variant="outlined"
         >

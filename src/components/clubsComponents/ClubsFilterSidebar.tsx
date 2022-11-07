@@ -1,5 +1,3 @@
-import PropTypes from "prop-types";
-// material
 import {
   Box,
   Radio,
@@ -15,7 +13,6 @@ import {
   RadioGroup,
   FormControlLabel,
 } from "@mui/material";
-// components
 
 import Iconify from "../Iconify";
 import Scrollbar from "../dashboardComponents/Scrollbar";
@@ -42,12 +39,6 @@ export const FILTER_PRICE_OPTIONS = [
 ];
 
 // ----------------------------------------------------------------------
-
-// ShopFilterSidebar.propTypes = {
-//   isOpenFilter: PropTypes.bool,
-//   onOpenFilter: PropTypes.func,
-//   onCloseFilter: PropTypes.func,
-// };
 
 interface IClubsFilterSidebar {
   isOpenFilter: boolean;
@@ -128,7 +119,7 @@ export default function ClubsFilterSidebar({
               </RadioGroup>
             </div>
 
-            <div>
+            {/* <div>
               <Typography variant="subtitle1" gutterBottom>
                 Price
               </Typography>
@@ -142,7 +133,7 @@ export default function ClubsFilterSidebar({
                   />
                 ))}
               </RadioGroup>
-            </div>
+            </div> */}
           </Stack>
         </Scrollbar>
 
