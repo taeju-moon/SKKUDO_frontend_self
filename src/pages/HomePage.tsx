@@ -26,7 +26,7 @@ const LineTwo = styled.div`
   font-size: 4.5rem;
 `;
 
-const Name = styled.div`
+const Name = styled(motion.div)`
   font-size: 6.5rem;
 `;
 
@@ -69,7 +69,13 @@ function HomePage() {
       <Banner>
         <LineOne>동아리/학회 관리를</LineOne>
         <LineTwo>손쉽게!!</LineTwo>
-        <Name>SKKUDO</Name>
+        <Name
+          initial={{ opacity: 0, scale: 0.5 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5 }}
+        >
+          SKKUDO
+        </Name>
       </Banner>
       <ButtonsContainer>
         <MainPageBtn

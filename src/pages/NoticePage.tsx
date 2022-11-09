@@ -6,7 +6,6 @@ import { deleteNotice, getNoticesByClubID } from "../utils/fetch";
 import {
   ClickedNoticeInfoType,
   DeleteNoticetype,
-  NewNoticeType,
   NoticeType,
   UpdateNoticeType,
 } from "../types/notice";
@@ -126,6 +125,7 @@ function NoticePage() {
   const { data: noticeData, isLoading: isNoticeLoading } = useQuery<
     NoticeType[]
   >("getNoticesByClubID", () => getNoticesByClubID(clubID || ""));
+
   const [clickedNoticeID, setClickedNoticeID] = useState("");
   const [isOptionOpened, setIsOptionOpened] = useState(false);
   const [clickedNoticeInfo, setClickedNotiiceInfo] =
