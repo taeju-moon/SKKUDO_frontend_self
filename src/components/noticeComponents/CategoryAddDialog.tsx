@@ -1,9 +1,7 @@
 import * as React from "react";
 import Button from "@mui/material/Button";
-
 import DialogTitle from "@mui/material/DialogTitle";
 import Dialog from "@mui/material/Dialog";
-
 import { Box, TextField } from "@mui/material";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import {
@@ -15,13 +13,30 @@ import { useParams } from "react-router-dom";
 import styled from "@emotion/styled";
 import { DeleteNoticetype, NoticeTagType } from "../../types/notice";
 
-export const CategoryList = styled.ul``;
-export const CategoryListItem = styled.li`
-  margin-bottom: 30px;
-  display: flex;
+export const CategoryList = styled.ul`
+  width: 100%;
+  border-top: 1px solid #0c4426;
 `;
-export const CategoryLabel = styled.div``;
-export const CategoryDeleteBtn = styled.button``;
+export const CategoryListItem = styled.li`
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: ceter;
+  position: relative;
+  border-bottom: 1px solid #0c4426;
+  height: 60px;
+  align-items: center;
+`;
+export const CategoryLabel = styled.div`
+  font-size: 20px;
+  font-weight: 500;
+`;
+export const CategoryDeleteBtn = styled(Button)`
+  position: absolute;
+  right: 20px;
+  height: 30px;
+`;
 export interface SimpleDialogProps {
   open: boolean;
   onClose: () => void;
@@ -77,6 +92,7 @@ function CategoryAddDialog(props: SimpleDialogProps) {
   const handleNewCategorySubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     createNoticeTagMutate();
+    setNewCategory("");
   };
 
   const handleCategoryDeleteBtnClick = (tagID: string) => {
@@ -104,6 +120,7 @@ function CategoryAddDialog(props: SimpleDialogProps) {
           label="Outlined"
           variant="outlined"
           onChange={handleCategoryInputChange}
+          value={newCategory}
         />
         <Button
           variant="contained"
@@ -122,6 +139,8 @@ function CategoryAddDialog(props: SimpleDialogProps) {
             <CategoryListItem key={category._id}>
               <CategoryLabel>{category.name}</CategoryLabel>
               <CategoryDeleteBtn
+                variant="outlined"
+                color="error"
                 onClick={() => handleCategoryDeleteBtnClick(category._id)}
               >
                 Delete

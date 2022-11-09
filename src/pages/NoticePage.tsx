@@ -1,5 +1,5 @@
 import { Paper, Stack, styled } from "@mui/material";
-import { useMutation, useQuery } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import { BiMessageSquareAdd } from "react-icons/bi";
 
 import { deleteNotice, getNoticesByClubID } from "../utils/fetch";
@@ -121,11 +121,13 @@ const Tag = styled("div")({
 function NoticePage() {
   const navigate = useNavigate();
   const { clubID } = useParams();
+  const queryClient = useQueryClient();
 
   const { data: noticeData, isLoading: isNoticeLoading } = useQuery<
     NoticeType[]
   >("getNoticesByClubID", () => getNoticesByClubID(clubID || ""));
 
+  // console.log(noticeData);
   const [clickedNoticeID, setClickedNoticeID] = useState("");
   const [isOptionOpened, setIsOptionOpened] = useState(false);
   const [clickedNoticeInfo, setClickedNotiiceInfo] =
@@ -160,8 +162,9 @@ function NoticePage() {
     (deleteNoticeInfo: DeleteNoticetype) => deleteNotice(deleteNoticeInfo),
     {
       onSuccess: (data) => {
-        console.log(data);
-        window.location.reload();
+        // console.log(data);
+        // window.location.reload();
+        queryClient.invalidateQueries("getNoticesByClubID");
       },
       onError: (error) => {
         console.log(error);
@@ -220,7 +223,7 @@ function NoticePage() {
             <div>아직 공지가 없습니다.</div>
           </>
         ) : (
-          noticeData?.map((notice) => (
+          [...noticeData!].reverse().map((notice) => (
             <Stack
               key={notice._id}
               spacing={1}

@@ -18,7 +18,7 @@ export interface NewNoticeType {
   title: string;
   content: string;
   writer: string;
-  noticeTags: NoticeTagType[];
+  noticeTags: string[];
 }
 export interface NoticeType {
   _id: string;
