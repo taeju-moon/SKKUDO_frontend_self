@@ -202,4 +202,9 @@ export const deleteAppliedUser = (applyID: string) =>
     .delete(Get_ALL_APPLIED_USERS.concat("/", applyID))
     .then((res) => res.data);
 
+const GET_APPLIED_USERS_BY_ID = `${BASE_URL}/applies/appliedUsers/byUser`;
+
+export const getAppliedUserByID = () =>
+  axios.get(GET_APPLIED_USERS_BY_ID).then((res) => res.data.data);
+
 //delte적용 registerClub userID 적용

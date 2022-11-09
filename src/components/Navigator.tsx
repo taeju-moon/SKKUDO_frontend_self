@@ -92,13 +92,14 @@ const LoginOption = styled.li`
   width: 100%;
   height: 40px;
   padding: 10px;
-  font-size: 1.3rem;
+  font-size: 20px;
   padding-top: 20px;
 `;
 
 const LoginLink = styled(Link)`
   text-decoration: none;
   color: black;
+  font-size: 20px;
 `;
 
 function Navigator() {

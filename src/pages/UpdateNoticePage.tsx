@@ -9,26 +9,19 @@ import {
   OutlinedInput,
   Select,
   SelectChangeEvent,
-  TextField,
   Theme,
   useTheme,
 } from "@mui/material";
-import { display, flexbox } from "@mui/system";
 import React, { useState } from "react";
-import { useMutation, useQuery } from "react-query";
-import { Navigate, useNavigate, useParams } from "react-router-dom";
-import { useRecoilValue } from "recoil";
-import { userNameState } from "../atoms/userAtom";
+import { useMutation, useQuery, useQueryClient } from "react-query";
+import { useNavigate, useParams } from "react-router-dom";
 import { NoticeTagType } from "../types/notice";
 import {
-  createNotice,
+  getNoticeTagsByClubID,
   getTodoTagsByClubID,
   updateNotice,
 } from "../utils/fetch";
 
-// const Blank = styled("div")({
-//   paddingTop: "120px",
-// });
 const AddNoticePageContainer = styled("form")({
   width: "100%",
   maxWidth: "1024px",
@@ -42,11 +35,12 @@ const AddNoticePageContainer = styled("form")({
 const TitleInput = styled("input")({
   width: "400px",
   height: "50px",
-  marginBottom: "50px",
+  marginBottom: "30px",
   borderRadius: "5px",
   backgroundColor: "#fff",
   border: "2px solid #0c4426",
   fontSize: "1.5rem",
+  paddingLeft: "10px",
 });
 
 const ContentInput = styled("textarea")({
@@ -54,6 +48,7 @@ const ContentInput = styled("textarea")({
   border: "2px solid #0c4426",
   fontSize: "1.2rem",
   borderRadius: "5px",
+  padding: "10px",
 });
 
 const ButtonContainer = styled("div")({
@@ -101,7 +96,7 @@ function UpdateNoticePage() {
 
   const [tags, setTags] = useState<string[]>([]);
   const theme = useTheme();
-
+  const queryClient = useQueryClient();
   const handleTagsChange = (event: SelectChangeEvent<typeof tags>) => {
     const {
       target: { value },
@@ -113,8 +108,8 @@ function UpdateNoticePage() {
   };
 
   const { data, isLoading } = useQuery<NoticeTagType[]>(
-    "getTodoTagsByClubID",
-    () => getTodoTagsByClubID(clubID || ""),
+    "getNoticeTagsByClubID",
+    () => getNoticeTagsByClubID(clubID || ""),
     {
       onSuccess: (data) => {
         const temp: string[] = [];
@@ -137,9 +132,10 @@ function UpdateNoticePage() {
       }),
     {
       onSuccess: (data) => {
-        console.log(data);
+        // console.log(data);
         navigate(`/club/${clubID}/notice`);
-        window.location.reload();
+        queryClient.invalidateQueries("getNoticesByClubID");
+        // window.location.reload();
       },
       onError: (error) => {
         console.log(error);
@@ -163,12 +159,17 @@ function UpdateNoticePage() {
     event.preventDefault();
     mutate();
   };
-  // const { mutate } = useMutation(() => );
+
   return (
     <AddNoticePageContainer onSubmit={handleNewNoticeSubmit}>
       <TitleInput required value={title} onChange={handleTitleChange} />
-      <FormControl sx={{ m: 1, width: 300 }}>
-        <InputLabel id="demo-multiple-chip-label">공지 카테고리</InputLabel>
+      <FormControl sx={{ m: 1, width: "100%", margin: 0 }}>
+        <InputLabel
+          id="demo-multiple-chip-label"
+          sx={{ margin: 0, padding: 0 }}
+        >
+          공지 카테고리
+        </InputLabel>
         <Select
           labelId="demo-multiple-chip-label"
           id="demo-multiple-chip"
@@ -176,7 +177,7 @@ function UpdateNoticePage() {
           value={tags}
           onChange={handleTagsChange}
           input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
-          sx={{ marginBottom: "40px" }}
+          sx={{ marginBottom: "20px" }}
           renderValue={(selected) => (
             <Box
               sx={{

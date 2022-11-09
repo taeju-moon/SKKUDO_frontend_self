@@ -1,7 +1,8 @@
+import { motion } from "framer-motion";
 import React, { useState } from "react";
 import { useMutation } from "react-query";
 import { useNavigate } from "react-router-dom";
-import { useRecoilState, useSetRecoilState } from "recoil";
+import { useRecoilState } from "recoil";
 
 import styled from "styled-components";
 import { isLoggedInState } from "../atoms/loginAtom";
@@ -50,12 +51,13 @@ const LoginInput = styled.input`
   width: 200px;
 `;
 
-const LoginButton = styled.button`
+const LoginButton = styled(motion.button)`
   width: 60px;
   color: #dde143;
   background-color: transparent;
   border: 2px solid #dde143;
   border-radius: 5px;
+  font-weight: 800;
 `;
 
 function LoginPage() {
@@ -68,19 +70,17 @@ function LoginPage() {
     navigate("/");
   }
 
-  const { mutate, isLoading, data, isError } = useMutation(
-    () => loginFromServer(ID, PW),
-    {
-      //need to fix
-      onSuccess: (data) => {
-        console.log(data);
-        setIsLoggedIn(true);
-        navigate("/");
-        window.location.reload();
-      },
-      onError: (error) => console.log(error),
-    }
-  );
+  const { mutate } = useMutation(() => loginFromServer(ID, PW), {
+    //need to fix
+    onSuccess: (data) => {
+      // console.log(data);
+      setIsLoggedIn(true);
+      navigate("/");
+      window.location.reload();
+    },
+    onError: (error: { response: { data: { error: string } } }) =>
+      alert(error.response.data.error),
+  });
 
   const handleIDChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setID(event.target.value);
@@ -105,7 +105,12 @@ function LoginPage() {
             <LoginInput onChange={handleIDChange}></LoginInput>
             <LoginInput type="password" onChange={handlePWChange}></LoginInput>
           </LoginInputContainer>
-          <LoginButton type="submit">Log In</LoginButton>
+          <LoginButton
+            type="submit"
+            whileHover={{ backgroundColor: "#dde143", color: "#FFFFFF" }}
+          >
+            Log In
+          </LoginButton>
         </LoginForm>
       </LoginCard>
     </LoginPageContainer>
