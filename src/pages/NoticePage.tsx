@@ -236,7 +236,7 @@ function NoticePage() {
             >
               <Stack
                 sx={{
-                  widht: "100%",
+                  width: "100%",
                   justifyContent: "flex-end",
                   height: "30px",
                 }}

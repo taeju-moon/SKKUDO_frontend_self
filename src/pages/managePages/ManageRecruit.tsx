@@ -75,7 +75,7 @@ function ManageRecruit() {
   );
 
   const { mutate: deleteMutate } = useMutation(
-    (applyId: string) => deleteAppliedUser(applyId),
+    (applyId: string) => deleteAppliedUser(applyId, clubID || ""),
     {
       onSuccess: (data) => {
         console.log(data);
@@ -121,6 +121,7 @@ function ManageRecruit() {
       );
     }
     setSelected(newSelected);
+    console.log(selected);
   };
 
   function applySortFilter(

@@ -40,6 +40,8 @@ const ClubCardsContainer = styled.div`
   width: 100%;
   max-width: 1150px;
   flex-wrap: wrap;
+  display: flex;
+  gap: 20px;
 `;
 
 function MyPage() {
@@ -108,7 +110,7 @@ function MyPage() {
                 </Card>
               ) : (
                 userClubs?.map((club) => (
-                  <Card key={club.clubId} sx={{ maxWidth: 345 }}>
+                  <Card key={club.clubId} sx={{ width: 345 }}>
                     <CardActionArea
                       onClick={() => handleMyClubCardClick(club.clubId)}
                     >
@@ -138,7 +140,7 @@ function MyPage() {
             <Title>지원중인 동아리</Title>
             <ClubCardsContainer>
               {isAppliedClubsLoading ? (
-                <Card sx={{ maxWidth: 345 }}>
+                <Card sx={{ width: 345 }}>
                   <CardActionArea>
                     <CardMedia
                       component="img"
@@ -160,9 +162,9 @@ function MyPage() {
                 </Card>
               ) : (
                 appliedClubs?.map((club) => (
-                  <Card key={club.clubId} sx={{ maxWidth: 345 }}>
+                  <Card key={club.clubId} sx={{ width: 345 }}>
                     <CardActionArea
-                      onClick={() => handleMyClubCardClick(club.clubId)}
+                    // onClick={() => handleMyClubCardClick(club.clubId)}
                     >
                       <CardMedia
                         component="img"

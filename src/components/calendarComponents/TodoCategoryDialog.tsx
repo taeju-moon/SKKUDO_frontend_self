@@ -72,6 +72,7 @@ function TodoCategoryDialog(props: SimpleDialogProps) {
   };
   const handleNewCategorySubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setNewCategory("");
     createTodoTagMutate();
   };
 
@@ -100,6 +101,7 @@ function TodoCategoryDialog(props: SimpleDialogProps) {
           label="Outlined"
           variant="outlined"
           onChange={handleCategoryInputChange}
+          value={newCategory}
         />
         <Button
           variant="contained"
@@ -118,6 +120,8 @@ function TodoCategoryDialog(props: SimpleDialogProps) {
             <CategoryListItem key={category._id}>
               <CategoryLabel>{category.name}</CategoryLabel>
               <CategoryDeleteBtn
+                variant="outlined"
+                color="error"
                 onClick={() => handleCategoryDeleteBtnClick(category._id)}
               >
                 Delete

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { IDayDetailOverlay } from "../../pages/CalendarPage";
-import { MdOutlineAlarmAdd } from "react-icons/md";
+import { MdExpandLess, MdExpandMore, MdOutlineAlarmAdd } from "react-icons/md";
 import { useState } from "react";
 import TodoAddDialog from "./TodoAddDialog";
 import { useRecoilValue, useSetRecoilState } from "recoil";
@@ -14,6 +14,16 @@ import { DeleteTodoType, UpdateTodoType } from "../../types/todo";
 import { deleteTodo } from "../../utils/fetch";
 import { useParams } from "react-router-dom";
 import moment from "moment";
+import { motion } from "framer-motion";
+import {
+  Button,
+  Collapse,
+  List,
+  ListItemButton,
+  ListItemText,
+  ListSubheader,
+  Stack,
+} from "@mui/material";
 
 const BoardContainer = styled.div<IDayDetailOverlay>`
   position: fixed;
@@ -26,9 +36,18 @@ const BoardContainer = styled.div<IDayDetailOverlay>`
   background-color: white;
   display: ${(props) => (props.isDayDetailOpened ? "flex" : "none")};
   flex-direction: column;
+  border-radius: 20px;
 `;
 
-const TodoAddBtn = styled.button``;
+const TodoAddBtn = styled(motion.button)`
+  border: none;
+  background-color: transparent;
+  box-shadow: 0px 3px 3px #0c4426;
+
+  background: linear-gradient(45deg, #0c4426, #244f36);
+  padding: 10px;
+  color: #dde143;
+`;
 
 const TodoList = styled.ul``;
 const TodoItem = styled.li``;
@@ -38,15 +57,42 @@ const TodoUpdateBtn = styled.button``;
 
 interface DayDetailBoardType {
   isDayDetailOpened: boolean;
+  date: Date;
 }
 
-function DayDetailBoard({ isDayDetailOpened }: DayDetailBoardType) {
+const ItemContainer = styled.div`
+  padding-left: 40px;
+  padding-right: 40px;
+`;
+
+const Tag = styled.div`
+  height: 100%;
+  background-color: #0c4426;
+  color: white;
+  border-radius: 4px;
+  padding: 5px;
+  font-size: 0.8rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const DetailBtnContainer = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 50px;
+  padding: 10px;
+`;
+
+function DayDetailBoard({ isDayDetailOpened, date }: DayDetailBoardType) {
   const { clubID } = useParams();
   const queryClient = useQueryClient();
   const [dialogOpen, setDialogOpen] = useState(false);
   const dayDetail = useRecoilValue(dayDetailState);
   const setIsTodoUpdate = useSetRecoilState(isTodoUpdateState);
   const setUpdateTodo = useSetRecoilState(updateTodoInfoState);
+  // console.log(date);
 
   const { mutate: deleteTodoMutate } = useMutation(
     (todoInfo: DeleteTodoType) => deleteTodo(todoInfo),
@@ -78,12 +124,35 @@ function DayDetailBoard({ isDayDetailOpened }: DayDetailBoardType) {
     setDialogOpen(true);
   };
 
+  const [open, setOpen] = useState("");
+
+  const handleClick = (id: string) => {
+    if (id === open) {
+      setOpen("");
+    } else {
+      setOpen(id);
+    }
+  };
+
+  const checkOpen = (id: string) => {
+    if (id === open) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
   return (
     <BoardContainer isDayDetailOpened={isDayDetailOpened}>
-      <TodoAddBtn onClick={handleTodoAddBtnClick}>
+      <TodoAddBtn
+        whileHover={{
+          background: "linear-gradient(45deg,  #244f36, #0c4426)",
+        }}
+        onClick={handleTodoAddBtnClick}
+      >
         <MdOutlineAlarmAdd size="3rem" />
       </TodoAddBtn>
-      <TodoList>
+      {/* <TodoList>
         {dayDetail.map((todo) => (
           <TodoItem key={todo._id}>
             <TodoTitle>{todo.title}</TodoTitle>
@@ -109,7 +178,128 @@ function DayDetailBoard({ isDayDetailOpened }: DayDetailBoardType) {
             </TodoUpdateBtn>
           </TodoItem>
         ))}
-      </TodoList>
+      </TodoList> */}
+
+      <List
+        sx={{ width: "100%", bgcolor: "background.paper" }}
+        component="nav"
+        aria-labelledby="nested-list-subheader"
+        subheader={
+          <ListSubheader
+            sx={{
+              fontSize: "40px",
+              width: "100%",
+              padding: "20px",
+            }}
+            component="div"
+            id="nested-list-subheader"
+          >
+            {`${moment(date).format("YYYY-MM-DD")} 일정 목록`}
+          </ListSubheader>
+        }
+      >
+        {dayDetail.map((todo) => (
+          <ItemContainer key={todo._id}>
+            <ListItemButton
+              onClick={() => handleClick(todo._id)}
+              sx={{ padding: "20px" }}
+            >
+              <ListItemText primary={todo.title} />
+              <Stack
+                sx={{
+                  justifyContent: "flex-end",
+                  height: "30px",
+                  marginRight: "40px",
+                }}
+                spacing={2}
+                direction={"row"}
+              >
+                {todo.tags.map((tag) => (
+                  <Tag key={tag}>{tag}</Tag>
+                ))}
+              </Stack>
+              {open ? <MdExpandLess /> : <MdExpandMore />}
+            </ListItemButton>
+            <Collapse in={checkOpen(todo._id)} timeout="auto" unmountOnExit>
+              <List component="div" disablePadding>
+                <ListItemButton sx={{ pl: 4 }}>
+                  <ListItemText primary={todo.content} />
+                </ListItemButton>
+                <ListItemButton sx={{ pl: 4 }}>
+                  <ListItemText
+                    primary={`시작 시간 : ${moment(todo.startTime).format(
+                      "YYYY-MM-DD HH:mm"
+                    )}`}
+                  />
+                </ListItemButton>
+                <ListItemButton sx={{ pl: 4 }}>
+                  <ListItemText
+                    primary={`종료 시간 : ${moment(todo.endTime).format(
+                      "YYYY-MM-DD HH:mm"
+                    )}`}
+                  />
+                </ListItemButton>
+                <ListItemButton sx={{ pl: 4 }}>
+                  <ListItemText
+                    primary={`침여 인원 : ${todo.attendingUsers.join(" ")}`}
+                  />
+                </ListItemButton>
+                <DetailBtnContainer>
+                  <Button
+                    onClick={() => handleTodoDeleteBtnClick(todo._id)}
+                    sx={{ width: "30%" }}
+                    variant="outlined"
+                    color="error"
+                  >
+                    삭제
+                  </Button>
+                  <Button
+                    onClick={() =>
+                      handleTodoUpdateBtnClick({
+                        _id: todo._id,
+                        clubId: todo.clubId,
+                        title: todo.title,
+                        content: todo.content,
+                        date: moment(todo.date).format("YYYY-MM-DD"),
+                        startTime: moment(todo.startTime).format(
+                          "YYYY-MM-DD HH:mm"
+                        ),
+                        endTime: moment(todo.endTime).format(
+                          "YYYY-MM-DD HH:mm"
+                        ),
+                        attendingUsers: todo.attendingUsers,
+                        tags: todo.tags,
+                      })
+                    }
+                    sx={{ width: "30%" }}
+                    variant="outlined"
+                    color="primary"
+                  >
+                    수정
+                  </Button>
+                </DetailBtnContainer>
+              </List>
+            </Collapse>
+          </ItemContainer>
+        ))}
+        {/* <ListItemButton>
+          <ListItemText primary="Sent mail" />
+        </ListItemButton>
+        <ListItemButton>
+          <ListItemText primary="Drafts" />
+        </ListItemButton>
+        <ListItemButton onClick={handleClick}>
+          <ListItemText primary="Inbox" />
+          {open ? <MdExpandLess /> : <MdExpandMore />}
+        </ListItemButton>
+        <Collapse in={open} timeout="auto" unmountOnExit>
+          <List component="div" disablePadding>
+            <ListItemButton sx={{ pl: 4 }}>
+              <ListItemText primary="Starred" />
+            </ListItemButton>
+          </List>
+        </Collapse> */}
+      </List>
       <TodoAddDialog open={dialogOpen} onClose={handleDialogClose} />
     </BoardContainer>
   );

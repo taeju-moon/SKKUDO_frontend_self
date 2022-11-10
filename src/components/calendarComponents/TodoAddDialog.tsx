@@ -13,6 +13,7 @@ import {
   TextField,
   Theme,
   useTheme,
+  Button,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
@@ -45,7 +46,7 @@ const NewTodoInput = styled(TextField)`
   margin-bottom: 40px;
 `;
 
-const NewTodoSumbitBtn = styled.button``;
+const NewTodoSumbitBtn = styled(Button)``;
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -359,7 +360,9 @@ function TodoAddDialog(props: SimpleDialogProps) {
             ))}
           </Select>
         </FormControl>
-        <NewTodoSumbitBtn type="submit">일정 추가하기</NewTodoSumbitBtn>
+        <NewTodoSumbitBtn type="submit" color="success" variant="outlined">
+          {isTodoUpdate ? "일정 수정하기" : "일정 추가하기"}
+        </NewTodoSumbitBtn>
       </NewTodoForm>
     </Dialog>
   );

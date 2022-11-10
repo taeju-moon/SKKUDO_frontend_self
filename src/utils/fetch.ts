@@ -197,9 +197,16 @@ export const getAppliedUserByClubID = (clubID: string) =>
     .get(Get_ALL_APPLIED_USERS.concat("/byClub/", clubID))
     .then((res) => res.data.data);
 
-export const deleteAppliedUser = (applyID: string) =>
+export const deleteAppliedUser = (applyID: string, clubID: string) =>
   axios
-    .delete(Get_ALL_APPLIED_USERS.concat("/", applyID))
+    .delete(Get_ALL_APPLIED_USERS.concat("/", applyID), {
+      data: { clubId: clubID },
+    })
+    .then((res) => res.data);
+
+export const deleteAppliedUsersByClubID = (clubID: string) =>
+  axios
+    .delete(GET_ALL_APPLIERS_URL.concat("/club/", clubID))
     .then((res) => res.data);
 
 const GET_APPLIED_USERS_BY_ID = `${BASE_URL}/applies/appliedUsers/byUser`;
