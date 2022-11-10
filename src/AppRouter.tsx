@@ -46,8 +46,14 @@ function AppRouter() {
       });
       // console.log(data);
     },
-    onError: (error: any) => console.log(error.response.data.error),
+    onError: (error: any) => {
+      console.log(error.response.data.error);
+      setIsLoggedIn(false);
+      setUserName("");
+      setUserInfoState({ userId: "", studentId: "", name: "", major: "" });
+    },
   });
+
   useEffect(() => {
     mutate();
   }, []);

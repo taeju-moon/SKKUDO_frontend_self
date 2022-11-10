@@ -5,7 +5,7 @@ import { ClubType } from "../types/club";
 import { getOneClub } from "../utils/fetch";
 
 const ClubHeader = styled("div")({
-  paddingTop: "120px",
+  paddingTop: "10px",
   display: "flex",
   width: "100%",
   maxWidth: "1024px",

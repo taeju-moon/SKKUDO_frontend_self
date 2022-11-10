@@ -148,7 +148,10 @@ function CalendarPage() {
         isDayDetailOpened={isDayDetailOpened}
         onClick={() => setIsDayDetailOpened(false)}
       ></DayDetailOverlay>
-      <DayDetailBoard isDayDetailOpened={isDayDetailOpened}></DayDetailBoard>
+      <DayDetailBoard
+        date={value}
+        isDayDetailOpened={isDayDetailOpened}
+      ></DayDetailBoard>
     </>
   );
 }

@@ -15,16 +15,31 @@ import { useQuery } from "react-query";
 import { ClubType } from "../types/club";
 
 const NavigationButton = styled.button`
-  position: fixed;
-  right: 0;
+  /* position: fixed; */
+  width: 100%;
+  max-width: 1024px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: flex-end;
+  /* right: 0; */
   background-color: transparent;
   border: none;
-  margin: 10px;
-  padding-top: 80px;
+  /* margin: 10px; */
+  padding-top: 100px;
 `;
 
 const DrawerTitle = styled.div`
-  width: 300px;
+  width: 350px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  /* background-color: #0c4426; */
+  background: linear-gradient(45deg, #0c4426, #206d44);
+  color: #dde143;
+  font-size: 20px;
+  font-weight: 900;
+  box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.6);
 `;
 
 const NavigateToManagePageButton = styled.button`
@@ -70,11 +85,19 @@ function ClubDetailNavigator() {
       <Divider />
       <List>
         {navigationList.map((navigationItem, index) => (
-          <ListItem key={navigationItem.navigationTitle} disablePadding>
+          <ListItem
+            sx={{ color: "#0c4426", marginBottom: "10px" }}
+            key={navigationItem.navigationTitle}
+            disablePadding
+          >
             <ListItemButton
               onClick={() => navigate(navigationItem.navigationPath)}
             >
-              <ListItemText primary={navigationItem.navigationTitle} />
+              <ListItemText
+                disableTypography
+                sx={{ fontWeight: 800, fontSize: "20px" }}
+                primary={navigationItem.navigationTitle}
+              />
             </ListItemButton>
           </ListItem>
         ))}
@@ -83,14 +106,24 @@ function ClubDetailNavigator() {
       <NavigateToManagePageButton
         onClick={() => navigate(`/manage/${clubID}/main`)}
       >
-        <ListItemText>동아리 관리</ListItemText>
+        <ListItemText
+          disableTypography
+          sx={{
+            color: "#0c4426",
+            fontWeight: 800,
+            fontSize: "20px",
+            marginTop: "20px",
+          }}
+        >
+          동아리 관리
+        </ListItemText>
       </NavigateToManagePageButton>
     </Box>
   );
   return (
     <React.Fragment>
       <NavigationButton onClick={() => toggleDrawer(true)}>
-        <AiOutlineMenu size="2rem" />
+        <AiOutlineMenu size="2.5rem" />
       </NavigationButton>
       <Drawer anchor="right" open={state} onClose={() => toggleDrawer(false)}>
         {list()}
