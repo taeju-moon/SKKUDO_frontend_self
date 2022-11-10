@@ -2,12 +2,9 @@ import { useEffect, useState } from "react";
 import { useSetRecoilState } from "recoil";
 import { isManageState } from "../../atoms/NavigatorAtom";
 import { Outlet } from "react-router-dom";
-// material
 import { styled } from "@mui/material/styles";
 import DashboardNavBar from "../../components/dashboardComponents/DashboardNavBar";
 import DashboardSidebar from "../../components/dashboardComponents/DashboardSideBar";
-//
-// import DashboardSidebar from './DashboardSidebar';
 
 const APP_BAR_MOBILE = 64;
 const APP_BAR_DESKTOP = 92;

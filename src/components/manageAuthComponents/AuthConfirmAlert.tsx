@@ -56,29 +56,24 @@ export default function AuthConfirmAlert({
   };
 
   return (
-    <div>
-      <Button variant="outlined" onClick={handleClickOpen}>
-        Open alert dialog
-      </Button>
-      <Dialog
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogTitle id="alert-dialog-title">{selectedLabel}</DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            {`${selectedLabel}을 ${selectedValue}까지로 변경하시겠습니까?`}
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose}>Disagree</Button>
-          <Button onClick={handleAgreeBtnClcik} autoFocus>
-            Agree
-          </Button>
-        </DialogActions>
-      </Dialog>
-    </div>
+    <Dialog
+      open={open}
+      onClose={handleClose}
+      aria-labelledby="alert-dialog-title"
+      aria-describedby="alert-dialog-description"
+    >
+      <DialogTitle id="alert-dialog-title">{selectedLabel}</DialogTitle>
+      <DialogContent>
+        <DialogContentText id="alert-dialog-description">
+          {`${selectedLabel}을 ${selectedValue}까지로 변경하시겠습니까?`}
+        </DialogContentText>
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={handleClose}>Disagree</Button>
+        <Button onClick={handleAgreeBtnClcik} autoFocus>
+          Agree
+        </Button>
+      </DialogActions>
+    </Dialog>
   );
 }
