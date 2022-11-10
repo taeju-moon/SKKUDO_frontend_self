@@ -9,23 +9,26 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import styled from "styled-components";
 import { AiOutlineMenu } from "react-icons/ai";
-import { GiHamburgerMenu } from "react-icons/gi";
+
 import { getOneClub } from "../utils/fetch";
 import { useQuery } from "react-query";
 import { ClubType } from "../types/club";
+import { motion } from "framer-motion";
 
-const NavigationButton = styled.button`
-  /* position: fixed; */
+const NavigatorContainer = styled.div`
   width: 100%;
   max-width: 1024px;
   margin: 0 auto;
   display: flex;
   justify-content: flex-end;
-  /* right: 0; */
+  padding-top: 100px;
+`;
+
+const NavigationButton = styled(motion.button)`
   background-color: transparent;
   border: none;
-  /* margin: 10px; */
-  padding-top: 100px;
+  border-radius: 10px;
+  padding: 10px;
 `;
 
 const DrawerTitle = styled.div`
@@ -34,7 +37,7 @@ const DrawerTitle = styled.div`
   justify-content: center;
   align-items: center;
   height: 50px;
-  /* background-color: #0c4426; */
+
   background: linear-gradient(45deg, #0c4426, #206d44);
   color: #dde143;
   font-size: 20px;
@@ -121,14 +124,17 @@ function ClubDetailNavigator() {
     </Box>
   );
   return (
-    <React.Fragment>
-      <NavigationButton onClick={() => toggleDrawer(true)}>
+    <NavigatorContainer>
+      <NavigationButton
+        whileHover={{ backgroundColor: "rgba(0,0,0,0.4)" }}
+        onClick={() => toggleDrawer(true)}
+      >
         <AiOutlineMenu size="2.5rem" />
       </NavigationButton>
       <Drawer anchor="right" open={state} onClose={() => toggleDrawer(false)}>
         {list()}
       </Drawer>
-    </React.Fragment>
+    </NavigatorContainer>
   );
 }
 
