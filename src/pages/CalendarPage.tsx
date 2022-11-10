@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Calendar from "react-calendar";
 import { useState } from "react";
-// import "react-calendar/dist/Calendar.css";
+
 import "./CustomCalendarStyle.css";
 import moment from "moment";
 import ClubDetailHeader from "../components/ClubDetailHeader";
@@ -27,7 +27,7 @@ const BtnContainer = styled("div")({
   maxWidth: "1024px",
   margin: "0 auto",
   justifyContent: "flex-end",
-  marginTop: "60px",
+  marginTop: "20px",
   gap: "20px",
 });
 
