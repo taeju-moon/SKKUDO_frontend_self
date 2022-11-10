@@ -31,6 +31,9 @@ const AccountStyle = styled("div")(({ theme }) => ({
 const Logo = styled(RouterLink)({
   color: "#dde143",
   textDecoration: "none",
+  fontSize: "50px",
+  fontWeight: 900,
+  marginBottom: "30px",
 });
 
 // ----------------------------------------------------------------------

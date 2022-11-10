@@ -204,6 +204,11 @@ export const deleteAppliedUser = (applyID: string, clubID: string) =>
     })
     .then((res) => res.data);
 
+export const deleteAppliedUsersByClubID = (clubID: string) =>
+  axios
+    .delete(GET_ALL_APPLIERS_URL.concat("/club/", clubID))
+    .then((res) => res.data);
+
 const GET_APPLIED_USERS_BY_ID = `${BASE_URL}/applies/appliedUsers/byUser`;
 
 export const getAppliedUserByID = () =>

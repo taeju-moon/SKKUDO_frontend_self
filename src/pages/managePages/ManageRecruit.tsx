@@ -121,6 +121,7 @@ function ManageRecruit() {
       );
     }
     setSelected(newSelected);
+    console.log(selected);
   };
 
   function applySortFilter(
