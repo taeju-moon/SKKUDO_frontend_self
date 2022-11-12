@@ -1,6 +1,6 @@
 import { filter } from "lodash";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link as RouterLink, useParams } from "react-router-dom";
 
 import {
@@ -26,10 +26,18 @@ import UserMoreMenu from "../../components/userComponents/UserMoreMenu";
 import Label from "../../components/userComponents/Label";
 import SearchNotFound from "../../components/userComponents/SearchNotFound";
 import { useQuery } from "react-query";
-import { getClubMembers } from "../../utils/fetch";
+import { getClubMembers, getOneClub } from "../../utils/fetch";
 import { UserType } from "../../types/user";
+import { ClubType } from "../../types/club";
+import { ColumnType } from "../../types/common";
 
-const TABLE_HEAD = [
+interface ITableHeadItem {
+  id: string;
+  label: string;
+  alignRight: boolean;
+}
+
+const TABLE_HEAD: ITableHeadItem[] = [
   { id: "name", label: "이름", alignRight: false },
   { id: "studentId", label: "학번", alignRight: false },
   { id: "role", label: "역할", alignRight: false },
@@ -41,6 +49,10 @@ const TABLE_HEAD = [
 
 type orderType = "desc" | "asc";
 type orderByType = "name" | "studentId" | "role" | "major" | "location";
+type IMoreColumn = {
+  column: ColumnType;
+  value: String;
+};
 
 function descendingComparator(
   a: UserType,
@@ -120,6 +132,8 @@ export default function User() {
 
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
+  const [tableHead, setTableHead] = useState<ITableHeadItem[]>(TABLE_HEAD);
+
   const { clubID } = useParams();
 
   const { data, isLoading } = useQuery<UserType[]>(
@@ -129,9 +143,9 @@ export default function User() {
       onSuccess: (data) => {
         console.log(data);
         if (data[0].registeredClubs instanceof Map) {
-          console.log("it is map");
+          //console.log("it is map");
         } else {
-          console.log("it is not a map");
+          //console.log("it is not a map");
         }
       },
       onError: (error) => console.log(error),
@@ -203,6 +217,23 @@ export default function User() {
   // console.log(filteredUsers);
   // console.log(clubID);
 
+  //add morecolumn to header
+  useEffect(() => {
+    getOneClub(clubID || "")
+      .then((club: ClubType) => {
+        const userColumns: ITableHeadItem[] = club.userColumns.map((item) => {
+          const elem: ITableHeadItem = {
+            id: item.key,
+            label: item.key,
+            alignRight: false,
+          };
+          return elem;
+        });
+        setTableHead([...TABLE_HEAD, ...userColumns]);
+      })
+      .catch((error) => alert(error.error));
+  }, []);
+
   return (
     <Container>
       <Stack
@@ -237,7 +268,7 @@ export default function User() {
               <UserListHead
                 order={order}
                 orderBy={orderBy}
-                headLabel={TABLE_HEAD}
+                headLabel={tableHead}
                 rowCount={data?.length || 0}
                 numSelected={selected.length}
                 onRequestSort={handleRequestSort}
@@ -293,7 +324,19 @@ export default function User() {
                         </TableCell>
                         <TableCell align="left">{major}</TableCell>
                         <TableCell align="left">{location}</TableCell>
-
+                        {clubID && data
+                          ? new Map(Object.entries(registeredClubs))
+                              .get(clubID)
+                              .moreColumns.map(
+                                (item: IMoreColumn, index: any) => {
+                                  return (
+                                    <TableCell key={index} align="left">
+                                      {item.value}
+                                    </TableCell>
+                                  );
+                                }
+                              )
+                          : ""}
                         <TableCell align="right">
                           <UserMoreMenu />
                         </TableCell>
