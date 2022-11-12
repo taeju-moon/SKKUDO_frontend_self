@@ -20,11 +20,11 @@ const navConfig = [
     path: "/manage/:clubID/user",
     icon: getIcon("eva:people-fill"),
   },
-  // {
-  //   title: "product/회의록",
-  //   path: "/manage/:clubID/notes",
-  //   icon: getIcon("eva:shopping-bag-fill"),
-  // },
+  {
+    title: "Club/동아리관리",
+    path: "/manage/:clubID/club",
+    icon: getIcon("eva:shopping-bag-fill"),
+  },
   {
     title: "blog/권한관리",
     path: "/manage/:clubID/auth",

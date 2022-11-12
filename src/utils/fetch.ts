@@ -124,6 +124,9 @@ export const registerClub = async (
     .patch(REGISTER_CLUB_URL.concat(userID, "/", clubID), registerInfo)
     .then((res) => res.data);
 
+export const registerPassedUsers = () =>
+  axios.patch(REGISTER_CLUB_URL.concat("/many/")).then((res) => res.data);
+
 const GET_VALIDATON_BY_CLUBID_URL = `${BASE_URL}/validations/`;
 
 export const getValidatonByClubID = async (clubID: string) =>
