@@ -25,6 +25,7 @@ import UserListHead from "../../components/userComponents/UserListHead";
 import UserMoreMenu from "../../components/userComponents/UserMoreMenu";
 import Label from "../../components/userComponents/Label";
 import SearchNotFound from "../../components/userComponents/SearchNotFound";
+import ColumnModal from "../../components/userComponents/ColumnModal";
 import { useQuery } from "react-query";
 import { getClubMembers, getOneClub } from "../../utils/fetch";
 import { UserType } from "../../types/user";
@@ -134,6 +135,8 @@ export default function User() {
 
   const [tableHead, setTableHead] = useState<ITableHeadItem[]>(TABLE_HEAD);
 
+  const [addColumnModalOpen, setColumnModalOpen] = useState<boolean>(false);
+
   const { clubID } = useParams();
 
   const { data, isLoading } = useQuery<UserType[]>(
@@ -233,7 +236,6 @@ export default function User() {
       })
       .catch((error) => alert(error.error));
   }, []);
-
   return (
     <Container>
       <Stack
@@ -250,9 +252,14 @@ export default function User() {
           component={RouterLink}
           to="#"
           startIcon={<Iconify icon="eva:plus-fill" />}
+          onClick={() => setColumnModalOpen(true)}
         >
-          New User
+          유저 열 추가
         </Button>
+        <ColumnModal
+          addColumnModalOpen={addColumnModalOpen}
+          setColumnModalOpen={setColumnModalOpen}
+        />
       </Stack>
 
       <Card>
