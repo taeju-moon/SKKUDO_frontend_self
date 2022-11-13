@@ -1,5 +1,5 @@
-import React, { useRef, useState } from "react";
-import { Link as RouterLink } from "react-router-dom";
+import React, { useEffect, useRef, useState } from "react";
+import { Link as RouterLink, useParams } from "react-router-dom";
 // @mui
 import { alpha } from "@mui/material/styles";
 import {
@@ -12,6 +12,9 @@ import {
   IconButton,
 } from "@mui/material";
 import MenuPopover from "./MenuPopover";
+import { useRecoilValue } from "recoil";
+import { loggedInUserState } from "../../atoms/userAtom";
+import { RoleType } from "../../types/common";
 // components
 // // mocks_
 // import account from '../../_mock/account';
@@ -37,6 +40,23 @@ const MENU_OPTIONS = [
 ];
 
 export default function AccountPopover() {
+  const { clubID } = useParams();
+  const loggedInUser = useRecoilValue(loggedInUserState);
+  const [userRole, setUserRole] = useState<RoleType>("부원");
+
+  useEffect(() => {
+    if (loggedInUser) {
+      const registedClubs = new Map(
+        Object.entries(loggedInUser.registeredClubs)
+      );
+      setUserRole(registedClubs.get(clubID || "").role);
+      // setSpecificInfo({
+      //   role: registedClubs.get(clubID || "").role,
+      //   moreColumns: registedClubs.get(clubID || "").moreColumns,
+      // });
+    }
+  }, [loggedInUser]);
+
   const account = {
     displayName: "Jaydon Frankie",
     email: "demo@minimals.cc",
@@ -94,10 +114,10 @@ export default function AccountPopover() {
       >
         <Box sx={{ my: 1.5, px: 2.5 }}>
           <Typography variant="subtitle2" noWrap>
-            {account.displayName}
+            {loggedInUser?.name}
           </Typography>
           <Typography variant="body2" sx={{ color: "text.secondary" }} noWrap>
-            {account.email}
+            {userRole}
           </Typography>
         </Box>
 

@@ -6,7 +6,11 @@ import {
   ToDoType,
   UpdateTodoType,
 } from "./../types/todo";
-import { NewClubType, UpdateClubInfoType } from "./../types/club";
+import {
+  NewClubColumnType,
+  NewClubType,
+  UpdateClubInfoType,
+} from "./../types/club";
 import {
   DeleteNoticetype,
   NewNoticeTagType,
@@ -108,6 +112,14 @@ export const updateClub = async (
 ) =>
   axios
     .patch(GET_ONE_CLUB_URL.concat(clubID), updateInfo)
+    .then((res) => res.data);
+
+export const addClubUserColumn = async (
+  clubID: string,
+  newColumnInfo: NewClubColumnType
+) =>
+  axios
+    .post(GET_ONE_CLUB_URL.concat("userColumn/", clubID))
     .then((res) => res.data);
 
 const GET_CLUB_MEMBERS_URL = `${BASE_URL}/users/byClub/`;

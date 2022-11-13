@@ -26,7 +26,11 @@ import { useSetRecoilState } from "recoil";
 import { isLoggedInState } from "./atoms/loginAtom";
 import { useEffect } from "react";
 import { VerifyUserResponseType } from "./types/user";
-import { userInfoState, userNameState } from "./atoms/userAtom";
+import {
+  loggedInUserState,
+  userInfoState,
+  userNameState,
+} from "./atoms/userAtom";
 import UpdateNoticePage from "./pages/UpdateNoticePage";
 import ApplyPage from "./pages/ApplyPage";
 import ManageClub from "./pages/managePages/ManageClub";
@@ -35,6 +39,7 @@ function AppRouter() {
   const setIsLoggedIn = useSetRecoilState(isLoggedInState);
   const setUserName = useSetRecoilState(userNameState);
   const setUserInfoState = useSetRecoilState(userInfoState);
+  const setLoggedInUser = useSetRecoilState(loggedInUserState);
   const { mutate } = useMutation<VerifyUserResponseType>(verifyUser, {
     onSuccess: (data) => {
       setIsLoggedIn(true);
@@ -45,6 +50,7 @@ function AppRouter() {
         name: data.authUser.name,
         major: data.authUser.major,
       });
+      setLoggedInUser(data.authUser);
       // console.log(data);
     },
     onError: (error: any) => {
