@@ -16,3 +16,8 @@ export const userInfoState = atom<UserApplierType>({
   key: "userInfoState",
   default: { studentId: "", name: "", major: "", userId: "" },
 });
+
+export const loggedInUserState = atom<UserType | null>({
+  key: "loggedInUser",
+  default: null,
+});
