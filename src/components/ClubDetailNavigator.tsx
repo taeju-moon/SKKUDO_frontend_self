@@ -62,6 +62,7 @@ const navigationList = [
   { navigationTitle: "공지사항", navigationPath: "notice" },
   { navigationTitle: "동아리 일정", navigationPath: "calendar" },
   { navigationTitle: "동아리 멤버", navigationPath: "members" },
+  { navigationTitle: "내 동아리 프로필", navigationPath: "profile" },
 ];
 
 function ClubDetailNavigator() {
