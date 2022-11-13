@@ -6,7 +6,7 @@ import {
   ToDoType,
   UpdateTodoType,
 } from "./../types/todo";
-import { NewClubType } from "./../types/club";
+import { NewClubType, UpdateClubInfoType } from "./../types/club";
 import {
   DeleteNoticetype,
   NewNoticeTagType,
@@ -102,8 +102,13 @@ const GET_ONE_CLUB_URL = `${BASE_URL}/clubs/clubs/`;
 export const getOneClub = async (clubID: string) =>
   axios.get(GET_ONE_CLUB_URL.concat(clubID)).then((res) => res.data.data);
 
-export const updateClub = async (clubID: string) =>
-  axios.get(GET_ONE_CLUB_URL.concat(clubID)).then((res) => res.data);
+export const updateClub = async (
+  clubID: string,
+  updateInfo: UpdateClubInfoType
+) =>
+  axios
+    .patch(GET_ONE_CLUB_URL.concat(clubID), updateInfo)
+    .then((res) => res.data);
 
 const GET_CLUB_MEMBERS_URL = `${BASE_URL}/users/byClub/`;
 

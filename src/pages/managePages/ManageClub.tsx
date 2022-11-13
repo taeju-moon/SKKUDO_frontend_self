@@ -120,20 +120,30 @@ function ManageClub() {
             </BtnContainer>
           </InfoContainer>
           <RowContainer>
-            <InfoContainer>
+            <InfoContainer
+              style={{
+                opacity: clubData?.recruitType === "상시모집" ? "0.3" : "1",
+              }}
+            >
               <Label>
                 {moment(clubData?.recruitStart).format("YYYY-MM-DD")}
               </Label>
               <BtnContainer
+                disabled={clubData?.recruitType === "상시모집" ? true : false}
                 whileHover={{ backgroundColor: "rgba(0,0,0,0.5)" }}
                 onClick={() => handleEditBtnClick("recruitStart")}
               >
                 <FaPen />
               </BtnContainer>
             </InfoContainer>
-            <InfoContainer>
+            <InfoContainer
+              style={{
+                opacity: clubData?.recruitType === "상시모집" ? "0.3" : "1",
+              }}
+            >
               <Label>{moment(clubData?.recruitEnd).format("YYYY-MM-DD")}</Label>
               <BtnContainer
+                disabled={clubData?.recruitType === "상시모집" ? true : false}
                 whileHover={{ backgroundColor: "rgba(0,0,0,0.5)" }}
                 onClick={() => handleEditBtnClick("recruitEnd")}
               >

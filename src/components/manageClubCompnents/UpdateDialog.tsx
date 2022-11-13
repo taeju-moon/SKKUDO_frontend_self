@@ -17,7 +17,10 @@ import {
 } from "@mui/material";
 import { DesktopDatePicker } from "@mui/x-date-pickers";
 import { LocationType } from "../../types/common";
-import { RecruitType } from "../../types/club";
+import { RecruitType, UpdateClubInfoType } from "../../types/club";
+import { useMutation, useQueryClient } from "react-query";
+import { useParams } from "react-router-dom";
+import { updateClub } from "../../utils/fetch";
 
 interface UpdateDialogType {
   dialogOpen: boolean;
@@ -30,6 +33,8 @@ interface ProperInputType {
 }
 
 function ProperInput({ keyword, handleClose }: ProperInputType) {
+  const { clubID } = useParams();
+  const queryClient = useQueryClient();
   const [name, setName] = React.useState("변경할 이름");
   const [location, setLocation] = React.useState<LocationType>("인사캠");
   const [recruitType, setRecruitType] = React.useState<RecruitType>("정규모집");
@@ -56,6 +61,35 @@ function ProperInput({ keyword, handleClose }: ProperInputType) {
     }
   };
 
+  const { mutate } = useMutation(
+    (updateInfo: UpdateClubInfoType) => updateClub(clubID || "", updateInfo),
+    {
+      onSuccess: (data) => {
+        console.log(data);
+        queryClient.invalidateQueries("getOneClub");
+      },
+      onError: (error) => console.log(error),
+    }
+  );
+
+  const handleUpdateSubmit = () => {
+    if (keyword === "name") {
+      mutate({ name });
+    } else if (keyword === "typeName") {
+      mutate({ type: { name } });
+    } else if (keyword === "location") {
+      mutate({ location });
+    } else if (keyword === "recruitType") {
+      mutate({ recruitType });
+    } else if (keyword === "recruitStart") {
+      mutate({ recruitStart: date });
+    } else if (keyword === "recruitEnd") {
+      mutate({ recruitEnd: date });
+    } else {
+      alert("키워드 에러");
+    }
+    handleClose();
+  };
   if (keyword === "name" || keyword === "typeName") {
     return (
       <>
@@ -74,7 +108,7 @@ function ProperInput({ keyword, handleClose }: ProperInputType) {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>취소</Button>
-          <Button onClick={handleClose}>수정</Button>
+          <Button onClick={handleUpdateSubmit}>수정</Button>
         </DialogActions>
       </>
     );
@@ -96,7 +130,7 @@ function ProperInput({ keyword, handleClose }: ProperInputType) {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>취소</Button>
-          <Button onClick={handleClose}>수정</Button>
+          <Button onClick={handleUpdateSubmit}>수정</Button>
         </DialogActions>
       </>
     );
@@ -118,7 +152,7 @@ function ProperInput({ keyword, handleClose }: ProperInputType) {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>취소</Button>
-          <Button onClick={handleClose}>수정</Button>
+          <Button onClick={handleUpdateSubmit}>수정</Button>
         </DialogActions>
       </>
     );
@@ -140,7 +174,7 @@ function ProperInput({ keyword, handleClose }: ProperInputType) {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>취소</Button>
-          <Button onClick={handleClose}>수정</Button>
+          <Button onClick={handleUpdateSubmit}>수정</Button>
         </DialogActions>
       </>
     );
