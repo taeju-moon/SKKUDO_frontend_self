@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useParams } from "react-router-dom";
 
 import {
   styled,
@@ -9,11 +10,9 @@ import {
   InputLabel,
   Button,
 } from "@mui/material";
+import { addClubUserColumn } from "./../../../utils/fetch";
 
-interface ColumnType {
-  key: string;
-  valueType: "string" | "number" | "boolean";
-}
+import { ColumnType } from "../../../types/common";
 
 type ValueType = "string" | "number" | "boolean";
 
@@ -27,17 +26,23 @@ const MainWrapper = styled("div")({
   marginBottom: "20px",
 });
 
-export function ColumnCreate() {
+export default function ColumnCreate() {
   const [columnForm, setColumnForm] = useState<ColumnType>({
+    _id: "",
     key: "",
     valueType: "string",
   });
+  const clubId = useParams().clubID as string;
 
   const handleButtonClick = () => {
     if (columnForm.key.length === 0) {
       alert("생성하고자 하는 열의 값이 비어있습니다.");
     } else {
-      //요청을 보내고 .then, .catch 처리하기
+      addClubUserColumn(clubId, columnForm)
+        .then(() => {
+          alert("열을 추가했습니다.");
+        })
+        .catch((error) => alert(error.response.data.error));
     }
   };
 

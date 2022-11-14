@@ -1,7 +1,8 @@
 import { useState } from "react";
 
 import { Dialog, Button, ButtonGroup, styled } from "@mui/material";
-import { ColumnCreate } from "./ColumnCreate";
+import ColumnCreate from "./ColumnCreate";
+import ColumnDelete from "./ColumnDelete";
 
 interface ColumnModalType {
   addColumnModalOpen: boolean;
@@ -106,7 +107,10 @@ export default function ColumnModal({
         </ButtonGroup>
       </ButtonWrapper>
 
-      <MainWrapper>{switchPage.create ? <ColumnCreate /> : <></>}</MainWrapper>
+      <MainWrapper>
+        {switchPage.create ? <ColumnCreate /> : <></>}
+        {switchPage.delete ? <ColumnDelete /> : <></>}
+      </MainWrapper>
       <CloseWrapper>
         <Button color="success" onClick={() => setColumnModalOpen(false)}>
           CLOSE

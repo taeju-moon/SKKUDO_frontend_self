@@ -14,6 +14,7 @@ import {
   UpdateNoticeType,
 } from "./../types/notice";
 import { NewUserType, RegisterInfoType } from "./../types/user";
+import { ColumnType } from "../types/common";
 import axios from "axios";
 
 axios.defaults.withCredentials = true;
@@ -127,12 +128,42 @@ export const registerClub = async (
 export const registerPassedUsers = () =>
   axios.patch(REGISTER_CLUB_URL.concat("/many/")).then((res) => res.data);
 
+const CLUB_COLUMNS_URL = `${BASE_URL}/clubs/clubs/userColumn`;
+
+export const addClubUserColumn = async (
+  clubId: string,
+  userColumn: ColumnType
+) => {
+  const result = await axios.post(CLUB_COLUMNS_URL.concat(`/${clubId}`), {
+    userColumn,
+  });
+  return result;
+};
+
+export const updateClubUserColumn = async (
+  clubId: string,
+  key: string,
+  newColumn: ColumnType
+) => {
+  axios
+    .patch(CLUB_COLUMNS_URL.concat(`/${clubId}`), { key, newColumn })
+    .then((res) => res.data);
+};
+
+export const deleteClubUserColumn = async (clubId: string, key: string) => {
+  const result = await axios.delete(CLUB_COLUMNS_URL.concat(`/${clubId}`), {
+    data: { key },
+  });
+  return result;
+};
+
 const GET_VALIDATON_BY_CLUBID_URL = `${BASE_URL}/validations/`;
 
 export const getValidatonByClubID = async (clubID: string) =>
   axios
     .get(GET_VALIDATON_BY_CLUBID_URL.concat(clubID))
-    .then((res) => res.data.data);
+    .then((res) => res.data.data)
+    .catch((error) => error.error);
 
 export const updateValidation = async (
   clubID: string,
