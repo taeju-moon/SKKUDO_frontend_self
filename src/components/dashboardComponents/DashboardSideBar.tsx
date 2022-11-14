@@ -6,10 +6,10 @@ import useResponsive from "../../hooks/useResponsive";
 import Scrollbar from "./Scrollbar";
 import NavSection from "./NavSection";
 import navConfig from "../../config/NavConfig";
-import { useQuery } from "react-query";
+
 import { useRecoilValue } from "recoil";
-import { loggedInUserState, userInfoState } from "../../atoms/userAtom";
-import { getOneUser } from "../../utils/fetch";
+import { loggedInUserState } from "../../atoms/userAtom";
+
 import { ColumnType, RoleType } from "../../types/common";
 
 const DRAWER_WIDTH = 280;
