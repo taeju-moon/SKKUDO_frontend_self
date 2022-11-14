@@ -145,9 +145,11 @@ export const updateClubUserColumn = async (
   key: string,
   newColumn: ColumnType
 ) => {
-  axios
-    .patch(CLUB_COLUMNS_URL.concat(`/${clubId}`), { key, newColumn })
-    .then((res) => res.data);
+  const result = await axios.patch(CLUB_COLUMNS_URL.concat(`/${clubId}`), {
+    key,
+    newColumn,
+  });
+  return result;
 };
 
 export const deleteClubUserColumn = async (clubId: string, key: string) => {

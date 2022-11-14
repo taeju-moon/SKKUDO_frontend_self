@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { getOneClub, deleteClubUserColumn } from "../../../utils/fetch";
+import { getOneClub, updateClubUserColumn } from "../../../utils/fetch";
 import {
   styled,
   Select,
@@ -8,6 +8,7 @@ import {
   FormControl,
   Button,
   InputLabel,
+  TextField,
 } from "@mui/material";
 import { ColumnType } from "../../../types/common";
 
@@ -22,21 +23,37 @@ const ButtonWrapper = styled("div")({
   alignItems: "center",
 });
 
-export default function ColumnDelete() {
-  const [deletingColumn, setDeletingColumn] = useState<string>("");
+interface UpdateFormType {
+  key: string;
+  newColumn: ColumnType;
+}
+
+const findByKey = (key: string, columns: ColumnType[]): ColumnType => {
+  let using: ColumnType = { _id: "", key: "", valueType: "string" };
+  columns.forEach((column) => {
+    if (column.key === key) using = column;
+  });
+  return using;
+};
+
+export default function ColumnUpdate() {
+  const [updateForm, setUpdateForm] = useState<UpdateFormType>({
+    key: "",
+    newColumn: { key: "", _id: "", valueType: "string" },
+  });
   const [userColumns, setUserColumns] = useState<ColumnType[]>([]);
   const clubId: string = useParams().clubID as string;
+
   useEffect(() => {
     getOneClub(clubId).then(({ userColumns }) => setUserColumns(userColumns));
   }, []);
 
   const handleSubmit = () => {
-    if (deletingColumn.length === 0) {
-      alert("삭제할 열을 선택하세요.");
-    } else {
-      deleteClubUserColumn(clubId, deletingColumn)
+    if (updateForm.newColumn.key.length === 0) alert("양식이 비어있습니다.");
+    else {
+      updateClubUserColumn(clubId, updateForm.key, updateForm.newColumn)
         .then(() => {
-          alert("열을 삭제했습니다.");
+          alert("열을 수정했습니다.");
           window.location.reload();
         })
         .catch((error) => alert(error.response.data.error));
@@ -47,15 +64,21 @@ export default function ColumnDelete() {
     <MainWrapper>
       <FormControl fullWidth>
         <InputLabel color="success" id="demo-simple-select-label">
-          삭제할 열 선택
+          수정할 열 선택
         </InputLabel>
         <Select
-          value={deletingColumn}
+          value={updateForm.key}
           color="success"
           id="demo-simple-select"
           label="열 형식"
           margin="dense"
-          onChange={(e) => setDeletingColumn(e.target.value)}
+          onChange={(e) => {
+            const usingColumn: ColumnType = findByKey(
+              e.target.value,
+              userColumns
+            );
+            setUpdateForm({ newColumn: usingColumn, key: e.target.value });
+          }}
         >
           {userColumns.map((column: ColumnType, index: number) => {
             return (
@@ -66,13 +89,27 @@ export default function ColumnDelete() {
           })}
         </Select>
       </FormControl>
+      <FormControl>
+        <TextField
+          color="success"
+          margin="dense"
+          placeholder="바꿀이름"
+          value={updateForm.newColumn.key}
+          onChange={(e) => {
+            setUpdateForm({
+              ...updateForm,
+              newColumn: { ...updateForm.newColumn, key: e.target.value },
+            });
+          }}
+        ></TextField>
+      </FormControl>
       <ButtonWrapper>
         <Button
           color="success"
           variant="contained"
           onClick={() => handleSubmit()}
         >
-          열 삭제
+          열 수정하기
         </Button>
       </ButtonWrapper>
     </MainWrapper>

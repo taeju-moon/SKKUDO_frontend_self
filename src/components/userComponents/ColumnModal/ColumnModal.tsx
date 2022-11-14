@@ -2,6 +2,7 @@ import { useState } from "react";
 
 import { Dialog, Button, ButtonGroup, styled } from "@mui/material";
 import ColumnCreate from "./ColumnCreate";
+import ColumnUpdate from "./ColumnUpdate";
 import ColumnDelete from "./ColumnDelete";
 
 interface ColumnModalType {
@@ -109,6 +110,7 @@ export default function ColumnModal({
 
       <MainWrapper>
         {switchPage.create ? <ColumnCreate /> : <></>}
+        {switchPage.update ? <ColumnUpdate /> : <></>}
         {switchPage.delete ? <ColumnDelete /> : <></>}
       </MainWrapper>
       <CloseWrapper>
