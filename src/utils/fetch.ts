@@ -105,6 +105,17 @@ const GET_ONE_USER_URL = `${BASE_URL}/users/`;
 export const getOneUser = async (userID: string) =>
   axios.get(GET_ONE_USER_URL.concat(userID)).then((res) => res.data.data);
 
+export const updateUserColumn = async (
+  clubID: string,
+  newColumnInfo: { key: string; value: string }
+) =>
+  axios
+    .patch(GET_ONE_USER_URL.concat("club/moreColumn/", clubID), newColumnInfo)
+    .then((res) => res.data)
+    .catch((error) => {
+      return error;
+    });
+
 const GET_ONE_CLUB_URL = `${BASE_URL}/clubs/clubs/`;
 
 export const getOneClub = async (clubID: string) =>

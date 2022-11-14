@@ -16,6 +16,7 @@ import ClubDetailHeader from "../components/ClubDetailHeader";
 import { RegisteredClubType } from "../types/user";
 import { FaPen } from "react-icons/fa";
 import { motion } from "framer-motion";
+import ColumnDialog from "../components/profileComponents/ColumnDialog";
 
 const ProfileContainer = styled.div`
   width: 100%;
@@ -46,6 +47,7 @@ function ProfilePage() {
   const { clubID } = useParams();
   const loggedInUser = useRecoilValue(loggedInUserState);
   const [clubProfile, setClubProfile] = useState<RegisteredClubType>();
+  const [keyword, setKeyword] = useState("");
 
   useEffect(() => {
     if (loggedInUser) {
@@ -55,6 +57,13 @@ function ProfilePage() {
       setClubProfile(registedClubs.get(clubID || ""));
     }
   }, [loggedInUser]);
+
+  const [dialogOpen, setDialogOpen] = useState(false);
+
+  const handelEditButtonClick = (selectedKeyword: string) => {
+    setDialogOpen(true);
+    setKeyword(selectedKeyword);
+  };
   return (
     <>
       <ClubDetailHeader pageType="내 프로필" />
@@ -96,6 +105,7 @@ function ProfilePage() {
                     {ele.value || "정보가 없습니다."}
                     <BtnContainer
                       whileHover={{ backgroundColor: "rgba(0,0,0,0.5)" }}
+                      onClick={() => handelEditButtonClick(ele.column.key)}
                     >
                       <FaPen />
                     </BtnContainer>
@@ -106,6 +116,11 @@ function ProfilePage() {
           </Table>
         </TableContainer>
       </ProfileContainer>
+      <ColumnDialog
+        keyword={keyword}
+        dialogOpen={dialogOpen}
+        setDialogOpen={setDialogOpen}
+      />
     </>
   );
 }

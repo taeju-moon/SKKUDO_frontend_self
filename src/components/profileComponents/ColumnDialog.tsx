@@ -4,30 +4,72 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
+  TextField,
 } from "@mui/material";
+import { useState } from "react";
+import { useMutation } from "react-query";
+import { useParams } from "react-router-dom";
+import { updateUserColumn } from "../../utils/fetch";
 
-function ColumnDialog() {
-  //   return <Dialog open={dialogOpen} onClose={handleClose}>
-  //   <DialogTitle>{`${clubUpdate.keyword} 변경`}</DialogTitle>
-  //   <>
-  //         <DialogContent style={{ width: "512px" }}>
-  //           <TextField
-  //             autoFocus
-  //             margin="dense"
-  //             id="name"
-  //             label="새로운 설정"
-  //             fullWidth
-  //             variant="standard"
-  //             value={name}
-  //             sx={{ marginTop: "20px" }}
-  //             onChange={handleNameChange}
-  //           />
-  //         </DialogContent>
-  //         <DialogActions>
-  //           <Button onClick={handleClose}>취소</Button>
-  //           <Button onClick={handleUpdateSubmit}>수정</Button>
-  //         </DialogActions>
-  //       </>
-  // </Dialog>
-  return <div></div>;
+interface ColumnDialogType {
+  keyword: string;
+  dialogOpen: boolean;
+  setDialogOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
+
+function ColumnDialog({
+  keyword,
+  dialogOpen,
+  setDialogOpen,
+}: ColumnDialogType) {
+  const { clubID } = useParams();
+  const handleClose = () => {
+    setDialogOpen(false);
+  };
+  const [newValue, setNewValue] = useState("");
+
+  const { mutate } = useMutation(
+    () => updateUserColumn(clubID || "", { key: keyword, value: newValue }),
+    {
+      onSuccess: (data) => console.log(data),
+      onError: (error) => console.log(error),
+    }
+  );
+
+  const handleValueChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    // event.preventDefault();
+    setNewValue(event.target.value);
+  };
+
+  const handleUpdateSubmit = () => {
+    mutate();
+    handleClose();
+  };
+
+  return (
+    <Dialog open={dialogOpen} onClose={handleClose}>
+      <DialogTitle>{`${keyword} 수정`}</DialogTitle>
+      <>
+        <DialogContent style={{ width: "512px" }}>
+          <TextField
+            autoFocus
+            margin="dense"
+            id="name"
+            label="새로운 설정"
+            fullWidth
+            variant="standard"
+            value={newValue}
+            sx={{ marginTop: "20px" }}
+            onChange={handleValueChange}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>취소</Button>
+          <Button onClick={handleUpdateSubmit}>수정</Button>
+        </DialogActions>
+      </>
+    </Dialog>
+  );
+}
+
+export default ColumnDialog;
