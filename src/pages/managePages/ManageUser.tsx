@@ -144,12 +144,7 @@ export default function User() {
     () => getClubMembers(clubID || ""),
     {
       onSuccess: (data) => {
-        console.log(data);
-        if (data[0].registeredClubs instanceof Map) {
-          //console.log("it is map");
-        } else {
-          //console.log("it is not a map");
-        }
+        // console.log(data);
       },
       onError: (error) => console.log(error),
     }

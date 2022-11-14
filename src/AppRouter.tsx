@@ -26,15 +26,21 @@ import { useSetRecoilState } from "recoil";
 import { isLoggedInState } from "./atoms/loginAtom";
 import { useEffect } from "react";
 import { VerifyUserResponseType } from "./types/user";
-import { userInfoState, userNameState } from "./atoms/userAtom";
+import {
+  loggedInUserState,
+  userInfoState,
+  userNameState,
+} from "./atoms/userAtom";
 import UpdateNoticePage from "./pages/UpdateNoticePage";
 import ApplyPage from "./pages/ApplyPage";
 import ManageClub from "./pages/managePages/ManageClub";
+import ProfilePage from "./pages/ProfilePage";
 // ("Cannot create field '6336bbad1c469c4e2329427e' in element {registeredClubs: []}");
 function AppRouter() {
   const setIsLoggedIn = useSetRecoilState(isLoggedInState);
   const setUserName = useSetRecoilState(userNameState);
   const setUserInfoState = useSetRecoilState(userInfoState);
+  const setLoggedInUser = useSetRecoilState(loggedInUserState);
   const { mutate } = useMutation<VerifyUserResponseType>(verifyUser, {
     onSuccess: (data) => {
       setIsLoggedIn(true);
@@ -45,6 +51,7 @@ function AppRouter() {
         name: data.authUser.name,
         major: data.authUser.major,
       });
+      setLoggedInUser(data.authUser);
       // console.log(data);
     },
     onError: (error: any) => {
@@ -77,6 +84,7 @@ function AppRouter() {
           <Route path="members" element={<MembersPage />} />
           <Route path="notice/add" element={<AddNoticePage />} />
           <Route path="notice/:noticeID" element={<UpdateNoticePage />} />
+          <Route path="profile" element={<ProfilePage />} />
         </Route>
         <Route path="/manage/:clubID" element={<ClubManagePage />}>
           <Route path="main" element={<DashboardApp />} />

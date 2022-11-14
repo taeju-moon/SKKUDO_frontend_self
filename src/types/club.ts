@@ -30,3 +30,19 @@ export interface ClubTypeType {
   createdAt: Date;
   updatedAt: Date;
 }
+
+export interface UpdateClubInfoType {
+  name?: string;
+  type?: { name: string };
+  location?: LocationType;
+  recruitType?: RecruitType;
+  recruitStart?: Date;
+  recruitEnd?: Date;
+}
+
+export interface NewClubColumnType {
+  userColumn: {
+    key: string;
+    valueType: string;
+  };
+}
