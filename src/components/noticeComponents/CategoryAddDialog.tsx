@@ -77,7 +77,8 @@ function CategoryAddDialog(props: SimpleDialogProps) {
       onSuccess: (data) => {
         queryClient.invalidateQueries("getNoticeTagsByClubID");
       },
-      onError: (error) => console.log(error),
+      onError: (error: { response: { data: { error: string } } }) =>
+        alert(error.response.data.error),
     }
   );
   const handleClose = () => {
