@@ -25,7 +25,7 @@ import UserListHead from "../../components/userComponents/UserListHead";
 import UserMoreMenu from "../../components/userComponents/UserMoreMenu";
 import Label from "../../components/userComponents/Label";
 import SearchNotFound from "../../components/userComponents/SearchNotFound";
-import ColumnModal from "../../components/userComponents/ColumnModal";
+import ColumnModal from "../../components/userComponents/ColumnModal/ColumnModal";
 import { useQuery } from "react-query";
 import { getClubMembers, getOneClub } from "../../utils/fetch";
 import { UserType } from "../../types/user";
@@ -251,6 +251,7 @@ export default function User() {
           variant="contained"
           component={RouterLink}
           to="#"
+          color="success"
           startIcon={<Iconify icon="eva:plus-fill" />}
           onClick={() => setColumnModalOpen(true)}
         >
