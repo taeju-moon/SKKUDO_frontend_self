@@ -95,7 +95,10 @@ export const deleteNoticeTag = async (deleteNoticeTagInfo: DeleteNoticetype) =>
     .delete(GET_ALL_NOTICE_TAGS_URL.concat("/", deleteNoticeTagInfo._id), {
       data: { clubId: deleteNoticeTagInfo.clubID },
     })
-    .then((res) => res.data);
+    .then((res) => res.data)
+    .catch((error) => {
+      return error;
+    });
 
 const GET_ONE_USER_URL = `${BASE_URL}/users/`;
 
@@ -115,13 +118,13 @@ export const updateClub = async (
     .patch(GET_ONE_CLUB_URL.concat(clubID), updateInfo)
     .then((res) => res.data);
 
-export const addClubUserColumn = async (
-  clubID: string,
-  newColumnInfo: NewClubColumnType
-) =>
-  axios
-    .post(GET_ONE_CLUB_URL.concat("userColumn/", clubID))
-    .then((res) => res.data);
+// export const addClubUserColumn = async (
+//   clubID: string,
+//   newColumnInfo: NewClubColumnType
+// ) =>
+//   axios
+//     .post(GET_ONE_CLUB_URL.concat("userColumn/", clubID))
+//     .then((res) => res.data);
 
 const GET_CLUB_MEMBERS_URL = `${BASE_URL}/users/byClub/`;
 
