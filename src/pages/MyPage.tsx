@@ -9,12 +9,15 @@ import { useEffect, useState } from "react";
 
 import { useMutation, useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
+import { useRecoilValue } from "recoil";
 
 import styled from "styled-components";
 import exampleImage from "../assets/images/example.png";
 
 import { RegisteredClubType, VerifyUserResponseType } from "../types/user";
 import { getAppliedUserByID, verifyUser } from "../utils/fetch";
+import { isLoggedInState } from "../atoms/loginAtom";
+import { loggedInUserState } from "../atoms/userAtom";
 
 const MyPageContainer = styled.div`
   padding-top: 80px;
@@ -47,6 +50,12 @@ const ClubCardsContainer = styled.div`
 function MyPage() {
   const navigate = useNavigate();
   const [userClubs, setUserClubs] = useState<RegisteredClubType[]>();
+  const isLoggedIn = useRecoilValue(isLoggedInState);
+  const loggedInUser = useRecoilValue(loggedInUserState);
+
+  if (!isLoggedIn) {
+    navigate("/login");
+  }
 
   const { data: appliedClubs, isLoading: isAppliedClubsLoading } = useQuery<
     RegisteredClubType[]
@@ -62,7 +71,9 @@ function MyPage() {
         setUserClubs(Object.values(data.authUser.registeredClubs));
         console.log(data);
       },
-      onError: (error) => navigate("/login"),
+      onError: (error) => {
+        console.log(error);
+      },
     }
   );
 

@@ -1,6 +1,7 @@
 import {
   AppliedUserType,
   ApplyFormType,
+  NewApplierType,
   UpdateApplierType,
 } from "./../types/apply";
 import { UpdateValidationType } from "./../types/validation";
@@ -254,7 +255,17 @@ export const getApplierByClubID = (clubID: string) =>
     .then((res) => res.data.data);
 
 export const updateApplier = (clubID: string, applierInfo: UpdateApplierType) =>
-  axios.patch(GET_ALL_APPLIERS_URL.concat("/", clubID), applierInfo);
+  axios
+    .patch(GET_ALL_APPLIERS_URL.concat("/", clubID), applierInfo)
+    .then((res) => res.data);
+
+export const deleteApplier = (clubID: string) =>
+  axios
+    .delete(GET_ALL_APPLIERS_URL.concat("/", clubID))
+    .then((res) => res.data);
+
+export const createApplier = (newApplier: NewApplierType) =>
+  axios.post(GET_ALL_APPLIERS_URL, newApplier).then((res) => res.data);
 
 const Get_ALL_APPLIED_USERS = `${BASE_URL}/applies/appliedUsers`;
 

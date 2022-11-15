@@ -3,6 +3,7 @@ import { useMutation, useQuery, useQueryClient } from "react-query";
 import { AppliedUserType } from "../../types/apply";
 import {
   deleteAppliedUser,
+  deleteApplier,
   getAppliedUserByClubID,
   registerClub,
 } from "../../utils/fetch";
@@ -85,6 +86,7 @@ function ManageRecruit() {
       onError: (error) => console.log(error),
     }
   );
+
   const [order, setOrder] = useState<"desc" | "asc">("asc");
   const [orderBy, setOrderBy] = useState<orderByType>("name");
   const [page, setPage] = useState(0);
@@ -249,14 +251,6 @@ function ManageRecruit() {
         <Typography variant="h4" gutterBottom>
           User
         </Typography>
-        {/* <Button
-          variant="contained"
-          component={RouterLink}
-          to="#"
-          startIcon={<Iconify icon="eva:plus-fill" />}
-        >
-          New User
-        </Button> */}
       </Stack>
 
       <Card>
@@ -379,25 +373,7 @@ function ManageRecruit() {
         setOpen={setIsDialogOpen}
         applierInfo={clickedAppliedUser}
       />
-      <Stack
-        direction="row"
-        alignItems="center"
-        justifyContent="space-between"
-        mb={5}
-        sx={{ marginTop: "80px" }}
-      >
-        <Typography variant="h4" gutterBottom>
-          모집 지원서 양식
-        </Typography>
-        <Button
-          variant="contained"
-          component={RouterLink}
-          to="#"
-          startIcon={<Iconify icon="eva:plus-fill" />}
-        >
-          수정하기
-        </Button>
-      </Stack>
+
       <ApplierForm></ApplierForm>
     </Container>
   );

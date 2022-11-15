@@ -36,7 +36,7 @@ import ApplyPage from "./pages/ApplyPage";
 import ManageClub from "./pages/managePages/ManageClub";
 import ProfilePage from "./pages/ProfilePage";
 import ManageAccountBook from "./pages/managePages/ManageAccountBook";
-// ("Cannot create field '6336bbad1c469c4e2329427e' in element {registeredClubs: []}");
+
 function AppRouter() {
   const setIsLoggedIn = useSetRecoilState(isLoggedInState);
   const setUserName = useSetRecoilState(userNameState);
@@ -53,6 +53,7 @@ function AppRouter() {
         major: data.authUser.major,
       });
       setLoggedInUser(data.authUser);
+
       // console.log(data);
     },
     onError: (error: any) => {

@@ -10,6 +10,13 @@ export interface ApplierType {
   updatedAt: Date;
 }
 
+export interface NewApplierType {
+  clubId: string;
+  documentQuestions: string[];
+  interviewQuestions: string[];
+  appliedUserColumns: ColumnType[];
+}
+
 export interface AppliedUserType {
   _id: string;
   userID: string;
