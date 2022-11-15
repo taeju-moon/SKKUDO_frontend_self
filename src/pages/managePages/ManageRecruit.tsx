@@ -34,6 +34,7 @@ import { RegisterInfoType } from "../../types/user";
 import { HiDocumentText } from "react-icons/hi";
 import DocumentDialog from "../../components/manageAuthComponents/DocumentDialog";
 import { ColumnType } from "../../types/common";
+import ApplierForm from "../../components/manageRecruitComponents/ApplierForm";
 
 type orderType = "desc" | "asc";
 type orderByType = "name" | "studentId" | "major";
@@ -53,7 +54,7 @@ function ManageRecruit() {
     () => getAppliedUserByClubID(clubID || ""),
     {
       onSuccess: (data) => {
-        console.log(data);
+        // console.log(data);
       },
       onError: (error) => console.log(error),
     }
@@ -248,14 +249,14 @@ function ManageRecruit() {
         <Typography variant="h4" gutterBottom>
           User
         </Typography>
-        <Button
+        {/* <Button
           variant="contained"
           component={RouterLink}
           to="#"
           startIcon={<Iconify icon="eva:plus-fill" />}
         >
           New User
-        </Button>
+        </Button> */}
       </Stack>
 
       <Card>
@@ -378,6 +379,26 @@ function ManageRecruit() {
         setOpen={setIsDialogOpen}
         applierInfo={clickedAppliedUser}
       />
+      <Stack
+        direction="row"
+        alignItems="center"
+        justifyContent="space-between"
+        mb={5}
+        sx={{ marginTop: "80px" }}
+      >
+        <Typography variant="h4" gutterBottom>
+          모집 지원서 양식
+        </Typography>
+        <Button
+          variant="contained"
+          component={RouterLink}
+          to="#"
+          startIcon={<Iconify icon="eva:plus-fill" />}
+        >
+          수정하기
+        </Button>
+      </Stack>
+      <ApplierForm></ApplierForm>
     </Container>
   );
 }

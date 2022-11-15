@@ -36,8 +36,6 @@ const ApplyInputContainer = styled("div")({
   display: "flex",
   flexDirection: "column",
   width: "100%",
-  // alignItems: "center",
-  // justifyContent: "space-evenly",
   padding: "40px",
   gap: "40px",
   marginBottom: "70px",
@@ -49,29 +47,12 @@ const InputTitle = styled("div")({
   marginBottom: "20px",
 });
 
-// interface answerType {
-//   [key: string]: string;
-// }
-
 type answerType = Map<number, string>;
 type subAnswerType = Map<string, string>;
 
 function ApplyPage() {
   const { clubID } = useParams();
   const applierInfo = useRecoilValue(userInfoState);
-
-  // const { mutate: validateMutate } = useMutation<VerifyUserResponseType>(
-  //   verifyUser,
-  //   {
-  //     onSuccess: (data) => {
-  //       console.log(data);
-  //     },
-  //     onError: (error: any) => console.log(error.response.data.error),
-  //   }
-  // );
-  // useEffect(() => {
-  //   validateMutate();
-  // }, []);
 
   const { data, isLoading } = useQuery<ApplierType>(
     "getApplierByClubID",

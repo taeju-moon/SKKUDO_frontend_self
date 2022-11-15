@@ -1,4 +1,8 @@
-import { AppliedUserType, ApplyFormType } from "./../types/apply";
+import {
+  AppliedUserType,
+  ApplyFormType,
+  UpdateApplierType,
+} from "./../types/apply";
 import { UpdateValidationType } from "./../types/validation";
 import {
   DeleteTodoType,
@@ -248,6 +252,9 @@ export const getApplierByClubID = (clubID: string) =>
   axios
     .get(GET_ALL_APPLIERS_URL.concat("/byClub/", clubID))
     .then((res) => res.data.data);
+
+export const updateApplier = (clubID: string, applierInfo: UpdateApplierType) =>
+  axios.patch(GET_ALL_APPLIERS_URL.concat("/", clubID), applierInfo);
 
 const Get_ALL_APPLIED_USERS = `${BASE_URL}/applies/appliedUsers`;
 

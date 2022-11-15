@@ -44,3 +44,14 @@ export interface ApplyFormType {
   documentScores: number[]; //서류 점수
   interviewScores: number[]; //면접 점수
 }
+
+export interface NewAppliedUserColumnsType {
+  key: string;
+  valueType: string;
+  _id?: string;
+}
+export interface UpdateApplierType {
+  documentQuestions?: string[]; //서류 질문
+  interviewQuestions?: string[]; //면접 질문
+  appliedUserColumns?: { key: string; valueType: string; _id?: string }[];
+}
