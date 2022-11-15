@@ -283,6 +283,7 @@ export default function User() {
                   .map((row) => {
                     const {
                       _id,
+                      userID,
                       studentId,
                       name,
                       registeredClubs,
@@ -341,7 +342,16 @@ export default function User() {
                               )
                           : ""}
                         <TableCell align="right">
-                          <UserMoreMenu />
+                          <UserMoreMenu
+                            userID={userID}
+                            role={
+                              clubID && data
+                                ? new Map(Object.entries(registeredClubs)).get(
+                                    clubID
+                                  )?.role
+                                : ""
+                            }
+                          />
                         </TableCell>
                       </TableRow>
                     );
