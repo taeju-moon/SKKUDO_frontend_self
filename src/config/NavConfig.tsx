@@ -35,6 +35,11 @@ const navConfig = [
     path: "/manage/:clubID/recruit",
     icon: getIcon("eva:lock-fill"),
   },
+  {
+    title: "accountBook/가계부",
+    path: "/manage/:clubID/accountBook",
+    icon: getIcon("fa-solid:money-check-alt"),
+  },
   // {
   //   title: "Not found/",
   //   path: "/404",

@@ -1,13 +1,9 @@
 import { motion } from "framer-motion";
 import { useEffect } from "react";
-import { useMutation } from "react-query";
-
 import { useNavigate } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { isManageState } from "../atoms/NavigatorAtom";
-import { RegisterInfoType } from "../types/user";
-import { registerClub } from "../utils/fetch";
 
 const HomePageContainer = styled.div``;
 const Banner = styled.div`
@@ -51,24 +47,9 @@ const MainPageBtn = styled(motion.button)`
   font-weight: 800;
 `;
 
-// interface RegisterMutateType {
-//   userID: string;
-//   registerInfo: RegisterInfoType;
-// }
-
 function HomePage() {
   const navigate = useNavigate();
   const setIsManage = useSetRecoilState(isManageState);
-  // const { mutate: registerMutate } = useMutation(
-  //   ({ userID, registerInfo }: RegisterMutateType) =>
-  //     registerClub(userID, "6336bbad1c469c4e2329427e" || "", registerInfo),
-  //   {
-  //     onSuccess: (data) => {
-  //       console.log(data);
-  //     },
-  //     onError: (error) => console.log(error),
-  //   }
-  // );
 
   useEffect(() => {
     setIsManage(false);

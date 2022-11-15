@@ -7,7 +7,7 @@ import {
   TextField,
 } from "@mui/material";
 import { useState } from "react";
-import { useMutation } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import { useParams } from "react-router-dom";
 import { updateUserColumn } from "../../utils/fetch";
 
@@ -27,11 +27,14 @@ function ColumnDialog({
     setDialogOpen(false);
   };
   const [newValue, setNewValue] = useState("");
+  const queryClient = useQueryClient();
 
   const { mutate } = useMutation(
     () => updateUserColumn(clubID || "", { key: keyword, value: newValue }),
     {
-      onSuccess: (data) => console.log(data),
+      onSuccess: (data) => {
+        window.location.reload();
+      },
       onError: (error) => console.log(error),
     }
   );

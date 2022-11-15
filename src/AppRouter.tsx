@@ -35,7 +35,8 @@ import UpdateNoticePage from "./pages/UpdateNoticePage";
 import ApplyPage from "./pages/ApplyPage";
 import ManageClub from "./pages/managePages/ManageClub";
 import ProfilePage from "./pages/ProfilePage";
-// ("Cannot create field '6336bbad1c469c4e2329427e' in element {registeredClubs: []}");
+import ManageAccountBook from "./pages/managePages/ManageAccountBook";
+
 function AppRouter() {
   const setIsLoggedIn = useSetRecoilState(isLoggedInState);
   const setUserName = useSetRecoilState(userNameState);
@@ -52,6 +53,7 @@ function AppRouter() {
         major: data.authUser.major,
       });
       setLoggedInUser(data.authUser);
+
       // console.log(data);
     },
     onError: (error: any) => {
@@ -93,6 +95,7 @@ function AppRouter() {
           <Route path="auth" element={<ManageAuth />} />
           <Route path="notes" element={<ManageNotes />} />
           <Route path="club" element={<ManageClub />} />
+          <Route path="accountBook" element={<ManageAccountBook />} />
         </Route>
         <Route path="*" element={<Page404 />} />
       </Routes>

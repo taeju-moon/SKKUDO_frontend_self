@@ -3,6 +3,7 @@ import { useMutation, useQuery, useQueryClient } from "react-query";
 import { AppliedUserType } from "../../types/apply";
 import {
   deleteAppliedUser,
+  deleteApplier,
   getAppliedUserByClubID,
   registerClub,
 } from "../../utils/fetch";
@@ -34,6 +35,7 @@ import { RegisterInfoType } from "../../types/user";
 import { HiDocumentText } from "react-icons/hi";
 import DocumentDialog from "../../components/manageAuthComponents/DocumentDialog";
 import { ColumnType } from "../../types/common";
+import ApplierForm from "../../components/manageRecruitComponents/ApplierForm";
 
 type orderType = "desc" | "asc";
 type orderByType = "name" | "studentId" | "major";
@@ -53,7 +55,7 @@ function ManageRecruit() {
     () => getAppliedUserByClubID(clubID || ""),
     {
       onSuccess: (data) => {
-        console.log(data);
+        // console.log(data);
       },
       onError: (error) => console.log(error),
     }
@@ -84,6 +86,7 @@ function ManageRecruit() {
       onError: (error) => console.log(error),
     }
   );
+
   const [order, setOrder] = useState<"desc" | "asc">("asc");
   const [orderBy, setOrderBy] = useState<orderByType>("name");
   const [page, setPage] = useState(0);
@@ -248,14 +251,6 @@ function ManageRecruit() {
         <Typography variant="h4" gutterBottom>
           User
         </Typography>
-        <Button
-          variant="contained"
-          component={RouterLink}
-          to="#"
-          startIcon={<Iconify icon="eva:plus-fill" />}
-        >
-          New User
-        </Button>
       </Stack>
 
       <Card>
@@ -378,6 +373,8 @@ function ManageRecruit() {
         setOpen={setIsDialogOpen}
         applierInfo={clickedAppliedUser}
       />
+
+      <ApplierForm></ApplierForm>
     </Container>
   );
 }

@@ -38,12 +38,14 @@ const ApplyBtn = styled(Button)({});
 interface IClubCard {
   club: ClubType;
 }
-
+interface NavigateParamType {
+  clubName: string;
+}
 export default function ClubCard({ club }: IClubCard) {
   const { _id, name, location, type } = club;
   const navigate = useNavigate();
   const onApplyBtnClick = () => {
-    navigate(`/apply/${_id}`);
+    navigate(`/apply/${_id}`, { state: name });
   };
   return (
     <Card>
