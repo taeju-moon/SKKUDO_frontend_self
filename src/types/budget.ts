@@ -1,13 +1,14 @@
-export interface Budget {
+export interface BudgetType {
   _id: string;
   clubId: string;
-  rows: BudgetRow[];
+  rows: BudgetRowType[];
   name: string;
   createdAt: Date;
   updatedAt: Date;
 }
 
-export interface BudgetRow {
+export interface BudgetRowType {
+  _id: string;
   date: Date; //날짜
   income: string; //수입
   expense: string; //지출
