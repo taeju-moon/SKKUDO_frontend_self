@@ -39,6 +39,7 @@ export interface AppliedUserType {
 
 export interface ApplyFormType {
   clubId: string;
+  clubName: string;
   userID: string;
   studentId: string;
   name: string;

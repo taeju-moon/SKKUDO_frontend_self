@@ -2,8 +2,9 @@ import styled from "@emotion/styled";
 import { Button, TextField } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useMutation, useQuery } from "react-query";
-import { useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useRecoilValue } from "recoil";
+import { isLoggedInState } from "../atoms/loginAtom";
 import { userInfoState } from "../atoms/userAtom";
 import FormTitle from "../components/FormTitle";
 import { AppliedUserType, ApplierType, ApplyFormType } from "../types/apply";
@@ -52,7 +53,16 @@ type subAnswerType = Map<string, string>;
 
 function ApplyPage() {
   const { clubID } = useParams();
+  const { state } = useLocation();
   const applierInfo = useRecoilValue(userInfoState);
+  const navigate = useNavigate();
+  const isLoggedIn = useRecoilValue(isLoggedInState);
+
+  useEffect(() => {
+    if (!isLoggedIn) {
+      navigate("/login");
+    }
+  }, [isLoggedInState]);
 
   const { data, isLoading } = useQuery<ApplierType>(
     "getApplierByClubID",
@@ -117,9 +127,11 @@ function ApplyPage() {
       documentAnswers: Array.from(answers.values()),
       documentScores: [],
       interviewScores: [],
+      clubName: state,
     };
     // console.log(tempApplyInfo);
     mutate(tempApplyInfo);
+    navigate("/");
   };
 
   return (

@@ -26,7 +26,7 @@ const AddNoticePageContainer = styled("form")({
   width: "100%",
   maxWidth: "1024px",
   margin: "0 auto",
-  paddingTop: "200px",
+
   display: "flex",
   flexDirection: "column",
   position: "relative",

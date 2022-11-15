@@ -47,14 +47,16 @@ const AddIconContainer = styled(motion.div)({
   justifyContent: "right",
 });
 
-const OptionBtn = styled("button")({
-  position: "absolute",
-  right: 0,
+const OptionBtn = styled(motion.button)({
+  position: "relative",
+  height: "100%",
+  // right: 0,
   border: "none",
   backgroundColor: "transparent",
+  width: "20px",
 });
 
-const NoticeTitle = styled("div")({
+const NoticeTitle = styled(motion.div)({
   flex: 1,
   height: "100%",
   display: "flex",
@@ -72,16 +74,19 @@ const OptionContainer = styled("div")<OptionContainerType>(
     position: "absolute",
     width: "60px",
     height: "100px",
-    backgroundColor: "beige",
+    backgroundColor: "white",
     left: -20,
     zIndex: 3,
+    borderRadius: "10px",
+    border: "1px solid #0c4426",
   },
   (props) => ({
     display: props.isOptionOpened ? "block" : "none",
   })
 );
 
-const Option = styled("div")({
+const Option = styled(motion.div)({
+  color: "#0c4426",
   width: "100%",
   height: "50%",
   display: "flex",
@@ -156,6 +161,7 @@ function NoticePage() {
   const handleTitleClick = (writer: string, title: string, content: string) => {
     setClickedNotiiceInfo({ writer, title, content });
     setIsNoticeDetailOpen(true);
+    setIsOptionOpened((prev) => !prev);
   };
 
   const { mutate } = useMutation(
@@ -228,11 +234,6 @@ function NoticePage() {
               key={notice._id}
               spacing={1}
               sx={{ width: "100%", maxWidth: "1024px" }}
-              component={motion.div}
-              whileHover={{
-                scale: 1.1,
-                transition: { duration: 0.2, ease: "easeOut" },
-              }}
             >
               <Stack
                 sx={{
@@ -256,6 +257,7 @@ function NoticePage() {
                 }}
               >
                 <NoticeTitle
+                  whileHover={{ backgroundColor: "rgba(0,0,0,0.2)" }}
                   onClick={() =>
                     handleTitleClick(
                       notice.writer || "unknown",
@@ -266,7 +268,10 @@ function NoticePage() {
                 >
                   {notice.title}
                 </NoticeTitle>
-                <OptionBtn onClick={() => handleOptionBtnClicked(notice._id)}>
+                <OptionBtn
+                  onClick={() => handleOptionBtnClicked(notice._id)}
+                  whileHover={{ backgroundColor: "rgba(0,0,0,0.2)" }}
+                >
                   <BsThreeDotsVertical />
                   <OptionContainer
                     isOptionOpened={
@@ -274,12 +279,14 @@ function NoticePage() {
                     }
                   >
                     <Option
+                      style={{ borderBottom: "1px solid #0c4426" }}
                       onClick={() =>
                         handleNoticeDeleteBtnClick({
                           _id: notice._id,
                           clubID: notice.clubId,
                         })
                       }
+                      whileHover={{ backgroundColor: "rgba(0,0,0,0.2)" }}
                     >
                       삭제
                     </Option>
@@ -294,6 +301,7 @@ function NoticePage() {
                           noticeTags: notice.noticeTags,
                         })
                       }
+                      whileHover={{ backgroundColor: "rgba(0,0,0,0.2)" }}
                     >
                       수정
                     </Option>

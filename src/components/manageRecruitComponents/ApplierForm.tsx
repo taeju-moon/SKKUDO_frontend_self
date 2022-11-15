@@ -69,6 +69,7 @@ function ApplierForm() {
     {
       onSuccess: (data) => {
         console.log(data);
+        setNewQuestion("");
         queryClient.invalidateQueries("getApplierByClubID");
       },
       onError: (error) => {
@@ -82,10 +83,10 @@ function ApplierForm() {
     {
       onSuccess: (data) => {
         console.log(data);
-        queryClient.invalidateQueries("getApplierByClubID");
+        window.location.reload();
       },
-      onError: (error) => {
-        console.log(error);
+      onError: (error: any) => {
+        alert(error.response.data.error);
       },
     }
   );
