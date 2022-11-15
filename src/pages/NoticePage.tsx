@@ -1,7 +1,6 @@
 import { Paper, Stack, styled } from "@mui/material";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { BiMessageSquareAdd } from "react-icons/bi";
-
 import { deleteNotice, getNoticesByClubID } from "../utils/fetch";
 import {
   ClickedNoticeInfoType,
@@ -9,9 +8,7 @@ import {
   NoticeType,
   UpdateNoticeType,
 } from "../types/notice";
-
 import ClubDetailHeader from "../components/ClubDetailHeader";
-
 import { useNavigate, useParams } from "react-router-dom";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { useState } from "react";
@@ -136,7 +133,12 @@ function NoticePage() {
   const [clickedNoticeID, setClickedNoticeID] = useState("");
   const [isOptionOpened, setIsOptionOpened] = useState(false);
   const [clickedNoticeInfo, setClickedNotiiceInfo] =
-    useState<ClickedNoticeInfoType>({ writer: "", title: "", content: "" });
+    useState<ClickedNoticeInfoType>({
+      writer: "",
+      title: "",
+      content: "",
+      noticeTags: [],
+    });
 
   const setIsNoticeDetailOpen = useSetRecoilState(isNoticeDetailOpenState);
 
@@ -158,8 +160,13 @@ function NoticePage() {
     setIsOptionOpened((prev) => !prev);
   };
 
-  const handleTitleClick = (writer: string, title: string, content: string) => {
-    setClickedNotiiceInfo({ writer, title, content });
+  const handleTitleClick = (
+    writer: string,
+    title: string,
+    content: string,
+    noticeTags: string[]
+  ) => {
+    setClickedNotiiceInfo({ writer, title, content, noticeTags });
     setIsNoticeDetailOpen(true);
     setIsOptionOpened((prev) => !prev);
   };
@@ -262,7 +269,8 @@ function NoticePage() {
                     handleTitleClick(
                       notice.writer || "unknown",
                       notice.title,
-                      notice.content
+                      notice.content,
+                      notice.noticeTags
                     )
                   }
                 >
