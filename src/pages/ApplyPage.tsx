@@ -2,8 +2,9 @@ import styled from "@emotion/styled";
 import { Button, TextField } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useMutation, useQuery } from "react-query";
-import { useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useRecoilValue } from "recoil";
+import { isLoggedInState } from "../atoms/loginAtom";
 import { userInfoState } from "../atoms/userAtom";
 import FormTitle from "../components/FormTitle";
 import { AppliedUserType, ApplierType, ApplyFormType } from "../types/apply";
@@ -36,8 +37,6 @@ const ApplyInputContainer = styled("div")({
   display: "flex",
   flexDirection: "column",
   width: "100%",
-  // alignItems: "center",
-  // justifyContent: "space-evenly",
   padding: "40px",
   gap: "40px",
   marginBottom: "70px",
@@ -49,29 +48,21 @@ const InputTitle = styled("div")({
   marginBottom: "20px",
 });
 
-// interface answerType {
-//   [key: string]: string;
-// }
-
 type answerType = Map<number, string>;
 type subAnswerType = Map<string, string>;
 
 function ApplyPage() {
   const { clubID } = useParams();
+  const { state } = useLocation();
   const applierInfo = useRecoilValue(userInfoState);
+  const navigate = useNavigate();
+  const isLoggedIn = useRecoilValue(isLoggedInState);
 
-  // const { mutate: validateMutate } = useMutation<VerifyUserResponseType>(
-  //   verifyUser,
-  //   {
-  //     onSuccess: (data) => {
-  //       console.log(data);
-  //     },
-  //     onError: (error: any) => console.log(error.response.data.error),
-  //   }
-  // );
-  // useEffect(() => {
-  //   validateMutate();
-  // }, []);
+  useEffect(() => {
+    if (!isLoggedIn) {
+      navigate("/login");
+    }
+  }, [isLoggedInState]);
 
   const { data, isLoading } = useQuery<ApplierType>(
     "getApplierByClubID",
@@ -136,9 +127,11 @@ function ApplyPage() {
       documentAnswers: Array.from(answers.values()),
       documentScores: [],
       interviewScores: [],
+      clubName: state,
     };
     // console.log(tempApplyInfo);
     mutate(tempApplyInfo);
+    navigate("/");
   };
 
   return (

@@ -1,4 +1,9 @@
-import { AppliedUserType, ApplyFormType } from "./../types/apply";
+import {
+  AppliedUserType,
+  ApplyFormType,
+  NewApplierType,
+  UpdateApplierType,
+} from "./../types/apply";
 import { UpdateValidationType } from "./../types/validation";
 import {
   DeleteTodoType,
@@ -129,14 +134,6 @@ export const updateClub = async (
     .patch(GET_ONE_CLUB_URL.concat(clubID), updateInfo)
     .then((res) => res.data);
 
-// export const addClubUserColumn = async (
-//   clubID: string,
-//   newColumnInfo: NewClubColumnType
-// ) =>
-//   axios
-//     .post(GET_ONE_CLUB_URL.concat("userColumn/", clubID))
-//     .then((res) => res.data);
-
 const GET_CLUB_MEMBERS_URL = `${BASE_URL}/users/byClub/`;
 
 export const getClubMembers = async (clubID: string) =>
@@ -257,6 +254,19 @@ export const getApplierByClubID = (clubID: string) =>
     .get(GET_ALL_APPLIERS_URL.concat("/byClub/", clubID))
     .then((res) => res.data.data);
 
+export const updateApplier = (clubID: string, applierInfo: UpdateApplierType) =>
+  axios
+    .patch(GET_ALL_APPLIERS_URL.concat("/", clubID), applierInfo)
+    .then((res) => res.data);
+
+export const deleteApplier = (clubID: string) =>
+  axios
+    .delete(GET_ALL_APPLIERS_URL.concat("/", clubID))
+    .then((res) => res.data);
+
+export const createApplier = (newApplier: NewApplierType) =>
+  axios.post(GET_ALL_APPLIERS_URL, newApplier).then((res) => res.data);
+
 const Get_ALL_APPLIED_USERS = `${BASE_URL}/applies/appliedUsers`;
 
 export const createAppliedUser = (applierInfo: ApplyFormType) =>
@@ -285,3 +295,10 @@ export const getAppliedUserByID = () =>
   axios.get(GET_APPLIED_USERS_BY_ID).then((res) => res.data.data);
 
 //delte적용 registerClub userID 적용
+
+const GET_ALL_BUDGETS_URL = `${BASE_URL}/budgets/budgets`;
+
+export const getBudgetsByClubID = (clubID: string) =>
+  axios
+    .get(GET_ALL_BUDGETS_URL.concat("/club/", clubID))
+    .then((res) => res.data.data);

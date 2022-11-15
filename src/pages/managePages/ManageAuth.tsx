@@ -45,7 +45,8 @@ export default function ManageAuth() {
   const { clubID } = useParams();
   const { data, isLoading } = useQuery<ValidationType>(
     "getValidationByClubID",
-    () => getValidatonByClubID(clubID || "")
+    () => getValidatonByClubID(clubID || ""),
+    { onSuccess: (data) => console.log(data) }
   );
   const [selectedLabel, setSelectedLabel] = useState("");
   const [selectedKey, setSelectedKey] = useState("");
