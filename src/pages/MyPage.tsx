@@ -53,10 +53,6 @@ function MyPage() {
   const isLoggedIn = useRecoilValue(isLoggedInState);
   const loggedInUser = useRecoilValue(loggedInUserState);
 
-  if (!isLoggedIn) {
-    navigate("/login");
-  }
-
   const { data: appliedClubs, isLoading: isAppliedClubsLoading } = useQuery<
     RegisteredClubType[]
   >("getAppliedClubsByID", getAppliedUserByID, {
@@ -64,26 +60,15 @@ function MyPage() {
     onError: (error) => console.log(error),
   });
 
-  const { mutate, data, isLoading } = useMutation<VerifyUserResponseType>(
-    verifyUser,
-    {
-      onSuccess: (data) => {
-        setUserClubs(Object.values(data.authUser.registeredClubs));
-        console.log(data);
-      },
-      onError: (error) => {
-        console.log(error);
-      },
-    }
-  );
-
-  // const cookie = useCookies(["x_auth"]);
-
   useEffect(() => {
-    mutate();
-  }, []);
-
-  // console.log(userClubs);
+    if (!isLoggedIn) {
+      navigate("/login");
+    } else {
+      if (loggedInUser) {
+        setUserClubs(Object.values(loggedInUser.registeredClubs));
+      }
+    }
+  }, [isLoggedIn, loggedInUser]);
 
   const handleMyClubCardClick = (clubID: string) => {
     navigate(`/club/${clubID}/notice`);
@@ -91,16 +76,37 @@ function MyPage() {
 
   return (
     <MyPageContainer>
-      {isLoading ? (
-        <div></div>
-      ) : (
-        <>
-          <SectionContainer>
-            <Title>내 동아리</Title>
-            <ClubCardsContainer>
-              {isLoading ? (
-                <Card sx={{ maxWidth: 345 }}>
-                  <CardActionArea>
+      <>
+        <SectionContainer>
+          <Title>내 동아리</Title>
+          <ClubCardsContainer>
+            {!loggedInUser?.registeredClubs ? (
+              <Card sx={{ maxWidth: 345 }}>
+                <CardActionArea>
+                  <CardMedia
+                    component="img"
+                    height="140"
+                    image={exampleImage}
+                    alt="green iguana"
+                    sx={{ objectFit: "contain" }}
+                  />
+                  <CardContent>
+                    <Typography gutterBottom variant="h5" component="div">
+                      소속된 동아리가 없습니다.
+                    </Typography>
+                    <Typography
+                      variant="body2"
+                      color="text.secondary"
+                    ></Typography>
+                  </CardContent>
+                </CardActionArea>
+              </Card>
+            ) : (
+              userClubs?.map((club) => (
+                <Card key={club.clubId} sx={{ width: 345 }}>
+                  <CardActionArea
+                    onClick={() => handleMyClubCardClick(club.clubId)}
+                  >
                     <CardMedia
                       component="img"
                       height="140"
@@ -110,49 +116,49 @@ function MyPage() {
                     />
                     <CardContent>
                       <Typography gutterBottom variant="h5" component="div">
-                        소속된 동아리가 없습니다.
+                        {club.clubName}
                       </Typography>
-                      <Typography
-                        variant="body2"
-                        color="text.secondary"
-                      ></Typography>
+                      <Typography variant="body2" color="text.secondary">
+                        {club.role}
+                      </Typography>
                     </CardContent>
                   </CardActionArea>
                 </Card>
-              ) : (
-                userClubs?.map((club) => (
-                  <Card key={club.clubId} sx={{ width: 345 }}>
-                    <CardActionArea
-                      onClick={() => handleMyClubCardClick(club.clubId)}
-                    >
-                      <CardMedia
-                        component="img"
-                        height="140"
-                        image={exampleImage}
-                        alt="green iguana"
-                        sx={{ objectFit: "contain" }}
-                      />
-                      <CardContent>
-                        <Typography gutterBottom variant="h5" component="div">
-                          {club.clubName}
-                        </Typography>
-                        <Typography variant="body2" color="text.secondary">
-                          {club.role}
-                        </Typography>
-                      </CardContent>
-                    </CardActionArea>
-                  </Card>
-                ))
-              )}
-            </ClubCardsContainer>
-          </SectionContainer>
+              ))
+            )}
+          </ClubCardsContainer>
+        </SectionContainer>
 
-          <SectionContainer>
-            <Title>지원중인 동아리</Title>
-            <ClubCardsContainer>
-              {isAppliedClubsLoading ? (
-                <Card sx={{ width: 345 }}>
-                  <CardActionArea>
+        <SectionContainer>
+          <Title>지원중인 동아리</Title>
+          <ClubCardsContainer>
+            {isAppliedClubsLoading ? (
+              <Card sx={{ width: 345 }}>
+                <CardActionArea>
+                  <CardMedia
+                    component="img"
+                    height="140"
+                    image={exampleImage}
+                    alt="green iguana"
+                    sx={{ objectFit: "contain" }}
+                  />
+                  <CardContent>
+                    <Typography gutterBottom variant="h5" component="div">
+                      지원한 동아리가 없습니다.
+                    </Typography>
+                    <Typography
+                      variant="body2"
+                      color="text.secondary"
+                    ></Typography>
+                  </CardContent>
+                </CardActionArea>
+              </Card>
+            ) : (
+              appliedClubs?.map((club) => (
+                <Card key={club.clubId} sx={{ width: 345 }}>
+                  <CardActionArea
+                  // onClick={() => handleMyClubCardClick(club.clubId)}
+                  >
                     <CardMedia
                       component="img"
                       height="140"
@@ -162,7 +168,7 @@ function MyPage() {
                     />
                     <CardContent>
                       <Typography gutterBottom variant="h5" component="div">
-                        지원한 동아리가 없습니다.
+                        {club.clubName}
                       </Typography>
                       <Typography
                         variant="body2"
@@ -171,36 +177,11 @@ function MyPage() {
                     </CardContent>
                   </CardActionArea>
                 </Card>
-              ) : (
-                appliedClubs?.map((club) => (
-                  <Card key={club.clubId} sx={{ width: 345 }}>
-                    <CardActionArea
-                    // onClick={() => handleMyClubCardClick(club.clubId)}
-                    >
-                      <CardMedia
-                        component="img"
-                        height="140"
-                        image={exampleImage}
-                        alt="green iguana"
-                        sx={{ objectFit: "contain" }}
-                      />
-                      <CardContent>
-                        <Typography gutterBottom variant="h5" component="div">
-                          {club.clubName}
-                        </Typography>
-                        <Typography
-                          variant="body2"
-                          color="text.secondary"
-                        ></Typography>
-                      </CardContent>
-                    </CardActionArea>
-                  </Card>
-                ))
-              )}
-            </ClubCardsContainer>
-          </SectionContainer>
-        </>
-      )}
+              ))
+            )}
+          </ClubCardsContainer>
+        </SectionContainer>
+      </>
     </MyPageContainer>
   );
 }
