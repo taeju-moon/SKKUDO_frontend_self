@@ -150,9 +150,15 @@ function ApplyClubPage() {
         </ApplyInputContainer>
 
         <Button
-          sx={{ position: "absolute", right: "40px", bottom: "40px" }}
+          sx={{
+            position: "absolute",
+            right: "40px",
+            bottom: "40px",
+            fontSize: "20px",
+          }}
           type="submit"
           variant="outlined"
+          color="success"
         >
           submit
         </Button>

@@ -302,14 +302,18 @@ function ManageRecruit() {
                             alignItems="center"
                             spacing={2}
                           >
-                            <Typography variant="subtitle2" noWrap>
+                            <Typography variant="h5" noWrap>
                               {name}
                             </Typography>
                           </Stack>
                         </TableCell>
-                        <TableCell align="left">{studentId}</TableCell>
+                        <TableCell sx={{ fontSize: "20px" }} align="left">
+                          {studentId}
+                        </TableCell>
 
-                        <TableCell align="left">{major}</TableCell>
+                        <TableCell sx={{ fontSize: "20px" }} align="left">
+                          {major}
+                        </TableCell>
 
                         <TableCell align="right">
                           <Button

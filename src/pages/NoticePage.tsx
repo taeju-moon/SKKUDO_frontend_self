@@ -34,7 +34,7 @@ const AddCategoryBtn = styled(motion.button)({
   fontWeight: "600",
   paddingLeft: "10px",
   paddingRight: "10px",
-
+  fontSize: "20px",
   border: "2px solid ",
   borderRadius: "10px",
 });
@@ -60,6 +60,7 @@ const NoticeTitle = styled(motion.div)({
   alignItems: "center",
   justifyContent: "flex-start",
   paddingLeft: "40px",
+  fontSize: "30px",
 });
 
 interface OptionContainerType {
@@ -89,6 +90,7 @@ const Option = styled(motion.div)({
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
+  fontSize: "20px",
 });
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -114,7 +116,7 @@ const Tag = styled("div")({
   color: "white",
   borderRadius: "4px",
   padding: "5px",
-  fontSize: "0.8rem",
+  fontSize: "20px",
   display: "flex",
   justifyContent: "center",
   alignItems: "center",

@@ -90,7 +90,7 @@ const LoginOptionContainer = styled.ul<ILoginOptionContainer>`
 const LoginOption = styled.li`
   text-align: start;
   width: 100%;
-  height: 40px;
+  height: 50px;
   padding: 10px;
   font-size: 20px;
   padding-top: 20px;
@@ -99,7 +99,7 @@ const LoginOption = styled.li`
 const LoginLink = styled(Link)`
   text-decoration: none;
   color: black;
-  font-size: 20px;
+  font-size: 30px;
 `;
 
 function Navigator() {
@@ -157,7 +157,12 @@ function Navigator() {
               </>
             ) : (
               <LoginOption>
-                <div onClick={handleLogoutBtnClick}>로그아웃</div>
+                <div
+                  onClick={handleLogoutBtnClick}
+                  style={{ fontSize: "30px", color: "#0c4426" }}
+                >
+                  로그아웃
+                </div>
               </LoginOption>
             )}
           </LoginOptionContainer>

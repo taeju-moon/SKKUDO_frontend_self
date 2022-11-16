@@ -102,7 +102,7 @@ function ProperInput({ keyword, handleClose }: ProperInputType) {
             fullWidth
             variant="standard"
             value={name}
-            sx={{ marginTop: "20px" }}
+            sx={{ marginTop: "20px", fontSize: "30px" }}
             onChange={handleNameChange}
           />
         </DialogContent>
@@ -195,7 +195,9 @@ export default function UpdateDialog({
 
   return (
     <Dialog open={dialogOpen} onClose={handleClose}>
-      <DialogTitle>{`${clubUpdate.keyword} 변경`}</DialogTitle>
+      <DialogTitle
+        sx={{ fontSize: "30px" }}
+      >{`${clubUpdate.keyword} 변경`}</DialogTitle>
       <ProperInput
         keyword={clubUpdate.keyword}
         handleClose={handleClose}

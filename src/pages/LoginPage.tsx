@@ -29,7 +29,7 @@ const LoginCard = styled.div`
 `;
 
 const Title = styled.div`
-  font-size: 3rem;
+  font-size: 70px;
   margin-top: 20px;
   color: #dde143;
 `;
@@ -48,7 +48,8 @@ const LoginInputContainer = styled.div`
 
 const LoginInput = styled.input`
   height: 30px;
-  width: 200px;
+  width: 250px;
+  font-size: 20px;
 `;
 
 const LoginButton = styled(motion.button)`
@@ -58,6 +59,7 @@ const LoginButton = styled(motion.button)`
   border: 2px solid #dde143;
   border-radius: 5px;
   font-weight: 800;
+  font-size: 30px;
 `;
 
 function LoginPage() {

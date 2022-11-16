@@ -50,10 +50,6 @@ export default function AccountPopover() {
         Object.entries(loggedInUser.registeredClubs)
       );
       setUserRole(registedClubs.get(clubID || "").role);
-      // setSpecificInfo({
-      //   role: registedClubs.get(clubID || "").role,
-      //   moreColumns: registedClubs.get(clubID || "").moreColumns,
-      // });
     }
   }, [loggedInUser]);
 
@@ -113,10 +109,10 @@ export default function AccountPopover() {
         }}
       >
         <Box sx={{ my: 1.5, px: 2.5 }}>
-          <Typography variant="subtitle2" noWrap>
+          <Typography variant="h4" noWrap>
             {loggedInUser?.name}
           </Typography>
-          <Typography variant="body2" sx={{ color: "text.secondary" }} noWrap>
+          <Typography variant="h5" sx={{ color: "text.secondary" }} noWrap>
             {userRole}
           </Typography>
         </Box>
@@ -130,6 +126,7 @@ export default function AccountPopover() {
               to={option.linkTo}
               component={RouterLink}
               onClick={handleClose}
+              sx={{ fontSize: "30px" }}
             >
               {option.label}
             </MenuItem>

@@ -51,11 +51,19 @@ function BasicTable() {
       <Table sx={{ maxWidth: 1024, width: "100%" }} aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell>이름</TableCell>
-            <TableCell align="right">학번</TableCell>
-            <TableCell align="right">권한</TableCell>
-            <TableCell align="right">학과</TableCell>
-            <TableCell align="right">기타</TableCell>
+            <TableCell sx={{ fontSize: "25px" }}>이름</TableCell>
+            <TableCell sx={{ fontSize: "25px" }} align="right">
+              학번
+            </TableCell>
+            <TableCell sx={{ fontSize: "25px" }} align="right">
+              권한
+            </TableCell>
+            <TableCell sx={{ fontSize: "25px" }} align="right">
+              학과
+            </TableCell>
+            <TableCell sx={{ fontSize: "25px" }} align="right">
+              기타
+            </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -73,19 +81,29 @@ function BasicTable() {
               ))
             : data?.map((member) => (
                 <TableRow key={member._id}>
-                  <TableCell component="th" scope="row">
+                  <TableCell
+                    sx={{ fontSize: "23px" }}
+                    component="th"
+                    scope="row"
+                  >
                     {member.name}
                   </TableCell>
-                  <TableCell align="right">{member.studentId}</TableCell>
-                  <TableCell align="right">
+                  <TableCell sx={{ fontSize: "23px" }} align="right">
+                    {member.studentId}
+                  </TableCell>
+                  <TableCell sx={{ fontSize: "23px" }} align="right">
                     {
                       Object.values(member.registeredClubs).filter(
                         (club) => club.clubId === clubID
                       )[0].role
                     }
                   </TableCell>
-                  <TableCell align="right">{member.major}</TableCell>
-                  <TableCell align="right">{member.location}</TableCell>
+                  <TableCell sx={{ fontSize: "23px" }} align="right">
+                    {member.major}
+                  </TableCell>
+                  <TableCell sx={{ fontSize: "23px" }} align="right">
+                    {member.location}
+                  </TableCell>
                 </TableRow>
               ))}
         </TableBody>

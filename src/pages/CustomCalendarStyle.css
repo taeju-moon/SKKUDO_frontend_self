@@ -47,6 +47,7 @@
   min-width: 44px;
   background: none;
   color: #ffff76;
+  font-size: 25px;
 }
 .react-calendar__navigation button:disabled {
   background-color: #f0f0f0;
@@ -59,7 +60,7 @@
   text-align: center;
   text-transform: uppercase;
   font-weight: bold;
-  font-size: 0.75em;
+  font-size: 20px;
 
   color: #ffff76;
 }
@@ -94,6 +95,7 @@
   text-align: center;
   line-height: 70px;
   font-weight: 600;
+  font-size: 20px;
 }
 .react-calendar__tile:disabled {
   background-color: #f0f0f0;

@@ -212,10 +212,6 @@ export default function User() {
 
   const isUserNotFound = filteredUsers.length === 0;
 
-  // console.log(filteredUsers);
-  // console.log(clubID);
-
-  //add morecolumn to header
   useEffect(() => {
     getOneClub(clubID || "")
       .then((club: ClubType) => {
@@ -313,28 +309,38 @@ export default function User() {
                             alignItems="center"
                             spacing={2}
                           >
-                            <Typography variant="subtitle2" noWrap>
+                            <Typography variant="h5" noWrap>
                               {name}
                             </Typography>
                           </Stack>
                         </TableCell>
-                        <TableCell align="left">{studentId}</TableCell>
-                        <TableCell align="left">
+                        <TableCell sx={{ fontSize: "20px" }} align="left">
+                          {studentId}
+                        </TableCell>
+                        <TableCell sx={{ fontSize: "20px" }} align="left">
                           {clubID && data
                             ? new Map(Object.entries(registeredClubs)).get(
                                 clubID
                               )?.role
                             : ""}
                         </TableCell>
-                        <TableCell align="left">{major}</TableCell>
-                        <TableCell align="left">{location}</TableCell>
+                        <TableCell sx={{ fontSize: "20px" }} align="left">
+                          {major}
+                        </TableCell>
+                        <TableCell sx={{ fontSize: "20px" }} align="left">
+                          {location}
+                        </TableCell>
                         {clubID && data
                           ? new Map(Object.entries(registeredClubs))
                               .get(clubID)
                               .moreColumns.map(
                                 (item: IMoreColumn, index: any) => {
                                   return (
-                                    <TableCell key={index} align="left">
+                                    <TableCell
+                                      sx={{ fontSize: "20px" }}
+                                      key={index}
+                                      align="left"
+                                    >
                                       {item.value}
                                     </TableCell>
                                   );

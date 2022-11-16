@@ -35,7 +35,8 @@ import UpdateRowDialog from "../../components/accoutBookComponents/UpdateRowDial
 
 const EditButton = styled(Button)({
   marginRight: "40px",
-  height: "60px",
+  height: "50px",
+  marginBottom: "10px",
   width: "90px",
 });
 interface RowType {
@@ -67,14 +68,24 @@ function Row({ row, rowIndex, budgetID }: RowType) {
             )}
           </IconButton>
         </TableCell>
-        <TableCell component="th" scope="row">
+        <TableCell sx={{ fontSize: "20px" }} component="th" scope="row">
           {moment(row.date).format("YYYY-MM-DD")}
         </TableCell>
-        <TableCell align="right">{row.income}</TableCell>
-        <TableCell align="right">{row.expense}</TableCell>
-        <TableCell align="right">{row.whom}</TableCell>
-        <TableCell align="right">{row.content}</TableCell>
-        <TableCell align="right">{row.balance}</TableCell>
+        <TableCell sx={{ fontSize: "20px" }} align="right">
+          {row.income}
+        </TableCell>
+        <TableCell sx={{ fontSize: "20px" }} align="right">
+          {row.expense}
+        </TableCell>
+        <TableCell sx={{ fontSize: "20px" }} align="right">
+          {row.whom}
+        </TableCell>
+        <TableCell sx={{ fontSize: "20px" }} align="right">
+          {row.content}
+        </TableCell>
+        <TableCell sx={{ fontSize: "20px" }} align="right">
+          {row.balance}
+        </TableCell>
       </TableRow>
       <TableRow>
         <TableCell
@@ -85,7 +96,11 @@ function Row({ row, rowIndex, budgetID }: RowType) {
             <List component="div" disablePadding>
               <ListItemButton sx={{ pl: 4 }}>
                 <ListItemIcon></ListItemIcon>
-                <ListItemText primary={`계좌번호: ${row.account}`} />
+                <ListItemText
+                  disableTypography
+                  sx={{ fontSize: "20px" }}
+                  primary={`계좌번호: ${row.account}`}
+                />
               </ListItemButton>
             </List>
 
@@ -93,11 +108,17 @@ function Row({ row, rowIndex, budgetID }: RowType) {
               <ListItemButton sx={{ pl: 4 }}>
                 <ListItemIcon></ListItemIcon>
 
-                <ListItemText primary={`메모: ${row.note}`} />
+                <ListItemText
+                  disableTypography
+                  sx={{ fontSize: "20px" }}
+                  primary={`메모: ${row.note}`}
+                />
               </ListItemButton>
             </List>
             <List component="div" disablePadding sx={{ textAlign: "end" }}>
-              <EditButton onClick={handleEditBtnClick}>수정하기</EditButton>
+              <EditButton onClick={handleEditBtnClick} variant="outlined">
+                수정하기
+              </EditButton>
             </List>
           </Collapse>
         </TableCell>
@@ -129,12 +150,22 @@ function CollapsibleTable() {
         <TableHead>
           <TableRow>
             <TableCell />
-            <TableCell>날짜</TableCell>
-            <TableCell align="right">수입</TableCell>
-            <TableCell align="right">지출</TableCell>
-            <TableCell align="right">누가</TableCell>
-            <TableCell align="right">내용</TableCell>
-            <TableCell align="right">잔액</TableCell>
+            <TableCell sx={{ fontSize: "24px" }}>날짜</TableCell>
+            <TableCell sx={{ fontSize: "24px" }} align="right">
+              수입
+            </TableCell>
+            <TableCell sx={{ fontSize: "24px" }} align="right">
+              지출
+            </TableCell>
+            <TableCell sx={{ fontSize: "24px" }} align="right">
+              누가
+            </TableCell>
+            <TableCell sx={{ fontSize: "24px" }} align="right">
+              내용
+            </TableCell>
+            <TableCell sx={{ fontSize: "24px" }} align="right">
+              잔액
+            </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>

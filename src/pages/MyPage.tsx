@@ -41,7 +41,7 @@ const Title = styled.div`
 
 const ClubCardsContainer = styled.div`
   width: 100%;
-  max-width: 1150px;
+  max-width: 1024px;
   flex-wrap: wrap;
   display: flex;
   gap: 20px;
@@ -91,7 +91,7 @@ function MyPage() {
                     sx={{ objectFit: "contain" }}
                   />
                   <CardContent>
-                    <Typography gutterBottom variant="h5" component="div">
+                    <Typography gutterBottom variant="h3" component="div">
                       소속된 동아리가 없습니다.
                     </Typography>
                     <Typography
@@ -115,10 +115,10 @@ function MyPage() {
                       sx={{ objectFit: "contain" }}
                     />
                     <CardContent>
-                      <Typography gutterBottom variant="h5" component="div">
+                      <Typography gutterBottom variant="h3" component="div">
                         {club.clubName}
                       </Typography>
-                      <Typography variant="body2" color="text.secondary">
+                      <Typography variant="h5" color="text.secondary">
                         {club.role}
                       </Typography>
                     </CardContent>

@@ -41,7 +41,7 @@ const NoticeTitle = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 30px;
+  font-size: 40px;
   margin-bottom: 20px;
 `;
 const NoticeTagsContainer = styled.div`
@@ -67,6 +67,7 @@ const NoticeContent = styled.div`
   border: 1px solid;
   flex: 1;
   padding: 20px;
+  font-size: 30px;
 `;
 
 function NoticeDetail({ noticeInfo }: { noticeInfo: ClickedNoticeInfoType }) {
@@ -94,6 +95,7 @@ function NoticeDetail({ noticeInfo }: { noticeInfo: ClickedNoticeInfoType }) {
                 backgroundColor: "#0c4426",
                 color: "#dde143",
                 padding: "10px",
+                fontSize: "20px",
               }}
             />
           ))}

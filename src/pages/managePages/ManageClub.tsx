@@ -26,6 +26,7 @@ const ClubName = styled.div`
 const Label = styled.span`
   display: inline-block;
   margin-right: 20px;
+  font-size: 40px;
 `;
 
 const RowContainer = styled.div`
@@ -111,7 +112,7 @@ function ManageClub() {
           <InfoContainer
             style={{ marginBottom: "50px", display: "inline-block" }}
           >
-            <Label style={{ fontSize: "20px" }}>{clubData?.recruitType}</Label>
+            <Label>{clubData?.recruitType}</Label>
             <BtnContainer
               whileHover={{ backgroundColor: "rgba(0,0,0,0.5)" }}
               onClick={() => handleEditBtnClick("recruitType")}
