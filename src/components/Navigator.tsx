@@ -39,7 +39,7 @@ const LogoContainer = styled(Link)`
 `;
 
 const Logo = styled.div`
-  font-size: 3rem;
+  font-size: 70px;
   color: #dde143;
 `;
 
@@ -62,7 +62,7 @@ const NavigationLi = styled.li`
 const NavigationLink = styled(Link)`
   text-decoration: none;
   color: #dde143;
-  font-size: 2rem;
+  font-size: 40px;
 `;
 
 const LoginBtn = styled.button`
