@@ -19,6 +19,7 @@ const Banner = styled.div`
 
 const LineOne = styled.div`
   font-size: 4.5rem;
+  /* font-family: ; */
 `;
 
 const LineTwo = styled.div`
