@@ -1,3 +1,4 @@
+import { Chip } from "@mui/material";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { isNoticeDetailOpenState } from "../../atoms/utilAtom";
@@ -24,14 +25,50 @@ const NoticeBoard = styled.div<NoticeDetailElementType>`
   width: 100%;
   max-width: 1024px;
   height: 800px;
-  background-color: aliceblue;
+  background-color: white;
+  border-radius: 20px;
   display: ${(props) => (props.isNoticeDetailOpen ? "flex" : "none")};
   flex-direction: column;
+  padding: 20px;
 `;
 
-const NoticeTitle = styled.div``;
-const NoticeWriter = styled.div``;
-const NoticeContent = styled.div``;
+const NoticeTitle = styled.div`
+  width: 100%;
+  border-radius: 20px;
+  height: 60px;
+  color: #0c4426;
+  border: 1px solid;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 40px;
+  margin-bottom: 20px;
+`;
+const NoticeTagsContainer = styled.div`
+  width: 100%;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
+`;
+const NoticeWriter = styled.div`
+  width: 100%;
+  text-align: end;
+  font-size: 20px;
+  padding-right: 40px;
+  margin-bottom: 20px;
+`;
+const NoticeContent = styled.div`
+  width: 100%;
+  border-radius: 20px;
+  color: #0c4426;
+  border: 1px solid;
+  flex: 1;
+  padding: 20px;
+  font-size: 30px;
+`;
 
 function NoticeDetail({ noticeInfo }: { noticeInfo: ClickedNoticeInfoType }) {
   const [isNoticeDetailOpen, setIsNoticeDetailOpen] = useRecoilState(
@@ -49,6 +86,20 @@ function NoticeDetail({ noticeInfo }: { noticeInfo: ClickedNoticeInfoType }) {
       />
       <NoticeBoard isNoticeDetailOpen={isNoticeDetailOpen}>
         <NoticeTitle>{noticeInfo.title}</NoticeTitle>
+        <NoticeTagsContainer>
+          {noticeInfo.noticeTags.map((tag) => (
+            <Chip
+              key={tag}
+              label={tag}
+              sx={{
+                backgroundColor: "#0c4426",
+                color: "#dde143",
+                padding: "10px",
+                fontSize: "20px",
+              }}
+            />
+          ))}
+        </NoticeTagsContainer>
         <NoticeWriter>{noticeInfo.writer}</NoticeWriter>
         <NoticeContent>{noticeInfo.content}</NoticeContent>
       </NoticeBoard>

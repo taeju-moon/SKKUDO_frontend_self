@@ -158,7 +158,11 @@ export default function ManageAuth() {
               disablePadding
             >
               <ListItemButton sx={{ paddingLeft: "40px" }}>
-                <ListItemText primary={ele.label} />
+                <ListItemText
+                  disableTypography
+                  sx={{ fontSize: "25px" }}
+                  primary={ele.label}
+                />
                 <Box sx={{ minWidth: 120 }}>
                   <FormControl fullWidth>
                     <InputLabel id="demo-simple-select-label">권한</InputLabel>

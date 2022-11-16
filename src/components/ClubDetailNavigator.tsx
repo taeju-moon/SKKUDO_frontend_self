@@ -32,7 +32,7 @@ const NavigationButton = styled(motion.button)`
 `;
 
 const DrawerTitle = styled.div`
-  width: 350px;
+  width: 280px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -40,7 +40,7 @@ const DrawerTitle = styled.div`
 
   background: linear-gradient(45deg, #0c4426, #206d44);
   color: #dde143;
-  font-size: 20px;
+  font-size: 30px;
   font-weight: 900;
   box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.6);
 `;
@@ -99,7 +99,7 @@ function ClubDetailNavigator() {
             >
               <ListItemText
                 disableTypography
-                sx={{ fontWeight: 800, fontSize: "20px" }}
+                sx={{ fontWeight: 800, fontSize: "30px", paddingLeft: "10px" }}
                 primary={navigationItem.navigationTitle}
               />
             </ListItemButton>
@@ -115,8 +115,9 @@ function ClubDetailNavigator() {
           sx={{
             color: "#0c4426",
             fontWeight: 800,
-            fontSize: "20px",
+            fontSize: "30px",
             marginTop: "20px",
+            paddingLeft: "10px",
           }}
         >
           동아리 관리

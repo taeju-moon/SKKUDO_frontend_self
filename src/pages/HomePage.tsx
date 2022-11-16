@@ -4,11 +4,19 @@ import { useNavigate } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { isManageState } from "../atoms/NavigatorAtom";
+import myeong from "../assets/images/myeong.jpeg";
+import yul from "../assets/images/yul.png";
 
-const HomePageContainer = styled.div``;
+const HomePageContainer = styled.div`
+  padding-top: 80px;
+`;
 const Banner = styled.div`
-  padding-top: 120px;
-  background-color: #aedb8d;
+  display: flex;
+  background-color: white;
+`;
+const Phrase = styled.div`
+  padding-top: 50px;
+
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -17,8 +25,11 @@ const Banner = styled.div`
   gap: 40px;
 `;
 
+const ImgContainer = styled.img``;
+
 const LineOne = styled.div`
   font-size: 4.5rem;
+  /* font-family: ; */
 `;
 
 const LineTwo = styled.div`
@@ -41,7 +52,7 @@ const MainPageBtn = styled(motion.button)`
   height: 80px;
   background-color: #0c4426;
   border-radius: 5px;
-  font-size: 1rem;
+  font-size: 28px;
   border: none;
   color: #dde143;
   font-weight: 800;
@@ -67,28 +78,32 @@ function HomePage() {
   return (
     <HomePageContainer>
       <Banner>
-        <LineOne>동아리/학회 관리를</LineOne>
-        <LineTwo>손쉽게!!</LineTwo>
-        <Name
-          initial={{ opacity: 0, scale: 0.5 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.5 }}
-        >
-          SKKUDO
-        </Name>
+        <ImgContainer src={myeong} />
+        <Phrase>
+          <LineOne>동아리/학회 관리를</LineOne>
+          <LineTwo>손쉽게!!</LineTwo>
+          <Name
+            initial={{ opacity: 0, scale: 0.5 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5 }}
+          >
+            SKKUDO
+          </Name>
+        </Phrase>
+        <ImgContainer src={yul} />
       </Banner>
       <ButtonsContainer>
         <MainPageBtn
           whileHover={{ scale: 1.1 }}
           onClick={() => handleMainPageBtnClick("search")}
         >
-          동아리/학회 둘러보기
+          동아리 둘러보기
         </MainPageBtn>
         <MainPageBtn
           whileHover={{ scale: 1.1 }}
           onClick={() => handleMainPageBtnClick("make")}
         >
-          동아리 신청하기
+          동아리 만들기
         </MainPageBtn>
       </ButtonsContainer>
     </HomePageContainer>

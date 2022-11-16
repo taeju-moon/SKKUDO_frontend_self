@@ -18,3 +18,17 @@ export interface BudgetRowType {
   note: string; //비고
   account: string; //사용계좌
 }
+
+export interface NewBudgetRowType {
+  clubId: string;
+  line: number;
+  row: {
+    income: string;
+    expense: string; //지출
+    whom: string; //Who/m
+    content: string; //내용
+    balance: string; //잔액
+    note: string; //비고
+    account: string; //사용계좌
+  };
+}

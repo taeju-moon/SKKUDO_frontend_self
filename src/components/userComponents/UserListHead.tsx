@@ -82,6 +82,7 @@ export default function UserListHead({
               active={orderBy === headCell.id}
               direction={orderBy === headCell.id ? order : "asc"}
               onClick={createSortHandler(headCell.id)}
+              sx={{ fontSize: "24px" }}
             >
               {headCell.label}
               {orderBy === headCell.id ? (

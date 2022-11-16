@@ -23,7 +23,7 @@ function responsiveFontSizes({ sm, md, lg }: IResponsiveFontSizes) {
   };
 }
 
-const FONT_PRIMARY = "Public Sans, sans-serif";
+const FONT_PRIMARY = "Nanum Pen Script, cursive";
 
 const typography = {
   fontFamily: FONT_PRIMARY,

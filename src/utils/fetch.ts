@@ -1,3 +1,4 @@
+import { NewBudgetRowType } from "./../types/budget";
 import {
   AppliedUserType,
   ApplyFormType,
@@ -318,3 +319,11 @@ export const getBudgetsByClubID = (clubID: string) =>
   axios
     .get(GET_ALL_BUDGETS_URL.concat("/club/", clubID))
     .then((res) => res.data.data);
+
+export const updateBudgetRow = (
+  budgetID: string,
+  budgetRowInfo: NewBudgetRowType
+) =>
+  axios
+    .patch(GET_ALL_BUDGETS_URL.concat("/row/", budgetID), budgetRowInfo)
+    .then((res) => res.data);

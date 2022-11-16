@@ -71,7 +71,7 @@ const Tag = styled.div`
   color: white;
   border-radius: 4px;
   padding: 5px;
-  font-size: 0.8rem;
+  font-size: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -152,33 +152,6 @@ function DayDetailBoard({ isDayDetailOpened, date }: DayDetailBoardType) {
       >
         <MdOutlineAlarmAdd size="3rem" />
       </TodoAddBtn>
-      {/* <TodoList>
-        {dayDetail.map((todo) => (
-          <TodoItem key={todo._id}>
-            <TodoTitle>{todo.title}</TodoTitle>
-            <TodoDeleteBtn onClick={() => handleTodoDeleteBtnClick(todo._id)}>
-              삭제
-            </TodoDeleteBtn>
-            <TodoUpdateBtn
-              onClick={() =>
-                handleTodoUpdateBtnClick({
-                  _id: todo._id,
-                  clubId: todo.clubId,
-                  title: todo.title,
-                  content: todo.content,
-                  date: moment(todo.date).format("YYYY-MM-DD"),
-                  startTime: moment(todo.startTime).format("YYYY-MM-DD HH:mm"),
-                  endTime: moment(todo.endTime).format("YYYY-MM-DD HH:mm"),
-                  attendingUsers: todo.attendingUsers,
-                  tags: todo.tags,
-                })
-              }
-            >
-              수정
-            </TodoUpdateBtn>
-          </TodoItem>
-        ))}
-      </TodoList> */}
 
       <List
         sx={{ width: "100%", bgcolor: "background.paper" }}
@@ -204,7 +177,11 @@ function DayDetailBoard({ isDayDetailOpened, date }: DayDetailBoardType) {
               onClick={() => handleClick(todo._id)}
               sx={{ padding: "20px" }}
             >
-              <ListItemText primary={todo.title} />
+              <ListItemText
+                disableTypography
+                sx={{ fontSize: "24px", fontWeight: 700 }}
+                primary={todo.title}
+              />
               <Stack
                 sx={{
                   justifyContent: "flex-end",
@@ -223,10 +200,16 @@ function DayDetailBoard({ isDayDetailOpened, date }: DayDetailBoardType) {
             <Collapse in={checkOpen(todo._id)} timeout="auto" unmountOnExit>
               <List component="div" disablePadding>
                 <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemText primary={todo.content} />
+                  <ListItemText
+                    disableTypography
+                    sx={{ fontSize: "20px" }}
+                    primary={todo.content}
+                  />
                 </ListItemButton>
                 <ListItemButton sx={{ pl: 4 }}>
                   <ListItemText
+                    disableTypography
+                    sx={{ fontSize: "20px" }}
                     primary={`시작 시간 : ${moment(todo.startTime).format(
                       "YYYY-MM-DD HH:mm"
                     )}`}
@@ -234,6 +217,8 @@ function DayDetailBoard({ isDayDetailOpened, date }: DayDetailBoardType) {
                 </ListItemButton>
                 <ListItemButton sx={{ pl: 4 }}>
                   <ListItemText
+                    disableTypography
+                    sx={{ fontSize: "20px" }}
                     primary={`종료 시간 : ${moment(todo.endTime).format(
                       "YYYY-MM-DD HH:mm"
                     )}`}
@@ -241,13 +226,20 @@ function DayDetailBoard({ isDayDetailOpened, date }: DayDetailBoardType) {
                 </ListItemButton>
                 <ListItemButton sx={{ pl: 4 }}>
                   <ListItemText
+                    disableTypography
+                    sx={{ fontSize: "20px" }}
                     primary={`침여 인원 : ${todo.attendingUsers.join(" ")}`}
                   />
                 </ListItemButton>
                 <DetailBtnContainer>
                   <Button
                     onClick={() => handleTodoDeleteBtnClick(todo._id)}
-                    sx={{ width: "30%" }}
+                    sx={{
+                      width: "30%",
+                      fontSize: "20px",
+                      paddingTop: 0,
+                      paddingBottom: 0,
+                    }}
                     variant="outlined"
                     color="error"
                   >
@@ -271,7 +263,12 @@ function DayDetailBoard({ isDayDetailOpened, date }: DayDetailBoardType) {
                         tags: todo.tags,
                       })
                     }
-                    sx={{ width: "30%" }}
+                    sx={{
+                      width: "30%",
+                      fontSize: "20px",
+                      paddingTop: 0,
+                      paddingBottom: 0,
+                    }}
                     variant="outlined"
                     color="primary"
                   >
@@ -282,23 +279,6 @@ function DayDetailBoard({ isDayDetailOpened, date }: DayDetailBoardType) {
             </Collapse>
           </ItemContainer>
         ))}
-        {/* <ListItemButton>
-          <ListItemText primary="Sent mail" />
-        </ListItemButton>
-        <ListItemButton>
-          <ListItemText primary="Drafts" />
-        </ListItemButton>
-        <ListItemButton onClick={handleClick}>
-          <ListItemText primary="Inbox" />
-          {open ? <MdExpandLess /> : <MdExpandMore />}
-        </ListItemButton>
-        <Collapse in={open} timeout="auto" unmountOnExit>
-          <List component="div" disablePadding>
-            <ListItemButton sx={{ pl: 4 }}>
-              <ListItemText primary="Starred" />
-            </ListItemButton>
-          </List>
-        </Collapse> */}
       </List>
       <TodoAddDialog open={dialogOpen} onClose={handleDialogClose} />
     </BoardContainer>

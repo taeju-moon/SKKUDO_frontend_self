@@ -1,6 +1,6 @@
-import { useQuery } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import { useParams } from "react-router-dom";
-import { getBudgetsByClubID } from "../../utils/fetch";
+import { getBudgetsByClubID, updateBudgetRow } from "../../utils/fetch";
 import * as React from "react";
 import Box from "@mui/material/Box";
 import Collapse from "@mui/material/Collapse";
@@ -17,47 +17,41 @@ import {
   MdOutlineKeyboardArrowDown,
   MdOutlineKeyboardArrowUp,
 } from "react-icons/md";
-import { BudgetRowType, BudgetType } from "../../types/budget";
+import {
+  BudgetRowType,
+  BudgetType,
+  NewBudgetRowType,
+} from "../../types/budget";
 import moment from "moment";
-// import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-// import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import {
+  Button,
+  List,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+} from "@mui/material";
+import styled from "@emotion/styled";
+import UpdateRowDialog from "../../components/accoutBookComponents/UpdateRowDialog";
 
-function createData(
-  name: string,
-  calories: number,
-  fat: number,
-  carbs: number,
-  protein: number,
-  price: number
-) {
-  return {
-    name,
-    calories,
-    fat,
-    carbs,
-    protein,
-    price,
-    history: [
-      {
-        date: "2020-01-05",
-        customerId: "11091700",
-        amount: 3,
-      },
-      {
-        date: "2020-01-02",
-        customerId: "Anonymous",
-        amount: 1,
-      },
-    ],
-  };
-}
-
+const EditButton = styled(Button)({
+  marginRight: "40px",
+  height: "50px",
+  marginBottom: "10px",
+  width: "90px",
+});
 interface RowType {
   row: BudgetRowType;
+  rowIndex: number;
+  budgetID: string;
 }
-function Row({ row }: RowType) {
+function Row({ row, rowIndex, budgetID }: RowType) {
   const [open, setOpen] = React.useState(false);
 
+  const [dialogOpen, setDialogOpen] = React.useState(false);
+
+  const handleEditBtnClick = () => {
+    setDialogOpen(true);
+  };
   return (
     <React.Fragment>
       <TableRow sx={{ "& > *": { borderBottom: "unset" } }}>
@@ -74,61 +68,71 @@ function Row({ row }: RowType) {
             )}
           </IconButton>
         </TableCell>
-        <TableCell component="th" scope="row">
+        <TableCell sx={{ fontSize: "20px" }} component="th" scope="row">
           {moment(row.date).format("YYYY-MM-DD")}
         </TableCell>
-        <TableCell align="right">{row.income}</TableCell>
-        <TableCell align="right">{row.expense}</TableCell>
-        <TableCell align="right">{row.whom}</TableCell>
-        <TableCell align="right">{row.content}</TableCell>
-        <TableCell align="right">{row.balance}</TableCell>
+        <TableCell sx={{ fontSize: "20px" }} align="right">
+          {row.income}
+        </TableCell>
+        <TableCell sx={{ fontSize: "20px" }} align="right">
+          {row.expense}
+        </TableCell>
+        <TableCell sx={{ fontSize: "20px" }} align="right">
+          {row.whom}
+        </TableCell>
+        <TableCell sx={{ fontSize: "20px" }} align="right">
+          {row.content}
+        </TableCell>
+        <TableCell sx={{ fontSize: "20px" }} align="right">
+          {row.balance}
+        </TableCell>
       </TableRow>
       <TableRow>
-        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
-          <Collapse in={open} timeout="auto" unmountOnExit>
-            <Box sx={{ margin: 1 }}>
-              <Typography variant="h6" gutterBottom component="div">
-                History
-              </Typography>
-              <Table size="small" aria-label="purchases">
-                <TableHead>
-                  <TableRow>
-                    <TableCell>Date</TableCell>
-                    <TableCell>Customer</TableCell>
-                    <TableCell align="right">Amount</TableCell>
-                    <TableCell align="right">Total price ($)</TableCell>
-                  </TableRow>
-                </TableHead>
-                {/* <TableBody>
-                  {row.history.map((historyRow) => (
-                    <TableRow key={historyRow.date}>
-                      <TableCell component="th" scope="row">
-                        {historyRow.date}
-                      </TableCell>
-                      <TableCell>{historyRow.customerId}</TableCell>
-                      <TableCell align="right">{historyRow.amount}</TableCell>
-                      <TableCell align="right">
-                        {Math.round(historyRow.amount * row.price * 100) / 100}
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody> */}
-              </Table>
-            </Box>
+        <TableCell
+          style={{ paddingBottom: 0, paddingTop: 0, width: "100%" }}
+          colSpan={7}
+        >
+          <Collapse in={open} timeout="auto" unmountOnExit sx={{}}>
+            <List component="div" disablePadding>
+              <ListItemButton sx={{ pl: 4 }}>
+                <ListItemIcon></ListItemIcon>
+                <ListItemText
+                  disableTypography
+                  sx={{ fontSize: "20px" }}
+                  primary={`계좌번호: ${row.account}`}
+                />
+              </ListItemButton>
+            </List>
+
+            <List component="div" disablePadding>
+              <ListItemButton sx={{ pl: 4 }}>
+                <ListItemIcon></ListItemIcon>
+
+                <ListItemText
+                  disableTypography
+                  sx={{ fontSize: "20px" }}
+                  primary={`메모: ${row.note}`}
+                />
+              </ListItemButton>
+            </List>
+            <List component="div" disablePadding sx={{ textAlign: "end" }}>
+              <EditButton onClick={handleEditBtnClick} variant="outlined">
+                수정하기
+              </EditButton>
+            </List>
           </Collapse>
         </TableCell>
       </TableRow>
+      <UpdateRowDialog
+        dialogOpen={dialogOpen}
+        setDialogOpen={setDialogOpen}
+        rowIndex={rowIndex}
+        row={row}
+        budgetID={budgetID}
+      />
     </React.Fragment>
   );
 }
-
-// const rows = [
-//   createData("Frozen yoghurt", 159, 6.0, 24, 4.0, 3.99),
-//   createData("Ice cream sandwich", 237, 9.0, 37, 4.3, 4.99),
-//   createData("Eclair", 262, 16.0, 24, 6.0, 3.79),
-//   createData("Cupcake", 305, 3.7, 67, 4.3, 2.5),
-//   createData("Gingerbread", 356, 16.0, 49, 3.9, 1.5),
-// ];
 
 function CollapsibleTable() {
   const { clubID } = useParams();
@@ -146,18 +150,35 @@ function CollapsibleTable() {
         <TableHead>
           <TableRow>
             <TableCell />
-            <TableCell>날짜</TableCell>
-            <TableCell align="right">수입</TableCell>
-            <TableCell align="right">지출</TableCell>
-            <TableCell align="right">누가</TableCell>
-            <TableCell align="right">내용</TableCell>
-            <TableCell align="right">잔액</TableCell>
+            <TableCell sx={{ fontSize: "24px" }}>날짜</TableCell>
+            <TableCell sx={{ fontSize: "24px" }} align="right">
+              수입
+            </TableCell>
+            <TableCell sx={{ fontSize: "24px" }} align="right">
+              지출
+            </TableCell>
+            <TableCell sx={{ fontSize: "24px" }} align="right">
+              누가
+            </TableCell>
+            <TableCell sx={{ fontSize: "24px" }} align="right">
+              내용
+            </TableCell>
+            <TableCell sx={{ fontSize: "24px" }} align="right">
+              잔액
+            </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {isLoading
             ? null
-            : data?.rows.map((row) => <Row key={row._id} row={row} />)}
+            : data?.rows.map((row, index) => (
+                <Row
+                  key={row._id}
+                  row={row}
+                  rowIndex={index}
+                  budgetID={data?._id}
+                />
+              ))}
         </TableBody>
       </Table>
     </TableContainer>

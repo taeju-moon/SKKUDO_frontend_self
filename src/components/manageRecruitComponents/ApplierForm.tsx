@@ -48,15 +48,14 @@ function ApplierForm() {
   const handleDialogClose = () => {
     setDialogOpen(false);
   };
-  // const [applier, setApplier] = useState<ApplierType>();
+
   const queryClient = useQueryClient();
   const { data, isLoading } = useQuery<ApplierType>(
     "getApplierByClubID",
     () => getApplierByClubID(clubID || ""),
     {
       onSuccess: (data) => {
-        console.log(data);
-        // setApplier(data);
+        // console.log(data);
       },
       onError: (error) => console.log(error),
       retry: 1,
@@ -68,7 +67,7 @@ function ApplierForm() {
       updateApplier(clubID || "", applierInfo),
     {
       onSuccess: (data) => {
-        console.log(data);
+        // console.log(data);
         setNewQuestion("");
         queryClient.invalidateQueries("getApplierByClubID");
       },
@@ -82,7 +81,7 @@ function ApplierForm() {
     () => deleteApplier(clubID || ""),
     {
       onSuccess: (data) => {
-        console.log(data);
+        // console.log(data);
         window.location.reload();
       },
       onError: (error: any) => {
@@ -95,7 +94,7 @@ function ApplierForm() {
     (newApplier: NewApplierType) => createApplier(newApplier),
     {
       onSuccess: (data) => {
-        console.log(data);
+        // console.log(data);
         queryClient.invalidateQueries("getApplierByClubID");
       },
       onError: (error) => {
@@ -221,14 +220,22 @@ function ApplierForm() {
                 <ListItemIcon>
                   <HiOutlineDocument />
                 </ListItemIcon>
-                <ListItemText primary="서류 질문" />
+                <ListItemText
+                  disableTypography
+                  sx={{ fontSize: "24px", fontWeight: 700 }}
+                  primary="서류 질문"
+                />
                 <MdExpandMore />
               </ListItemButton>
               <Collapse in={true} timeout="auto" unmountOnExit>
                 {data?.documentQuestions.map((q, idx) => (
                   <List key={q} component="div" disablePadding>
                     <ListItem sx={{ pl: 4 }}>
-                      <ListItemText primary={q} />
+                      <ListItemText
+                        disableTypography
+                        sx={{ fontSize: "20px" }}
+                        primary={q}
+                      />
                       <Button
                         variant="outlined"
                         color="error"
@@ -255,14 +262,22 @@ function ApplierForm() {
                 <ListItemIcon>
                   <HiOutlineDocumentAdd />
                 </ListItemIcon>
-                <ListItemText primary="추가 질문" />
+                <ListItemText
+                  disableTypography
+                  sx={{ fontSize: "24px", fontWeight: 700 }}
+                  primary="추가 질문"
+                />
                 <MdExpandMore />
               </ListItemButton>
               <Collapse in={true} timeout="auto" unmountOnExit>
                 {data?.appliedUserColumns.map((column, idx) => (
                   <List key={column._id} component="div" disablePadding>
                     <ListItem sx={{ pl: 4 }}>
-                      <ListItemText primary={column.key} />
+                      <ListItemText
+                        primary={column.key}
+                        disableTypography
+                        sx={{ fontSize: "20px" }}
+                      />
                       <Button
                         variant="outlined"
                         color="error"
@@ -289,14 +304,22 @@ function ApplierForm() {
                 <ListItemIcon>
                   <TbSpeakerphone />
                 </ListItemIcon>
-                <ListItemText primary="면접 질문" />
+                <ListItemText
+                  disableTypography
+                  sx={{ fontSize: "24px", fontWeight: 700 }}
+                  primary="면접 질문"
+                />
                 <MdExpandMore />
               </ListItemButton>
               <Collapse in={true} timeout="auto" unmountOnExit>
                 {data?.interviewQuestions.map((q, idx) => (
                   <List key={q} component="div" disablePadding>
                     <ListItem sx={{ pl: 4 }}>
-                      <ListItemText primary={q} />
+                      <ListItemText
+                        primary={q}
+                        disableTypography
+                        sx={{ fontSize: "20px" }}
+                      />
                       <Button
                         variant="outlined"
                         color="error"

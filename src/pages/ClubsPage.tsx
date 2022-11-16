@@ -1,61 +1,11 @@
 import { Container, Divider, Stack, Typography } from "@mui/material";
 import moment from "moment";
-
 import { useState } from "react";
 import { useQuery } from "react-query";
 import ClubsFilterSidebar from "../components/clubsComponents/ClubsFilterSidebar";
 import ClubsList from "../components/clubsComponents/ClubsList";
 import { ClubType } from "../types/club";
 import { getAllClubs } from "../utils/fetch";
-
-const ALL_CLUBS_LIST: ClubType[] = [
-  {
-    _id: "1",
-    name: "billboard",
-    location: "자과캠",
-    type: {
-      _id: "1",
-      name: "보드게임",
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    },
-    userColumns: [
-      {
-        _id: "1",
-        key: "newKey",
-        valueType: "string",
-      },
-    ],
-    recruitType: "정규모집",
-    recruitStart: null,
-    recruitEnd: null,
-    createdAt: new Date(),
-    updatedAt: new Date(),
-  },
-  {
-    _id: "2",
-    name: "hakhae",
-    location: "인사캠",
-    type: {
-      _id: "2",
-      name: "수학",
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    },
-    userColumns: [
-      {
-        _id: "1",
-        key: "newKey",
-        valueType: "string",
-      },
-    ],
-    recruitType: "상시모집",
-    recruitStart: null,
-    recruitEnd: null,
-    createdAt: new Date(),
-    updatedAt: new Date(),
-  },
-];
 
 function ClubsPage() {
   const { data, isLoading } = useQuery<ClubType[]>("getAllClubs", getAllClubs);
@@ -69,7 +19,6 @@ function ClubsPage() {
         if (club.recruitType === "상시모집") {
           return true;
         } else {
-          // console.log(typeof club.recruitStart);
           return (
             today >= club.recruitStart!.substring(0, 10) &&
             today <= club.recruitEnd!.substring(0, 10)
@@ -111,14 +60,14 @@ function ClubsPage() {
       </Stack>
       <Stack divider={<Divider />}>
         <div>
-          <Typography variant="h4" sx={{ mb: 5 }}>
+          <Typography variant="h3" sx={{ mb: 5 }}>
             모든 동아리/학회
           </Typography>
 
-          <ClubsList clubs={isLoading ? ALL_CLUBS_LIST : data!} />
+          <ClubsList clubs={isLoading ? [] : data!} />
         </div>
         <div>
-          <Typography variant="h4" sx={{ mb: 5, marginTop: "40px" }}>
+          <Typography variant="h3" sx={{ mb: 5, marginTop: "40px" }}>
             모집중인 동아리/학회
           </Typography>
           {recruitingClubs ? <ClubsList clubs={recruitingClubs} /> : null}

@@ -46,7 +46,9 @@ const NewTodoInput = styled(TextField)`
   margin-bottom: 40px;
 `;
 
-const NewTodoSumbitBtn = styled(Button)``;
+const NewTodoSumbitBtn = styled(Button)`
+  font-size: 20px;
+`;
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;

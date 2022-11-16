@@ -100,10 +100,10 @@ export default function DashboardSidebar({
           <AccountStyle>
             <Avatar src={account.photoURL} alt="photoURL" />
             <Box sx={{ ml: 2 }}>
-              <Typography variant="subtitle2" sx={{ color: "text.primary" }}>
+              <Typography variant="h5" sx={{ color: "text.primary" }}>
                 {loggedInUser?.name}
               </Typography>
-              <Typography variant="body2" sx={{ color: "text.secondary" }}>
+              <Typography variant="subtitle1" sx={{ color: "text.secondary" }}>
                 {specificInfo?.role}
               </Typography>
             </Box>

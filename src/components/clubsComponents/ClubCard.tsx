@@ -1,8 +1,6 @@
 import { Link as RouterLink, useNavigate } from "react-router-dom";
-// material
 import { Box, Card, Link, Typography, Stack, Button } from "@mui/material";
 import { styled } from "@mui/material/styles";
-
 import { ClubType } from "../../types/club";
 import { motion } from "framer-motion";
 
@@ -34,13 +32,13 @@ const CardOverlay = styled(motion.div)({
   zIndex: "20",
 });
 
-const ApplyBtn = styled(Button)({});
+const ApplyBtn = styled(Button)({
+  fontSize: "20px",
+});
 interface IClubCard {
   club: ClubType;
 }
-interface NavigateParamType {
-  clubName: string;
-}
+
 export default function ClubCard({ club }: IClubCard) {
   const { _id, name, location, type } = club;
   const navigate = useNavigate();
@@ -55,7 +53,7 @@ export default function ClubCard({ club }: IClubCard) {
 
       <Stack spacing={2} sx={{ p: 3 }}>
         <Link to="#" color="inherit" underline="hover" component={RouterLink}>
-          <Typography variant="subtitle2" noWrap>
+          <Typography variant="h4" noWrap>
             {name}
           </Typography>
         </Link>
@@ -69,7 +67,7 @@ export default function ClubCard({ club }: IClubCard) {
             <ClubInfoContainer>
               <Typography
                 component="span"
-                variant="body1"
+                variant="h5"
                 sx={{
                   color: "text.disabled",
                 }}
@@ -78,7 +76,7 @@ export default function ClubCard({ club }: IClubCard) {
               </Typography>
               <Typography
                 component="span"
-                variant="body1"
+                variant="h5"
                 sx={{
                   color: "text.disabled",
                 }}

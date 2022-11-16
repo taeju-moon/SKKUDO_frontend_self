@@ -28,11 +28,6 @@ const SignupInputContainer = styled.div`
   justify-content: space-evenly;
   margin-bottom: 70px;
 `;
-const SignupInput = styled.input`
-  width: 40%;
-  background-color: whitesmoke;
-  height: 50px;
-`;
 
 function SignupPage() {
   const [name, setName] = useState("");
@@ -171,24 +166,12 @@ function SignupPage() {
             onChange={handleMajorChange}
           />
         </SignupInputContainer>
-        {/* <SignupInputContainer>
-        <TextField
-          required
-          sx={{ width: "40%" }}
-          label="이메일"
-          variant="outlined"
-        /> */}
-        {/* <TextField
-          sx={{ width: "40%" }}
-          label="학과"
-          variant="outlined"
-          required
-        /> */}
-        {/* </SignupInputContainer> */}
+
         <Button
-          sx={{ position: "absolute", right: "20px" }}
+          sx={{ position: "absolute", right: "40px", fontSize: "20px" }}
           type="submit"
           variant="outlined"
+          color="success"
         >
           submit
         </Button>

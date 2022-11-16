@@ -35,6 +35,7 @@ export interface ClickedNoticeInfoType {
   writer: string;
   title: string;
   content: string;
+  noticeTags: string[]; //태그
 }
 
 export interface DeleteNoticetype {
