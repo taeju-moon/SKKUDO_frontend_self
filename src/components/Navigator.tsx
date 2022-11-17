@@ -136,7 +136,7 @@ function Navigator() {
               <NavigationLink to="/clubs">Club</NavigationLink>
             </NavigationLi>
             <NavigationLi>
-              <NavigationLink to="/about">About</NavigationLink>
+              <NavigationLink to="/about/main">About</NavigationLink>
             </NavigationLi>
             <NavigationLi>
               <NavigationLink to="/myPage">My Page</NavigationLink>

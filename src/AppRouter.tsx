@@ -36,6 +36,8 @@ import ApplyPage from "./pages/ApplyPage";
 import ManageClub from "./pages/managePages/ManageClub";
 import ProfilePage from "./pages/ProfilePage";
 import ManageAccountBook from "./pages/managePages/ManageAccountBook";
+import AboutMainPage from "./pages/AboutMainPage";
+import AboutUseExamplePage from "./pages/AboutUseExamplePage";
 
 function AppRouter() {
   const setIsLoggedIn = useSetRecoilState(isLoggedInState);
@@ -74,12 +76,16 @@ function AppRouter() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/clubs" element={<ClubsPage />} />
-        <Route path="/about" element={<AboutPage />} />
+        <Route path="/about" element={<AboutPage />}>
+          <Route path="main" element={<AboutMainPage />} />
+          <Route path="useExample" element={<AboutUseExamplePage />} />
+        </Route>
         <Route path="/myPage" element={<MyPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/applyClub" element={<ApplyClubPage />} />
         <Route path="/apply/:clubID" element={<ApplyPage />} />
+
         <Route path="/club/:clubID" element={<ClubDetailPage />}>
           <Route path="notice" element={<NoticePage />}></Route>
           <Route path="calendar" element={<CalendarPage />} />
