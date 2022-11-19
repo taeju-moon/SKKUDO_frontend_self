@@ -12,6 +12,9 @@ const ClubHeader = styled("div")({
   margin: "0 auto",
   gap: "30px",
   fontSize: "50px",
+  color: "#0C4426",
+  borderBottom: "4px solid #0C4426",
+  paddingBottom: "15px",
 });
 
 interface ClubDetailHeaderType {
@@ -25,9 +28,9 @@ function ClubDetailHeader({ pageType }: ClubDetailHeaderType) {
   );
   return (
     <ClubHeader>
-      <h1>{clubData?.name}</h1>
-      <h2>|</h2>
-      <h2>{pageType}</h2>
+      <h1>
+        {clubData?.name}| {pageType}
+      </h1>
     </ClubHeader>
   );
 }
