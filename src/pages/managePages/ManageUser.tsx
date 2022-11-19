@@ -259,6 +259,7 @@ export default function User() {
           <TableContainer sx={{ minWidth: 800 }}>
             <Table>
               <UserListHead
+                isManaging={true}
                 order={order}
                 orderBy={orderBy}
                 headLabel={tableHead}

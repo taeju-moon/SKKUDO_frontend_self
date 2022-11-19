@@ -20,6 +20,7 @@ import {
   Typography,
   TableContainer,
   TablePagination,
+  styled,
 } from "@mui/material";
 import Scrollbar from "../../components/dashboardComponents/Scrollbar";
 import UserListHead from "../../components/userComponents/UserListHead";
@@ -297,6 +298,7 @@ function ManageRecruit() {
           <TableContainer sx={{ minWidth: 800 }}>
             <Table>
               <UserListHead
+                isManaging={true}
                 order={order}
                 orderBy={orderBy}
                 headLabel={TABLE_HEAD}
