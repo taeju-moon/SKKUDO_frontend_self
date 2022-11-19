@@ -12,7 +12,7 @@ import {
 } from "@mui/material";
 import { addClubUserColumn } from "./../../../utils/fetch";
 
-import { ColumnType } from "../../../types/common";
+import { ColumnType, NewColumnType } from "../../../types/common";
 
 type ValueType = "string" | "number" | "boolean";
 
@@ -27,8 +27,7 @@ const MainWrapper = styled("div")({
 });
 
 export default function ColumnCreate() {
-  const [columnForm, setColumnForm] = useState<ColumnType>({
-    _id: "",
+  const [columnForm, setColumnForm] = useState<NewColumnType>({
     key: "",
     valueType: "string",
   });

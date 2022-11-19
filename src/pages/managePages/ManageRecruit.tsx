@@ -356,7 +356,11 @@ function ManageRecruit() {
                         </TableCell>
 
                         {moreColumns.map((column) => (
-                          <TableCell sx={{ fontSize: "20px" }} align="left">
+                          <TableCell
+                            key={column.column._id}
+                            sx={{ fontSize: "20px" }}
+                            align="left"
+                          >
                             {column.value}
                           </TableCell>
                         ))}

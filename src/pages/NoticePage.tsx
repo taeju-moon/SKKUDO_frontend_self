@@ -122,7 +122,9 @@ function NoticePage() {
 
   const { data: noticeData, isLoading: isNoticeLoading } = useQuery<
     NoticeType[]
-  >("getNoticesByClubID", () => getNoticesByClubID(clubID || ""));
+  >("getNoticesByClubID", () => getNoticesByClubID(clubID || ""), {
+    onError: (error: any) => alert(error.response.data.error),
+  });
 
   const [clickedNoticeID, setClickedNoticeID] = useState("");
   const [isOptionOpened, setIsOptionOpened] = useState(false);

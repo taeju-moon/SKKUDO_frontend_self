@@ -68,7 +68,7 @@ function ProperInput({ keyword, handleClose }: ProperInputType) {
         console.log(data);
         queryClient.invalidateQueries("getOneClub");
       },
-      onError: (error) => console.log(error),
+      onError: (error: any) => alert(error.response.data.error),
     }
   );
 
