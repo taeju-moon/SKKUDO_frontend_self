@@ -49,12 +49,6 @@ const TodoAddBtn = styled(motion.button)`
   color: #dde143;
 `;
 
-const TodoList = styled.ul``;
-const TodoItem = styled.li``;
-const TodoTitle = styled.div``;
-const TodoDeleteBtn = styled.button``;
-const TodoUpdateBtn = styled.button``;
-
 interface DayDetailBoardType {
   isDayDetailOpened: boolean;
   date: Date;
@@ -92,7 +86,6 @@ function DayDetailBoard({ isDayDetailOpened, date }: DayDetailBoardType) {
   const dayDetail = useRecoilValue(dayDetailState);
   const setIsTodoUpdate = useSetRecoilState(isTodoUpdateState);
   const setUpdateTodo = useSetRecoilState(updateTodoInfoState);
-  // console.log(date);
 
   const { mutate: deleteTodoMutate } = useMutation(
     (todoInfo: DeleteTodoType) => deleteTodo(todoInfo),
@@ -101,7 +94,7 @@ function DayDetailBoard({ isDayDetailOpened, date }: DayDetailBoardType) {
         queryClient.invalidateQueries("getTodosByClubID");
         window.location.reload();
       },
-      onError: (error) => console.log(error),
+      onError: (error: any) => alert(error.response.data.error),
     }
   );
 

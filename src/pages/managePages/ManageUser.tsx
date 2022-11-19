@@ -1,8 +1,6 @@
 import { filter } from "lodash";
-
 import { useState, useEffect } from "react";
 import { Link as RouterLink, useParams } from "react-router-dom";
-
 import {
   Card,
   Table,
@@ -17,13 +15,11 @@ import {
   TableContainer,
   TablePagination,
 } from "@mui/material";
-
 import Scrollbar from "../../components/dashboardComponents/Scrollbar";
 import Iconify from "../../components/Iconify";
 import UserListToolbar from "../../components/userComponents/UserListToolbar";
 import UserListHead from "../../components/userComponents/UserListHead";
 import UserMoreMenu from "../../components/userComponents/UserMoreMenu";
-import Label from "../../components/userComponents/Label";
 import SearchNotFound from "../../components/userComponents/SearchNotFound";
 import ColumnModal from "../../components/userComponents/ColumnModal/ColumnModal";
 import { useQuery } from "react-query";
@@ -45,8 +41,6 @@ const TABLE_HEAD: ITableHeadItem[] = [
   { id: "major", label: "학과", alignRight: false },
   { id: "location", label: "위치", alignRight: false },
 ];
-
-// ----------------------------------------------------------------------
 
 type orderType = "desc" | "asc";
 type orderByType = "name" | "studentId" | "role" | "major" | "location";
@@ -144,9 +138,9 @@ export default function User() {
     () => getClubMembers(clubID || ""),
     {
       onSuccess: (data) => {
-        // console.log(data);
+        console.log(data);
       },
-      onError: (error) => console.log(error),
+      onError: (error: any) => alert(error.response.data.error),
     }
   );
 

@@ -56,11 +56,8 @@ function AppRouter() {
         major: data.authUser.major,
       });
       setLoggedInUser(data.authUser);
-
-      // console.log(data);
     },
     onError: (error: any) => {
-      // console.log(error.response.data.error);
       setIsLoggedIn(false);
       setUserName("");
       setUserInfoState({ userId: "", studentId: "", name: "", major: "" });

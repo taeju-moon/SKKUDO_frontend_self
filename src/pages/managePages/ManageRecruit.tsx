@@ -77,7 +77,6 @@ function ManageRecruit() {
     ({ userID, registerInfo }: RegisterMutateType) =>
       registerClub(userID, clubID || "", registerInfo),
     {
-
       onSuccess: (data) => {
         console.log(data);
       },
@@ -330,7 +329,6 @@ function ManageRecruit() {
                         role="checkbox"
                         selected={isItemSelected}
                         aria-checked={isItemSelected}
-                        // onClick={() => console.log("click")}
                       >
                         <TableCell padding="checkbox">
                           <Checkbox

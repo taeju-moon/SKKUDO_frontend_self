@@ -39,12 +39,15 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 
 import Iconify from "../Iconify";
+import { useRecoilValue } from "recoil";
+import { currentClubInfoState } from "../../atoms/utilAtom";
 
 function ApplierForm() {
   const { clubID } = useParams();
   const [dialogOpen, setDialogOpen] = useState(false);
   const [newQuestion, setNewQuestion] = useState("");
   const [dialogType, setDialogType] = useState("");
+  const currentClubInfo = useRecoilValue(currentClubInfoState);
   const handleDialogClose = () => {
     setDialogOpen(false);
   };
@@ -54,9 +57,7 @@ function ApplierForm() {
     "getApplierByClubID",
     () => getApplierByClubID(clubID || ""),
     {
-      onSuccess: (data) => {
-        // console.log(data);
-      },
+      onSuccess: (data) => {},
       onError: (error) => console.log(error),
       retry: 1,
     }
@@ -112,7 +113,7 @@ function ApplierForm() {
       clubId: clubID || "",
       documentQuestions: [],
       interviewQuestions: [],
-      appliedUserColumns: [],
+      appliedUserColumns: currentClubInfo ? currentClubInfo.userColumns : [],
     });
   };
 
@@ -126,11 +127,12 @@ function ApplierForm() {
         const newQuestions = data.interviewQuestions;
         newQuestions.splice(idx, 1);
         mutate({ interviewQuestions: newQuestions });
-      } else if (key === "more") {
-        const newQuestions = data.appliedUserColumns;
-        newQuestions.splice(idx, 1);
-        mutate({ appliedUserColumns: newQuestions });
       }
+      // else if (key === "more") {
+      //   const newQuestions = data.appliedUserColumns;
+      //   newQuestions.splice(idx, 1);
+      //   mutate({ appliedUserColumns: newQuestions });
+      // }
     }
   };
 
@@ -156,12 +158,13 @@ function ApplierForm() {
         const newQuestions = data.interviewQuestions;
         newQuestions.push(newQuestion);
         mutate({ interviewQuestions: newQuestions });
-      } else if (key === "more") {
-        const newQuestions: NewAppliedUserColumnsType[] =
-          data.appliedUserColumns;
-        newQuestions.push({ key: newQuestion, valueType: "string" });
-        mutate({ appliedUserColumns: newQuestions });
       }
+      // else if (key === "more") {
+      //   const newQuestions: NewAppliedUserColumnsType[] =
+      //     data.appliedUserColumns;
+      //   newQuestions.push({ key: newQuestion, valueType: "string" });
+      //   mutate({ appliedUserColumns: newQuestions });
+      // }
     }
   };
   return (
@@ -270,7 +273,24 @@ function ApplierForm() {
                 <MdExpandMore />
               </ListItemButton>
               <Collapse in={true} timeout="auto" unmountOnExit>
-                {data?.appliedUserColumns.map((column, idx) => (
+                {currentClubInfo ? (
+                  currentClubInfo.userColumns.map((column) => (
+                    <List key={column._id} component="div" disablePadding>
+                      <ListItem sx={{ pl: 4 }}>
+                        <ListItemText
+                          primary={column.key}
+                          disableTypography
+                          sx={{ fontSize: "20px" }}
+                        />
+                      </ListItem>
+                    </List>
+                  ))
+                ) : (
+                  <div>
+                    추가질문이 없습니다. 멤버관리 페이지에서 추가해보세요!
+                  </div>
+                )}
+                {/* {data?.appliedUserColumns.map((column, idx) => (
                   <List key={column._id} component="div" disablePadding>
                     <ListItem sx={{ pl: 4 }}>
                       <ListItemText
@@ -278,26 +298,11 @@ function ApplierForm() {
                         disableTypography
                         sx={{ fontSize: "20px" }}
                       />
-                      <Button
-                        variant="outlined"
-                        color="error"
-                        onClick={() => handleDeleteBtnClick("more", idx)}
-                      >
-                        삭제
-                      </Button>
                     </ListItem>
                   </List>
-                ))}
+                ))} */}
                 <List component="div" disablePadding>
-                  <ListItem sx={{ pl: 4 }}>
-                    <Button
-                      variant="outlined"
-                      sx={{ width: "100%" }}
-                      onClick={() => handleAddBtnClick("more")}
-                    >
-                      질문 추가하기
-                    </Button>
-                  </ListItem>
+                  <ListItem sx={{ pl: 4 }}></ListItem>
                 </List>
               </Collapse>
               <ListItemButton>

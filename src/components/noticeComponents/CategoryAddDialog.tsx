@@ -56,6 +56,7 @@ function CategoryAddDialog(props: SimpleDialogProps) {
       onSuccess: (data) => {
         // console.log(data);
       },
+      onError: (error: any) => alert(error.response.data.error),
     }
   );
 
@@ -65,9 +66,7 @@ function CategoryAddDialog(props: SimpleDialogProps) {
       onSuccess: (data) => {
         queryClient.invalidateQueries("getNoticeTagsByClubID");
       },
-      onError: (error) => {
-        console.log(error);
-      },
+      onError: (error: any) => alert(error.response.data.error),
     }
   );
 

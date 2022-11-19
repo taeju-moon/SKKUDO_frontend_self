@@ -24,7 +24,7 @@ const AddNoticePageContainer = styled("form")({
   width: "100%",
   maxWidth: "1024px",
   margin: "0 auto",
-  paddingTop: "200px",
+  paddingTop: "60px",
   display: "flex",
   flexDirection: "column",
   position: "relative",
@@ -33,7 +33,7 @@ const AddNoticePageContainer = styled("form")({
 const TitleInput = styled("input")({
   width: "400px",
   height: "50px",
-  marginBottom: "30px",
+  marginBottom: "50px",
   borderRadius: "5px",
   backgroundColor: "#fff",
   border: "2px solid #0c4426",
@@ -220,7 +220,7 @@ function AddNoticePage() {
           ))}
         </Select>
       </FormControl>
-      <ContentInput required rows={25} onChange={handleContentChange} />
+      <ContentInput required rows={22} onChange={handleContentChange} />
       <ButtonContainer>
         <AddButton
           variant="contained"

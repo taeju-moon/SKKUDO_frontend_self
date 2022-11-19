@@ -7,7 +7,6 @@ import Dialog from "@mui/material/Dialog";
 import { Box, TextField } from "@mui/material";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import {
-  createNoticeTag,
   createTodoTag,
   deleteTodoTag,
   getTodoTagsByClubID,
@@ -19,7 +18,7 @@ import {
   CategoryList,
   CategoryListItem,
 } from "../noticeComponents/CategoryAddDialog";
-import { DeleteNoticetype } from "../../types/notice";
+
 import { DeleteTodoType, ToDoTagType } from "../../types/todo";
 
 export interface SimpleDialogProps {
@@ -44,9 +43,7 @@ function TodoCategoryDialog(props: SimpleDialogProps) {
       onSuccess: (data) => {
         queryClient.invalidateQueries("getTodoTagsByClubID");
       },
-      onError: (error) => {
-        console.log(error);
-      },
+      onError: (error: any) => alert(error.response.data.error),
     }
   );
 
@@ -56,9 +53,7 @@ function TodoCategoryDialog(props: SimpleDialogProps) {
       onSuccess: (data) => {
         queryClient.invalidateQueries("getTodoTagsByClubID");
       },
-      onError: (error) => {
-        console.log(error);
-      },
+      onError: (error: any) => alert(error.response.data.error),
     }
   );
   const handleClose = () => {
