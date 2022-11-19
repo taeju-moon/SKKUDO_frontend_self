@@ -4,12 +4,10 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import { useState } from "react";
 import { useMutation, useQueryClient } from "react-query";
 import { useParams } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { isAuthConfirmAlertOpenState } from "../../atoms/alertAtom";
-import { RoleType } from "../../types/common";
 import { UpdateValidationType } from "../../types/validation";
 import { updateValidation } from "../../utils/fetch";
 
@@ -33,17 +31,12 @@ export default function AuthConfirmAlert({
       updateValidation(clubID || "", validatinInfo),
     {
       onSuccess: (data) => {
-        console.log(data);
+        // console.log(data);
         queryClient.invalidateQueries("getValidationByClubID");
       },
-      onError: (error) => {
-        console.log(error);
-      },
+      onError: (error: any) => alert(error.response.data.error),
     }
   );
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
 
   const handleClose = () => {
     setOpen(false);

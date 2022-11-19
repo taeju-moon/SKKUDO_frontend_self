@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { useRecoilState } from "recoil";
 import { isLoggedInState } from "../../atoms/loginAtom";
 import { userNameState } from "../../atoms/userAtom";
+import { useMutation } from "react-query";
 
 const MainWrapper = styled("div")({
   width: 170,
@@ -65,21 +66,41 @@ export default function QuickLogin() {
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(isLoggedInState);
   const [user, setUser] = useRecoilState(userNameState);
+
+  const { mutate } = useMutation(
+    ({ userID, password }: LoginInfo) => loginFromServer(userID, password),
+    {
+      //need to fix
+      onSuccess: (data) => {
+        // console.log(data);
+        setIsLoggedIn(true);
+        alert(
+          "테스트 유저로 로그인했습니다. 마이페이지에서 내 동아리 정보를 확인하세요."
+        );
+        // navigate("/myPage");
+        window.location.reload();
+      },
+      onError: (error: { response: { data: { error: string } } }) =>
+        alert(error.response.data.error),
+    }
+  );
+
   const handleSubmit = async (usingInfo: LoginInfo) => {
     if (isLoggedIn) {
       alert("먼저 로그아웃 해주세요.");
       return;
     }
-    loginFromServer(usingInfo.userID, usingInfo.password)
-      .then((data) => {
-        setIsLoggedIn(true);
-        setUser(data.data.name);
-        alert(
-          "테스트 유저로 로그인했습니다. 마이페이지에서 내 동아리 정보를 확인하세요."
-        );
-        navigate("/myPage");
-      })
-      .catch((error) => alert("알 수 없는 에러가 발생했습니다."));
+    // loginFromServer(usingInfo.userID, usingInfo.password)
+    //   .then((data) => {
+    //     setIsLoggedIn(true);
+    //     setUser(data.data.name);
+    //     alert(
+    //       "테스트 유저로 로그인했습니다. 마이페이지에서 내 동아리 정보를 확인하세요."
+    //     );
+    //     navigate("/myPage");
+    //   })
+    //   .catch((error) => alert("알 수 없는 에러가 발생했습니다."));
+    mutate(usingInfo);
   };
   return (
     <Box
