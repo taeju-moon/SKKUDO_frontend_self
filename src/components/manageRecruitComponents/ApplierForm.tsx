@@ -72,8 +72,8 @@ function ApplierForm() {
         setNewQuestion("");
         queryClient.invalidateQueries("getApplierByClubID");
       },
-      onError: (error) => {
-        console.log(error);
+      onError: (error: any) => {
+        alert(error.response.data.error);
       },
     }
   );
@@ -98,8 +98,8 @@ function ApplierForm() {
         // console.log(data);
         queryClient.invalidateQueries("getApplierByClubID");
       },
-      onError: (error) => {
-        console.log(error);
+      onError: (error: any) => {
+        alert(error.response.data.error);
       },
     }
   );

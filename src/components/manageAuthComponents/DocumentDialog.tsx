@@ -23,13 +23,10 @@ export default function DocumentDialog({
   setOpen,
   applierInfo,
 }: DocumentDialogType) {
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
   const handleClose = () => {
     setOpen(false);
   };
+  console.log(applierInfo);
 
   return (
     <React.Fragment>

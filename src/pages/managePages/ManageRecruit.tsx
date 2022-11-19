@@ -1,15 +1,12 @@
 import { useMutation, useQuery, useQueryClient } from "react-query";
-
 import { AppliedUserType } from "../../types/apply";
 import {
   deleteAppliedUser,
-  deleteApplier,
   getAppliedUserByClubID,
   getOneClub,
   registerClub,
 } from "../../utils/fetch";
 import { Link as RouterLink, useParams } from "react-router-dom";
-
 import {
   Card,
   Table,
@@ -26,9 +23,7 @@ import {
 } from "@mui/material";
 import Scrollbar from "../../components/dashboardComponents/Scrollbar";
 import UserListHead from "../../components/userComponents/UserListHead";
-import Iconify from "../../components/Iconify";
 import { useState, useEffect } from "react";
-
 import UserListToolbar from "../../components/userComponents/UserListToolbar";
 import SearchNotFound from "../../components/userComponents/SearchNotFound";
 import { filter } from "lodash";
@@ -51,7 +46,6 @@ type TableHeadType = {
 const TABLE_HEAD = [
   { id: "name", label: "이름", alignRight: false },
   { id: "studentId", label: "학번", alignRight: false },
-
   { id: "major", label: "학과", alignRight: false },
 ];
 
@@ -63,7 +57,7 @@ function ManageRecruit() {
     () => getAppliedUserByClubID(clubID || ""),
     {
       onSuccess: (data) => {
-        // console.log(data);
+        console.log(data);
       },
       onError: (error) => console.log(error),
     }
@@ -104,7 +98,6 @@ function ManageRecruit() {
   const [selected, setSelected] = useState<string[]>([]);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [filterName, setFilterName] = useState("");
-  const [tableHead, setTableHead] = useState<TableHeadType[]>(TABLE_HEAD);
 
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
@@ -276,7 +269,6 @@ function ManageRecruit() {
         const refinedCols = club.userColumns.map((item): TableHeadType => {
           return { id: item.key, label: item.key, alignRight: false };
         });
-        setTableHead([...TABLE_HEAD, ...refinedCols]);
       }
     });
   }, []);
@@ -307,7 +299,7 @@ function ManageRecruit() {
               <UserListHead
                 order={order}
                 orderBy={orderBy}
-                headLabel={tableHead}
+                headLabel={TABLE_HEAD}
                 rowCount={data?.length || 0}
                 numSelected={selected.length}
                 onRequestSort={handleRequestSort}
@@ -354,16 +346,6 @@ function ManageRecruit() {
                         <TableCell sx={{ fontSize: "20px" }} align="left">
                           {major}
                         </TableCell>
-
-                        {moreColumns.map((column) => (
-                          <TableCell
-                            key={column.column._id}
-                            sx={{ fontSize: "20px" }}
-                            align="left"
-                          >
-                            {column.value}
-                          </TableCell>
-                        ))}
 
                         <TableCell align="right">
                           <Button
