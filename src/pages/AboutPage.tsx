@@ -15,7 +15,7 @@ const AboutContainer = styled.div`
 function AboutPage() {
   return (
     <AboutContainer>
-      <AboutSideBar sex={"여자"} />
+      <AboutSideBar />
       <Outlet />
     </AboutContainer>
   );

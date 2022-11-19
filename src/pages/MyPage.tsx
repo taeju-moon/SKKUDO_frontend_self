@@ -7,15 +7,15 @@ import {
 } from "@mui/material";
 import { useEffect, useState } from "react";
 
-import { useMutation, useQuery } from "react-query";
+import { useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 
 import styled from "styled-components";
 import exampleImage from "../assets/images/example.png";
 
-import { RegisteredClubType, VerifyUserResponseType } from "../types/user";
-import { getAppliedUserByID, verifyUser } from "../utils/fetch";
+import { RegisteredClubType } from "../types/user";
+import { getAppliedUserByID } from "../utils/fetch";
 import { isLoggedInState } from "../atoms/loginAtom";
 import { loggedInUserState } from "../atoms/userAtom";
 
@@ -49,23 +49,27 @@ const ClubCardsContainer = styled.div`
 
 function MyPage() {
   const navigate = useNavigate();
-  const [userClubs, setUserClubs] = useState<RegisteredClubType[]>();
+  const [userClubs, setUserClubs] = useState<RegisteredClubType[]>([]);
   const isLoggedIn = useRecoilValue(isLoggedInState);
   const loggedInUser = useRecoilValue(loggedInUserState);
 
   const { data: appliedClubs, isLoading: isAppliedClubsLoading } = useQuery<
     RegisteredClubType[]
   >("getAppliedClubsByID", getAppliedUserByID, {
-    onSuccess: (data) => console.log(data),
-    onError: (error) => console.log(error),
+    onSuccess: (data) => {},
+    onError: (error: any) => {
+      alert(error.response.data.error);
+    },
   });
 
   useEffect(() => {
+    // console.log(isLoggedIn);
     if (!isLoggedIn) {
       navigate("/login");
     } else {
       if (loggedInUser) {
         setUserClubs(Object.values(loggedInUser.registeredClubs));
+        // console.log(loggedInUser);
       }
     }
   }, [isLoggedIn, loggedInUser]);
@@ -73,6 +77,10 @@ function MyPage() {
   const handleMyClubCardClick = (clubID: string) => {
     navigate(`/club/${clubID}/notice`);
   };
+  if (userClubs) {
+    console.log("there is");
+  }
+  console.log(userClubs);
 
   return (
     <MyPageContainer>
@@ -80,7 +88,7 @@ function MyPage() {
         <SectionContainer>
           <Title>내 동아리</Title>
           <ClubCardsContainer>
-            {!loggedInUser?.registeredClubs ? (
+            {userClubs.length === 0 ? (
               <Card sx={{ maxWidth: 345 }}>
                 <CardActionArea>
                   <CardMedia
@@ -132,7 +140,7 @@ function MyPage() {
         <SectionContainer>
           <Title>지원중인 동아리</Title>
           <ClubCardsContainer>
-            {isAppliedClubsLoading ? (
+            {appliedClubs && appliedClubs.length === 0 ? (
               <Card sx={{ width: 345 }}>
                 <CardActionArea>
                   <CardMedia

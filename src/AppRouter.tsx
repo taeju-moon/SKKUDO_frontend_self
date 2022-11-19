@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Navigator from "./components/Navigator";
 import AboutPage from "./pages/AboutPage";
 import CalendarPage from "./pages/CalendarPage";
@@ -22,7 +22,7 @@ import ApplyClubPage from "./pages/ApplyClubPage";
 import AddNoticePage from "./pages/AddNoticePage";
 import { useMutation } from "react-query";
 import { verifyUser } from "./utils/fetch";
-import { useSetRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import { isLoggedInState } from "./atoms/loginAtom";
 import { useEffect } from "react";
 import { VerifyUserResponseType } from "./types/user";
@@ -40,7 +40,8 @@ import AboutMainPage from "./pages/AboutMainPage";
 import AboutUseExamplePage from "./pages/AboutUseExamplePage";
 
 function AppRouter() {
-  const setIsLoggedIn = useSetRecoilState(isLoggedInState);
+  const [isLoggedIn, setIsLoggedIn] = useRecoilState(isLoggedInState);
+  // const setIsLoggedIn = useSetRecoilState(isLoggedInState);
   const setUserName = useSetRecoilState(userNameState);
   const setUserInfoState = useSetRecoilState(userInfoState);
   const setLoggedInUser = useSetRecoilState(loggedInUserState);
@@ -59,7 +60,7 @@ function AppRouter() {
       // console.log(data);
     },
     onError: (error: any) => {
-      console.log(error.response.data.error);
+      // console.log(error.response.data.error);
       setIsLoggedIn(false);
       setUserName("");
       setUserInfoState({ userId: "", studentId: "", name: "", major: "" });
@@ -69,6 +70,8 @@ function AppRouter() {
   useEffect(() => {
     mutate();
   }, []);
+
+  console.log(isLoggedIn);
 
   return (
     <BrowserRouter>
@@ -80,11 +83,27 @@ function AppRouter() {
           <Route path="main" element={<AboutMainPage />} />
           <Route path="useExample" element={<AboutUseExamplePage />} />
         </Route>
-        <Route path="/myPage" element={<MyPage />} />
-        <Route path="/login" element={<LoginPage />} />
+        <Route
+          path="/myPage"
+          element={isLoggedIn ? <MyPage /> : <Navigate replace to="/login" />}
+        />
+        <Route
+          path="/login"
+          element={isLoggedIn ? <Navigate replace to="/" /> : <LoginPage />}
+        />
         <Route path="/signup" element={<SignupPage />} />
-        <Route path="/applyClub" element={<ApplyClubPage />} />
-        <Route path="/apply/:clubID" element={<ApplyPage />} />
+        <Route
+          path="/applyClub"
+          element={
+            isLoggedIn ? <ApplyClubPage /> : <Navigate replace to="/login" />
+          }
+        />
+        <Route
+          path="/apply/:clubID"
+          element={
+            isLoggedIn ? <ApplyPage /> : <Navigate replace to="/login" />
+          }
+        />
 
         <Route path="/club/:clubID" element={<ClubDetailPage />}>
           <Route path="notice" element={<NoticePage />}></Route>
