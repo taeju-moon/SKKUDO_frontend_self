@@ -9,3 +9,11 @@ export interface ColumnType {
   key: string;
   valueType: ValueType;
 }
+
+export interface ErrorType {
+  error: {
+    response: {
+      data: { error: string };
+    };
+  };
+}

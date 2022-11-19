@@ -41,8 +41,13 @@ function SignupPage() {
   const { mutate, isLoading } = useMutation(
     (newUser: NewUserType) => createUser(newUser),
     {
-      onSuccess: (data) => console.log(data),
-      onError: (error) => console.log(error),
+      onSuccess: (data) => {
+        alert("회원가입이 완료되었습니다.");
+        navigate("/");
+      },
+      onError: (error: any) => {
+        alert(error.response.data.error);
+      },
     }
   );
 
@@ -60,8 +65,6 @@ function SignupPage() {
   const handleSignupFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     mutate({ name, studentId, userID, password, location, major });
-
-    navigate("/");
   };
 
   const handleNameChange = (
@@ -131,6 +134,7 @@ function SignupPage() {
             variant="outlined"
             value={userID}
             onChange={handleUserIDChange}
+            inputProps={{ minLength: 5 }}
           />
           <TextField
             sx={{ width: "40%" }}
@@ -139,6 +143,7 @@ function SignupPage() {
             required
             value={password}
             onChange={handlePasswordChange}
+            inputProps={{ minLength: 5 }}
           />
         </SignupInputContainer>
         <SignupInputContainer>

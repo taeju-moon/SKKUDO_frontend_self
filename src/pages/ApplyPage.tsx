@@ -8,7 +8,7 @@ import { isLoggedInState } from "../atoms/loginAtom";
 import { userInfoState } from "../atoms/userAtom";
 import FormTitle from "../components/FormTitle";
 import { AppliedUserType, ApplierType, ApplyFormType } from "../types/apply";
-import { ColumnType } from "../types/common";
+import { ColumnType, ErrorType } from "../types/common";
 import { VerifyUserResponseType } from "../types/user";
 import {
   createAppliedUser,
@@ -57,12 +57,16 @@ function ApplyPage() {
   const applierInfo = useRecoilValue(userInfoState);
   const navigate = useNavigate();
   const isLoggedIn = useRecoilValue(isLoggedInState);
+  // if(!isLoggedIn) {
+
+  // }
 
   useEffect(() => {
     if (!isLoggedIn) {
-      navigate("/login");
+      alert("로그인 후 이용하실 수 있는 서비스 입니다");
+      // navigate("/login");
     }
-  }, [isLoggedInState]);
+  }, []);
 
   const { data, isLoading } = useQuery<ApplierType>(
     "getApplierByClubID",
@@ -71,15 +75,22 @@ function ApplyPage() {
       onSuccess: (data) => {
         // console.log(data);
       },
-      onError: (error) => console.log(error),
+      onError: (error: any) => {
+        alert(error.response.data.error);
+      },
     }
   );
 
   const { mutate } = useMutation(
     (applierInfo: ApplyFormType) => createAppliedUser(applierInfo),
     {
-      onSuccess: (data) => console.log(data),
-      onError: (error) => console.log(error),
+      onSuccess: (data) => {
+        alert("동아리에 지원서가 접수되었습니다!");
+        navigate("/");
+      },
+      onError: (error: any) => {
+        alert(error.response.data.error);
+      },
     }
   );
 
@@ -93,8 +104,6 @@ function ApplyPage() {
     setAnswers(new Map(answers.set(idx, event.target.value)));
   };
 
-  // console.log(Array.from(answers.values()));
-
   const handleSubInputChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
     key: string
@@ -102,8 +111,8 @@ function ApplyPage() {
     setSubAnswers(new Map(subAnswers.set(key, event.target.value)));
   };
 
-  const handleApplySubmit = () => {
-    // console.log(Array.from(subAnswers.keys()));
+  const handleApplySubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
     const tempMoreColumns: {
       column: ColumnType;
       value: String;
@@ -116,7 +125,8 @@ function ApplyPage() {
         })
       );
     }
-    console.log(tempMoreColumns);
+
+    // console.log(tempMoreColumns);
     const tempApplyInfo: ApplyFormType = {
       clubId: clubID || "",
       userID: applierInfo.userId,
@@ -131,15 +141,14 @@ function ApplyPage() {
     };
     // console.log(tempApplyInfo);
     mutate(tempApplyInfo);
-    navigate("/");
   };
 
   return (
     <ApplyWrapper>
-      <ApplyClubPageContainer>
+      <ApplyClubPageContainer onSubmit={handleApplySubmit}>
         <FormTitle title="동아리 지원서" />
         <ApplyInputContainer>
-          {isLoading ? (
+          {!data ? (
             <div>아직 지원을 받고 있지 않는 동아리입니다</div>
           ) : (
             data?.documentQuestions.map((question, index) => (
@@ -179,7 +188,8 @@ function ApplyPage() {
 
         <Button
           sx={{ position: "absolute", right: "20px" }}
-          onClick={handleApplySubmit}
+          // onClick={handleApplySubmit}
+          type="submit"
           variant="outlined"
         >
           submit
