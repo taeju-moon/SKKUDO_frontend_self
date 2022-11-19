@@ -6,6 +6,7 @@ import styled from "styled-components";
 import { isManageState } from "../atoms/NavigatorAtom";
 import myeong from "../assets/images/myeong.jpeg";
 import yul from "../assets/images/yul.png";
+import TestLogin from "../components/testLogin/Testlogin";
 
 const HomePageContainer = styled.div`
   padding-top: 80px;
@@ -106,6 +107,7 @@ function HomePage() {
           동아리 만들기
         </MainPageBtn>
       </ButtonsContainer>
+      <TestLogin />
     </HomePageContainer>
   );
 }
