@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import Calendar from "react-calendar";
 import { useState } from "react";
-
 import "./CustomCalendarStyle.css";
 import moment from "moment";
 import ClubDetailHeader from "../components/ClubDetailHeader";
@@ -94,8 +93,9 @@ function CalendarPage() {
           newMark.push(moment(todo.date).format("YYYY-MM-DD"))
         );
         setMark(newMark);
-        console.log(data);
+        // console.log(data);
       },
+      onError: (error: any) => alert(error.response.data.error),
     }
   );
 

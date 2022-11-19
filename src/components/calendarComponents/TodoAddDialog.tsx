@@ -108,6 +108,7 @@ function TodoAddDialog(props: SimpleDialogProps) {
       data.forEach((member) => temp.push(member.name));
       names = temp;
     },
+    onError: (error: any) => alert(error.response.data.error),
   });
 
   const { data: tagsData, isLoading: isTagsLoading } = useQuery<ToDoTagType[]>(
@@ -115,12 +116,11 @@ function TodoAddDialog(props: SimpleDialogProps) {
     () => getTodoTagsByClubID(clubID || ""),
     {
       onSuccess: (data) => {
-        console.log(data);
-
         const temp: string[] = [];
         data.forEach((tag) => temp.push(tag.name));
         rawTags = temp;
       },
+      onError: (error: any) => alert(error.response.data.error),
     }
   );
 
@@ -165,10 +165,7 @@ function TodoAddDialog(props: SimpleDialogProps) {
     const {
       target: { value },
     } = event;
-    setTags(
-      // On autofill we get a stringified value.
-      typeof value === "string" ? value.split(",") : value
-    );
+    setTags(typeof value === "string" ? value.split(",") : value);
   };
 
   useEffect(() => {

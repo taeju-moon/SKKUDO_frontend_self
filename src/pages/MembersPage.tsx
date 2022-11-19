@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import * as React from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -13,26 +12,15 @@ import { UserType } from "../types/user";
 import { getClubMembers } from "../utils/fetch";
 import ClubDetailHeader from "../components/ClubDetailHeader";
 
-function createData(
-  name: string,
-  calories: number,
-  fat: number,
-  carbs: number,
-  protein: number
-) {
-  return { name, calories, fat, carbs, protein };
-}
-
-const rows = [
-  createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
-  createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
-];
-
 function BasicTable() {
   const { clubID } = useParams();
 
-  const { data, isLoading } = useQuery<UserType[]>("getClubMembers", () =>
-    getClubMembers(clubID || "")
+  const { data, isLoading } = useQuery<UserType[]>(
+    "getClubMembers",
+    () => getClubMembers(clubID || ""),
+    {
+      onError: (error: any) => alert(error.response.data.error),
+    }
   );
   return (
     <TableContainer
@@ -62,50 +50,38 @@ function BasicTable() {
               학과
             </TableCell>
             <TableCell sx={{ fontSize: "25px" }} align="right">
-              기타
+              학교
             </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {isLoading
-            ? rows.map((row) => (
-                <TableRow key={row.name}>
-                  <TableCell component="th" scope="row">
-                    {row.name}
-                  </TableCell>
-                  <TableCell align="right">{row.calories}</TableCell>
-                  <TableCell align="right">{row.fat}</TableCell>
-                  <TableCell align="right">{row.carbs}</TableCell>
-                  <TableCell align="right">{row.protein}</TableCell>
-                </TableRow>
-              ))
-            : data?.map((member) => (
-                <TableRow key={member._id}>
-                  <TableCell
-                    sx={{ fontSize: "23px" }}
-                    component="th"
-                    scope="row"
-                  >
-                    {member.name}
-                  </TableCell>
-                  <TableCell sx={{ fontSize: "23px" }} align="right">
-                    {member.studentId}
-                  </TableCell>
-                  <TableCell sx={{ fontSize: "23px" }} align="right">
-                    {
-                      Object.values(member.registeredClubs).filter(
-                        (club) => club.clubId === clubID
-                      )[0].role
-                    }
-                  </TableCell>
-                  <TableCell sx={{ fontSize: "23px" }} align="right">
-                    {member.major}
-                  </TableCell>
-                  <TableCell sx={{ fontSize: "23px" }} align="right">
-                    {member.location}
-                  </TableCell>
-                </TableRow>
-              ))}
+          {isLoading ? (
+            <div>동아리 멤버가 존재하지 않거나 볼 수 있는 권한이 없습니다</div>
+          ) : (
+            data?.map((member) => (
+              <TableRow key={member._id}>
+                <TableCell sx={{ fontSize: "23px" }} component="th" scope="row">
+                  {member.name}
+                </TableCell>
+                <TableCell sx={{ fontSize: "23px" }} align="right">
+                  {member.studentId}
+                </TableCell>
+                <TableCell sx={{ fontSize: "23px" }} align="right">
+                  {
+                    Object.values(member.registeredClubs).filter(
+                      (club) => club.clubId === clubID
+                    )[0].role
+                  }
+                </TableCell>
+                <TableCell sx={{ fontSize: "23px" }} align="right">
+                  {member.major}
+                </TableCell>
+                <TableCell sx={{ fontSize: "23px" }} align="right">
+                  {member.location}
+                </TableCell>
+              </TableRow>
+            ))
+          )}
         </TableBody>
       </Table>
     </TableContainer>

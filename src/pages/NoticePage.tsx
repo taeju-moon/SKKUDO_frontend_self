@@ -103,13 +103,6 @@ const Item = styled(Paper)(({ theme }) => ({
   height: "60px",
 }));
 
-const TagContainer = styled("div")({
-  height: "40px",
-  width: "100%",
-  display: "flex",
-  justifyContent: "flex-end",
-});
-
 const Tag = styled("div")({
   height: "100%",
   backgroundColor: "#0c4426",
@@ -131,7 +124,6 @@ function NoticePage() {
     NoticeType[]
   >("getNoticesByClubID", () => getNoticesByClubID(clubID || ""));
 
-  // console.log(noticeData);
   const [clickedNoticeID, setClickedNoticeID] = useState("");
   const [isOptionOpened, setIsOptionOpened] = useState(false);
   const [clickedNoticeInfo, setClickedNotiiceInfo] =
@@ -177,20 +169,18 @@ function NoticePage() {
     (deleteNoticeInfo: DeleteNoticetype) => deleteNotice(deleteNoticeInfo),
     {
       onSuccess: (data) => {
-        // console.log(data);
-        // window.location.reload();
         queryClient.invalidateQueries("getNoticesByClubID");
       },
-      onError: (error) => {
-        console.log(error);
+      onError: (error: any) => {
+        alert(error.response.data.error);
       },
     }
   );
   //need to fix this axios error
   const handleNoticeDeleteBtnClick = (deleteNoticeInfo: DeleteNoticetype) => {
     mutate(deleteNoticeInfo);
-    console.log(deleteNoticeInfo.clubID);
-    console.log(deleteNoticeInfo._id);
+    // console.log(deleteNoticeInfo.clubID);
+    // console.log(deleteNoticeInfo._id);
   };
   const localStorage = window.localStorage;
 

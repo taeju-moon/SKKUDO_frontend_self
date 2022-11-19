@@ -16,11 +16,7 @@ import React, { useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { useNavigate, useParams } from "react-router-dom";
 import { NoticeTagType } from "../types/notice";
-import {
-  getNoticeTagsByClubID,
-  getTodoTagsByClubID,
-  updateNotice,
-} from "../utils/fetch";
+import { getNoticeTagsByClubID, updateNotice } from "../utils/fetch";
 
 const AddNoticePageContainer = styled("form")({
   width: "100%",
@@ -65,6 +61,7 @@ const AddButton = styled(Button)({
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
+
 const MenuProps = {
   PaperProps: {
     style: {
@@ -101,10 +98,7 @@ function UpdateNoticePage() {
     const {
       target: { value },
     } = event;
-    setTags(
-      // On autofill we get a stringified value.
-      typeof value === "string" ? value.split(",") : value
-    );
+    setTags(typeof value === "string" ? value.split(",") : value);
   };
 
   const { data, isLoading } = useQuery<NoticeTagType[]>(
@@ -116,7 +110,7 @@ function UpdateNoticePage() {
         data.forEach((tag) => temp.push(tag.name));
         rawTags = temp;
       },
-      onError: (error) => console.log(error),
+      onError: (error: any) => alert(error.response.data.error),
     }
   );
 
@@ -137,9 +131,7 @@ function UpdateNoticePage() {
         queryClient.invalidateQueries("getNoticesByClubID");
         // window.location.reload();
       },
-      onError: (error) => {
-        console.log(error);
-      },
+      onError: (error: any) => alert(error.response.data.error),
     }
   );
 
