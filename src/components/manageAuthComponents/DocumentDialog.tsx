@@ -9,8 +9,14 @@ import DialogTitle from "@mui/material/DialogTitle";
 import { AppliedUserType } from "../../types/apply";
 import styled from "@emotion/styled";
 
-const AnswerItem = styled.div``;
-const AnswerTitle = styled.div``;
+const AnswerItem = styled.div`
+  display: flex;
+  gap: 50px;
+  margin-top: 20px;
+`;
+const AnswerTitle = styled.div`
+  font-weight: 600;
+`;
 const AnswerContent = styled.div``;
 
 interface DocumentDialogType {
@@ -23,13 +29,10 @@ export default function DocumentDialog({
   setOpen,
   applierInfo,
 }: DocumentDialogType) {
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
   const handleClose = () => {
     setOpen(false);
   };
+  console.log(applierInfo);
 
   return (
     <React.Fragment>
@@ -41,7 +44,7 @@ export default function DocumentDialog({
       >
         {applierInfo ? (
           <>
-            <DialogTitle>Optional sizes</DialogTitle>
+            <DialogTitle>지원서 답변</DialogTitle>
             <DialogContent>
               {applierInfo.documentAnswers.map((answer, idx) => (
                 <AnswerItem key={idx}>
