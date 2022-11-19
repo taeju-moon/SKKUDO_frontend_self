@@ -7,6 +7,7 @@ import { isManageState } from "../atoms/NavigatorAtom";
 import { useMutation } from "react-query";
 import { logoutFromServer } from "../utils/fetch";
 import { isLoggedInState } from "../atoms/loginAtom";
+import { userNameState } from "../atoms/userAtom";
 
 interface INavigationConatiner {
   isManage: boolean;
@@ -23,7 +24,6 @@ const NavigatorContainer = styled.header<INavigationConatiner>`
 
 const ItemsContainer = styled.div`
   margin: 0 auto;
-
   display: flex;
   height: 100%;
   max-width: 1400px;
@@ -35,6 +35,8 @@ const LogoContainer = styled(Link)`
   text-decoration: none;
   display: flex;
   align-items: center;
+  margin-left: 20px;
+  margin-right: 20px;
   justify-content: center;
 `;
 
@@ -72,6 +74,10 @@ const LoginBtn = styled.button`
   margin-left: auto;
   margin-right: 20px;
   color: #dde143;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 `;
 
 interface ILoginOptionContainer {
@@ -102,8 +108,15 @@ const LoginLink = styled(Link)`
   font-size: 30px;
 `;
 
+const UserInfo = styled.h2`
+  font-size: 20px;
+  color: #dde143;
+  margin-right: 20px;
+`;
+
 function Navigator() {
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(isLoggedInState);
+  const [user, setUser] = useRecoilState(userNameState);
   const [isLoginOptionOpened, setIsLoginOptionOpened] = useState(false);
   const isManage = useRecoilValue(isManageState);
   const handleLoginBtnClick = () => {
@@ -143,7 +156,9 @@ function Navigator() {
             </NavigationLi>
           </NavigationUl>
         </NavigationContainer>
+
         <LoginBtn onClick={handleLoginBtnClick}>
+          <UserInfo>{isLoggedIn ? "Hello, " + user : "로그인하세요"}</UserInfo>
           <IoPersonOutline size="2.3rem" />
           <LoginOptionContainer isLoginOptionOpened={isLoginOptionOpened}>
             {!isLoggedIn ? (

@@ -6,6 +6,7 @@ export interface ClubType {
   _id: string;
   name: string;
   location: LocationType;
+  image: string;
   type: ClubTypeType;
   userColumns: ColumnType[];
   //description

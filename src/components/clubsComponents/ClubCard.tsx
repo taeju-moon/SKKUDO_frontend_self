@@ -1,5 +1,6 @@
 import { Link as RouterLink, useNavigate } from "react-router-dom";
 import { Box, Card, Link, Typography, Stack, Button } from "@mui/material";
+import Sunkyun from "./../../assets/images/sunkyun.png";
 import { styled } from "@mui/material/styles";
 import { ClubType } from "../../types/club";
 import { motion } from "framer-motion";
@@ -40,7 +41,7 @@ interface IClubCard {
 }
 
 export default function ClubCard({ club }: IClubCard) {
-  const { _id, name, location, type } = club;
+  const { _id, name, location, type, image } = club;
   const navigate = useNavigate();
   const onApplyBtnClick = () => {
     navigate(`/apply/${_id}`, { state: name });
@@ -48,7 +49,7 @@ export default function ClubCard({ club }: IClubCard) {
   return (
     <Card>
       <Box sx={{ pt: "100%", position: "relative" }}>
-        <ProductImgStyle alt={name} src={""} />
+        <ProductImgStyle alt={name} src={image ? image : Sunkyun} />
       </Box>
 
       <Stack spacing={2} sx={{ p: 3 }}>
@@ -89,7 +90,7 @@ export default function ClubCard({ club }: IClubCard) {
         </Stack>
       </Stack>
       <CardOverlay whileHover={{ opacity: 1 }}>
-        <ApplyBtn variant="contained" onClick={onApplyBtnClick}>
+        <ApplyBtn variant="contained" color="success" onClick={onApplyBtnClick}>
           지원하기
         </ApplyBtn>
       </CardOverlay>
