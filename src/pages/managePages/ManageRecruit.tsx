@@ -5,6 +5,7 @@ import {
   deleteAppliedUser,
   deleteApplier,
   getAppliedUserByClubID,
+  getOneClub,
   registerClub,
 } from "../../utils/fetch";
 import { Link as RouterLink, useParams } from "react-router-dom";
@@ -26,7 +27,7 @@ import {
 import Scrollbar from "../../components/dashboardComponents/Scrollbar";
 import UserListHead from "../../components/userComponents/UserListHead";
 import Iconify from "../../components/Iconify";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import UserListToolbar from "../../components/userComponents/UserListToolbar";
 import SearchNotFound from "../../components/userComponents/SearchNotFound";
@@ -35,10 +36,17 @@ import { RegisterInfoType } from "../../types/user";
 import { HiDocumentText } from "react-icons/hi";
 import DocumentDialog from "../../components/manageAuthComponents/DocumentDialog";
 import { ColumnType } from "../../types/common";
+import { ClubType } from "../../types/club";
 import ApplierForm from "../../components/manageRecruitComponents/ApplierForm";
 
 type orderType = "desc" | "asc";
 type orderByType = "name" | "studentId" | "major";
+
+type TableHeadType = {
+  id: string;
+  label: string;
+  alignRight: boolean;
+};
 
 const TABLE_HEAD = [
   { id: "name", label: "이름", alignRight: false },
@@ -72,7 +80,7 @@ function ManageRecruit() {
       onSuccess: (data) => {
         console.log(data);
       },
-      onError: (error) => console.log(error),
+      onError: (error: any) => alert(error.response.data.error),
     }
   );
 
@@ -93,6 +101,7 @@ function ManageRecruit() {
   const [selected, setSelected] = useState<string[]>([]);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [filterName, setFilterName] = useState("");
+  const [tableHead, setTableHead] = useState<TableHeadType[]>(TABLE_HEAD);
 
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
@@ -240,6 +249,17 @@ function ManageRecruit() {
     }
   };
 
+  useEffect(() => {
+    getOneClub(clubID ? clubID : "").then((club: ClubType | undefined) => {
+      if (club) {
+        const refinedCols = club.userColumns.map((item): TableHeadType => {
+          return { id: item.key, label: item.key, alignRight: false };
+        });
+        setTableHead([...TABLE_HEAD, ...refinedCols]);
+      }
+    });
+  }, []);
+
   return (
     <Container>
       <Stack
@@ -266,7 +286,7 @@ function ManageRecruit() {
               <UserListHead
                 order={order}
                 orderBy={orderBy}
-                headLabel={TABLE_HEAD}
+                headLabel={tableHead}
                 rowCount={data?.length || 0}
                 numSelected={selected.length}
                 onRequestSort={handleRequestSort}
@@ -314,6 +334,12 @@ function ManageRecruit() {
                         <TableCell sx={{ fontSize: "20px" }} align="left">
                           {major}
                         </TableCell>
+
+                        {moreColumns.map((column) => (
+                          <TableCell sx={{ fontSize: "20px" }} align="left">
+                            {column.value}
+                          </TableCell>
+                        ))}
 
                         <TableCell align="right">
                           <Button
