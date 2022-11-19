@@ -6,14 +6,11 @@ import {
   Typography,
 } from "@mui/material";
 import { useEffect, useState } from "react";
-
 import { useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
-
 import styled from "styled-components";
 import exampleImage from "../assets/images/example.png";
-
 import { RegisteredClubType } from "../types/user";
 import { getAppliedUserByID } from "../utils/fetch";
 import { isLoggedInState } from "../atoms/loginAtom";
@@ -64,16 +61,12 @@ function MyPage() {
     },
   });
 
-  console.log(appliedClubs);
-
   useEffect(() => {
-    // console.log(isLoggedIn);
     if (!isLoggedIn) {
       navigate("/login");
     } else {
       if (loggedInUser) {
         setUserClubs(Object.values(loggedInUser.registeredClubs));
-        // console.log(loggedInUser);
       }
     }
   }, [isLoggedIn, loggedInUser]);

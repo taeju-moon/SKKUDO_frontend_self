@@ -24,7 +24,8 @@ function ClubDetailHeader({ pageType }: ClubDetailHeaderType) {
   const { clubID } = useParams();
   const { data: clubData, isLoading: isClubLoading } = useQuery<ClubType>(
     "getOneClub",
-    () => getOneClub(clubID || "")
+    () => getOneClub(clubID || ""),
+    { onSuccess: (data) => console.log(data) }
   );
   return (
     <ClubHeader>

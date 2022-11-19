@@ -105,7 +105,9 @@ function AddNoticePage() {
         data.forEach((tag) => temp.push(tag.name));
         rawTags = temp;
       },
-      onError: (error) => console.log(error),
+      onError: (error: any) => {
+        alert(error.response.data.error);
+      },
     }
   );
 

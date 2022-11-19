@@ -129,7 +129,9 @@ function Navigator() {
       setIsLoggedIn(false);
       alert("로그아웃 되었습니다");
     },
-    onError: (data) => console.log("error"),
+    onError: (error: any) => {
+      alert(error.response.data.error);
+    },
   });
   const handleLogoutBtnClick = () => {
     logoutMutate();
