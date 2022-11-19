@@ -1,4 +1,5 @@
 import { LocationType, ColumnType } from "./common";
+import { UserType } from "./user";
 
 export type RecruitType = "정규모집" | "상시모집";
 
@@ -6,6 +7,7 @@ export interface ClubType {
   _id: string;
   name: string;
   location: LocationType;
+  initializer:UserType;
   image: string;
   type: ClubTypeType;
   userColumns: ColumnType[];
