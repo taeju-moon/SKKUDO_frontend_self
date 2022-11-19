@@ -56,11 +56,15 @@ function MyPage() {
   const { data: appliedClubs, isLoading: isAppliedClubsLoading } = useQuery<
     RegisteredClubType[]
   >("getAppliedClubsByID", getAppliedUserByID, {
-    onSuccess: (data) => {},
+    onSuccess: (data) => {
+      console.log(data);
+    },
     onError: (error: any) => {
       alert(error.response.data.error);
     },
   });
+
+  console.log(appliedClubs);
 
   useEffect(() => {
     // console.log(isLoggedIn);

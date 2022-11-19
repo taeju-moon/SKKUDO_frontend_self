@@ -52,6 +52,22 @@ export const AUTH_LABEL_LIST = [
     label: "동아리 정보 수정 권한",
   },
   {
+    key: "budgetRead",
+    label: "가계부 열람 권한",
+  },
+  {
+    key: "budgetWrite",
+    label: "가계부 수정 권한",
+  },
+  {
+    key: "appliedUserRead",
+    label: "모집 지원자 수정 권한",
+  },
+  {
+    key: "appliedUserWrite",
+    label: "모집 지원자 수정 권한",
+  },
+  {
     key: "tagWrite",
     label: "카테고리 수정 권한",
   },

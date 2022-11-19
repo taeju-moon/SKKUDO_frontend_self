@@ -40,7 +40,7 @@ const RowContainer = styled.div`
 
 const InfoContainer = styled.div`
   border-bottom: 1px solid #0c4426;
-  display: flex;
+  display: inline-block;
   padding: 10px;
 `;
 

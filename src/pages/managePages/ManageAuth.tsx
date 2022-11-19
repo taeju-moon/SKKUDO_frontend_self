@@ -1,4 +1,4 @@
-import { Link as RouterLink, useParams } from "react-router-dom";
+import { Link as RouterLink, useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
 // material
 import {
@@ -41,12 +41,26 @@ export default function ManageAuth() {
   const [clubRead, setClubRead] = useState("회장");
   const [clubWrite, setClubWrite] = useState("회장");
   const [tagWrite, setTagWrite] = useState("회장");
+  const [budgetRead, setBudgetRead] = useState("회장");
+  const [budgetWrite, setBudgetWrite] = useState("회장");
+  const [appliedUserRead, setAppliesUserWrite] = useState("회장");
+  const [appliedUserWrite, setAppliedUserWrite] = useState("회장");
+
+  const navigate = useNavigate();
 
   const { clubID } = useParams();
   const { data, isLoading } = useQuery<ValidationType>(
     "getValidationByClubID",
     () => getValidatonByClubID(clubID || ""),
-    { onSuccess: (data) => console.log(data) }
+    {
+      onSuccess: (data) => {
+        // console.log(data);
+      },
+      onError: (error: any) => {
+        alert(error.response.data.error);
+        navigate(-1);
+      },
+    }
   );
   const [selectedLabel, setSelectedLabel] = useState("");
   const [selectedKey, setSelectedKey] = useState("");
@@ -78,8 +92,18 @@ export default function ManageAuth() {
       return clubRead;
     } else if (authKey === "clubWrite") {
       return clubWrite;
-    } else {
+    } else if (authKey === "budgetRead") {
+      return budgetRead;
+    } else if (authKey === "budgetWrite") {
+      return budgetWrite;
+    } else if (authKey == "appliedUserRead") {
+      return appliedUserRead;
+    } else if (authKey == "appliedUserWrite") {
+      return appliedUserWrite;
+    } else if (authKey == "tagWrite") {
       return tagWrite;
+    } else {
+      return "";
     }
   };
 
