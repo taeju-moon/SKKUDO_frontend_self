@@ -5,7 +5,6 @@ import FormTitle from "../components/FormTitle";
 import { RecruitType } from "../types/club";
 import { LocationType } from "../types/common";
 import { createClub } from "../utils/fetch";
-// import { makeStyles } from '@material-ui/core/styles';
 
 const Blank = styled("div")({
   height: "180px",
@@ -65,7 +64,9 @@ function ApplyClubPage() {
       onSuccess: (data) => {
         console.log(data);
       },
-      onError: (error) => console.log(error),
+      onError: (error: any) => {
+        alert(error.response.data.error);
+      },
     }
   );
 

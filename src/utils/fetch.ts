@@ -143,7 +143,7 @@ export const getClubMembers = async (clubID: string) =>
 const CREATE_USER_URL = `${BASE_URL}/users`;
 
 export const createUser = async (userInfo: NewUserType) => {
-  axios.post(CREATE_USER_URL, userInfo).then((res) => console.log(res.data));
+  axios.post(CREATE_USER_URL, userInfo).then((res) => res.data);
 };
 
 export const REGISTER_CLUB_URL = `${BASE_URL}/users/club/register/`;

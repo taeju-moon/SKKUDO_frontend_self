@@ -68,9 +68,9 @@ function LoginPage() {
   const [PW, setPW] = useState("");
 
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(isLoggedInState);
-  if (isLoggedIn) {
-    navigate("/");
-  }
+  // if (isLoggedIn) {
+  //   navigate("/");
+  // }
 
   const { mutate } = useMutation(() => loginFromServer(ID, PW), {
     //need to fix
