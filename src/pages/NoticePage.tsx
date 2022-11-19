@@ -9,6 +9,7 @@ import {
   UpdateNoticeType,
 } from "../types/notice";
 import ClubDetailHeader from "../components/ClubDetailHeader";
+import FilterTag from "../components/FilterTag";
 import { useNavigate, useParams } from "react-router-dom";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { useState } from "react";

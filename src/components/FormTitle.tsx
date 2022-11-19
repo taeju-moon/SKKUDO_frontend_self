@@ -12,7 +12,11 @@ interface FormTitleType {
   title: string;
 }
 function FormTitle({ title }: FormTitleType) {
-  return <Title>{title}</Title>;
+  return (
+    <>
+      <Title>{title}</Title>
+    </>
+  );
 }
 
 export default FormTitle;
