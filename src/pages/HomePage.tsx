@@ -4,9 +4,9 @@ import { useNavigate } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { isManageState } from "../atoms/NavigatorAtom";
+import QuickLogin from "../components/mainPageComponents/QuickLogin";
 import myeong from "../assets/images/myeong.jpeg";
 import yul from "../assets/images/yul.png";
-import TestLogin from "../components/testLogin/Testlogin";
 
 const HomePageContainer = styled.div`
   padding-top: 80px;
@@ -68,9 +68,9 @@ function HomePage() {
   }, []);
 
   const handleMainPageBtnClick = (btnType: string) => {
-    if (btnType == "search") {
+    if (btnType === "search") {
       navigate("/clubs");
-    } else if (btnType == "make") {
+    } else if (btnType === "make") {
       navigate("/applyClub");
     } else {
       return;
@@ -107,7 +107,7 @@ function HomePage() {
           동아리 만들기
         </MainPageBtn>
       </ButtonsContainer>
-      <TestLogin />
+      <QuickLogin />
     </HomePageContainer>
   );
 }
