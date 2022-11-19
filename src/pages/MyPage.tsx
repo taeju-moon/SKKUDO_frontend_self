@@ -77,10 +77,6 @@ function MyPage() {
   const handleMyClubCardClick = (clubID: string) => {
     navigate(`/club/${clubID}/notice`);
   };
-  if (userClubs) {
-    console.log("there is");
-  }
-  console.log(userClubs);
 
   return (
     <MyPageContainer>

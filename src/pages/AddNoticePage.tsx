@@ -9,28 +9,17 @@ import {
   OutlinedInput,
   Select,
   SelectChangeEvent,
-  TextField,
   Theme,
   useTheme,
 } from "@mui/material";
-import { display, flexbox } from "@mui/system";
 import React, { useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "react-query";
-import { Navigate, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { userNameState } from "../atoms/userAtom";
-import {
-  createNotice,
-  getNoticeTagsByClubID,
-  getTodoTagsByClubID,
-} from "../utils/fetch";
-import { GrFormAdd } from "react-icons/gr";
-import { FiDelete } from "react-icons/fi";
+import { createNotice, getNoticeTagsByClubID } from "../utils/fetch";
 import { NoticeTagType } from "../types/notice";
 
-// const Blank = styled("div")({
-//   paddingTop: "120px",
-// });
 const AddNoticePageContainer = styled("form")({
   width: "100%",
   maxWidth: "1024px",
@@ -100,7 +89,7 @@ function AddNoticePage() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const userName = useRecoilValue(userNameState);
-  // const [category, setCategory] = useState<NoticeTagType>();
+
   const [categories, setCategories] = useState<NoticeTagType[]>([]);
   const [tags, setTags] = useState<string[]>([]);
 
@@ -120,8 +109,6 @@ function AddNoticePage() {
     }
   );
 
-  // console.log(data);
-
   const { mutate } = useMutation(
     () =>
       createNotice({
@@ -135,10 +122,11 @@ function AddNoticePage() {
       onSuccess: (data) => {
         navigate(`/club/${clubID}/notice`);
         queryClient.invalidateQueries("getNoticesByClubID");
-        console.log(data);
-        // window.location.reload();
+        // console.log(data);
       },
-      onError: (error) => console.log(error),
+      onError: (error: any) => {
+        alert(error.response.data.error);
+      },
     }
   );
 
@@ -158,19 +146,6 @@ function AddNoticePage() {
     const selectedTags: NoticeTagType[] = [];
 
     if (data) {
-      // for (const selectedTag of tags) {
-      //   const selectedCategory = data.filter(
-      //     (cate) => cate.name === selectedTag
-      //   );
-      //   console.log(selectedCategory);
-      //   if (selectedCategory[0]) {
-      //     selectedTags.push(selectedCategory[0]);
-      //   }
-      // }
-      // console.log(selectedTags);
-      // setCategories(selectedTags);
-      // console.log(categories);
-
       mutate();
     }
   };

@@ -65,14 +65,14 @@ function ManageRecruit() {
     userID: string;
     registerInfo: RegisterInfoType;
   }
-  const { mutate: registerMutate } = useMutation(
+  const { mutate: registerMutate, isError } = useMutation(
     ({ userID, registerInfo }: RegisterMutateType) =>
       registerClub(userID, clubID || "", registerInfo),
     {
-      onSuccess: (data) => {
-        console.log(data);
-      },
-      onError: (error) => console.log(error),
+      // onSuccess: (data) => {
+      //   console.log(data);
+      // },
+      onError: (error: any) => alert(error.response.data.error),
     }
   );
 
@@ -80,10 +80,12 @@ function ManageRecruit() {
     (applyId: string) => deleteAppliedUser(applyId, clubID || ""),
     {
       onSuccess: (data) => {
-        console.log(data);
+        // console.log(data);
         queryClient.invalidateQueries("getAppliedUserByClubID");
       },
-      onError: (error) => console.log(error),
+      onError: (error: any) => {
+        alert(error.response.data.error);
+      },
     }
   );
 
@@ -220,16 +222,34 @@ function ManageRecruit() {
     applyId: string
   ) => {
     console.log(userID);
-    registerMutate({
-      userID,
-      registerInfo: { moreColumns, initialRole: "부원" },
-    });
-    deleteMutate(applyId);
+    registerMutate(
+      {
+        userID,
+        registerInfo: { moreColumns, initialRole: "부원" },
+      },
+      {
+        onSuccess: (data) => {
+          deleteMutate(applyId);
+        },
+      }
+    );
+    // try {
+    //   registerMutate({
+    //     userID,
+    //     registerInfo: { moreColumns, initialRole: "부원" },
+    //   });
+    // } catch (error) {
+    //   alert(error);
+    //   return;
+    // }
+
+    // deleteMutate(applyId);
+    // if (!isError) {
+    //   deleteMutate(applyId);
+    // }
   };
 
-  const handleFailBtnClick = (applyId: string) => {
-    deleteMutate(applyId);
-  };
+  const handleFailBtnClick = (applyId: string) => {};
 
   const handleDocumentBtnClick = (idx: number) => {
     setIsDialogOpen(true);
@@ -288,7 +308,7 @@ function ManageRecruit() {
                         role="checkbox"
                         selected={isItemSelected}
                         aria-checked={isItemSelected}
-                        onClick={() => console.log("click")}
+                        // onClick={() => console.log("click")}
                       >
                         <TableCell padding="checkbox">
                           <Checkbox

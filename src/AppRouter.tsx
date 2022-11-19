@@ -71,8 +71,6 @@ function AppRouter() {
     mutate();
   }, []);
 
-  console.log(isLoggedIn);
-
   return (
     <BrowserRouter>
       <Navigator />
