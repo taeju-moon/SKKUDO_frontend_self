@@ -24,7 +24,7 @@ import {
   UpdateNoticeType,
 } from "./../types/notice";
 import { NewUserType, RegisterInfoType } from "./../types/user";
-import { ColumnType, RoleType } from "../types/common";
+import { ColumnType, NewColumnType, RoleType } from "../types/common";
 import axios from "axios";
 
 axios.defaults.withCredentials = true;
@@ -180,7 +180,7 @@ const CLUB_COLUMNS_URL = `${BASE_URL}/clubs/clubs/userColumn`;
 
 export const addClubUserColumn = async (
   clubId: string,
-  userColumn: ColumnType
+  userColumn: NewColumnType
 ) => {
   const result = await axios.post(CLUB_COLUMNS_URL.concat(`/${clubId}`), {
     userColumn,

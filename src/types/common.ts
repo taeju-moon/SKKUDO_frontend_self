@@ -10,6 +10,11 @@ export interface ColumnType {
   valueType: ValueType;
 }
 
+export interface NewColumnType {
+  key: string;
+  valueType: ValueType;
+}
+
 export interface ErrorType {
   error: {
     response: {

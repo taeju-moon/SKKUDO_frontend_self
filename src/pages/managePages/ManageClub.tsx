@@ -62,8 +62,8 @@ function ManageClub() {
     "getOneClub",
     () => getOneClub(clubID || ""),
     {
-      onSuccess: (data) => console.log(data),
-      onError: (error) => console.log(error),
+      onSuccess: (data) => {},
+      onError: (error: any) => alert(error.response.data.error),
     }
   );
   const [dialogOpen, setDialogOpen] = useState(false);
