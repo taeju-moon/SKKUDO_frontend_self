@@ -1,7 +1,6 @@
 import { useRef, useState } from "react";
 import { Link as RouterLink, useParams } from "react-router-dom";
-import { updateRole } from "../../utils/fetch";
-// material
+import { deregisterClub, updateRole } from "../../utils/fetch";
 import {
   Menu,
   MenuItem,
@@ -17,6 +16,7 @@ import {
 } from "@mui/material";
 import Iconify from "../Iconify";
 import { RoleType } from "../../types/common";
+import { useMutation, useQueryClient } from "react-query";
 // component
 
 const MainWrapper = styled("div")({
@@ -63,7 +63,18 @@ export default function UserMoreMenu({ userID, role }: UserMoreMenuProps) {
   const [deregisterClubModalOpen, setDeregisterClubModalOpen] =
     useState<boolean>(false);
   const clubId = useParams().clubID as string;
+  const queryClient = useQueryClient();
 
+  const { mutate: deregisterMutate } = useMutation(
+    () => deregisterClub(userID, clubId),
+    {
+      onSuccess: (data) => {
+        console.log(data);
+        queryClient.invalidateQueries("getClubMembers");
+      },
+      onError: (error) => console.log(error),
+    }
+  );
   const handleUpdateRole = () => {
     updateRole(clubId, userID, updatingRole)
       .then(() => {
@@ -71,6 +82,10 @@ export default function UserMoreMenu({ userID, role }: UserMoreMenuProps) {
         window.location.reload();
       })
       .catch((error) => alert(error.response.data.error));
+  };
+
+  const handleDeregisterBtnClick = () => {
+    deregisterMutate();
   };
 
   return (
@@ -103,16 +118,20 @@ export default function UserMoreMenu({ userID, role }: UserMoreMenuProps) {
             primaryTypographyProps={{ variant: "body2" }}
           />
         </MenuItem>
-
-        {/* <MenuItem sx={{ color: "text.secondary" }} onClick={() => {}}>
+        <MenuItem
+          component={RouterLink}
+          to="#"
+          sx={{ color: "text.secondary" }}
+          onClick={handleDeregisterBtnClick}
+        >
           <ListItemIcon>
-            <Iconify icon="eva:trash-2-outline" width={24} height={24} />
+            <Iconify icon="fluent-mdl2:release-gate" width={24} height={24} />
           </ListItemIcon>
           <ListItemText
-            primary="회원 퇴출"
+            primary="방출하기"
             primaryTypographyProps={{ variant: "body2" }}
           />
-        </MenuItem> */}
+        </MenuItem>
       </Menu>
 
       <Dialog
