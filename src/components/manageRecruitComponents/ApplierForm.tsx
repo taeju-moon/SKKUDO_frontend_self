@@ -39,8 +39,8 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 
 import Iconify from "../Iconify";
-import { useRecoilValue } from "recoil";
-import { currentClubInfoState } from "../../atoms/utilAtom";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { applierState, currentClubInfoState } from "../../atoms/utilAtom";
 
 function ApplierForm() {
   const { clubID } = useParams();
@@ -48,6 +48,7 @@ function ApplierForm() {
   const [newQuestion, setNewQuestion] = useState("");
   const [dialogType, setDialogType] = useState("");
   const currentClubInfo = useRecoilValue(currentClubInfoState);
+  const setApplier = useSetRecoilState(applierState);
   const handleDialogClose = () => {
     setDialogOpen(false);
   };
@@ -57,7 +58,9 @@ function ApplierForm() {
     "getApplierByClubID",
     () => getApplierByClubID(clubID || ""),
     {
-      onSuccess: (data) => {},
+      onSuccess: (data) => {
+        setApplier(data);
+      },
       onError: (error) => console.log(error),
       retry: 1,
     }
@@ -120,11 +123,11 @@ function ApplierForm() {
   const handleDeleteBtnClick = (key: string, idx: number) => {
     if (data) {
       if (key === "document") {
-        const newQuestions = data.documentQuestions;
+        const newQuestions = [...data.documentQuestions];
         newQuestions.splice(idx, 1);
         mutate({ documentQuestions: newQuestions });
       } else if (key === "interview") {
-        const newQuestions = data.interviewQuestions;
+        const newQuestions = [...data.interviewQuestions];
         newQuestions.splice(idx, 1);
         mutate({ interviewQuestions: newQuestions });
       }
@@ -151,11 +154,12 @@ function ApplierForm() {
     if (data) {
       setDialogOpen(false);
       if (key === "document") {
-        const newQuestions = data.documentQuestions;
+        const newQuestions = [...data.documentQuestions];
+        console.log(newQuestions);
         newQuestions.push(newQuestion);
         mutate({ documentQuestions: newQuestions });
       } else if (key === "interview") {
-        const newQuestions = data.interviewQuestions;
+        const newQuestions = [...data.interviewQuestions];
         newQuestions.push(newQuestion);
         mutate({ interviewQuestions: newQuestions });
       }

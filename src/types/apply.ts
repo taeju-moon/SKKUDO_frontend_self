@@ -63,3 +63,9 @@ export interface UpdateApplierType {
   interviewQuestions?: string[]; //면접 질문
   appliedUserColumns?: { key: string; valueType: string; _id?: string }[];
 }
+
+export interface UpdateAppliedUserType {
+  documentScores: number[];
+  interviewScores: number[];
+  clubID: string;
+}

@@ -34,6 +34,7 @@ import DocumentDialog from "../../components/manageAuthComponents/DocumentDialog
 import { ColumnType } from "../../types/common";
 import { ClubType } from "../../types/club";
 import ApplierForm from "../../components/manageRecruitComponents/ApplierForm";
+import ScoreDialog from "../../components/manageRecruitComponents/ScoreDialog";
 
 type orderType = "desc" | "asc";
 type orderByType = "name" | "studentId" | "major";
@@ -53,6 +54,10 @@ const TABLE_HEAD = [
 function ManageRecruit() {
   const { clubID } = useParams();
   const queryClient = useQueryClient();
+  const [currentAppliedUserId, setCurrentAppliedUserId] = useState("");
+  const [clickedAppliedUser, setClickedAppliedUser] =
+    useState<AppliedUserType>();
+
   const { data, isLoading } = useQuery<AppliedUserType[]>(
     "getAppliedUserByClubID",
     () => getAppliedUserByClubID(clubID || ""),
@@ -65,6 +70,8 @@ function ManageRecruit() {
       },
     }
   );
+
+  const [scoreDialogOpen, setScoreDialogOpen] = useState(false);
 
   interface RegisterMutateType {
     userID: string;
@@ -103,9 +110,6 @@ function ManageRecruit() {
   const [filterName, setFilterName] = useState("");
 
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-
-  const [clickedAppliedUser, setClickedAppliedUser] =
-    useState<AppliedUserType>();
 
   const handleChangePage = (event: any, newPage: number) => {
     setPage(newPage);
@@ -239,20 +243,6 @@ function ManageRecruit() {
         },
       }
     );
-    // try {
-    //   registerMutate({
-    //     userID,
-    //     registerInfo: { moreColumns, initialRole: "부원" },
-    //   });
-    // } catch (error) {
-    //   alert(error);
-    //   return;
-    // }
-
-    // deleteMutate(applyId);
-    // if (!isError) {
-    //   deleteMutate(applyId);
-    // }
   };
 
   const handleFailBtnClick = (applyId: string) => {
@@ -263,9 +253,17 @@ function ManageRecruit() {
     setIsDialogOpen(true);
     // console.log(data[idx]);
     if (data) {
-      console.log(data[idx]);
+      // console.log(data[idx]);
       setClickedAppliedUser(data[idx]);
     }
+  };
+
+  const handleScoreDialogOpen = (idx: number) => {
+    if (data) {
+      // console.log(data[idx]);
+      setClickedAppliedUser(data[idx]);
+    }
+    setScoreDialogOpen(true);
   };
 
   useEffect(() => {
@@ -315,8 +313,16 @@ function ManageRecruit() {
                 {filteredUsers
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map((row, idx) => {
-                    const { _id, studentId, name, major, userID, moreColumns } =
-                      row;
+                    const {
+                      _id,
+                      studentId,
+                      name,
+                      major,
+                      userID,
+                      moreColumns,
+                      documentAnswers,
+                      interviewAnswers,
+                    } = row;
                     const isItemSelected = selected.indexOf(name) !== -1;
 
                     return (
@@ -364,11 +370,19 @@ function ManageRecruit() {
                           </Button>
                           <Button
                             variant="contained"
+                            sx={{ marginRight: "10px" }}
                             onClick={() =>
                               handlePassBtnClick(userID, moreColumns, _id)
                             }
                           >
                             합격
+                          </Button>
+                          <Button
+                            variant="outlined"
+                            color="success"
+                            onClick={() => handleScoreDialogOpen(idx)}
+                          >
+                            점수입력
                           </Button>
                         </TableCell>
                         <TableCell align="right">
@@ -414,6 +428,11 @@ function ManageRecruit() {
         open={isDialogOpen}
         setOpen={setIsDialogOpen}
         applierInfo={clickedAppliedUser}
+      />
+      <ScoreDialog
+        scoreDialogOpen={scoreDialogOpen}
+        setScoreDialogOpen={setScoreDialogOpen}
+        appliedUser={clickedAppliedUser}
       />
 
       <ApplierForm></ApplierForm>

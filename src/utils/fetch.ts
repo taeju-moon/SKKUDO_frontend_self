@@ -3,6 +3,7 @@ import {
   AppliedUserType,
   ApplyFormType,
   NewApplierType,
+  UpdateAppliedUserType,
   UpdateApplierType,
 } from "./../types/apply";
 import { UpdateValidationType } from "./../types/validation";
@@ -315,6 +316,14 @@ const GET_APPLIED_USERS_BY_ID = `${BASE_URL}/applies/appliedUsers/byUser`;
 
 export const getAppliedUserByID = () =>
   axios.get(GET_APPLIED_USERS_BY_ID).then((res) => res.data.data);
+
+export const updateAppliedUser = async (
+  id: string,
+  newInfo: UpdateAppliedUserType
+) =>
+  axios
+    .patch(Get_ALL_APPLIED_USERS.concat("/", id), newInfo)
+    .then((res) => res.data);
 
 //delte적용 registerClub userID 적용
 
