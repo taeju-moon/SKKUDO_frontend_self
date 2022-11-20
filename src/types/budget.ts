@@ -26,6 +26,7 @@ export interface BudgetRowType {
 }
 
 export interface NewBudgetRowType {
+  date?: Date;
   clubId: string;
   income: string;
   expense: string; //지출

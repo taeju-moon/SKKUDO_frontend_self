@@ -59,7 +59,8 @@ export default function UpdateRowDialog({
       updateBudgetRow(rowIndex, budgetID, budgetRowInfo),
     {
       onSuccess: (data) => {
-        console.log(data);
+        // console.log(data);
+        alert("가계부가 수정되었습니다");
         queryClient.invalidateQueries("getBudgetsByClubID");
       },
       onError: (error: any) => {

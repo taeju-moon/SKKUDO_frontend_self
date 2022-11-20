@@ -1,4 +1,5 @@
 import { createGlobalStyle } from "styled-components";
+import "./assets/fonts/font.css";
 
 const GlobalStyles = createGlobalStyle`
   /* http://meyerweb.com/eric/tools/css/reset/ 
@@ -7,8 +8,7 @@ const GlobalStyles = createGlobalStyle`
 */
 
 *{
-	@import url('https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&family=Noto+Sans+KR:wght@400;500;700;900&display=swap');
-	font-family: 'Nanum Pen Script', cursive;
+	font-family: "Roboto", "Nanum Gothic", sans-serif;
 }
 
 html, body, div, span, applet, object, iframe,
