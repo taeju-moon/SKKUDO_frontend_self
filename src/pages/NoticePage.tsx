@@ -12,12 +12,21 @@ import ClubDetailHeader from "../components/ClubDetailHeader";
 import FilterTag from "../components/FilterTag";
 import { useNavigate, useParams } from "react-router-dom";
 import { BsThreeDotsVertical } from "react-icons/bs";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import NoticeDetail from "../components/noticeComponents/NoticeDetail";
 import { useSetRecoilState } from "recoil";
 import { isNoticeDetailOpenState } from "../atoms/utilAtom";
 import CategoryAddDialog from "../components/noticeComponents/CategoryAddDialog";
 import { motion } from "framer-motion";
+import { getNoticeTagsByClubID } from "./../utils/fetch";
+
+interface TagType {
+  _id: string;
+  clubId: string | undefined;
+  name: string;
+  createdAt: Date | undefined;
+  updatedAt: Date | undefined;
+}
 
 const BtnContainer = styled("div")({
   display: "flex",
@@ -25,7 +34,6 @@ const BtnContainer = styled("div")({
   maxWidth: "1024px",
   margin: "0 auto",
   justifyContent: "flex-end",
-  marginTop: "60px",
   gap: "20px",
 });
 
@@ -116,6 +124,18 @@ const Tag = styled("div")({
   alignItems: "center",
 });
 
+const FilterWrapper = styled("div")({
+  display: "flex",
+  width: "1024px",
+  justifyContent: "flex-start",
+});
+
+const FilterWrapperWrapper = styled("div")({
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+});
+
 function NoticePage() {
   const navigate = useNavigate();
   const { clubID } = useParams();
@@ -125,10 +145,15 @@ function NoticePage() {
     NoticeType[]
   >("getNoticesByClubID", () => getNoticesByClubID(clubID || ""), {
     onError: (error: any) => alert(error.response.data.error),
+    onSuccess(data: NoticeType[]) {
+      setUsingItems(data);
+    },
   });
 
   const [clickedNoticeID, setClickedNoticeID] = useState("");
   const [isOptionOpened, setIsOptionOpened] = useState(false);
+  const [usingItems, setUsingItems] = useState<NoticeType[]>([]);
+  const [tags, setTags] = useState<TagType[]>([]);
   const [clickedNoticeInfo, setClickedNotiiceInfo] =
     useState<ClickedNoticeInfoType>({
       writer: "",
@@ -199,9 +224,26 @@ function NoticePage() {
     navigate(`${newNoticeInfo.noticeID}`);
   };
   // console.log(noticeData);
+
+  useEffect(() => {
+    getNoticeTagsByClubID(clubID as string).then((data) => {
+      setTags(data);
+    });
+  }, [clubID]);
   return (
     <>
       <ClubDetailHeader pageType="공지사항" />
+      <FilterWrapperWrapper>
+        <FilterWrapper>
+          <FilterTag
+            tags={tags}
+            usingItems={noticeData ? noticeData : []}
+            setItems={setUsingItems}
+            isClub={false}
+          />
+        </FilterWrapper>
+      </FilterWrapperWrapper>
+
       <BtnContainer>
         <AddCategoryBtn
           whileHover={{
@@ -231,7 +273,7 @@ function NoticePage() {
             <div>아직 공지가 없습니다.</div>
           </>
         ) : (
-          [...noticeData!].reverse().map((notice) => (
+          [...usingItems!].reverse().map((notice) => (
             <Stack
               key={notice._id}
               spacing={1}

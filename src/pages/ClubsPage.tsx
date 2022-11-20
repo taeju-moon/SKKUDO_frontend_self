@@ -1,14 +1,27 @@
 import { Container, Divider, Stack, Typography } from "@mui/material";
 import moment from "moment";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useQuery } from "react-query";
 import ClubsFilterSidebar from "../components/clubsComponents/ClubsFilterSidebar";
 import ClubsList from "../components/clubsComponents/ClubsList";
+import FilterTag from "../components/FilterTag";
 import { ClubType } from "../types/club";
-import { getAllClubs } from "../utils/fetch";
+import { getAllClubs, getAllClubTypes } from "../utils/fetch";
+
+interface TagType {
+  _id: string;
+  name: string;
+  clubId: string | undefined;
+  createdAt: Date | undefined;
+  updatedAt: Date | undefined;
+}
 
 function ClubsPage() {
-  const { data, isLoading } = useQuery<ClubType[]>("getAllClubs", getAllClubs);
+  const { data, isLoading } = useQuery<ClubType[]>("getAllClubs", getAllClubs, {
+    onSuccess(data) {
+      setItems(data);
+    },
+  });
 
   const filterRecruitingClubs = (allClubs: ClubType[] | undefined) => {
     if (typeof allClubs === "undefined") {
@@ -29,17 +42,19 @@ function ClubsPage() {
     }
   };
 
-  const recruitingClubs = filterRecruitingClubs(data);
+  const [items, setItems] = useState<ClubType[] | undefined>(data);
 
-  const [openFilter, setOpenFilter] = useState(false);
+  const recruitingClubs = filterRecruitingClubs(items);
 
-  const handleOpenFilter = () => {
-    setOpenFilter(true);
-  };
+  const [tags, setTags] = useState<TagType[]>([]);
 
-  const handleCloseFilter = () => {
-    setOpenFilter(false);
-  };
+  useEffect(() => {
+    getAllClubTypes()
+      .then((data) => {
+        setTags(data.data.data as TagType[]);
+      })
+      .catch(() => alert("알 수 없는 오류가 났습니다."));
+  }, []);
 
   return (
     <Container sx={{ paddingTop: "80px" }}>
@@ -51,20 +66,22 @@ function ClubsPage() {
         sx={{ mb: 5 }}
       >
         <Stack direction="row" spacing={1} flexShrink={0} sx={{ my: 1 }}>
-          <ClubsFilterSidebar
-            isOpenFilter={openFilter}
-            onOpenFilter={handleOpenFilter}
-            onCloseFilter={handleCloseFilter}
+          <FilterTag
+            isClub={true}
+            tags={tags}
+            usingItems={data as ClubType[]}
+            setItems={setItems}
           />
         </Stack>
       </Stack>
+
       <Stack divider={<Divider />}>
         <div>
           <Typography variant="h3" sx={{ mb: 5 }}>
             모든 동아리/학회
           </Typography>
 
-          <ClubsList clubs={isLoading ? [] : data!} />
+          <ClubsList clubs={isLoading ? [] : items!} />
         </div>
         <div>
           <Typography variant="h3" sx={{ mb: 5, marginTop: "40px" }}>

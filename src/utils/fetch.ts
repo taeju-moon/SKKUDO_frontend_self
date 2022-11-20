@@ -16,6 +16,7 @@ import {
 import {
   NewClubColumnType,
   NewClubType,
+  ClubTypeType,
   UpdateClubInfoType,
 } from "./../types/club";
 import {
@@ -35,6 +36,13 @@ const BASE_URL =
   process.env.NODE_ENV === "production"
     ? "http://54.180.30.58:8000"
     : "http://localhost:8000";
+
+const GET_ALL_CLUB_TYPES_URL = `${BASE_URL}/clubs/clubTypes`;
+
+export const getAllClubTypes = async () => {
+  const result = await axios.get(GET_ALL_CLUB_TYPES_URL);
+  return result;
+};
 
 const GET_ALL_CLUBS_URL = `${BASE_URL}/clubs/clubs`;
 
