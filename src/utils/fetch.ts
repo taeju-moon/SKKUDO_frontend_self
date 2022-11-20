@@ -162,7 +162,7 @@ export const registerClub = async (
   clubID: string,
   registerInfo: RegisterInfoType
 ) =>
-  axios
+  await axios
     .patch(REGISTER_CLUB_URL.concat(userID, "/", clubID), registerInfo)
     .then((res) => res.data);
 
@@ -308,8 +308,8 @@ export const getAppliedUserByClubID = (clubID: string) =>
     .get(Get_ALL_APPLIED_USERS.concat("/byClub/", clubID))
     .then((res) => res.data.data);
 
-export const deleteAppliedUser = (applyID: string, clubID: string) =>
-  axios
+export const deleteAppliedUser = async (applyID: string, clubID: string) =>
+  await axios
     .delete(Get_ALL_APPLIED_USERS.concat("/", applyID), {
       data: { clubId: clubID },
     })
