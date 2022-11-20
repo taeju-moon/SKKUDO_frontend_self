@@ -66,6 +66,12 @@ interface RowType {
   rowIndex: number;
   budgetID: string;
 }
+
+interface MutateType {
+  rowIndex: number;
+  budgetRowInfo: NewBudgetRowType;
+}
+
 function Row({ row, rowIndex, budgetID }: RowType) {
   const [open, setOpen] = React.useState(false);
 
@@ -176,6 +182,10 @@ function Row({ row, rowIndex, budgetID }: RowType) {
   );
 }
 
+const NewRowBtn = styled(Button)({
+  // widht: "100%",
+});
+
 function CollapsibleTable() {
   const { clubID } = useParams();
   const queryClient = useQueryClient();
@@ -231,6 +241,38 @@ function CollapsibleTable() {
     }
   );
 
+  const { mutate: updateRowMutate } = useMutation(
+    ({ rowIndex, budgetRowInfo }: MutateType) =>
+      updateBudgetRow(rowIndex, data?._id || "", budgetRowInfo),
+    {
+      onSuccess: (data) => {
+        queryClient.invalidateQueries("getBudgetsByClubID");
+      },
+      onError: (error: any) => {
+        alert(error.response.data.error);
+      },
+    }
+  );
+
+  const handleNewRowBtnClick = () => {
+    if (data) {
+      updateRowMutate({
+        rowIndex: data.rows.length,
+        budgetRowInfo: {
+          date: new Date(), //날짜
+          clubId: clubID || "",
+          income: "0", //수입
+          expense: "0", //지출
+          whom: "이름", //Who/m
+          content: "주 내용", //내용
+          balance: "0", //잔액
+          note: "메모", //비고
+          account: "계좌 번호",
+        },
+      });
+    }
+  };
+
   const handleDeleteBtnClick = () => {
     if (data) {
       deleteBudgetMutate();
@@ -253,7 +295,7 @@ function CollapsibleTable() {
             content: "주 내용", //내용
             balance: "0", //잔액
             note: "메모", //비고
-            account: "계좌 번호", //사용계좌}]})
+            account: "계좌 번호",
           },
         ],
       });
@@ -316,6 +358,14 @@ function CollapsibleTable() {
           </TableBody>
         </Table>
       </TableContainer>
+      <NewRowBtn
+        variant="outlined"
+        color="success"
+        onClick={handleNewRowBtnClick}
+        sx={{ width: "100%", marginTop: "10px" }}
+      >
+        항목 추가
+      </NewRowBtn>
       <Dialog open={nameDialogOpen} onClose={handleClose}>
         <DialogTitle sx={{ width: "600px" }}>새 가계부 이름</DialogTitle>
         <DialogContent>
