@@ -32,7 +32,6 @@ export default function DocumentDialog({
   const handleClose = () => {
     setOpen(false);
   };
-  console.log(applierInfo);
 
   return (
     <React.Fragment>

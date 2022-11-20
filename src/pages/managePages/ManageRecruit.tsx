@@ -59,7 +59,9 @@ function ManageRecruit() {
       onSuccess: (data) => {
         console.log(data);
       },
-      onError: (error) => console.log(error),
+      onError: (error: any) => {
+        alert(error.response.data.error);
+      },
     }
   );
 
@@ -252,7 +254,9 @@ function ManageRecruit() {
     // }
   };
 
-  const handleFailBtnClick = (applyId: string) => {};
+  const handleFailBtnClick = (applyId: string) => {
+    deleteMutate(applyId);
+  };
 
   const handleDocumentBtnClick = (idx: number) => {
     setIsDialogOpen(true);

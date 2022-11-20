@@ -29,6 +29,11 @@ interface NewRowType {
   account: string; //사용계좌
 }
 
+interface MutateType {
+  rowIndex: number;
+  budgetRowInfo: NewBudgetRowType;
+}
+
 export default function UpdateRowDialog({
   dialogOpen,
   setDialogOpen,
@@ -36,7 +41,8 @@ export default function UpdateRowDialog({
   row,
   budgetID,
 }: UpdateRowDialogType) {
-  const [newRow, setNewRow] = React.useState<NewRowType>({
+  const { clubID } = useParams();
+  const [newRow, setNewRow] = React.useState<NewBudgetRowType>({
     income: row.income,
     expense: row.expense, //지출
     whom: row.whom, //Who/m
@@ -44,20 +50,20 @@ export default function UpdateRowDialog({
     balance: row.balance, //잔액
     note: row.note, //비고
     account: row.account, //사용계좌
+    clubId: clubID || "",
   });
-  const { clubID } = useParams();
   // console.log(clubID);
   const queryClient = useQueryClient();
   const { mutate } = useMutation(
-    (budgetRowInfo: NewBudgetRowType) =>
-      updateBudgetRow(budgetID, budgetRowInfo),
+    ({ rowIndex, budgetRowInfo }: MutateType) =>
+      updateBudgetRow(rowIndex, budgetID, budgetRowInfo),
     {
       onSuccess: (data) => {
         console.log(data);
         queryClient.invalidateQueries("getBudgetsByClubID");
       },
-      onError: (error) => {
-        console.log(error);
+      onError: (error: any) => {
+        alert(error.response.data.error);
       },
     }
   );
@@ -75,9 +81,8 @@ export default function UpdateRowDialog({
 
   const handleNewRowSubmit = () => {
     mutate({
-      line: rowIndex,
-      row: newRow,
-      clubId: clubID || "",
+      rowIndex,
+      budgetRowInfo: newRow,
     });
     handleClose();
   };

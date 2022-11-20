@@ -188,7 +188,9 @@ function TodoAddDialog(props: SimpleDialogProps) {
         // console.log("success");
         window.location.reload();
       },
-      onError: (error) => console.log(error),
+      onError: (error: any) => {
+        alert(error.response.data.error);
+      },
     }
   );
 
@@ -198,7 +200,9 @@ function TodoAddDialog(props: SimpleDialogProps) {
       onSuccess: (data) => {
         window.location.reload();
       },
-      onError: (error) => console.log(error),
+      onError: (error: any) => {
+        alert(error.response.data.error);
+      },
     }
   );
 

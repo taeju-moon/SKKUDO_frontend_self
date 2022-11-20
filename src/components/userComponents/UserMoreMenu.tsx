@@ -72,7 +72,9 @@ export default function UserMoreMenu({ userID, role }: UserMoreMenuProps) {
         console.log(data);
         queryClient.invalidateQueries("getClubMembers");
       },
-      onError: (error) => console.log(error),
+      onError: (error: any) => {
+        alert(error.response.data.error);
+      },
     }
   );
   const handleUpdateRole = () => {
