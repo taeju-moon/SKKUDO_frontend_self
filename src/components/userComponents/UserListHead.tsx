@@ -39,6 +39,7 @@ interface ITableHead {
 }
 
 interface IUserListHead {
+  isManaging: boolean;
   order: "asc" | "desc";
   orderBy: string;
   rowCount: number;
@@ -49,6 +50,7 @@ interface IUserListHead {
 }
 
 export default function UserListHead({
+  isManaging,
   order,
   orderBy,
   rowCount,
@@ -64,6 +66,18 @@ export default function UserListHead({
   return (
     <TableHead>
       <TableRow>
+        {isManaging ? (
+          <TableCell padding="checkbox">
+            <Checkbox
+              indeterminate={numSelected > 0 && numSelected < rowCount}
+              checked={rowCount > 0 && numSelected === rowCount}
+              onChange={onSelectAllClick}
+            />
+          </TableCell>
+        ) : (
+          ""
+        )}
+
         {headLabel.map((headCell) => (
           <TableCell
             key={headCell.id}

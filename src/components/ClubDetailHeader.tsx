@@ -15,6 +15,7 @@ const ClubHeader = styled("div")({
   color: "#0C4426",
   borderBottom: "4px solid #0C4426",
   paddingBottom: "15px",
+  marginBottom: "20px",
 });
 
 interface ClubDetailHeaderType {
