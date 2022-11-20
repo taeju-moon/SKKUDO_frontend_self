@@ -7,9 +7,19 @@ import { FaPen } from "react-icons/fa";
 import moment from "moment";
 import { motion } from "framer-motion";
 import UpdateDialog from "../../components/manageClubCompnents/UpdateDialog";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSetRecoilState } from "recoil";
 import { clubUpdateState } from "../../atoms/alertAtom";
+import { Select, MenuItem } from "@mui/material";
+import { getAllClubTypes } from "../../utils/fetch";
+
+interface TagType {
+  _id: string;
+  clubId: string | undefined;
+  name: string;
+  createdAt: Date | undefined;
+  updatedAt: Date | undefined;
+}
 
 const ManageClubContainer = styled.div`
   padding: 50px;
@@ -73,6 +83,17 @@ function ManageClub() {
     setDialogOpen(true);
     setClubUpdate({ keyword });
   };
+
+  const [value, setValue] = useState<string>(clubData?.type.name as string);
+  const [tags, setTags] = useState<TagType[]>([]);
+
+  useEffect(() => {
+    getAllClubTypes().then((data) => {
+      const using = data.data.data;
+      setTags(using);
+    });
+  }, []);
+
   return (
     <ManageClubContainer>
       {isClubDataLoading ? (
@@ -91,13 +112,24 @@ function ManageClub() {
           </ClubName>
           <RowContainer>
             <InfoContainer>
-              <Label>{clubData?.type.name}</Label>
-              <BtnContainer
-                whileHover={{ backgroundColor: "rgba(0,0,0,0.5)" }}
-                onClick={() => handleEditBtnClick("typeName")}
+              <Select
+                labelId="demo-simple-select-helper-label"
+                id="demo-simple-select-helper"
+                value={value}
+                label="Age"
+                color="success"
+                sx={{ width: "100%", minWidth: "200px" }}
+                onChange={(e) => {
+                  setValue(e.target.value);
+                }}
               >
-                <FaPen />
-              </BtnContainer>
+                {tags.length > 0 &&
+                  tags.map((tag) => (
+                    <MenuItem key={tag._id} value={tag.name}>
+                      {tag.name}
+                    </MenuItem>
+                  ))}
+              </Select>
             </InfoContainer>
             <InfoContainer>
               <Label>{clubData?.location}</Label>

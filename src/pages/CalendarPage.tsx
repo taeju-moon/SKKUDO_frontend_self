@@ -1,9 +1,10 @@
 import styled from "styled-components";
 import Calendar from "react-calendar";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./CustomCalendarStyle.css";
 import moment from "moment";
 import ClubDetailHeader from "../components/ClubDetailHeader";
+import FilterTag from "../components/FilterTag";
 import { getTodosByClubID } from "../utils/fetch";
 import { useParams } from "react-router-dom";
 import { useQuery } from "react-query";
@@ -13,6 +14,7 @@ import TodoCategoryDialog from "../components/calendarComponents/TodoCategoryDia
 import { useRecoilState } from "recoil";
 import { dayDetailState } from "../atoms/calendarAtom";
 import { motion } from "framer-motion";
+import { getTodoTagsByClubID } from "../utils/fetch";
 
 const CalendarContainer = styled.div`
   padding-top: 40px;
@@ -20,13 +22,13 @@ const CalendarContainer = styled.div`
   justify-content: center;
 `;
 
-const BtnContainer = styled("div")({
+const Header = styled("div")({
   display: "flex",
   width: "100%",
   maxWidth: "1024px",
   margin: "0 auto",
   justifyContent: "flex-end",
-  marginTop: "20px",
+  flexDirection: "row",
   gap: "20px",
 });
 
@@ -34,9 +36,10 @@ const AddCategoryBtn = styled(motion.button)({
   backgroundColor: "transparent",
   color: "#0c4426",
   fontWeight: "600",
-  paddingLeft: "10px",
-  paddingRight: "10px",
+  marginLeft: "10px",
+  marginBottom: "0px",
   height: "50px",
+  width: "160px",
   border: "2px solid ",
   borderRadius: "10px",
   fontSize: "20px",
@@ -45,6 +48,15 @@ const AddCategoryBtn = styled(motion.button)({
 export interface IDayDetailOverlay {
   isDayDetailOpened: boolean;
 }
+
+interface TagType {
+  _id: string;
+  clubId: string | undefined;
+  name: string;
+  createdAt: Date | undefined;
+  updatedAt: Date | undefined;
+}
+
 const DayDetailOverlay = styled.div<IDayDetailOverlay>`
   position: fixed;
   top: 0;
@@ -68,6 +80,7 @@ const Dot = styled.div`
 
 function CalendarPage() {
   const [value, onChange] = useState(new Date());
+  const [tags, setTags] = useState<TagType[]>([]);
   const { clubID } = useParams();
   const [mark, setMark] = useState<string[]>(["2022-10-02", "2022-10-23"]);
 
@@ -88,12 +101,7 @@ function CalendarPage() {
     () => getTodosByClubID(clubID || ""),
     {
       onSuccess: (data) => {
-        const newMark: string[] = [];
-        data.map((todo) =>
-          newMark.push(moment(todo.date).format("YYYY-MM-DD"))
-        );
-        setMark(newMark);
-        // console.log(data);
+        setUsingTodos(data);
       },
       onError: (error: any) => alert(error.response.data.error),
     }
@@ -114,10 +122,30 @@ function CalendarPage() {
   };
 
   const [isDayDetailOpened, setIsDayDetailOpened] = useState(false);
+  const [usingTodos, setUsingTodos] = useState<ToDoType[]>([]);
+
+  useEffect(() => {
+    const newMark: string[] = [];
+    usingTodos.map((todo) =>
+      newMark.push(moment(todo.date).format("YYYY-MM-DD"))
+    );
+    setMark(newMark);
+  }, [usingTodos]);
+
+  useEffect(() => {
+    getTodoTagsByClubID(clubID ? clubID : "").then((tags) => setTags(tags));
+  }, [clubID]);
   return (
     <>
       <ClubDetailHeader pageType="일정" />
-      <BtnContainer>
+
+      <Header>
+        <FilterTag
+          tags={tags}
+          usingItems={data ? data : []}
+          setItems={setUsingTodos}
+          isClub={false}
+        />
         <AddCategoryBtn
           whileHover={{
             backgroundColor: "#0c4426",
@@ -128,7 +156,8 @@ function CalendarPage() {
         >
           카테고리 추가
         </AddCategoryBtn>
-      </BtnContainer>
+      </Header>
+
       <TodoCategoryDialog open={isCategoryDialogOpen} onClose={handleClose} />
       <CalendarContainer>
         <Calendar

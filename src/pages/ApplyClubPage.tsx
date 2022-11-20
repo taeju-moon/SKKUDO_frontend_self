@@ -1,10 +1,19 @@
-import { Button, MenuItem, styled, TextField } from "@mui/material";
-import React, { useState } from "react";
+import { Button, MenuItem, styled, TextField, Select } from "@mui/material";
+import React, { useState, useEffect } from "react";
+import { getAllClubTypes } from "../utils/fetch";
 import { useMutation } from "react-query";
 import FormTitle from "../components/FormTitle";
 import { RecruitType } from "../types/club";
 import { LocationType } from "../types/common";
 import { createClub } from "../utils/fetch";
+
+interface TagType {
+  _id: string;
+  clubId: string | undefined;
+  name: string;
+  createdAt: Date | undefined;
+  updatedAt: Date | undefined;
+}
 
 const Blank = styled("div")({
   height: "180px",
@@ -96,6 +105,17 @@ function ApplyClubPage() {
     setRecruitType(event.target.value as RecruitType);
   };
 
+  const [value, setValue] = useState<string>("");
+  const [tags, setTags] = useState<TagType[]>([]);
+
+  useEffect(() => {
+    getAllClubTypes().then((data) => {
+      const using = data.data.data;
+      setTags(using);
+      setValue(using[0].name);
+    });
+  }, []);
+
   return (
     <>
       <Blank />
@@ -109,13 +129,23 @@ function ApplyClubPage() {
             variant="outlined"
             onChange={handleNameChange}
           />
-          <TextField
+          <Select
+            labelId="demo-simple-select-helper-label"
+            id="demo-simple-select-helper"
+            value={value}
+            label="Age"
             sx={{ width: "40%" }}
-            label="동아리 주제"
-            variant="outlined"
-            required
-            onChange={handleClubTypeChange}
-          />
+            onChange={(e) => {
+              setValue(e.target.value);
+            }}
+          >
+            {tags.length > 0 &&
+              tags.map((tag) => (
+                <MenuItem key={tag._id} value={tag.name}>
+                  {tag.name}
+                </MenuItem>
+              ))}
+          </Select>
         </ApplyInputContainer>
         <ApplyInputContainer>
           <TextField

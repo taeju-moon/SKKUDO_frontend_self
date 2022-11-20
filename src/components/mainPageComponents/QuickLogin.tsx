@@ -57,15 +57,14 @@ const usingInfo: LoginInfo[] = [
     password: "test2_1",
   },
   {
-    userID: "test_2",
-    password: "test_2",
+    userID: "test2_2",
+    password: "test2_2",
   },
 ];
 
 export default function QuickLogin() {
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(isLoggedInState);
-  const [user, setUser] = useRecoilState(userNameState);
 
   const { mutate } = useMutation(
     ({ userID, password }: LoginInfo) => loginFromServer(userID, password),
