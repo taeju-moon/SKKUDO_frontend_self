@@ -23,7 +23,7 @@ function responsiveFontSizes({ sm, md, lg }: IResponsiveFontSizes) {
   };
 }
 
-const FONT_PRIMARY = "Nanum Pen Script, cursive";
+const FONT_PRIMARY = "Roboto, Nanum Gothic, sans-serif";
 
 const typography = {
   fontFamily: FONT_PRIMARY,
