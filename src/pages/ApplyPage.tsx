@@ -127,20 +127,28 @@ function ApplyPage() {
     }
 
     // console.log(tempMoreColumns);
-    const tempApplyInfo: ApplyFormType = {
-      clubId: clubID || "",
-      userID: applierInfo.userId,
-      studentId: applierInfo.studentId,
-      name: applierInfo.name,
-      major: applierInfo.major,
-      moreColumns: tempMoreColumns,
-      documentAnswers: Array.from(answers.values()),
-      documentScores: [],
-      interviewScores: [],
-      clubName: state,
-    };
-    // console.log(tempApplyInfo);
-    mutate(tempApplyInfo);
+    if (data) {
+      const tempApplyInfo: ApplyFormType = {
+        clubId: clubID || "",
+        userID: applierInfo.userId,
+        studentId: applierInfo.studentId,
+        name: applierInfo.name,
+        major: applierInfo.major,
+        moreColumns: tempMoreColumns,
+        documentAnswers: Array.from(answers.values()),
+        documentScores: Array.from(
+          { length: data.documentQuestions.length },
+          () => 0
+        ),
+        interviewScores: Array.from(
+          { length: data.interviewQuestions.length },
+          () => 0
+        ),
+        clubName: state,
+      };
+      // console.log(tempApplyInfo);
+      mutate(tempApplyInfo);
+    }
   };
 
   return (

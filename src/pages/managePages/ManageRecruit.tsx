@@ -34,6 +34,9 @@ import DocumentDialog from "../../components/manageAuthComponents/DocumentDialog
 import { ColumnType } from "../../types/common";
 import { ClubType } from "../../types/club";
 import ApplierForm from "../../components/manageRecruitComponents/ApplierForm";
+import ScoreDialog from "../../components/manageRecruitComponents/ScoreDialog";
+import { useRecoilValue } from "recoil";
+import { applierState } from "../../atoms/utilAtom";
 
 type orderType = "desc" | "asc";
 type orderByType = "name" | "studentId" | "major";
@@ -48,11 +51,32 @@ const TABLE_HEAD = [
   { id: "name", label: "이름", alignRight: false },
   { id: "studentId", label: "학번", alignRight: false },
   { id: "major", label: "학과", alignRight: false },
+  {
+    id: `docTotalScore`,
+    label: `서류점수 총합`,
+    alignRight: false,
+  },
+  {
+    id: `interTotalScore`,
+    label: `면접점수 총합`,
+    alignRight: false,
+  },
+  {
+    id: `totalScore`,
+    label: `점수 총합`,
+    alignRight: false,
+  },
 ];
 
 function ManageRecruit() {
   const { clubID } = useParams();
   const queryClient = useQueryClient();
+  const applier = useRecoilValue(applierState);
+  const [tableHead, setTableHead] = useState(TABLE_HEAD);
+
+  const [clickedAppliedUser, setClickedAppliedUser] =
+    useState<AppliedUserType>();
+
   const { data, isLoading } = useQuery<AppliedUserType[]>(
     "getAppliedUserByClubID",
     () => getAppliedUserByClubID(clubID || ""),
@@ -65,6 +89,8 @@ function ManageRecruit() {
       },
     }
   );
+
+  const [scoreDialogOpen, setScoreDialogOpen] = useState(false);
 
   interface RegisterMutateType {
     userID: string;
@@ -104,8 +130,28 @@ function ManageRecruit() {
 
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
-  const [clickedAppliedUser, setClickedAppliedUser] =
-    useState<AppliedUserType>();
+  useEffect(() => {
+    if (applier) {
+      const tempHead = [...tableHead];
+      applier.documentQuestions.forEach((s, idx) =>
+        tempHead.push({
+          id: `doc${idx + 1}score`,
+          label: `서류${idx + 1} 점수`,
+          alignRight: false,
+        })
+      );
+
+      applier.interviewQuestions.forEach((s, idx) =>
+        tempHead.push({
+          id: `inter${idx + 1}score`,
+          label: `면접${idx + 1} 점수`,
+          alignRight: false,
+        })
+      );
+
+      setTableHead(tempHead);
+    }
+  }, [applier]);
 
   const handleChangePage = (event: any, newPage: number) => {
     setPage(newPage);
@@ -239,20 +285,6 @@ function ManageRecruit() {
         },
       }
     );
-    // try {
-    //   registerMutate({
-    //     userID,
-    //     registerInfo: { moreColumns, initialRole: "부원" },
-    //   });
-    // } catch (error) {
-    //   alert(error);
-    //   return;
-    // }
-
-    // deleteMutate(applyId);
-    // if (!isError) {
-    //   deleteMutate(applyId);
-    // }
   };
 
   const handleFailBtnClick = (applyId: string) => {
@@ -263,20 +295,18 @@ function ManageRecruit() {
     setIsDialogOpen(true);
     // console.log(data[idx]);
     if (data) {
-      console.log(data[idx]);
+      // console.log(data[idx]);
       setClickedAppliedUser(data[idx]);
     }
   };
 
-  useEffect(() => {
-    getOneClub(clubID ? clubID : "").then((club: ClubType | undefined) => {
-      if (club) {
-        const refinedCols = club.userColumns.map((item): TableHeadType => {
-          return { id: item.key, label: item.key, alignRight: false };
-        });
-      }
-    });
-  }, []);
+  const handleScoreDialogOpen = (idx: number) => {
+    if (data) {
+      // console.log(data[idx]);
+      setClickedAppliedUser(data[idx]);
+    }
+    setScoreDialogOpen(true);
+  };
 
   return (
     <Container>
@@ -305,7 +335,7 @@ function ManageRecruit() {
                 isManaging={true}
                 order={order}
                 orderBy={orderBy}
-                headLabel={TABLE_HEAD}
+                headLabel={tableHead}
                 rowCount={data?.length || 0}
                 numSelected={selected.length}
                 onRequestSort={handleRequestSort}
@@ -315,8 +345,17 @@ function ManageRecruit() {
                 {filteredUsers
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map((row, idx) => {
-                    const { _id, studentId, name, major, userID, moreColumns } =
-                      row;
+                    const {
+                      _id,
+                      studentId,
+                      name,
+                      major,
+                      userID,
+                      moreColumns,
+
+                      documentScores,
+                      interviewScores,
+                    } = row;
                     const isItemSelected = selected.indexOf(name) !== -1;
 
                     return (
@@ -340,38 +379,98 @@ function ManageRecruit() {
                             alignItems="center"
                             spacing={2}
                           >
-                            <Typography variant="h5" noWrap>
+                            <Typography variant="subtitle2" noWrap>
                               {name}
                             </Typography>
                           </Stack>
                         </TableCell>
-                        <TableCell sx={{ fontSize: "20px" }} align="left">
+                        <TableCell sx={{ fontSize: "14px" }} align="left">
                           {studentId}
                         </TableCell>
 
-                        <TableCell sx={{ fontSize: "20px" }} align="left">
+                        <TableCell sx={{ fontSize: "14px" }} align="left">
                           {major}
                         </TableCell>
-
-                        <TableCell align="right">
-                          <Button
-                            variant="contained"
-                            color="error"
-                            sx={{ marginRight: "10px" }}
-                            onClick={() => handleFailBtnClick(_id)}
+                        <TableCell sx={{ fontSize: "14px" }} align="left">
+                          {documentScores.reduce((a, b) => a + b, 0)}
+                        </TableCell>
+                        <TableCell sx={{ fontSize: "14px" }} align="left">
+                          {interviewScores.reduce((a, b) => a + b, 0)}
+                        </TableCell>
+                        <TableCell sx={{ fontSize: "14px" }} align="left">
+                          {documentScores.reduce((a, b) => a + b, 0) +
+                            interviewScores.reduce((a, b) => a + b, 0)}
+                        </TableCell>
+                        {documentScores.map((score, idx) => (
+                          <TableCell
+                            key={idx}
+                            sx={{ fontSize: "14px" }}
+                            align="left"
                           >
-                            불합격
+                            {score}
+                          </TableCell>
+                        ))}
+
+                        {interviewScores.map((score, idx) => (
+                          <TableCell
+                            key={idx}
+                            sx={{ fontSize: "14px" }}
+                            align="left"
+                          >
+                            {score}
+                          </TableCell>
+                        ))}
+
+                        <TableCell
+                          align="right"
+                          sx={{
+                            display: "flex",
+                            flexDirection: "column",
+                            position: "sticky",
+                            right: 30,
+                          }}
+                        >
+                          <Button
+                            variant="outlined"
+                            color="success"
+                            sx={{
+                              width: "20px",
+                              padding: "5px",
+                              paddingLeft: "2px",
+                              paddingRight: "2px",
+                            }}
+                            onClick={() => handleScoreDialogOpen(idx)}
+                          >
+                            점수입력
                           </Button>
                           <Button
                             variant="contained"
+                            sx={{
+                              width: "20px",
+                              padding: "5px",
+                            }}
                             onClick={() =>
                               handlePassBtnClick(userID, moreColumns, _id)
                             }
                           >
                             합격
                           </Button>
+                          <Button
+                            variant="contained"
+                            color="error"
+                            sx={{
+                              width: "20px",
+                              padding: "5px",
+                            }}
+                            onClick={() => handleFailBtnClick(_id)}
+                          >
+                            불합격
+                          </Button>
                         </TableCell>
-                        <TableCell align="right">
+                        <TableCell
+                          align="right"
+                          sx={{ position: "sticky", right: 0 }}
+                        >
                           <HiDocumentText
                             size="1.7rem"
                             onClick={() => handleDocumentBtnClick(idx)}
@@ -414,6 +513,11 @@ function ManageRecruit() {
         open={isDialogOpen}
         setOpen={setIsDialogOpen}
         applierInfo={clickedAppliedUser}
+      />
+      <ScoreDialog
+        scoreDialogOpen={scoreDialogOpen}
+        setScoreDialogOpen={setScoreDialogOpen}
+        appliedUser={clickedAppliedUser}
       />
 
       <ApplierForm></ApplierForm>
