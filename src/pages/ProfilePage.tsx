@@ -76,13 +76,14 @@ function ProfilePage() {
             <TableHead>
               <TableRow>
                 <TableCell sx={{ width: "50%", textAlign: "center" }}>
-                  추가 정보
+                  정보
                 </TableCell>
                 <TableCell align="right" sx={{ textAlign: "center" }}>
                   답변
                 </TableCell>
               </TableRow>
             </TableHead>
+
             <TableBody>
               {clubProfile?.moreColumns.map((ele) => (
                 <TableRow
