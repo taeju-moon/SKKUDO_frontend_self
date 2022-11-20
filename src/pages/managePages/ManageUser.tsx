@@ -255,127 +255,122 @@ export default function User() {
           onFilterName={handleFilterByName}
         />
 
-        <Scrollbar>
-          <TableContainer sx={{ minWidth: 800 }}>
-            <Table>
-              <UserListHead
-                isManaging={true}
-                order={order}
-                orderBy={orderBy}
-                headLabel={tableHead}
-                rowCount={data?.length || 0}
-                numSelected={selected.length}
-                onRequestSort={handleRequestSort}
-                onSelectAllClick={handleSelectAllClick}
-              />
-              <TableBody>
-                {filteredUsers
-                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                  .map((row) => {
-                    const {
-                      _id,
-                      userID,
-                      studentId,
-                      name,
-                      registeredClubs,
-                      location,
-                      major,
-                    } = row;
-                    const isItemSelected = selected.indexOf(name) !== -1;
+        {/* <Scrollbar> */}
+        <TableContainer sx={{ minWidth: 800 }}>
+          <Table>
+            <UserListHead
+              isManaging={true}
+              order={order}
+              orderBy={orderBy}
+              headLabel={tableHead}
+              rowCount={data?.length || 0}
+              numSelected={selected.length}
+              onRequestSort={handleRequestSort}
+              onSelectAllClick={handleSelectAllClick}
+            />
+            <TableBody>
+              {filteredUsers
+                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                .map((row) => {
+                  const {
+                    _id,
+                    userID,
+                    studentId,
+                    name,
+                    registeredClubs,
+                    location,
+                    major,
+                  } = row;
+                  const isItemSelected = selected.indexOf(name) !== -1;
 
-                    return (
-                      <TableRow
-                        hover
-                        key={_id}
-                        tabIndex={-1}
-                        role="checkbox"
-                        selected={isItemSelected}
-                        aria-checked={isItemSelected}
-                      >
-                        <TableCell padding="checkbox">
-                          <Checkbox
-                            checked={isItemSelected}
-                            onChange={(event) => handleClick(event, name)}
-                          />
-                        </TableCell>
-                        <TableCell component="th" scope="row" padding="none">
-                          <Stack
-                            direction="row"
-                            alignItems="center"
-                            spacing={2}
-                          >
-                            <Typography variant="h5" noWrap>
-                              {name}
-                            </Typography>
-                          </Stack>
-                        </TableCell>
-                        <TableCell sx={{ fontSize: "20px" }} align="left">
-                          {studentId}
-                        </TableCell>
-                        <TableCell sx={{ fontSize: "20px" }} align="left">
-                          {clubID && data
-                            ? new Map(Object.entries(registeredClubs)).get(
-                                clubID
-                              )?.role
-                            : ""}
-                        </TableCell>
-                        <TableCell sx={{ fontSize: "20px" }} align="left">
-                          {major}
-                        </TableCell>
-                        <TableCell sx={{ fontSize: "20px" }} align="left">
-                          {location}
-                        </TableCell>
+                  return (
+                    <TableRow
+                      hover
+                      key={_id}
+                      tabIndex={-1}
+                      role="checkbox"
+                      selected={isItemSelected}
+                      aria-checked={isItemSelected}
+                    >
+                      <TableCell padding="checkbox">
+                        <Checkbox
+                          checked={isItemSelected}
+                          onChange={(event) => handleClick(event, name)}
+                        />
+                      </TableCell>
+                      <TableCell component="th" scope="row" padding="none">
+                        <Stack direction="row" alignItems="center" spacing={2}>
+                          <Typography variant="h5" noWrap>
+                            {name}
+                          </Typography>
+                        </Stack>
+                      </TableCell>
+                      <TableCell sx={{ fontSize: "20px" }} align="left">
+                        {studentId}
+                      </TableCell>
+                      <TableCell sx={{ fontSize: "20px" }} align="left">
                         {clubID && data
-                          ? new Map(Object.entries(registeredClubs))
-                              .get(clubID)
-                              .moreColumns.map(
-                                (item: IMoreColumn, index: any) => {
-                                  return (
-                                    <TableCell
-                                      sx={{ fontSize: "20px" }}
-                                      key={index}
-                                      align="left"
-                                    >
-                                      {item.value}
-                                    </TableCell>
-                                  );
-                                }
-                              )
+                          ? new Map(Object.entries(registeredClubs)).get(clubID)
+                              ?.role
                           : ""}
-                        <TableCell align="right">
-                          <UserMoreMenu
-                            userID={userID}
-                            role={
-                              clubID && data
-                                ? new Map(Object.entries(registeredClubs)).get(
-                                    clubID
-                                  )?.role
-                                : ""
-                            }
-                          />
-                        </TableCell>
-                      </TableRow>
-                    );
-                  })}
-                {emptyRows > 0 && (
-                  <TableRow style={{ height: 53 * emptyRows }}>
-                    <TableCell colSpan={6} />
-                  </TableRow>
-                )}
-              </TableBody>
-
-              {isUserNotFound && (
-                <TableBody>
-                  <TableRow>
-                    <TableCell align="center" colSpan={6} sx={{ py: 3 }}>
-                      <SearchNotFound searchQuery={filterName} />
-                    </TableCell>
-                  </TableRow>
-                </TableBody>
+                      </TableCell>
+                      <TableCell sx={{ fontSize: "20px" }} align="left">
+                        {major}
+                      </TableCell>
+                      <TableCell sx={{ fontSize: "20px" }} align="left">
+                        {location}
+                      </TableCell>
+                      {clubID && data
+                        ? new Map(Object.entries(registeredClubs))
+                            .get(clubID)
+                            .moreColumns.map(
+                              (item: IMoreColumn, index: any) => {
+                                return (
+                                  <TableCell
+                                    sx={{ fontSize: "20px" }}
+                                    key={index}
+                                    align="left"
+                                  >
+                                    {item.value}
+                                  </TableCell>
+                                );
+                              }
+                            )
+                        : ""}
+                      <TableCell align="right">
+                        <UserMoreMenu
+                          userID={userID}
+                          role={
+                            clubID && data
+                              ? new Map(Object.entries(registeredClubs)).get(
+                                  clubID
+                                )?.role
+                              : ""
+                          }
+                        />
+                      </TableCell>
+                    </TableRow>
+                  );
+                })}
+              {emptyRows > 0 && (
+                <TableRow style={{ height: 53 * emptyRows }}>
+                  <TableCell colSpan={6} />
+                </TableRow>
               )}
-            </Table>
-          </TableContainer>
-        </Scrollbar>
+            </TableBody>
+
+            {isUserNotFound && (
+              <TableBody>
+                <TableRow>
+                  <TableCell align="center" colSpan={6} sx={{ py: 3 }}>
+                    <SearchNotFound searchQuery={filterName} />
+                  </TableCell>
+                </TableRow>
+              </TableBody>
+            )}
+          </Table>
+        </TableContainer>
+        {/* </Scrollbar> */}
 
         <TablePagination
           rowsPerPageOptions={[5, 10, 25]}

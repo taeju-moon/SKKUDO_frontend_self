@@ -59,7 +59,7 @@ export default function ScoreDialog({
         setDocumentScores(new Map(documentScores.set(index, a.toString())))
       );
       appliedUser.interviewScores.map((a, index) =>
-        setInterviewScores(new Map(interviewScores.set(index, "0")))
+        setInterviewScores(new Map(interviewScores.set(index, a.toString())))
       );
     }
   }, [appliedUser]);
