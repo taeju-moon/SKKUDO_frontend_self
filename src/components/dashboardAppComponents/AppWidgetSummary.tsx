@@ -23,14 +23,6 @@ const IconWrapperStyle = styled("div")(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 
-AppWidgetSummary.propTypes = {
-  color: PropTypes.string,
-  icon: PropTypes.string,
-  title: PropTypes.string.isRequired,
-  total: PropTypes.number.isRequired,
-  sx: PropTypes.object,
-};
-
 type colorType =
   | "primary"
   | "secondary"
@@ -41,7 +33,7 @@ type colorType =
 
 interface AppWidgetSummaryType {
   title: string;
-  total: number;
+  total: number | string;
   icon: string;
   color?: colorType;
   sx?: object;
