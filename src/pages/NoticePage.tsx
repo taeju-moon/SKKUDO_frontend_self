@@ -71,7 +71,7 @@ const NoticeTitle = styled(motion.div)({
   alignItems: "center",
   justifyContent: "flex-start",
   paddingLeft: "40px",
-  fontSize: "30px",
+  fontSize: "25px",
 });
 
 interface OptionContainerType {
@@ -101,7 +101,8 @@ const Option = styled(motion.div)({
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
-  fontSize: "20px",
+  fontSize: "16px",
+  fontWeight: "600",
 });
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -120,7 +121,7 @@ const Tag = styled("div")({
   color: "white",
   borderRadius: "4px",
   padding: "5px",
-  fontSize: "20px",
+  fontSize: "15px",
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
@@ -238,11 +239,6 @@ function NoticePage() {
   return (
     <>
       <ClubDetailHeader pageType="공지사항" />
-      {/* <FilterWrapperWrapper>
-        <FilterWrapper>
-          
-        </FilterWrapper>
-      </FilterWrapperWrapper> */}
 
       <BtnContainer>
         <FilterWrapper>

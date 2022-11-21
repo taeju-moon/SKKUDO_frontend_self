@@ -64,6 +64,7 @@ const MenuProps = {
 export interface SimpleDialogProps {
   open: boolean;
   onClose: () => void;
+  date: Date;
 }
 
 function getStyles(name: string, personName: readonly string[], theme: Theme) {
@@ -132,9 +133,9 @@ function TodoAddDialog(props: SimpleDialogProps) {
 
   const [date, setDate] = useState<string | null>("");
 
-  const handleDateChange = (newDate: string | null) => {
-    setDate(moment(newDate).format("YYYY-MM-DD"));
-  };
+  // const handleDateChange = (newDate: string | null) => {
+  //   setDate(moment(newDate).format("YYYY-MM-DD"));
+  // };
 
   const [startTime, setStartTime] = useState<string | null>("");
 
@@ -171,7 +172,7 @@ function TodoAddDialog(props: SimpleDialogProps) {
       setContent(updateTodoInfo.content);
       setPersonName(updateTodoInfo.attendingUsers);
       setTags(updateTodoInfo.tags);
-      setDate(updateTodoInfo.date);
+      // setDate(updateTodoInfo.date);
       setStartTime(updateTodoInfo.startTime);
       setEndTime(updateTodoInfo.endTime);
     }
@@ -207,13 +208,13 @@ function TodoAddDialog(props: SimpleDialogProps) {
     event.preventDefault();
     // const tempSelectedTags = tagsStore.filter((tag) => tags.includes(tag.name));
     if (isTodoUpdate) {
-      if (updateTodoInfo._id && clubID && date && startTime && endTime) {
+      if (updateTodoInfo._id && clubID && startTime && endTime) {
         const newTodo = {
           _id: updateTodoInfo._id,
           clubId: clubID,
           title,
           content,
-          date,
+          date: moment(props.date).format("YYYY-MM-DD"),
           startTime,
           endTime,
           attendingUsers: personName,
@@ -223,12 +224,12 @@ function TodoAddDialog(props: SimpleDialogProps) {
         updateTodoMutate(newTodo);
       }
     } else {
-      if (clubID && date && startTime && endTime) {
+      if (clubID && startTime && endTime) {
         const newTodo = {
           clubId: clubID,
           title,
           content,
-          date,
+          date: moment(props.date).format("YYYY-MM-DD"),
           startTime,
           endTime,
           attendingUsers: personName,
@@ -262,7 +263,7 @@ function TodoAddDialog(props: SimpleDialogProps) {
           value={content}
           variant="outlined"
         />
-        <DesktopDatePicker
+        {/* <DesktopDatePicker
           label="날짜 선택"
           inputFormat="MM/DD/YYYY"
           value={date}
@@ -270,7 +271,7 @@ function TodoAddDialog(props: SimpleDialogProps) {
           renderInput={(params) => (
             <TextField {...params} sx={{ marginBottom: "40px" }} />
           )}
-        />
+        /> */}
         <TimePicker
           label="시작 시간"
           value={startTime}

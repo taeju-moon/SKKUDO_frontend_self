@@ -70,8 +70,11 @@ export default function AccountPopover() {
   const handleOpen = (event: React.MouseEvent<HTMLElement>) => {
     setOpen(event.currentTarget);
   };
-
   const handleClose = () => {
+    setOpen(null);
+  };
+  const handleLogoutBtnClick = () => {
+    setOpen(null);
     logoutMutate();
     navigate("/");
   };
@@ -140,7 +143,7 @@ export default function AccountPopover() {
 
         <Divider sx={{ borderStyle: "dashed" }} />
 
-        <MenuItem onClick={handleClose} sx={{ m: 1 }}>
+        <MenuItem onClick={handleLogoutBtnClick} sx={{ m: 1 }}>
           Logout
         </MenuItem>
       </MenuPopover>

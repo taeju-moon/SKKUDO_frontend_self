@@ -37,6 +37,7 @@ const BoardContainer = styled.div<IDayDetailOverlay>`
   display: ${(props) => (props.isDayDetailOpened ? "flex" : "none")};
   flex-direction: column;
   border-radius: 20px;
+  z-index: 10;
 `;
 
 const TodoAddBtn = styled(motion.button)`
@@ -153,7 +154,7 @@ function DayDetailBoard({ isDayDetailOpened, date }: DayDetailBoardType) {
         subheader={
           <ListSubheader
             sx={{
-              fontSize: "40px",
+              fontSize: "35px",
               width: "100%",
               padding: "20px",
             }}
@@ -273,7 +274,11 @@ function DayDetailBoard({ isDayDetailOpened, date }: DayDetailBoardType) {
           </ItemContainer>
         ))}
       </List>
-      <TodoAddDialog open={dialogOpen} onClose={handleDialogClose} />
+      <TodoAddDialog
+        open={dialogOpen}
+        onClose={handleDialogClose}
+        date={date}
+      />
     </BoardContainer>
   );
 }

@@ -26,7 +26,14 @@ function ClubDetailHeader({ pageType }: ClubDetailHeaderType) {
   const { data: clubData, isLoading: isClubLoading } = useQuery<ClubType>(
     "getOneClub",
     () => getOneClub(clubID || ""),
-    { onSuccess: (data) => console.log(data) }
+    {
+      onSuccess: (data) => {
+        // console.log(data);
+      },
+      onError: (error: any) => {
+        alert(error.response.data.error);
+      },
+    }
   );
   return (
     <ClubHeader>

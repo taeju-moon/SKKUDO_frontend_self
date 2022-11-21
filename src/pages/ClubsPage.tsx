@@ -5,7 +5,7 @@ import { useQuery } from "react-query";
 import ClubsFilterSidebar from "../components/clubsComponents/ClubsFilterSidebar";
 import ClubsList from "../components/clubsComponents/ClubsList";
 import FilterTag from "../components/FilterTag";
-import { ClubType } from "../types/club";
+import { ClubType, ClubTypeType } from "../types/club";
 import { getAllClubs, getAllClubTypes } from "../utils/fetch";
 
 interface TagType {
@@ -46,16 +46,22 @@ function ClubsPage() {
 
   const recruitingClubs = filterRecruitingClubs(items);
 
-  const [tags, setTags] = useState<TagType[]>([]);
+  // const [tags, setTags] = useState<TagType[]>([]);
 
-  useEffect(() => {
-    getAllClubTypes()
-      .then((data) => {
-        setTags(data.data.data as TagType[]);
-      })
-      .catch(() => alert("알 수 없는 오류가 났습니다."));
-  }, []);
-
+  // useEffect(() => {
+  //   getAllClubTypes()
+  //     .then((data) => {
+  //       setTags(data.data.data as TagType[]);
+  //     })
+  //     .catch(() => alert("알 수 없는 오류가 났습니다."));
+  // }, []);
+  const { data: tags } = useQuery<TagType[]>(
+    "getAllClubTypes",
+    getAllClubTypes,
+    {
+      onError: (error: any) => alert(error.response.data.error),
+    }
+  );
   return (
     <Container sx={{ paddingTop: "80px" }}>
       <Stack
@@ -63,16 +69,14 @@ function ClubsPage() {
         flexWrap="wrap-reverse"
         alignItems="center"
         justifyContent="flex-end"
-        sx={{ mb: 5 }}
+        sx={{ mb: 5, margin: 0, marginTop: "40px" }}
       >
-        <Stack direction="row" spacing={1} flexShrink={0} sx={{ my: 1 }}>
-          <FilterTag
-            isClub={true}
-            tags={tags}
-            usingItems={data as ClubType[]}
-            setItems={setItems}
-          />
-        </Stack>
+        <FilterTag
+          isClub={true}
+          tags={tags || []}
+          usingItems={data as ClubType[]}
+          setItems={setItems}
+        />
       </Stack>
 
       <Stack divider={<Divider />}>
