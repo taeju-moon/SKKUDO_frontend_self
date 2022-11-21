@@ -108,7 +108,7 @@ export default function QuickLogin() {
         "& > *": {
           m: 1,
         },
-        border: 1,
+        // border: 1,
       }}
     >
       <MainWrapper>

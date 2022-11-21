@@ -8,6 +8,7 @@ import { useMutation } from "react-query";
 import { logoutFromServer } from "../utils/fetch";
 import { isLoggedInState } from "../atoms/loginAtom";
 import { userNameState } from "../atoms/userAtom";
+import { motion } from "framer-motion";
 
 interface INavigationConatiner {
   isManage: boolean;
@@ -41,7 +42,7 @@ const LogoContainer = styled(Link)`
 `;
 
 const Logo = styled.div`
-  font-size: 70px;
+  font-size: 55px;
   color: #dde143;
 `;
 
@@ -64,7 +65,7 @@ const NavigationLi = styled.li`
 const NavigationLink = styled(Link)`
   text-decoration: none;
   color: #dde143;
-  font-size: 40px;
+  font-size: 34px;
 `;
 
 const LoginBtn = styled.button`
@@ -86,26 +87,33 @@ interface ILoginOptionContainer {
 const LoginOptionContainer = styled.ul<ILoginOptionContainer>`
   position: absolute;
   width: 100px;
-  background-color: aliceblue;
+  background-color: #d4e7c6;
+  border: 2px solid #0c4426;
   right: 0;
+  top: 70px;
   border-radius: 5px;
   display: ${(props) => (props.isLoginOptionOpened ? "block" : "none")};
-  padding-bottom: 20px;
 `;
 
-const LoginOption = styled.li`
+const LoginOption = styled(motion.div)`
   text-align: start;
   width: 100%;
-  height: 50px;
+  background-color: transparent;
+  border-bottom: 1px solid #0c4426;
   padding: 10px;
   font-size: 20px;
   padding-top: 20px;
+  display: flex;
+  padding-bottom: 20px;
 `;
 
 const LoginLink = styled(Link)`
   text-decoration: none;
-  color: black;
-  font-size: 30px;
+  color: #0c4426;
+  font-size: 20px;
+  font-weight: 600;
+  width: 100%;
+  height: 100%;
 `;
 
 const UserInfo = styled.h2`
@@ -165,10 +173,10 @@ function Navigator() {
           <LoginOptionContainer isLoginOptionOpened={isLoginOptionOpened}>
             {!isLoggedIn ? (
               <>
-                <LoginOption>
+                <LoginOption whileHover={{ backgroundColor: "#d4e7c6bf" }}>
                   <LoginLink to="/login">로그인</LoginLink>
                 </LoginOption>
-                <LoginOption>
+                <LoginOption whileHover={{ backgroundColor: "#d4e7c6bf" }}>
                   <LoginLink to="/signup">회원가입</LoginLink>
                 </LoginOption>
               </>
@@ -176,7 +184,7 @@ function Navigator() {
               <LoginOption>
                 <div
                   onClick={handleLogoutBtnClick}
-                  style={{ fontSize: "30px", color: "#0c4426" }}
+                  style={{ fontSize: "20px", color: "#0c4426" }}
                 >
                   로그아웃
                 </div>

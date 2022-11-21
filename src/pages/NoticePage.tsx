@@ -29,12 +29,14 @@ interface TagType {
 }
 
 const BtnContainer = styled("div")({
+  position: "relative",
   display: "flex",
   width: "100%",
   maxWidth: "1024px",
   margin: "0 auto",
   justifyContent: "flex-end",
   gap: "20px",
+  marginTop: "80px",
 });
 
 const AddCategoryBtn = styled(motion.button)({
@@ -69,7 +71,7 @@ const NoticeTitle = styled(motion.div)({
   alignItems: "center",
   justifyContent: "flex-start",
   paddingLeft: "40px",
-  fontSize: "30px",
+  fontSize: "25px",
 });
 
 interface OptionContainerType {
@@ -99,7 +101,8 @@ const Option = styled(motion.div)({
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
-  fontSize: "20px",
+  fontSize: "16px",
+  fontWeight: "600",
 });
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -118,15 +121,18 @@ const Tag = styled("div")({
   color: "white",
   borderRadius: "4px",
   padding: "5px",
-  fontSize: "20px",
+  fontSize: "15px",
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
 });
 
 const FilterWrapper = styled("div")({
+  position: "absolute",
+  // position: ab
   display: "flex",
-  width: "1024px",
+  // width: "1024px",
+  left: 0,
   justifyContent: "flex-start",
 });
 
@@ -233,7 +239,8 @@ function NoticePage() {
   return (
     <>
       <ClubDetailHeader pageType="공지사항" />
-      <FilterWrapperWrapper>
+
+      <BtnContainer>
         <FilterWrapper>
           <FilterTag
             tags={tags}
@@ -242,9 +249,6 @@ function NoticePage() {
             isClub={false}
           />
         </FilterWrapper>
-      </FilterWrapperWrapper>
-
-      <BtnContainer>
         <AddCategoryBtn
           whileHover={{
             backgroundColor: "#0c4426",
@@ -265,7 +269,7 @@ function NoticePage() {
         sx={{
           display: "flex",
           alignItems: "center",
-          marginTop: "20px",
+          marginTop: "40px",
         }}
       >
         {isNoticeLoading ? (

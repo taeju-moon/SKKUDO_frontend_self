@@ -14,6 +14,7 @@ const HomePageContainer = styled.div`
 const Banner = styled.div`
   display: flex;
   background-color: white;
+  align-items: center;
 `;
 const Phrase = styled.div`
   padding-top: 50px;
@@ -26,19 +27,22 @@ const Phrase = styled.div`
   gap: 40px;
 `;
 
-const ImgContainer = styled.img``;
+const ImgContainer = styled.img`
+  width: 30%;
+`;
 
 const LineOne = styled.div`
-  font-size: 4.5rem;
+  font-size: 50px;
   /* font-family: ; */
 `;
 
 const LineTwo = styled.div`
-  font-size: 4.5rem;
+  font-size: 60px;
 `;
 
 const Name = styled(motion.div)`
-  font-size: 6.5rem;
+  font-size: 90px;
+  font-weight: 700;
 `;
 
 const ButtonsContainer = styled.div`
@@ -53,7 +57,7 @@ const MainPageBtn = styled(motion.button)`
   height: 80px;
   background-color: #0c4426;
   border-radius: 5px;
-  font-size: 28px;
+  font-size: 22px;
   border: none;
   color: #dde143;
   font-weight: 800;

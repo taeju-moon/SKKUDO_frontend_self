@@ -103,7 +103,7 @@ export default function DashboardSidebar({
               <Typography variant="h5" sx={{ color: "text.primary" }}>
                 {loggedInUser?.name}
               </Typography>
-              <Typography variant="subtitle1" sx={{ color: "text.secondary" }}>
+              <Typography variant="subtitle1" sx={{ color: "#0c4426" }}>
                 {specificInfo?.role}
               </Typography>
             </Box>

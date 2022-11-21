@@ -17,10 +17,14 @@ import {
 } from "@mui/material";
 import { DesktopDatePicker } from "@mui/x-date-pickers";
 import { LocationType } from "../../types/common";
-import { RecruitType, UpdateClubInfoType } from "../../types/club";
-import { useMutation, useQueryClient } from "react-query";
+import {
+  ClubTypeType,
+  RecruitType,
+  UpdateClubInfoType,
+} from "../../types/club";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import { useParams } from "react-router-dom";
-import { updateClub } from "../../utils/fetch";
+import { getAllClubTypes, updateClub } from "../../utils/fetch";
 
 interface UpdateDialogType {
   dialogOpen: boolean;
@@ -36,9 +40,18 @@ function ProperInput({ keyword, handleClose }: ProperInputType) {
   const { clubID } = useParams();
   const queryClient = useQueryClient();
   const [name, setName] = React.useState("변경할 이름");
+  const [newType, setNewType] = React.useState("프로그래밍");
   const [location, setLocation] = React.useState<LocationType>("인사캠");
   const [recruitType, setRecruitType] = React.useState<RecruitType>("정규모집");
   const [date, setDate] = React.useState<Date>(new Date());
+
+  const { data: clubTypeData } = useQuery<ClubTypeType[]>(
+    "getAllClubTypes",
+    getAllClubTypes,
+    {
+      onError: (error: any) => alert(error.response.data.error),
+    }
+  );
 
   const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     // event.preventDefault();
@@ -48,6 +61,11 @@ function ProperInput({ keyword, handleClose }: ProperInputType) {
   const handleLocationChange = (event: SelectChangeEvent<LocationType>) => {
     event.preventDefault();
     setLocation(event.target.value as LocationType);
+  };
+
+  const handleClubTypeChange = (event: SelectChangeEvent) => {
+    event.preventDefault();
+    setNewType(event.target.value);
   };
 
   const handleRecruitTypeChange = (event: SelectChangeEvent<RecruitType>) => {
@@ -76,7 +94,7 @@ function ProperInput({ keyword, handleClose }: ProperInputType) {
     if (keyword === "name") {
       mutate({ name });
     } else if (keyword === "typeName") {
-      mutate({ type: { name } });
+      mutate({ type: { name: newType } });
     } else if (keyword === "location") {
       mutate({ location });
     } else if (keyword === "recruitType") {
@@ -90,7 +108,7 @@ function ProperInput({ keyword, handleClose }: ProperInputType) {
     }
     handleClose();
   };
-  if (keyword === "name" || keyword === "typeName") {
+  if (keyword === "name") {
     return (
       <>
         <DialogContent style={{ width: "512px" }}>
@@ -111,6 +129,33 @@ function ProperInput({ keyword, handleClose }: ProperInputType) {
           <Button onClick={handleUpdateSubmit}>수정</Button>
         </DialogActions>
       </>
+    );
+  } else if (keyword === "typeName") {
+    return (
+      <DialogContent style={{ width: "512px" }}>
+        <FormControl fullWidth sx={{ marginTop: "20px" }}>
+          <InputLabel id="recruitType">주제</InputLabel>
+          <Select
+            value={newType}
+            label="동아리 주제"
+            onChange={handleClubTypeChange}
+          >
+            {clubTypeData ? (
+              clubTypeData.map((type) => (
+                <MenuItem key={type._id} value={type.name}>
+                  {type.name}
+                </MenuItem>
+              ))
+            ) : (
+              <div>데이터를 불러오는 과정에서 오류가 발생했습니다</div>
+            )}
+          </Select>
+        </FormControl>
+        <DialogActions>
+          <Button onClick={handleClose}>취소</Button>
+          <Button onClick={handleUpdateSubmit}>수정</Button>
+        </DialogActions>
+      </DialogContent>
     );
   } else if (keyword === "location") {
     return (
@@ -160,9 +205,7 @@ function ProperInput({ keyword, handleClose }: ProperInputType) {
     return (
       <>
         <DialogContent style={{ width: "512px" }}>
-          {/* <DialogContentText>변경하려는 값으로 적어주세요</DialogContentText> */}
           <FormControl fullWidth sx={{ marginTop: "20px" }}>
-            {/* <InputLabel id="recruitType">모집방식</InputLabel> */}
             <DesktopDatePicker
               label="Date desktop"
               inputFormat="MM/DD/YYYY"
@@ -195,9 +238,7 @@ export default function UpdateDialog({
 
   return (
     <Dialog open={dialogOpen} onClose={handleClose}>
-      <DialogTitle
-        sx={{ fontSize: "30px" }}
-      >{`${clubUpdate.keyword} 변경`}</DialogTitle>
+      <DialogTitle sx={{ fontSize: "30px" }}>{`동아리 정보 변경`}</DialogTitle>
       <ProperInput
         keyword={clubUpdate.keyword}
         handleClose={handleClose}
