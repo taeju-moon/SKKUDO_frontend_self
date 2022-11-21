@@ -17,11 +17,7 @@ import {
 } from "@mui/material";
 import { DesktopDatePicker } from "@mui/x-date-pickers";
 import { LocationType } from "../../types/common";
-import {
-  ClubTypeType,
-  RecruitType,
-  UpdateClubInfoType,
-} from "../../types/club";
+import { RecruitType, UpdateClubInfoType } from "../../types/club";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { useParams } from "react-router-dom";
 import { getAllClubTypes, updateClub } from "../../utils/fetch";
@@ -36,6 +32,14 @@ interface ProperInputType {
   handleClose: () => void;
 }
 
+interface TagType {
+  _id: string;
+  clubId: string | undefined;
+  name: string;
+  createdAt: Date | undefined;
+  updatedAt: Date | undefined;
+}
+
 function ProperInput({ keyword, handleClose }: ProperInputType) {
   const { clubID } = useParams();
   const queryClient = useQueryClient();
@@ -45,7 +49,7 @@ function ProperInput({ keyword, handleClose }: ProperInputType) {
   const [recruitType, setRecruitType] = React.useState<RecruitType>("정규모집");
   const [date, setDate] = React.useState<Date>(new Date());
 
-  const { data: clubTypeData } = useQuery<ClubTypeType[]>(
+  const { data: clubTypeData } = useQuery<TagType[]>(
     "getAllClubTypes",
     getAllClubTypes,
     {
