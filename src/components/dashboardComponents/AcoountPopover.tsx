@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Link as RouterLink, useParams } from "react-router-dom";
-// @mui
+import { Link as RouterLink, useNavigate, useParams } from "react-router-dom";
 import { alpha } from "@mui/material/styles";
 import {
   Box,
@@ -12,37 +11,32 @@ import {
   IconButton,
 } from "@mui/material";
 import MenuPopover from "./MenuPopover";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import { loggedInUserState } from "../../atoms/userAtom";
 import { RoleType } from "../../types/common";
-// components
-// // mocks_
-// import account from '../../_mock/account';
-
-// ----------------------------------------------------------------------
-
-const MENU_OPTIONS = [
-  {
-    label: "Home",
-    icon: "eva:home-fill",
-    linkTo: "/",
-  },
-  {
-    label: "Profile",
-    icon: "eva:person-fill",
-    linkTo: "#",
-  },
-  {
-    label: "Settings",
-    icon: "eva:settings-2-fill",
-    linkTo: "#",
-  },
-];
+import { useMutation } from "react-query";
+import { logoutFromServer } from "../../utils/fetch";
+import { isLoggedInState } from "../../atoms/loginAtom";
 
 export default function AccountPopover() {
   const { clubID } = useParams();
   const loggedInUser = useRecoilValue(loggedInUserState);
   const [userRole, setUserRole] = useState<RoleType>("부원");
+  const navigate = useNavigate();
+  const MENU_OPTIONS = [
+    {
+      label: "Home",
+      icon: "eva:home-fill",
+      linkTo: "/",
+    },
+    {
+      label: "Profile",
+      icon: "eva:person-fill",
+      linkTo: `/club/${clubID}/profile`,
+    },
+  ];
+
+  const setIsLoggedIn = useSetRecoilState(isLoggedInState);
 
   useEffect(() => {
     if (loggedInUser) {
@@ -59,6 +53,16 @@ export default function AccountPopover() {
     photoURL: "/static/mock-images/avatars/avatar_default.jpg",
   };
 
+  const { mutate: logoutMutate } = useMutation(logoutFromServer, {
+    onSuccess: (data) => {
+      setIsLoggedIn(false);
+      alert("로그아웃 되었습니다");
+    },
+    onError: (error: any) => {
+      alert(error.response.data.error);
+    },
+  });
+
   const anchorRef = useRef(null);
 
   const [open, setOpen] = useState<EventTarget | null>(null);
@@ -68,7 +72,8 @@ export default function AccountPopover() {
   };
 
   const handleClose = () => {
-    setOpen(null);
+    logoutMutate();
+    navigate("/");
   };
 
   return (

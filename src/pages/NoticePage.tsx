@@ -29,12 +29,14 @@ interface TagType {
 }
 
 const BtnContainer = styled("div")({
+  position: "relative",
   display: "flex",
   width: "100%",
   maxWidth: "1024px",
   margin: "0 auto",
   justifyContent: "flex-end",
   gap: "20px",
+  marginTop: "80px",
 });
 
 const AddCategoryBtn = styled(motion.button)({
@@ -125,8 +127,11 @@ const Tag = styled("div")({
 });
 
 const FilterWrapper = styled("div")({
+  position: "absolute",
+  // position: ab
   display: "flex",
-  width: "1024px",
+  // width: "1024px",
+  left: 0,
   justifyContent: "flex-start",
 });
 
@@ -233,7 +238,13 @@ function NoticePage() {
   return (
     <>
       <ClubDetailHeader pageType="공지사항" />
-      <FilterWrapperWrapper>
+      {/* <FilterWrapperWrapper>
+        <FilterWrapper>
+          
+        </FilterWrapper>
+      </FilterWrapperWrapper> */}
+
+      <BtnContainer>
         <FilterWrapper>
           <FilterTag
             tags={tags}
@@ -242,9 +253,6 @@ function NoticePage() {
             isClub={false}
           />
         </FilterWrapper>
-      </FilterWrapperWrapper>
-
-      <BtnContainer>
         <AddCategoryBtn
           whileHover={{
             backgroundColor: "#0c4426",
@@ -265,7 +273,7 @@ function NoticePage() {
         sx={{
           display: "flex",
           alignItems: "center",
-          marginTop: "20px",
+          marginTop: "40px",
         }}
       >
         {isNoticeLoading ? (

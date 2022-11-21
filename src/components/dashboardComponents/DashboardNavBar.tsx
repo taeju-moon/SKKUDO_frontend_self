@@ -3,8 +3,6 @@ import { Box, Stack, AppBar, Toolbar, IconButton } from "@mui/material";
 import Iconify from "../Iconify";
 import AccountPopover from "./AcoountPopover";
 import NotificationsPopover from "./NotificationPopover";
-import { useRecoilValue } from "recoil";
-import { loggedInUserState } from "../../atoms/userAtom";
 
 const DRAWER_WIDTH = 280;
 const APPBAR_MOBILE = 64;
@@ -49,7 +47,7 @@ function DashboardNavBar({ onOpenSidebar }: IDashboardNavBar) {
           alignItems="center"
           spacing={{ xs: 0.5, sm: 1.5 }}
         >
-          <NotificationsPopover />
+          {/* <NotificationsPopover /> */}
           <AccountPopover />
         </Stack>
       </ToolbarStyle>

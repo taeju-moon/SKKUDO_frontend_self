@@ -6,6 +6,7 @@ import FormTitle from "../components/FormTitle";
 import { RecruitType } from "../types/club";
 import { LocationType } from "../types/common";
 import { createClub } from "../utils/fetch";
+import { useNavigate } from "react-router-dom";
 
 interface TagType {
   _id: string;
@@ -65,6 +66,7 @@ function ApplyClubPage() {
   const [clubType, setClubType] = useState("동아리 주제");
   const [location, setLocation] = useState<LocationType>("인사캠");
   const [recruitType, setRecruitType] = useState<RecruitType>("상시모집");
+  const navigate = useNavigate();
 
   const { mutate } = useMutation(
     () => createClub({ name, location, type: { name: clubType }, recruitType }),
@@ -72,6 +74,8 @@ function ApplyClubPage() {
       //need to fix
       onSuccess: (data) => {
         console.log(data);
+        alert("새 동아리 신청이 성공적으로 접수 되었습니다!");
+        navigate("/");
       },
       onError: (error: any) => {
         alert(error.response.data.error);

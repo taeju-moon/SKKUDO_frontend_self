@@ -5,13 +5,13 @@ import { ClubType } from "../types/club";
 import { getOneClub } from "../utils/fetch";
 
 const ClubHeader = styled("div")({
-  paddingTop: "10px",
+  // paddingTop: "10px",
   display: "flex",
   width: "100%",
   maxWidth: "1024px",
   margin: "0 auto",
   gap: "30px",
-  fontSize: "50px",
+  fontSize: "45px",
   color: "#0C4426",
   borderBottom: "4px solid #0C4426",
   paddingBottom: "15px",
@@ -30,9 +30,8 @@ function ClubDetailHeader({ pageType }: ClubDetailHeaderType) {
   );
   return (
     <ClubHeader>
-      <h1>
-        {clubData?.name}| {pageType}
-      </h1>
+      <h1>{clubData?.name}</h1>
+      <h4>{pageType}</h4>
     </ClubHeader>
   );
 }

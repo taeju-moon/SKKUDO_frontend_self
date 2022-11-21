@@ -15,6 +15,7 @@ import { useRecoilState } from "recoil";
 import { dayDetailState } from "../atoms/calendarAtom";
 import { motion } from "framer-motion";
 import { getTodoTagsByClubID } from "../utils/fetch";
+import { relative } from "path";
 
 const CalendarContainer = styled.div`
   padding-top: 40px;
@@ -23,6 +24,7 @@ const CalendarContainer = styled.div`
 `;
 
 const Header = styled("div")({
+  position: "relative",
   display: "flex",
   width: "100%",
   maxWidth: "1024px",
@@ -30,6 +32,8 @@ const Header = styled("div")({
   justifyContent: "flex-end",
   flexDirection: "row",
   gap: "20px",
+  marginTop: "40px",
+  marginBottom: "10px",
 });
 
 const AddCategoryBtn = styled(motion.button)({
@@ -56,6 +60,11 @@ interface TagType {
   createdAt: Date | undefined;
   updatedAt: Date | undefined;
 }
+
+const FilterWrapper = styled.div`
+  position: absolute;
+  left: 0;
+`;
 
 const DayDetailOverlay = styled.div<IDayDetailOverlay>`
   position: fixed;
@@ -140,12 +149,14 @@ function CalendarPage() {
       <ClubDetailHeader pageType="일정" />
 
       <Header>
-        <FilterTag
-          tags={tags}
-          usingItems={data ? data : []}
-          setItems={setUsingTodos}
-          isClub={false}
-        />
+        <FilterWrapper>
+          <FilterTag
+            tags={tags}
+            usingItems={data ? data : []}
+            setItems={setUsingTodos}
+            isClub={false}
+          />
+        </FilterWrapper>
         <AddCategoryBtn
           whileHover={{
             backgroundColor: "#0c4426",

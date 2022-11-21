@@ -39,10 +39,8 @@ const BASE_URL =
 
 const GET_ALL_CLUB_TYPES_URL = `${BASE_URL}/clubs/clubTypes`;
 
-export const getAllClubTypes = async () => {
-  const result = await axios.get(GET_ALL_CLUB_TYPES_URL);
-  return result;
-};
+export const getAllClubTypes = async () =>
+  await axios.get(GET_ALL_CLUB_TYPES_URL).then((res) => res.data.data);
 
 const GET_ALL_CLUBS_URL = `${BASE_URL}/clubs/clubs`;
 

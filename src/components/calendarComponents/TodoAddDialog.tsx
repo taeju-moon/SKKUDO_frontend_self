@@ -134,21 +134,18 @@ function TodoAddDialog(props: SimpleDialogProps) {
 
   const handleDateChange = (newDate: string | null) => {
     setDate(moment(newDate).format("YYYY-MM-DD"));
-    console.log(moment(newDate).format("YYYY-MM-DD"));
   };
 
   const [startTime, setStartTime] = useState<string | null>("");
 
   const handleStartTimeChange = (startTime: string | null) => {
     setStartTime(moment(startTime).format("YYYY-MM-DD HH:mm"));
-    console.log(moment(startTime).format("YYYY-MM-DD HH:mm"));
   };
 
   const [endTime, setEndTime] = useState<string | null>("");
 
   const handleEndTimeChange = (endTime: string | null) => {
     setEndTime(moment(endTime).format("YYYY-MM-DD HH:mm"));
-    console.log(moment(endTime).format("YYYY-MM-DD HH:mm"));
   };
 
   const handleNameChange = (event: SelectChangeEvent<typeof personName>) => {

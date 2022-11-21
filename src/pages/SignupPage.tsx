@@ -1,7 +1,6 @@
 import { Button, MenuItem, SelectChangeEvent, TextField } from "@mui/material";
 import React, { useState } from "react";
 import { useMutation } from "react-query";
-import { Loadable } from "recoil";
 import styled from "styled-components";
 import { LocationType } from "../types/common";
 import { createUser } from "../utils/fetch";
@@ -173,7 +172,7 @@ function SignupPage() {
         </SignupInputContainer>
 
         <Button
-          sx={{ position: "absolute", right: "40px", fontSize: "20px" }}
+          sx={{ position: "absolute", right: "40px", fontSize: "18px" }}
           type="submit"
           variant="outlined"
           color="success"

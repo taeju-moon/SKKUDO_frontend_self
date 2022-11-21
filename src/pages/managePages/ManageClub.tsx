@@ -36,13 +36,13 @@ const ClubName = styled.div`
 const Label = styled.span`
   display: inline-block;
   margin-right: 20px;
-  font-size: 40px;
+  font-size: 35px;
 `;
 
 const RowContainer = styled.div`
   display: flex;
   width: 100%;
-  max-width: 520px;
+  max-width: 600px;
   justify-content: space-between;
   font-size: 20px;
   margin-bottom: 80px;
@@ -85,14 +85,15 @@ function ManageClub() {
   };
 
   const [value, setValue] = useState<string>(clubData?.type.name as string);
-  const [tags, setTags] = useState<TagType[]>([]);
+  // const [tags, setTags] = useState<TagType[]>([]);
 
-  useEffect(() => {
-    getAllClubTypes().then((data) => {
-      const using = data.data.data;
-      setTags(using);
-    });
-  }, []);
+  // useEffect(() => {
+  //   getAllClubTypes().then((data) => {
+  //     const using = data.data.data;
+  //     console.log(data.data.data);
+  //     setTags(using);
+  //   });
+  // }, []);
 
   return (
     <ManageClubContainer>
@@ -112,7 +113,7 @@ function ManageClub() {
           </ClubName>
           <RowContainer>
             <InfoContainer>
-              <Select
+              {/* <Select
                 labelId="demo-simple-select-helper-label"
                 id="demo-simple-select-helper"
                 value={value}
@@ -129,7 +130,14 @@ function ManageClub() {
                       {tag.name}
                     </MenuItem>
                   ))}
-              </Select>
+              </Select> */}
+              <Label>{clubData?.type.name}</Label>
+              <BtnContainer
+                whileHover={{ backgroundColor: "rgba(0,0,0,0.5)" }}
+                onClick={() => handleEditBtnClick("typeName")}
+              >
+                <FaPen />
+              </BtnContainer>
             </InfoContainer>
             <InfoContainer>
               <Label>{clubData?.location}</Label>
