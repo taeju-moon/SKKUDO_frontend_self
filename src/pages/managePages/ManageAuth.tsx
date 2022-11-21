@@ -9,7 +9,6 @@ import {
   List,
   ListItem,
   ListItemButton,
-  ListItemIcon,
   ListItemText,
   FormControl,
   MenuItem,
@@ -18,7 +17,7 @@ import {
 
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { AUTH_LABEL_LIST, AUTH_LIST } from "../../constants/AuthManageContants";
-import { RoleType } from "../../types/common";
+
 import { useQuery } from "react-query";
 import { ValidationKeyType, ValidationType } from "../../types/validation";
 import { getValidatonByClubID } from "../../utils/fetch";
