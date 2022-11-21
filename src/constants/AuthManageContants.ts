@@ -61,7 +61,7 @@ export const AUTH_LABEL_LIST = [
   },
   {
     key: "appliedUserRead",
-    label: "모집 지원자 수정 권한",
+    label: "모집 지원자 열람 권한",
   },
   {
     key: "appliedUserWrite",
