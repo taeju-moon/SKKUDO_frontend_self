@@ -203,7 +203,9 @@ function CollapsibleTable() {
     "getBudgetsByClubID",
     () => getBudgetsByClubID(clubID || ""),
     {
-      onSuccess: (data) => console.log(data),
+      onSuccess: (data) => {
+        // console.log(data);
+      },
       onError: (error: any) => {
         alert(error.response.data.error);
       },
@@ -220,11 +222,13 @@ function CollapsibleTable() {
     () => deleteBudget(data?._id || "", clubID || ""),
     {
       onSuccess: (data) => {
-        console.log(data);
+        // console.log(data);
         alert("가계부가 삭제되었습니다.");
         window.location.reload();
       },
-      onError: (error) => console.log(error),
+      onError: (error: any) => {
+        alert(error.response.data.error);
+      },
     }
   );
 
@@ -232,12 +236,14 @@ function CollapsibleTable() {
     (newBudgetInfo: NewBudgetType) => createBudget(newBudgetInfo),
     {
       onSuccess: (data) => {
-        console.log(data);
+        // console.log(data);
         alert("가계부가 성공적으로 생성되었습니다!");
         window.location.reload();
         // queryClient.invalidateQueries("getBudgetByClubID");
       },
-      onError: (error) => console.log(error),
+      onError: (error: any) => {
+        alert(error.response.data.error);
+      },
     }
   );
 
