@@ -4,18 +4,14 @@ import AboutSideBar from "../components/aboutComponents/AboutSideBar";
 
 const AboutContainer = styled.div`
   display: flex;
-  background-color: beige;
+  background-color: white;
   width: 100%;
-  max-width: 1024px;
+  max-width: 1200px;
   padding-top: 150px;
-  /* justify-content: center; */
+  min-height: 100%;
   margin: 0 auto;
   position: relative;
 `;
-
-
-
-
 
 function AboutPage() {
   return (
