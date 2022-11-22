@@ -12,6 +12,11 @@ const AboutContainer = styled.div`
   margin: 0 auto;
   position: relative;
 `;
+
+
+
+
+
 function AboutPage() {
   return (
     <AboutContainer>
