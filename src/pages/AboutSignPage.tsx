@@ -13,70 +13,53 @@ const AboutSignContainer = styled.div`
   padding-left: 5%;
   padding-right: 5%;
   flex-direction: column;
+  flex: 1;
 `;
 
 const SignupContainer = styled.div`
-  border-top-style: solid;
-  border-width: 1px;
-  border-color: #0c4426;
   display: flex;
   flex-direction: row;
   padding-top: 5%;
   padding-bottom: 5%;
-
 `;
-
 
 const SignupMassageContainer = styled.div`
   display: flex;
   flex-direction: column;
-
-  width: 600px;
-`
-const SignupImageContainer =styled.div`
-  padding-left:5%;
-  display:flex;
-`
-const SignInContainer =styled.div`
-  border-top-style:solid;
-  border-width: 1px;
-  border-color: #0c4426;
+`;
+const SignupImageContainer = styled.div`
+  padding-left: 5%;
+  display: flex;
+`;
+const SignInContainer = styled.div`
   display: flex;
   flex-direction: row;
-  padding-top:5%;
+  padding-top: 5%;
   padding-bottom: 5%;
-`
+`;
 const SignInMassageContainer = styled.div`
-  display:flex;
+  display: flex;
   flex-direction: column;
-  width: 600px;
-`
-const SignInImageContainer =styled.div`
-  padding-left:5%;
-  display:flex;
-`
+`;
+const SignInImageContainer = styled.div`
+  padding-left: 5%;
+  display: flex;
+`;
 
-
-
-
-const LogoutContainer =styled.div`
-  border-top-style:solid;
-  border-width: 1px;
-  border-color: #0c4426;
+const LogoutContainer = styled.div`
   display: flex;
   flex-direction: row;
-  padding-top:5%;
+  padding-top: 5%;
   padding-bottom: 5%;
-`
+`;
 const LogoutMassageContainer = styled.div`
-  display:flex;
+  display: flex;
   flex-direction: column;
-  width: 600px;
-`
-const LogoutImageContainer =styled.div`
-  padding-left:5%;
-  display:flex;
-`
+`;
+const LogoutImageContainer = styled.div`
+  padding-left: 5%;
+  display: flex;
+`;
 
 function AboutSignPage() {
   return (
@@ -89,10 +72,14 @@ function AboutSignPage() {
       </SignupContainer>
       <SignInContainer>
         <SignInMassageContainer></SignInMassageContainer>
-        <SignInImageContainer><img src={signIn}></img></SignInImageContainer>
+        <SignInImageContainer>
+          <img src={signIn}></img>
+        </SignInImageContainer>
       </SignInContainer>
       <LogoutContainer>
-        <LogoutImageContainer><img src={logout}></img></LogoutImageContainer>
+        <LogoutImageContainer>
+          <img src={logout}></img>
+        </LogoutImageContainer>
         <LogoutMassageContainer></LogoutMassageContainer>
       </LogoutContainer>
     </AboutSignContainer>
