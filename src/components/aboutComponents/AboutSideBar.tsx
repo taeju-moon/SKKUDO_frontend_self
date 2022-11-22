@@ -6,13 +6,15 @@ import styled from "styled-components";
 const AboutSideBarContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 80px;
+  gap: 40px;
+  width:160px;
 `;
 
 const MenuLink = styled(Link)`
   color: #0c4426;
   text-decoration: none;
-  font-size: 30px;
+  text-align:center;
+  font-size: 15px;
 `;
 const MenuBtn = styled.button`
   width: 170px;
@@ -42,7 +44,11 @@ function AboutSideBar() {
       {/* <MenuBtn onClick={() => handleMainPageBtnClick("search")}>슬로건</MenuBtn>
       <MenuBtn onClick={() => handleMainPageBtnClick("make")}>사용방법</MenuBtn> */}
       <MenuLink to={"/about/main"}>소개</MenuLink>
-      <MenuLink to={"/about/useExample"}>사용방법</MenuLink>
+      <MenuLink to={"/about/sign"}>로그인/로그아웃/회원가입</MenuLink>
+      <MenuLink to={"/about/apply"}>동아리 지원</MenuLink>
+      <MenuLink to={"/about/makeclub"}>동아리 생성</MenuLink>
+      <MenuLink to={"/about/mypage"}>개인 정보</MenuLink>
+      <MenuLink to={"/about/manage"}>동아리 관리</MenuLink>
     </AboutSideBarContainer>
   );
 }

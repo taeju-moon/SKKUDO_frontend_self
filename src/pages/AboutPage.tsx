@@ -7,7 +7,7 @@ const AboutContainer = styled.div`
   background-color: beige;
   width: 100%;
   max-width: 1024px;
-  padding-top: 300px;
+  padding-top: 150px;
   /* justify-content: center; */
   margin: 0 auto;
   position: relative;

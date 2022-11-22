@@ -30,7 +30,7 @@ const AboutIntroduceContainer =styled.div`
 const IntroduceMassageContainer = styled.div`
   display:flex;
   flex-direction: column;
-  width: 400px;
+  width: 600px;
 `
 const ImageContainer =styled.div`
   padding-left:5%;

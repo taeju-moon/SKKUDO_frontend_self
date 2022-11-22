@@ -77,7 +77,11 @@ function AppRouter() {
         <Route path="/clubs" element={<ClubsPage />} />
         <Route path="/about" element={<AboutPage />}>
           <Route path="main" element={<AboutMainPage />} />
-          <Route path="useExample" element={<AboutUseExamplePage />} />
+          <Route path="sign" element={<AboutUseExamplePage />} />
+          <Route path="apply" element={<AboutUseExamplePage />} />
+          <Route path="makeclub" element={<AboutUseExamplePage />} />
+          <Route path="mypage" element={<AboutUseExamplePage />} />
+          <Route path="manage" element={<AboutUseExamplePage />} />
         </Route>
         <Route
           path="/myPage"
