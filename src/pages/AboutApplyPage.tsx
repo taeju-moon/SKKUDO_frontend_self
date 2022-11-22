@@ -9,107 +9,115 @@ import applyfilter from "../assets/images/apply/applyfilter.png";
 import ingclub from "../assets/images/apply/ingclub.png";
 
 const AboutApplyPageContainer = styled.div`
-  // 우측으로 쌓기
   display: flex;
   padding-left: 5%;
   padding-right: 5%;
   flex-direction: column;
+  flex: 1;
 `;
 
-const FirstApplyContainer =styled.div`
-  border-top-style:solid;
-  border-width: 1px;
-  border-color: #0c4426;
+const FirstApplyContainer = styled.div`
   display: flex;
   flex-direction: row;
-  padding-top:5%;
+  padding-top: 5%;
   padding-bottom: 5%;
-`
+`;
 const FirstApplyMassageContainer = styled.div`
-  display:flex;
-  flex-direction: column;
-  width: 600px;
-`
-const FirstApplyImageContainer =styled.div`
-  padding-left:5%;
-  display:flex;
-`
-const SecondApplyContainer =styled.div`
-  border-top-style:solid;
-  border-width: 1px;
-  border-color: #0c4426;
+  font-size: 18px;
+  line-height: 40px;
+  font-weight: 600;
+  padding-right: 20px;
+  width: 50%;
+`;
+const FirstApplyImageContainer = styled.div`
   display: flex;
-  flex-direction: row;
-  padding-top:5%;
+  width: 50%;
+`;
+const SecondApplyContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding-top: 5%;
   padding-bottom: 5%;
-`
+`;
 const SecondApplyMassageContainer = styled.div`
-  display:flex;
-  flex-direction: column;
-  width: 600px;
-`
-const SecondApplyImageContainer =styled.div`
-  padding-left:5%;
-  display:flex;
-`
-  
-const ApplyFilterContainer =styled.div`
-  border-top-style:solid;
-  border-width: 1px;
-  border-color: #0c4426;
+  font-size: 18px;
+  line-height: 50px;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 60px;
+  margin-top: 40px;
+`;
+const SecondApplyImageContainer = styled.div`
+  padding-left: 5%;
+  display: flex;
+`;
+
+const ApplyFilterContainer = styled.div`
   display: flex;
   flex-direction: row;
-  padding-top:5%;
+  padding-top: 5%;
   padding-bottom: 5%;
-`
+`;
 const ApplyFilterMassageContainer = styled.div`
-  display:flex;
+  display: flex;
   flex-direction: column;
-  width: 600px;
-`
-const ApplyFilterImageContainer =styled.div`
-  padding-left:5%;
-  display:flex;
-`
+`;
+const ApplyFilterImageContainer = styled.div`
+  padding-left: 5%;
+  display: flex;
+`;
 
-const IngClubContainer =styled.div`
-  border-top-style:solid;
-  border-width: 1px;
-  border-color: #0c4426;
+const IngClubContainer = styled.div`
   display: flex;
   flex-direction: row;
-  padding-top:5%;
+  padding-top: 5%;
   padding-bottom: 5%;
-`
+`;
 const IngClubMassageContainer = styled.div`
-  display:flex;
+  display: flex;
   flex-direction: column;
-  width: 600px;
-`
-const IngClubImageContainer =styled.div`
-  padding-left:5%;
-  display:flex;
-`
-
-
+`;
+const IngClubImageContainer = styled.div`
+  padding-left: 5%;
+  display: flex;
+`;
 
 function AboutApplyPage() {
   return (
     <AboutApplyPageContainer>
       <FirstApplyContainer>
-        <FirstApplyMassageContainer></FirstApplyMassageContainer>
-        <FirstApplyImageContainer><img src={apply1}></img></FirstApplyImageContainer>
+        <FirstApplyMassageContainer>
+          SKKUDO에서는 현재 SKKUDO에 등록된 다양한 동아리들을 확인할 수
+          있습니다.
+        </FirstApplyMassageContainer>
+        <FirstApplyImageContainer>
+          <img src={apply1}></img>
+        </FirstApplyImageContainer>
       </FirstApplyContainer>
       <SecondApplyContainer>
-        <SecondApplyImageContainer><img src={apply2}></img></SecondApplyImageContainer>
-        <SecondApplyMassageContainer></SecondApplyMassageContainer>
+        <SecondApplyMassageContainer>
+          지원하고 싶은 동아리에 마우스를 올려서 "지원하기" 버튼을 눌러주세요!
+        </SecondApplyMassageContainer>
+        <SecondApplyImageContainer>
+          <img src={apply2}></img>
+        </SecondApplyImageContainer>
+        <SecondApplyMassageContainer>
+          그러면 위에 그림처럼 해당 동아리의 지원서가 나타납니다.
+          <br /> 지원서를 동아리에 대한 자신의 열정을 마음껏 표출해주세요!
+          <br /> 지원서가 성공적으로 제출되면 이제 해당 동아리 관리자의 결정을
+          기다리기만 하면 됩니다!!
+        </SecondApplyMassageContainer>
       </SecondApplyContainer>
       <ApplyFilterContainer>
         <ApplyFilterMassageContainer></ApplyFilterMassageContainer>
-        <ApplyFilterImageContainer><img src={applyfilter}></img></ApplyFilterImageContainer>
+        <ApplyFilterImageContainer>
+          <img src={applyfilter}></img>
+        </ApplyFilterImageContainer>
       </ApplyFilterContainer>
       <IngClubContainer>
-        <IngClubImageContainer><img src={ingclub}></img></IngClubImageContainer>
+        <IngClubImageContainer>
+          <img src={ingclub}></img>
+        </IngClubImageContainer>
         <IngClubMassageContainer></IngClubMassageContainer>
       </IngClubContainer>
     </AboutApplyPageContainer>
