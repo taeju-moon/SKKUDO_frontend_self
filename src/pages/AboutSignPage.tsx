@@ -23,17 +23,60 @@ const SignupContainer = styled.div`
   flex-direction: row;
   padding-top: 5%;
   padding-bottom: 5%;
+
 `;
+
 
 const SignupMassageContainer = styled.div`
   display: flex;
   flex-direction: column;
-  /* width: 600px; */
-`;
-const SignupImageContainer = styled.div`
-  padding-left: 5%;
+
+  width: 600px;
+`
+const SignupImageContainer =styled.div`
+  padding-left:5%;
+  display:flex;
+`
+const SignInContainer =styled.div`
+  border-top-style:solid;
+  border-width: 1px;
+  border-color: #0c4426;
   display: flex;
-`;
+  flex-direction: row;
+  padding-top:5%;
+  padding-bottom: 5%;
+`
+const SignInMassageContainer = styled.div`
+  display:flex;
+  flex-direction: column;
+  width: 600px;
+`
+const SignInImageContainer =styled.div`
+  padding-left:5%;
+  display:flex;
+`
+
+
+
+
+const LogoutContainer =styled.div`
+  border-top-style:solid;
+  border-width: 1px;
+  border-color: #0c4426;
+  display: flex;
+  flex-direction: row;
+  padding-top:5%;
+  padding-bottom: 5%;
+`
+const LogoutMassageContainer = styled.div`
+  display:flex;
+  flex-direction: column;
+  width: 600px;
+`
+const LogoutImageContainer =styled.div`
+  padding-left:5%;
+  display:flex;
+`
 
 function AboutSignPage() {
   return (
@@ -44,6 +87,14 @@ function AboutSignPage() {
         </SignupImageContainer>
         <SignupMassageContainer></SignupMassageContainer>
       </SignupContainer>
+      <SignInContainer>
+        <SignInMassageContainer></SignInMassageContainer>
+        <SignInImageContainer><img src={signIn}></img></SignInImageContainer>
+      </SignInContainer>
+      <LogoutContainer>
+        <LogoutImageContainer><img src={logout}></img></LogoutImageContainer>
+        <LogoutMassageContainer></LogoutMassageContainer>
+      </LogoutContainer>
     </AboutSignContainer>
   );
 }
