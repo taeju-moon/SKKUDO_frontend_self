@@ -1,3 +1,4 @@
+import { Collapse, List, ListItemButton, ListItemText } from "@mui/material";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
@@ -6,49 +7,72 @@ import styled from "styled-components";
 const AboutSideBarContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 40px;
-  width:160px;
+
+  width: 180px;
+  height: 100%;
 `;
 
 const MenuLink = styled(Link)`
   color: #0c4426;
   text-decoration: none;
-  text-align:center;
+  /* text-align: center; */
   font-size: 15px;
-`;
-const MenuBtn = styled.button`
-  width: 170px;
-  height: 80px;
-  background-color: #0c4426;
-  border-radius: 5px;
-  font-size: 1rem;
-
-  border: none;
-  color: #dde143;
   font-weight: 800;
 `;
 
 function AboutSideBar() {
+  const [open, setOpen] = useState(true);
   const navigate = useNavigate();
-  const handleMainPageBtnClick = (btnType: string) => {
-    if (btnType == "search") {
-      navigate("/about/main");
-    } else if (btnType == "make") {
-      navigate("/about/useExample");
-    } else {
-      return;
-    }
+
+  const handleClick = () => {
+    setOpen(!open);
   };
   return (
     <AboutSideBarContainer>
-      {/* <MenuBtn onClick={() => handleMainPageBtnClick("search")}>슬로건</MenuBtn>
-      <MenuBtn onClick={() => handleMainPageBtnClick("make")}>사용방법</MenuBtn> */}
-      <MenuLink to={"/about/main"}>소개</MenuLink>
-      <MenuLink to={"/about/sign"}>로그인/로그아웃/회원가입</MenuLink>
-      <MenuLink to={"/about/apply"}>동아리 지원</MenuLink>
-      <MenuLink to={"/about/makeclub"}>동아리 생성</MenuLink>
-      <MenuLink to={"/about/mypage"}>개인 정보</MenuLink>
-      <MenuLink to={"/about/manage"}>동아리 관리</MenuLink>
+      <List>
+        <ListItemButton
+          onClick={() => navigate("/about/main")}
+          sx={{
+            paddingTop: "15px",
+            paddingBottom: "15px",
+            borderBottom: "1px solid",
+          }}
+        >
+          <MenuLink style={{ fontSize: "20px" }} to={"/about/main"}>
+            소개
+          </MenuLink>
+        </ListItemButton>
+        <ListItemButton onClick={handleClick} sx={{ paddingTop: "15px" }}>
+          <div
+            style={{
+              color: "#0c4426",
+              fontSize: "20px",
+              fontWeight: "800",
+            }}
+          >
+            스꾸도 사용방법
+          </div>
+        </ListItemButton>
+        <Collapse in={open}>
+          <List>
+            <ListItemButton onClick={() => navigate("/about/sign")}>
+              <MenuLink to={"/about/sign"}>로그인/로그아웃/회원가입</MenuLink>
+            </ListItemButton>
+            <ListItemButton onClick={() => navigate("/about/apply")}>
+              <MenuLink to={"/about/apply"}>동아리 지원</MenuLink>
+            </ListItemButton>
+            <ListItemButton onClick={() => navigate("/about/makeclub")}>
+              <MenuLink to={"/about/makeclub"}>동아리 생성</MenuLink>
+            </ListItemButton>
+            <ListItemButton onClick={() => navigate("/about/mypage")}>
+              <MenuLink to={"/about/mypage"}>개인 정보</MenuLink>
+            </ListItemButton>
+            <ListItemButton onClick={() => navigate("/about/manage")}>
+              <MenuLink to={"/about/manage"}>동아리 관리</MenuLink>
+            </ListItemButton>
+          </List>
+        </Collapse>
+      </List>
     </AboutSideBarContainer>
   );
 }
