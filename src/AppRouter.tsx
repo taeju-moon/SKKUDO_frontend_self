@@ -40,7 +40,6 @@ import AboutMainPage from "./pages/AboutMainPage";
 import AboutApplyPage from "./pages/AboutApplyPage";
 import AboutClubManagePage from "./pages/AboutClubManagePage";
 import AboutMakeClubPage from "./pages/AboutMakeClubPage";
-import AboutSignPage from "./pages/AboutSignPage";
 import AboutMyPage from "./pages/AboutMyPage";
 
 
@@ -83,7 +82,6 @@ function AppRouter() {
         <Route path="/clubs" element={<ClubsPage />} />
         <Route path="/about" element={<AboutPage />}>
           <Route path="main" element={<AboutMainPage />} />
-          <Route path="sign" element={<AboutSignPage />} />
           <Route path="apply" element={<AboutApplyPage />} />
           <Route path="makeclub" element={<AboutMakeClubPage />} />
           <Route path="mypage" element={<AboutMyPage />} />

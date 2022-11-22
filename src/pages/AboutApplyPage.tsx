@@ -52,41 +52,15 @@ const SecondApplyImageContainer = styled.div`
   display: flex;
 `;
 
-const ApplyFilterContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  padding-top: 5%;
-  padding-bottom: 5%;
-`;
-const ApplyFilterMassageContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-const ApplyFilterImageContainer = styled.div`
-  padding-left: 5%;
-  display: flex;
-`;
 
-const IngClubContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  padding-top: 5%;
-  padding-bottom: 5%;
-`;
-const IngClubMassageContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-const IngClubImageContainer = styled.div`
-  padding-left: 5%;
-  display: flex;
-`;
 
 function AboutApplyPage() {
   return (
     <AboutApplyPageContainer>
       <FirstApplyContainer>
         <FirstApplyMassageContainer>
+          <br />
+          <br />
           SKKUDO에서는 현재 SKKUDO에 등록된 다양한 동아리들을 확인할 수
           있습니다.
         </FirstApplyMassageContainer>
@@ -108,18 +82,6 @@ function AboutApplyPage() {
           기다리기만 하면 됩니다!!
         </SecondApplyMassageContainer>
       </SecondApplyContainer>
-      <ApplyFilterContainer>
-        <ApplyFilterMassageContainer></ApplyFilterMassageContainer>
-        <ApplyFilterImageContainer>
-          <img src={applyfilter}></img>
-        </ApplyFilterImageContainer>
-      </ApplyFilterContainer>
-      <IngClubContainer>
-        <IngClubImageContainer>
-          <img src={ingclub}></img>
-        </IngClubImageContainer>
-        <IngClubMassageContainer></IngClubMassageContainer>
-      </IngClubContainer>
     </AboutApplyPageContainer>
   );
 }

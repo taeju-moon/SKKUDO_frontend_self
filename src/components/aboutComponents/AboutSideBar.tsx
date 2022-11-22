@@ -55,9 +55,6 @@ function AboutSideBar() {
         </ListItemButton>
         <Collapse in={open}>
           <List>
-            <ListItemButton onClick={() => navigate("/about/sign")}>
-              <MenuLink to={"/about/sign"}>로그인/로그아웃/회원가입</MenuLink>
-            </ListItemButton>
             <ListItemButton onClick={() => navigate("/about/apply")}>
               <MenuLink to={"/about/apply"}>동아리 지원</MenuLink>
             </ListItemButton>
