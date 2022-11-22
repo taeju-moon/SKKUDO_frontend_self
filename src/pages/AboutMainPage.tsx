@@ -10,6 +10,8 @@ import { GrAction } from "react-icons/gr";
 import myeong from "../assets/images/myeong.jpeg";
 import yul from "../assets/images/yul.png";
 
+
+
 const MainContainer = styled.div`
   // 우측으로 쌓기
   display: flex;

@@ -4,6 +4,7 @@ import { useTheme } from "@mui/material";
 import styled from "styled-components";
 import AboutSideBar from "../components/aboutComponents/AboutSideBar";
 
+
 const AboutApplyContainer = styled.div`
   // 우측으로 쌓기
   display: flex;
@@ -12,11 +13,18 @@ const AboutApplyContainer = styled.div`
   flex-direction: row;
 `;
 
+
+
+
+
+
 const UseExampleImageContainer = styled.div``;
 
 function AboutApply() {
   return (
-    <AboutApplyContainer></AboutApplyContainer>
+    <AboutApplyContainer>
+
+    </AboutApplyContainer>
   );
 }
 

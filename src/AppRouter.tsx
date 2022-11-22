@@ -37,7 +37,13 @@ import ManageClub from "./pages/managePages/ManageClub";
 import ProfilePage from "./pages/ProfilePage";
 import ManageAccountBook from "./pages/managePages/ManageAccountBook";
 import AboutMainPage from "./pages/AboutMainPage";
-import AboutUseExamplePage from "./pages/AboutUseExamplePage";
+import AboutApplyPage from "./pages/AboutApplyPage";
+import AboutClubManagePage from "./pages/AboutClubManagePage";
+import AboutMakeClubPage from "./pages/AboutMakeClubPage";
+import AboutSignPage from "./pages/AboutSignPage";
+import AboutMyPage from "./pages/AboutMyPage";
+
+
 
 function AppRouter() {
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(isLoggedInState);
@@ -77,11 +83,11 @@ function AppRouter() {
         <Route path="/clubs" element={<ClubsPage />} />
         <Route path="/about" element={<AboutPage />}>
           <Route path="main" element={<AboutMainPage />} />
-          <Route path="sign" element={<AboutUseExamplePage />} />
-          <Route path="apply" element={<AboutUseExamplePage />} />
-          <Route path="makeclub" element={<AboutUseExamplePage />} />
-          <Route path="mypage" element={<AboutUseExamplePage />} />
-          <Route path="manage" element={<AboutUseExamplePage />} />
+          <Route path="sign" element={<AboutSignPage />} />
+          <Route path="apply" element={<AboutApplyPage />} />
+          <Route path="makeclub" element={<AboutMakeClubPage />} />
+          <Route path="mypage" element={<AboutMyPage />} />
+          <Route path="manage" element={<AboutClubManagePage />} />
         </Route>
         <Route
           path="/myPage"
