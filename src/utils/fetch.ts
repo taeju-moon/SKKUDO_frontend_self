@@ -3,6 +3,7 @@ import {
   AppliedUserType,
   ApplyFormType,
   NewApplierType,
+  UpdateAppliedUserType,
   UpdateApplierType,
 } from "./../types/apply";
 import { UpdateValidationType } from "./../types/validation";
@@ -15,6 +16,7 @@ import {
 import {
   NewClubColumnType,
   NewClubType,
+  ClubTypeType,
   UpdateClubInfoType,
 } from "./../types/club";
 import {
@@ -30,10 +32,15 @@ import axios from "axios";
 axios.defaults.withCredentials = true;
 
 // const BASE_URL = "http://54.180.91.71:8000";
-const BASE_URL =
+export const BASE_URL =
   process.env.NODE_ENV === "production"
     ? "http://54.180.30.58:8000"
     : "http://localhost:8000";
+
+const GET_ALL_CLUB_TYPES_URL = `${BASE_URL}/clubs/clubTypes`;
+
+export const getAllClubTypes = async () =>
+  await axios.get(GET_ALL_CLUB_TYPES_URL).then((res) => res.data.data);
 
 const GET_ALL_CLUBS_URL = `${BASE_URL}/clubs/clubs`;
 
@@ -42,6 +49,14 @@ export const getAllClubs = async () =>
 
 export const createClub = async (newClub: NewClubType) =>
   axios.post(GET_ALL_CLUBS_URL, newClub).then((res) => res.data);
+
+export const uploadImage = async (clubId: string, formData: any) => {
+  const result = await axios.post(
+    GET_ALL_CLUBS_URL.concat("/upload/", clubId),
+    formData
+  );
+  return result;
+};
 
 const LOGIN_URL = `${BASE_URL}/auth/login`;
 
@@ -153,7 +168,7 @@ export const registerClub = async (
   clubID: string,
   registerInfo: RegisterInfoType
 ) =>
-  axios
+  await axios
     .patch(REGISTER_CLUB_URL.concat(userID, "/", clubID), registerInfo)
     .then((res) => res.data);
 
@@ -299,8 +314,8 @@ export const getAppliedUserByClubID = (clubID: string) =>
     .get(Get_ALL_APPLIED_USERS.concat("/byClub/", clubID))
     .then((res) => res.data.data);
 
-export const deleteAppliedUser = (applyID: string, clubID: string) =>
-  axios
+export const deleteAppliedUser = async (applyID: string, clubID: string) =>
+  await axios
     .delete(Get_ALL_APPLIED_USERS.concat("/", applyID), {
       data: { clubId: clubID },
     })
@@ -315,6 +330,14 @@ const GET_APPLIED_USERS_BY_ID = `${BASE_URL}/applies/appliedUsers/byUser`;
 
 export const getAppliedUserByID = () =>
   axios.get(GET_APPLIED_USERS_BY_ID).then((res) => res.data.data);
+
+export const updateAppliedUser = async (
+  id: string,
+  newInfo: UpdateAppliedUserType
+) =>
+  axios
+    .patch(Get_ALL_APPLIED_USERS.concat("/", id), newInfo)
+    .then((res) => res.data);
 
 //delte적용 registerClub userID 적용
 

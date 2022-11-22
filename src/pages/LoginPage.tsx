@@ -29,7 +29,7 @@ const LoginCard = styled.div`
 `;
 
 const Title = styled.div`
-  font-size: 70px;
+  font-size: 60px;
   margin-top: 20px;
   color: #dde143;
 `;
@@ -59,7 +59,7 @@ const LoginButton = styled(motion.button)`
   border: 2px solid #dde143;
   border-radius: 5px;
   font-weight: 800;
-  font-size: 30px;
+  font-size: 28px;
 `;
 
 function LoginPage() {
@@ -68,9 +68,6 @@ function LoginPage() {
   const [PW, setPW] = useState("");
 
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(isLoggedInState);
-  // if (isLoggedIn) {
-  //   navigate("/");
-  // }
 
   const { mutate } = useMutation(() => loginFromServer(ID, PW), {
     //need to fix
@@ -109,7 +106,7 @@ function LoginPage() {
           </LoginInputContainer>
           <LoginButton
             type="submit"
-            whileHover={{ backgroundColor: "#dde143", color: "#FFFFFF" }}
+            whileHover={{ backgroundColor: "#dde143", color: "#0c4426" }}
           >
             Log In
           </LoginButton>

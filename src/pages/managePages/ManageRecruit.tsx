@@ -34,6 +34,11 @@ import DocumentDialog from "../../components/manageAuthComponents/DocumentDialog
 import { ColumnType } from "../../types/common";
 import { ClubType } from "../../types/club";
 import ApplierForm from "../../components/manageRecruitComponents/ApplierForm";
+import ScoreDialog from "../../components/manageRecruitComponents/ScoreDialog";
+import { useRecoilValue } from "recoil";
+import { applierState } from "../../atoms/utilAtom";
+import Iconify from "../../components/Iconify";
+import AutoDialog from "../../components/manageRecruitComponents/AutoDialog";
 
 type orderType = "desc" | "asc";
 type orderByType = "name" | "studentId" | "major";
@@ -48,11 +53,32 @@ const TABLE_HEAD = [
   { id: "name", label: "이름", alignRight: false },
   { id: "studentId", label: "학번", alignRight: false },
   { id: "major", label: "학과", alignRight: false },
+  {
+    id: `docTotalScore`,
+    label: `서류점수 총합`,
+    alignRight: false,
+  },
+  {
+    id: `interTotalScore`,
+    label: `면접점수 총합`,
+    alignRight: false,
+  },
+  {
+    id: `totalScore`,
+    label: `점수 총합`,
+    alignRight: false,
+  },
 ];
 
 function ManageRecruit() {
   const { clubID } = useParams();
   const queryClient = useQueryClient();
+  const applier = useRecoilValue(applierState);
+  const [tableHead, setTableHead] = useState(TABLE_HEAD);
+
+  const [clickedAppliedUser, setClickedAppliedUser] =
+    useState<AppliedUserType>();
+
   const { data, isLoading } = useQuery<AppliedUserType[]>(
     "getAppliedUserByClubID",
     () => getAppliedUserByClubID(clubID || ""),
@@ -63,8 +89,14 @@ function ManageRecruit() {
       onError: (error: any) => {
         alert(error.response.data.error);
       },
+      // retryOnMount: false,
+      // refetchOnReconnect: false,
+      // refetchOnMount: false,
     }
   );
+
+  const [scoreDialogOpen, setScoreDialogOpen] = useState(false);
+  const [autoDialogOpen, setAutoDialogOpen] = useState(false);
 
   interface RegisterMutateType {
     userID: string;
@@ -104,8 +136,28 @@ function ManageRecruit() {
 
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
-  const [clickedAppliedUser, setClickedAppliedUser] =
-    useState<AppliedUserType>();
+  useEffect(() => {
+    if (applier) {
+      const tempHead = [...tableHead];
+      applier.documentQuestions.forEach((s, idx) =>
+        tempHead.push({
+          id: `doc${idx + 1}score`,
+          label: `서류${idx + 1} 점수`,
+          alignRight: false,
+        })
+      );
+
+      applier.interviewQuestions.forEach((s, idx) =>
+        tempHead.push({
+          id: `inter${idx + 1}score`,
+          label: `면접${idx + 1} 점수`,
+          alignRight: false,
+        })
+      );
+
+      setTableHead(tempHead);
+    }
+  }, [applier]);
 
   const handleChangePage = (event: any, newPage: number) => {
     setPage(newPage);
@@ -239,20 +291,6 @@ function ManageRecruit() {
         },
       }
     );
-    // try {
-    //   registerMutate({
-    //     userID,
-    //     registerInfo: { moreColumns, initialRole: "부원" },
-    //   });
-    // } catch (error) {
-    //   alert(error);
-    //   return;
-    // }
-
-    // deleteMutate(applyId);
-    // if (!isError) {
-    //   deleteMutate(applyId);
-    // }
   };
 
   const handleFailBtnClick = (applyId: string) => {
@@ -262,21 +300,20 @@ function ManageRecruit() {
   const handleDocumentBtnClick = (idx: number) => {
     setIsDialogOpen(true);
     // console.log(data[idx]);
-    if (data) {
-      console.log(data[idx]);
-      setClickedAppliedUser(data[idx]);
+    if (filteredUsers) {
+      // console.log(data[idx]);
+      setClickedAppliedUser(filteredUsers[idx]);
     }
   };
 
-  useEffect(() => {
-    getOneClub(clubID ? clubID : "").then((club: ClubType | undefined) => {
-      if (club) {
-        const refinedCols = club.userColumns.map((item): TableHeadType => {
-          return { id: item.key, label: item.key, alignRight: false };
-        });
-      }
-    });
-  }, []);
+  const handleScoreDialogOpen = (idx: number) => {
+    if (filteredUsers) {
+      // console.log(filteredUsers[idx]);
+
+      setClickedAppliedUser(filteredUsers[idx]);
+    }
+    setScoreDialogOpen(true);
+  };
 
   return (
     <Container>
@@ -289,6 +326,14 @@ function ManageRecruit() {
         <Typography variant="h4" gutterBottom>
           User
         </Typography>
+        <Button
+          variant="contained"
+          color="success"
+          startIcon={<Iconify icon="eva:plus-fill" />}
+          onClick={() => setAutoDialogOpen(true)}
+        >
+          자동 합격 버튼
+        </Button>
       </Stack>
 
       <Card>
@@ -298,107 +343,172 @@ function ManageRecruit() {
           onFilterName={handleFilterByName}
         />
 
-        <Scrollbar>
-          <TableContainer sx={{ minWidth: 800 }}>
-            <Table>
-              <UserListHead
-                isManaging={true}
-                order={order}
-                orderBy={orderBy}
-                headLabel={TABLE_HEAD}
-                rowCount={data?.length || 0}
-                numSelected={selected.length}
-                onRequestSort={handleRequestSort}
-                onSelectAllClick={handleSelectAllClick}
-              />
-              <TableBody>
-                {filteredUsers
-                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                  .map((row, idx) => {
-                    const { _id, studentId, name, major, userID, moreColumns } =
-                      row;
-                    const isItemSelected = selected.indexOf(name) !== -1;
+        {/* <Scrollbar> */}
+        <TableContainer sx={{ minWidth: 800 }}>
+          <Table>
+            <UserListHead
+              isManaging={true}
+              order={order}
+              orderBy={orderBy}
+              headLabel={tableHead}
+              rowCount={data?.length || 0}
+              numSelected={selected.length}
+              onRequestSort={handleRequestSort}
+              onSelectAllClick={handleSelectAllClick}
+            />
+            <TableBody>
+              {filteredUsers
+                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                .map((row, idx) => {
+                  const {
+                    _id,
+                    studentId,
+                    name,
+                    major,
+                    userID,
+                    moreColumns,
 
-                    return (
-                      <TableRow
-                        hover
-                        key={_id}
-                        tabIndex={-1}
-                        role="checkbox"
-                        selected={isItemSelected}
-                        aria-checked={isItemSelected}
+                    documentScores,
+                    interviewScores,
+                  } = row;
+                  const isItemSelected = selected.indexOf(name) !== -1;
+
+                  return (
+                    <TableRow
+                      hover
+                      key={_id}
+                      tabIndex={-1}
+                      role="checkbox"
+                      selected={isItemSelected}
+                      aria-checked={isItemSelected}
+                    >
+                      <TableCell padding="checkbox">
+                        <Checkbox
+                          checked={isItemSelected}
+                          onChange={(event) => handleClick(event, name)}
+                        />
+                      </TableCell>
+                      <TableCell component="th" scope="row" padding="none">
+                        <Stack direction="row" alignItems="center" spacing={2}>
+                          <Typography variant="subtitle2" noWrap>
+                            {name}
+                          </Typography>
+                        </Stack>
+                      </TableCell>
+                      <TableCell sx={{ fontSize: "14px" }} align="left">
+                        {studentId}
+                      </TableCell>
+
+                      <TableCell sx={{ fontSize: "14px" }} align="left">
+                        {major}
+                      </TableCell>
+                      <TableCell sx={{ fontSize: "14px" }} align="left">
+                        {documentScores.reduce((a, b) => a + b, 0)}
+                      </TableCell>
+                      <TableCell sx={{ fontSize: "14px" }} align="left">
+                        {interviewScores.reduce((a, b) => a + b, 0)}
+                      </TableCell>
+                      <TableCell sx={{ fontSize: "14px" }} align="left">
+                        {documentScores.reduce((a, b) => a + b, 0) +
+                          interviewScores.reduce((a, b) => a + b, 0)}
+                      </TableCell>
+                      {documentScores.map((score, idx) => (
+                        <TableCell
+                          key={idx}
+                          sx={{ fontSize: "14px" }}
+                          align="left"
+                        >
+                          {score}
+                        </TableCell>
+                      ))}
+
+                      {interviewScores.map((score, idx) => (
+                        <TableCell
+                          key={idx}
+                          sx={{ fontSize: "14px" }}
+                          align="left"
+                        >
+                          {score}
+                        </TableCell>
+                      ))}
+
+                      <TableCell
+                        align="right"
+                        sx={{
+                          display: "flex",
+                          flexDirection: "column",
+                          position: "sticky",
+                          right: 30,
+                        }}
                       >
-                        <TableCell padding="checkbox">
-                          <Checkbox
-                            checked={isItemSelected}
-                            onChange={(event) => handleClick(event, name)}
-                          />
-                        </TableCell>
-                        <TableCell component="th" scope="row" padding="none">
-                          <Stack
-                            direction="row"
-                            alignItems="center"
-                            spacing={2}
-                          >
-                            <Typography variant="h5" noWrap>
-                              {name}
-                            </Typography>
-                          </Stack>
-                        </TableCell>
-                        <TableCell sx={{ fontSize: "20px" }} align="left">
-                          {studentId}
-                        </TableCell>
-
-                        <TableCell sx={{ fontSize: "20px" }} align="left">
-                          {major}
-                        </TableCell>
-
-                        <TableCell align="right">
-                          <Button
-                            variant="contained"
-                            color="error"
-                            sx={{ marginRight: "10px" }}
-                            onClick={() => handleFailBtnClick(_id)}
-                          >
-                            불합격
-                          </Button>
-                          <Button
-                            variant="contained"
-                            onClick={() =>
-                              handlePassBtnClick(userID, moreColumns, _id)
-                            }
-                          >
-                            합격
-                          </Button>
-                        </TableCell>
-                        <TableCell align="right">
-                          <HiDocumentText
-                            size="1.7rem"
-                            onClick={() => handleDocumentBtnClick(idx)}
-                          />
-                        </TableCell>
-                      </TableRow>
-                    );
-                  })}
-                {emptyRows > 0 && (
-                  <TableRow style={{ height: 53 * emptyRows }}>
-                    <TableCell colSpan={6} />
-                  </TableRow>
-                )}
-              </TableBody>
-
-              {isUserNotFound && (
-                <TableBody>
-                  <TableRow>
-                    <TableCell align="center" colSpan={6} sx={{ py: 3 }}>
-                      <SearchNotFound searchQuery={filterName} />
-                    </TableCell>
-                  </TableRow>
-                </TableBody>
+                        <Button
+                          variant="outlined"
+                          color="success"
+                          sx={{
+                            width: "20px",
+                            padding: "5px",
+                            paddingLeft: "2px",
+                            paddingRight: "2px",
+                          }}
+                          onClick={() => handleScoreDialogOpen(idx)}
+                        >
+                          점수입력
+                        </Button>
+                        <Button
+                          variant="contained"
+                          sx={{
+                            width: "20px",
+                            padding: "5px",
+                          }}
+                          onClick={() =>
+                            handlePassBtnClick(userID, moreColumns, _id)
+                          }
+                        >
+                          합격
+                        </Button>
+                        <Button
+                          variant="contained"
+                          color="error"
+                          sx={{
+                            width: "20px",
+                            padding: "5px",
+                          }}
+                          onClick={() => handleFailBtnClick(_id)}
+                        >
+                          불합격
+                        </Button>
+                      </TableCell>
+                      <TableCell
+                        align="right"
+                        sx={{ position: "sticky", right: 0 }}
+                      >
+                        <HiDocumentText
+                          size="1.7rem"
+                          onClick={() => handleDocumentBtnClick(idx)}
+                        />
+                      </TableCell>
+                    </TableRow>
+                  );
+                })}
+              {emptyRows > 0 && (
+                <TableRow style={{ height: 53 * emptyRows }}>
+                  <TableCell colSpan={6} />
+                </TableRow>
               )}
-            </Table>
-          </TableContainer>
-        </Scrollbar>
+            </TableBody>
+
+            {isUserNotFound && (
+              <TableBody>
+                <TableRow>
+                  <TableCell align="center" colSpan={6} sx={{ py: 3 }}>
+                    <SearchNotFound searchQuery={filterName} />
+                  </TableCell>
+                </TableRow>
+              </TableBody>
+            )}
+          </Table>
+        </TableContainer>
+        {/* </Scrollbar> */}
 
         <TablePagination
           rowsPerPageOptions={[5, 10, 25]}
@@ -414,6 +524,16 @@ function ManageRecruit() {
         open={isDialogOpen}
         setOpen={setIsDialogOpen}
         applierInfo={clickedAppliedUser}
+      />
+      <ScoreDialog
+        scoreDialogOpen={scoreDialogOpen}
+        setScoreDialogOpen={setScoreDialogOpen}
+        appliedUser={clickedAppliedUser}
+      />
+      <AutoDialog
+        open={autoDialogOpen}
+        setOpen={setAutoDialogOpen}
+        appliedUsers={data}
       />
 
       <ApplierForm></ApplierForm>

@@ -4,6 +4,7 @@ import Sunkyun from "./../../assets/images/sunkyun.png";
 import { styled } from "@mui/material/styles";
 import { ClubType } from "../../types/club";
 import { motion } from "framer-motion";
+import { BASE_URL } from "../../utils/fetch";
 
 const ProductImgStyle = styled("img")({
   top: 0,
@@ -49,7 +50,10 @@ export default function ClubCard({ club }: IClubCard) {
   return (
     <Card>
       <Box sx={{ pt: "100%", position: "relative" }}>
-        <ProductImgStyle alt={name} src={image ? image : Sunkyun} />
+        <ProductImgStyle
+          alt={name}
+          src={image ? BASE_URL + "/" + image : Sunkyun}
+        />
       </Box>
 
       <Stack spacing={2} sx={{ p: 3 }}>

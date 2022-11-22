@@ -47,7 +47,7 @@ export default function DocumentDialog({
             <DialogContent>
               {applierInfo.documentAnswers.map((answer, idx) => (
                 <AnswerItem key={idx}>
-                  <AnswerTitle>{`서류질문 ${idx} 답변`}</AnswerTitle>
+                  <AnswerTitle>{`서류질문 ${idx + 1} 답변`}</AnswerTitle>
                   <AnswerContent>{answer}</AnswerContent>
                 </AnswerItem>
               ))}

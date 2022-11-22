@@ -1,10 +1,20 @@
-import { Button, MenuItem, styled, TextField } from "@mui/material";
-import React, { useState } from "react";
+import { Button, MenuItem, styled, TextField, Select } from "@mui/material";
+import React, { useState, useEffect } from "react";
+import { getAllClubTypes } from "../utils/fetch";
 import { useMutation } from "react-query";
 import FormTitle from "../components/FormTitle";
 import { RecruitType } from "../types/club";
 import { LocationType } from "../types/common";
 import { createClub } from "../utils/fetch";
+import { useNavigate } from "react-router-dom";
+
+interface TagType {
+  _id: string;
+  clubId: string | undefined;
+  name: string;
+  createdAt: Date | undefined;
+  updatedAt: Date | undefined;
+}
 
 const Blank = styled("div")({
   height: "180px",
@@ -56,6 +66,7 @@ function ApplyClubPage() {
   const [clubType, setClubType] = useState("동아리 주제");
   const [location, setLocation] = useState<LocationType>("인사캠");
   const [recruitType, setRecruitType] = useState<RecruitType>("상시모집");
+  const navigate = useNavigate();
 
   const { mutate } = useMutation(
     () => createClub({ name, location, type: { name: clubType }, recruitType }),
@@ -63,6 +74,8 @@ function ApplyClubPage() {
       //need to fix
       onSuccess: (data) => {
         console.log(data);
+        alert("새 동아리 신청이 성공적으로 접수 되었습니다!");
+        navigate("/");
       },
       onError: (error: any) => {
         alert(error.response.data.error);
@@ -96,6 +109,17 @@ function ApplyClubPage() {
     setRecruitType(event.target.value as RecruitType);
   };
 
+  const [value, setValue] = useState<string>("");
+  const [tags, setTags] = useState<TagType[]>([]);
+
+  useEffect(() => {
+    getAllClubTypes().then((data) => {
+      const using = data.data.data;
+      setTags(using);
+      setValue(using[0].name);
+    });
+  }, []);
+
   return (
     <>
       <Blank />
@@ -109,13 +133,23 @@ function ApplyClubPage() {
             variant="outlined"
             onChange={handleNameChange}
           />
-          <TextField
+          <Select
+            labelId="demo-simple-select-helper-label"
+            id="demo-simple-select-helper"
+            value={value}
+            label="Age"
             sx={{ width: "40%" }}
-            label="동아리 주제"
-            variant="outlined"
-            required
-            onChange={handleClubTypeChange}
-          />
+            onChange={(e) => {
+              setValue(e.target.value);
+            }}
+          >
+            {tags.length > 0 &&
+              tags.map((tag) => (
+                <MenuItem key={tag._id} value={tag.name}>
+                  {tag.name}
+                </MenuItem>
+              ))}
+          </Select>
         </ApplyInputContainer>
         <ApplyInputContainer>
           <TextField

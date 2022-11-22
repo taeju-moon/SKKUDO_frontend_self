@@ -2,14 +2,24 @@ import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { ClubType } from "../../types/club";
-import { getOneClub } from "../../utils/fetch";
+import { getOneClub, uploadImage, BASE_URL } from "../../utils/fetch";
 import { FaPen } from "react-icons/fa";
 import moment from "moment";
 import { motion } from "framer-motion";
 import UpdateDialog from "../../components/manageClubCompnents/UpdateDialog";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSetRecoilState } from "recoil";
 import { clubUpdateState } from "../../atoms/alertAtom";
+import CardMedia from "@mui/material/CardMedia";
+import { Button, IconButton, Box } from "@mui/material";
+
+interface TagType {
+  _id: string;
+  clubId: string | undefined;
+  name: string;
+  createdAt: Date | undefined;
+  updatedAt: Date | undefined;
+}
 
 const ManageClubContainer = styled.div`
   padding: 50px;
@@ -26,13 +36,13 @@ const ClubName = styled.div`
 const Label = styled.span`
   display: inline-block;
   margin-right: 20px;
-  font-size: 40px;
+  font-size: 35px;
 `;
 
 const RowContainer = styled.div`
   display: flex;
   width: 100%;
-  max-width: 520px;
+  max-width: 600px;
   justify-content: space-between;
   font-size: 20px;
   margin-bottom: 80px;
@@ -73,12 +83,85 @@ function ManageClub() {
     setDialogOpen(true);
     setClubUpdate({ keyword });
   };
+
+  const [value, setValue] = useState<string>(clubData?.type.name as string);
+  const [file, setFile] = useState();
+
+  const onChangeImage = (e: any) => {
+    setFile(e.target.files[0]);
+  };
+
+  const onImageSubmit = (e: any) => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append("image", file as unknown as Blob);
+    uploadImage(clubID as string, formData)
+      .then((data) => {
+        alert("업로드에 성공했습니다.");
+        window.location.reload();
+      })
+      .catch(() => alert("알 수 없는 오류가 발견되었습니다."));
+  };
+  // const [tags, setTags] = useState<TagType[]>([]);
+
+  // useEffect(() => {
+  //   getAllClubTypes().then((data) => {
+  //     const using = data.data.data;
+  //     console.log(data.data.data);
+  //     setTags(using);
+  //   });
+  // }, []);
+
   return (
     <ManageClubContainer>
       {isClubDataLoading ? (
         <div>동아리 데이터가 없습니다</div>
       ) : (
         <>
+          {clubData ? (
+            <>
+              <img src={BASE_URL + "/" + clubData.image} alt="" />
+            </>
+          ) : (
+            ""
+          )}
+          <Box>
+            <Button variant="contained" component="label" color="success">
+              <input
+                accept="image/*"
+                multiple
+                type="file"
+                onChange={onChangeImage}
+              />
+            </Button>
+            <Button
+              variant="contained"
+              component="label"
+              onClick={onImageSubmit}
+              color="success"
+            >
+              Upload
+            </Button>
+          </Box>
+
+          {/* <IconButton
+            color="primary"
+            aria-label="upload picture"
+            component="label"
+          >
+            <input hidden accept="image/*" type="file" />
+          </IconButton>
+          <form method="post" encType="multipart/form-data">
+            <input
+              className="btn btn-success"
+              type="file"
+              id="file"
+              onChange={onChangeImage}
+            />
+            <button className="btn btn-success" onClick={onImageSubmit}>
+              Upload
+            </button>
+          </form> */}
           <ClubName>
             <Label>{clubData?.name}</Label>
             <BtnContainer
@@ -91,6 +174,24 @@ function ManageClub() {
           </ClubName>
           <RowContainer>
             <InfoContainer>
+              {/* <Select
+                labelId="demo-simple-select-helper-label"
+                id="demo-simple-select-helper"
+                value={value}
+                label="Age"
+                color="success"
+                sx={{ width: "100%", minWidth: "200px" }}
+                onChange={(e) => {
+                  setValue(e.target.value);
+                }}
+              >
+                {tags.length > 0 &&
+                  tags.map((tag) => (
+                    <MenuItem key={tag._id} value={tag.name}>
+                      {tag.name}
+                    </MenuItem>
+                  ))}
+              </Select> */}
               <Label>{clubData?.type.name}</Label>
               <BtnContainer
                 whileHover={{ backgroundColor: "rgba(0,0,0,0.5)" }}

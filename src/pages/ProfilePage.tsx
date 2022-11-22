@@ -31,6 +31,7 @@ const Name = styled.span`
 `;
 const Role = styled.span`
   font-size: 30px;
+  font-weight: 600;
 `;
 
 const BtnContainer = styled(motion.button)`
@@ -75,10 +76,24 @@ function ProfilePage() {
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>
               <TableRow>
-                <TableCell sx={{ width: "50%", textAlign: "center" }}>
+                <TableCell
+                  sx={{
+                    width: "50%",
+                    textAlign: "center",
+                    fontSize: "22px",
+                    fontWeight: "600",
+                  }}
+                >
                   정보
                 </TableCell>
-                <TableCell align="right" sx={{ textAlign: "center" }}>
+                <TableCell
+                  align="right"
+                  sx={{
+                    textAlign: "center",
+                    fontSize: "22px",
+                    fontWeight: "600",
+                  }}
+                >
                   답변
                 </TableCell>
               </TableRow>
@@ -95,12 +110,16 @@ function ProfilePage() {
                   <TableCell
                     component="th"
                     scope="row"
-                    sx={{ textAlign: "center" }}
+                    sx={{ textAlign: "center", fontSize: "20px" }}
                   >
                     {ele.column.key}
                   </TableCell>
                   <TableCell
-                    sx={{ textAlign: "center", position: "relative" }}
+                    sx={{
+                      textAlign: "center",
+                      position: "relative",
+                      fontSize: "20px",
+                    }}
                     align="right"
                   >
                     {ele.value || "정보가 없습니다."}

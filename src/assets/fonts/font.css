@@ -1,0 +1,49 @@
+@font-face {
+  font-family: "Roboto";
+  /* font-display: fallback; */
+  src: url("./Roboto-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Roboto";
+  /* font-display: fallback; */
+  src: url("./Roboto-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Roboto";
+  /* font-display: fallback; */
+  src: url("./Roboto-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Roboto";
+  /* font-display: fallback; */
+  src: url("./Roboto-Black.ttf") format("truetype");
+  font-weight: 900;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Nanum Gothic";
+  /* font-display: fallback; */
+  src: url("./NanumGothic-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Nanum Gothic";
+  /* font-display: fallback; */
+  src: url("./NanumGothic-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Nanum Gothic";
+  /* font-display: fallback; */
+  src: url("./NanumGothic-ExtraBold.ttf") format("truetype");
+  font-weight: 800;
+  font-style: normal;
+}

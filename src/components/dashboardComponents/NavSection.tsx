@@ -102,7 +102,7 @@ function NavItem({ item, active }: INavItem) {
       </ListItemIconStyle>
       <ListItemText
         disableTypography
-        sx={{ fontSize: "20px" }}
+        sx={{ fontSize: "18px" }}
         primary={title}
       />
     </ListItemStyle>

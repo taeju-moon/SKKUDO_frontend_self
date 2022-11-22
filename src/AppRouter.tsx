@@ -56,7 +56,7 @@ function AppRouter() {
         major: data.authUser.major,
       });
       setLoggedInUser(data.authUser);
-      console.log(data);
+      // console.log(data);
     },
     onError: (error: any) => {
       setIsLoggedIn(false);

@@ -10,6 +10,7 @@ import { BudgetRowType, NewBudgetRowType } from "../../types/budget";
 import { useMutation, useQueryClient } from "react-query";
 import { updateBudgetRow } from "../../utils/fetch";
 import { useParams } from "react-router-dom";
+import { DesktopDatePicker } from "@mui/x-date-pickers";
 
 interface UpdateRowDialogType {
   dialogOpen: boolean;
@@ -43,6 +44,7 @@ export default function UpdateRowDialog({
 }: UpdateRowDialogType) {
   const { clubID } = useParams();
   const [newRow, setNewRow] = React.useState<NewBudgetRowType>({
+    date: row.date,
     income: row.income,
     expense: row.expense, //지출
     whom: row.whom, //Who/m
@@ -59,7 +61,8 @@ export default function UpdateRowDialog({
       updateBudgetRow(rowIndex, budgetID, budgetRowInfo),
     {
       onSuccess: (data) => {
-        console.log(data);
+        // console.log(data);
+        alert("가계부가 수정되었습니다");
         queryClient.invalidateQueries("getBudgetsByClubID");
       },
       onError: (error: any) => {
@@ -79,6 +82,17 @@ export default function UpdateRowDialog({
     });
   };
 
+  const handleDateChange = (newDate: Date | null) => {
+    // setDate(moment(newDate).format("YYYY-MM-DD"));
+    // console.log(moment(newDate).format("YYYY-MM-DD"));
+    if (newDate) {
+      setNewRow({
+        ...newRow,
+        date: newDate,
+      });
+    }
+  };
+
   const handleNewRowSubmit = () => {
     mutate({
       rowIndex,
@@ -91,6 +105,15 @@ export default function UpdateRowDialog({
     <Dialog open={dialogOpen} onClose={handleClose}>
       <DialogTitle>가계부 수정</DialogTitle>
       <DialogContent style={{ width: "512px" }}>
+        <DesktopDatePicker
+          label="날짜 선택"
+          inputFormat="MM/DD/YYYY"
+          value={newRow.date}
+          onChange={handleDateChange}
+          renderInput={(params) => (
+            <TextField {...params} sx={{ marginTop: "40px", width: "100%" }} />
+          )}
+        />
         <TextField
           autoFocus
           margin="dense"

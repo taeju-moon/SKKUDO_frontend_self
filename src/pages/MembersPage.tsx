@@ -196,109 +196,115 @@ export default function User() {
       .catch((error) => alert(error.error));
   }, []);
   return (
-    <Container>
+    <Container sx={{ maxWidth: "1024px" }}>
       <ClubDetailHeader pageType={"동아리원"} />
-      <Card>
+      <Card
+        sx={{
+          margin: "0 auto",
+          marginTop: "80px",
+          width: "100%",
+          maxWidth: "1024px",
+        }}
+      >
         <UserListToolbar
           numSelected={selected.length}
           filterName={filterName}
           onFilterName={handleFilterByName}
         />
 
-        <Scrollbar>
-          <TableContainer sx={{ minWidth: 800 }}>
-            <Table>
-              <UserListHead
-                isManaging={false}
-                order={order}
-                orderBy={orderBy}
-                headLabel={tableHead}
-                rowCount={data?.length || 0}
-                numSelected={selected.length}
-                onRequestSort={handleRequestSort}
-                onSelectAllClick={handleSelectAllClick}
-              />
-              <TableBody>
-                {filteredUsers
-                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                  .map((row) => {
-                    const {
-                      _id,
-                      studentId,
-                      name,
-                      registeredClubs,
-                      location,
-                      major,
-                    } = row;
-                    const isItemSelected = selected.indexOf(name) !== -1;
+        {/* <Scrollbar> */}
+        <TableContainer sx={{ minWidth: 800 }}>
+          <Table>
+            <UserListHead
+              isManaging={false}
+              order={order}
+              orderBy={orderBy}
+              headLabel={tableHead}
+              rowCount={data?.length || 0}
+              numSelected={selected.length}
+              onRequestSort={handleRequestSort}
+              onSelectAllClick={handleSelectAllClick}
+            />
+            <TableBody>
+              {filteredUsers
+                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                .map((row) => {
+                  const {
+                    _id,
+                    studentId,
+                    name,
+                    registeredClubs,
+                    location,
+                    major,
+                  } = row;
+                  const isItemSelected = selected.indexOf(name) !== -1;
 
-                    return (
-                      <TableRow
-                        hover
-                        key={_id}
-                        tabIndex={-1}
-                        role="checkbox"
-                        selected={isItemSelected}
-                        aria-checked={isItemSelected}
-                      >
-                        <TableCell sx={{ fontSize: "20px" }} align="left">
-                          {name}
-                        </TableCell>
-                        <TableCell sx={{ fontSize: "20px" }} align="left">
-                          {studentId}
-                        </TableCell>
-                        <TableCell sx={{ fontSize: "20px" }} align="left">
-                          {clubID && data
-                            ? new Map(Object.entries(registeredClubs)).get(
-                                clubID
-                              )?.role
-                            : ""}
-                        </TableCell>
-                        <TableCell sx={{ fontSize: "20px" }} align="left">
-                          {major}
-                        </TableCell>
-                        <TableCell sx={{ fontSize: "20px" }} align="left">
-                          {location}
-                        </TableCell>
+                  return (
+                    <TableRow
+                      hover
+                      key={_id}
+                      tabIndex={-1}
+                      role="checkbox"
+                      selected={isItemSelected}
+                      aria-checked={isItemSelected}
+                    >
+                      <TableCell sx={{ fontSize: "13px" }} align="left">
+                        {name}
+                      </TableCell>
+                      <TableCell sx={{ fontSize: "13px" }} align="left">
+                        {studentId}
+                      </TableCell>
+                      <TableCell sx={{ fontSize: "13px" }} align="left">
                         {clubID && data
-                          ? new Map(Object.entries(registeredClubs))
-                              .get(clubID)
-                              .moreColumns.map(
-                                (item: IMoreColumn, index: any) => {
-                                  return (
-                                    <TableCell
-                                      sx={{ fontSize: "20px" }}
-                                      key={index}
-                                      align="left"
-                                    >
-                                      {item.value}
-                                    </TableCell>
-                                  );
-                                }
-                              )
+                          ? new Map(Object.entries(registeredClubs)).get(clubID)
+                              ?.role
                           : ""}
-                      </TableRow>
-                    );
-                  })}
-                {emptyRows > 0 && (
-                  <TableRow style={{ height: 53 * emptyRows }}>
-                    <TableCell colSpan={6} />
-                  </TableRow>
-                )}
-              </TableBody>
-
-              {isUserNotFound && (
-                <TableBody>
-                  <TableRow>
-                    <TableCell align="center" colSpan={6} sx={{ py: 3 }}>
-                      <SearchNotFound searchQuery={filterName} />
-                    </TableCell>
-                  </TableRow>
-                </TableBody>
+                      </TableCell>
+                      <TableCell sx={{ fontSize: "13px" }} align="left">
+                        {major}
+                      </TableCell>
+                      <TableCell sx={{ fontSize: "13px" }} align="left">
+                        {location}
+                      </TableCell>
+                      {clubID && data
+                        ? new Map(Object.entries(registeredClubs))
+                            .get(clubID)
+                            .moreColumns.map(
+                              (item: IMoreColumn, index: any) => {
+                                return (
+                                  <TableCell
+                                    sx={{ fontSize: "13px" }}
+                                    key={index}
+                                    align="left"
+                                  >
+                                    {item.value}
+                                  </TableCell>
+                                );
+                              }
+                            )
+                        : ""}
+                    </TableRow>
+                  );
+                })}
+              {emptyRows > 0 && (
+                <TableRow style={{ height: 53 * emptyRows }}>
+                  <TableCell colSpan={6} />
+                </TableRow>
               )}
-            </Table>
-          </TableContainer>
-        </Scrollbar>
+            </TableBody>
+
+            {isUserNotFound && (
+              <TableBody>
+                <TableRow>
+                  <TableCell align="center" colSpan={6} sx={{ py: 3 }}>
+                    <SearchNotFound searchQuery={filterName} />
+                  </TableCell>
+                </TableRow>
+              </TableBody>
+            )}
+          </Table>
+        </TableContainer>
+        {/* </Scrollbar> */}
 
         <TablePagination
           rowsPerPageOptions={[5, 10, 25]}
