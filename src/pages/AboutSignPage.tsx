@@ -15,34 +15,33 @@ const AboutSignContainer = styled.div`
   flex-direction: column;
 `;
 
-const SignupContainer =styled.div`
-  border-top-style:solid;
+const SignupContainer = styled.div`
+  border-top-style: solid;
   border-width: 1px;
   border-color: #0c4426;
   display: flex;
   flex-direction: row;
-  padding-top:5%;
+  padding-top: 5%;
   padding-bottom: 5%;
-
-`
+`;
 
 const SignupMassageContainer = styled.div`
-  display:flex;
+  display: flex;
   flex-direction: column;
-  width: 600px;
-`
-const SignupImageContainer =styled.div`
-  padding-left:5%;
-  display:flex;
-`
-
-
+  /* width: 600px; */
+`;
+const SignupImageContainer = styled.div`
+  padding-left: 5%;
+  display: flex;
+`;
 
 function AboutSignPage() {
   return (
     <AboutSignContainer>
       <SignupContainer>
-        <SignupImageContainer><img src={signup}></img></SignupImageContainer>
+        <SignupImageContainer>
+          <img src={signup}></img>
+        </SignupImageContainer>
         <SignupMassageContainer></SignupMassageContainer>
       </SignupContainer>
     </AboutSignContainer>
