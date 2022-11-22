@@ -32,7 +32,7 @@ import axios from "axios";
 axios.defaults.withCredentials = true;
 
 // const BASE_URL = "http://54.180.91.71:8000";
-const BASE_URL =
+export const BASE_URL =
   process.env.NODE_ENV === "production"
     ? "http://54.180.30.58:8000"
     : "http://localhost:8000";
@@ -49,6 +49,14 @@ export const getAllClubs = async () =>
 
 export const createClub = async (newClub: NewClubType) =>
   axios.post(GET_ALL_CLUBS_URL, newClub).then((res) => res.data);
+
+export const uploadImage = async (clubId: string, formData: any) => {
+  const result = await axios.post(
+    GET_ALL_CLUBS_URL.concat("/upload/", clubId),
+    formData
+  );
+  return result;
+};
 
 const LOGIN_URL = `${BASE_URL}/auth/login`;
 
