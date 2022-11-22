@@ -93,15 +93,13 @@ function MyPage() {
   const isLoggedIn = useRecoilValue(isLoggedInState);
   const loggedInUser = useRecoilValue(loggedInUserState);
 
-  console.log(loggedInUser);
+  // console.log(loggedInUser);
 
   const { data: appliedClubs } = useQuery<RegisteredClubType[]>(
     "getAppliedClubsByID",
     getAppliedUserByID,
     {
-      onSuccess: (data) => {
-        console.log(data);
-      },
+      onSuccess: (data) => {},
       onError: (error: any) => {
         alert(error.response.data.error);
       },

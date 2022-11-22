@@ -66,6 +66,17 @@ const BtnContainer = styled(motion.button)`
   background-color: transparent;
 `;
 
+const ImageContainer = styled.div`
+  margin-top: 40px;
+  width: 100%;
+  max-width: 1000px;
+  height: 600px;
+  border: 1px dashed #0c4426;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 function ManageClub() {
   const { clubID } = useParams();
   const { data: clubData, isLoading: isClubDataLoading } = useQuery<ClubType>(
@@ -102,15 +113,6 @@ function ManageClub() {
       })
       .catch(() => alert("알 수 없는 오류가 발견되었습니다."));
   };
-  // const [tags, setTags] = useState<TagType[]>([]);
-
-  // useEffect(() => {
-  //   getAllClubTypes().then((data) => {
-  //     const using = data.data.data;
-  //     console.log(data.data.data);
-  //     setTags(using);
-  //   });
-  // }, []);
 
   return (
     <ManageClubContainer>
@@ -118,32 +120,6 @@ function ManageClub() {
         <div>동아리 데이터가 없습니다</div>
       ) : (
         <>
-          {clubData ? (
-            <>
-              <img src={BASE_URL + "/" + clubData.image} alt="" />
-            </>
-          ) : (
-            ""
-          )}
-          <Box>
-            <Button variant="contained" component="label" color="success">
-              <input
-                accept="image/*"
-                multiple
-                type="file"
-                onChange={onChangeImage}
-              />
-            </Button>
-            <Button
-              variant="contained"
-              component="label"
-              onClick={onImageSubmit}
-              color="success"
-            >
-              Upload
-            </Button>
-          </Box>
-
           {/* <IconButton
             color="primary"
             aria-label="upload picture"
@@ -174,24 +150,6 @@ function ManageClub() {
           </ClubName>
           <RowContainer>
             <InfoContainer>
-              {/* <Select
-                labelId="demo-simple-select-helper-label"
-                id="demo-simple-select-helper"
-                value={value}
-                label="Age"
-                color="success"
-                sx={{ width: "100%", minWidth: "200px" }}
-                onChange={(e) => {
-                  setValue(e.target.value);
-                }}
-              >
-                {tags.length > 0 &&
-                  tags.map((tag) => (
-                    <MenuItem key={tag._id} value={tag.name}>
-                      {tag.name}
-                    </MenuItem>
-                  ))}
-              </Select> */}
               <Label>{clubData?.type.name}</Label>
               <BtnContainer
                 whileHover={{ backgroundColor: "rgba(0,0,0,0.5)" }}
@@ -253,6 +211,41 @@ function ManageClub() {
               </BtnContainer>
             </InfoContainer>
           </RowContainer>
+          <InfoContainer>
+            <Label>동아리 이미지 업로드</Label>
+          </InfoContainer>
+          <ImageContainer>
+            {clubData ? (
+              <>
+                <img src={BASE_URL + "/" + clubData.image} alt="" />
+              </>
+            ) : (
+              ""
+            )}
+          </ImageContainer>
+          <Box sx={{ marginTop: "20px" }}>
+            <Button
+              variant="contained"
+              component="label"
+              color="success"
+              sx={{ marginLeft: "20px", marginRight: "20px" }}
+            >
+              <input
+                accept="image/*"
+                multiple
+                type="file"
+                onChange={onChangeImage}
+              />
+            </Button>
+            <Button
+              variant="contained"
+              component="label"
+              onClick={onImageSubmit}
+              color="success"
+            >
+              Upload
+            </Button>
+          </Box>
         </>
       )}
       <UpdateDialog dialogOpen={dialogOpen} setDialogOpen={setDialogOpen} />
