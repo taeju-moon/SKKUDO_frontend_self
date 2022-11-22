@@ -22,6 +22,7 @@ const MenuLink = styled(Link)`
 
 function AboutSideBar() {
   const [open, setOpen] = useState(true);
+  const navigate = useNavigate();
 
   const handleClick = () => {
     setOpen(!open);
@@ -30,6 +31,7 @@ function AboutSideBar() {
     <AboutSideBarContainer>
       <List>
         <ListItemButton
+          onClick={() => navigate("/about/main")}
           sx={{
             paddingTop: "15px",
             paddingBottom: "15px",
@@ -53,19 +55,19 @@ function AboutSideBar() {
         </ListItemButton>
         <Collapse in={open}>
           <List>
-            <ListItemButton>
+            <ListItemButton onClick={() => navigate("/about/sign")}>
               <MenuLink to={"/about/sign"}>로그인/로그아웃/회원가입</MenuLink>
             </ListItemButton>
-            <ListItemButton>
+            <ListItemButton onClick={() => navigate("/about/apply")}>
               <MenuLink to={"/about/apply"}>동아리 지원</MenuLink>
             </ListItemButton>
-            <ListItemButton>
+            <ListItemButton onClick={() => navigate("/about/makeclub")}>
               <MenuLink to={"/about/makeclub"}>동아리 생성</MenuLink>
             </ListItemButton>
-            <ListItemButton>
+            <ListItemButton onClick={() => navigate("/about/mypage")}>
               <MenuLink to={"/about/mypage"}>개인 정보</MenuLink>
             </ListItemButton>
-            <ListItemButton>
+            <ListItemButton onClick={() => navigate("/about/manage")}>
               <MenuLink to={"/about/manage"}>동아리 관리</MenuLink>
             </ListItemButton>
           </List>
