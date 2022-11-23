@@ -28,6 +28,7 @@ export interface AppliedUserType {
     column: ColumnType;
     value: string;
   }[];
+  contact: string;
   documentAnswers: string[]; //서류 답변
   documentScores: number[]; //서류 점수
   interviewAnswers: string[]; //면접 답변
@@ -44,6 +45,7 @@ export interface ApplyFormType {
   studentId: string;
   name: string;
   major: string;
+  contact: string;
   moreColumns: {
     column: ColumnType;
     value: String;

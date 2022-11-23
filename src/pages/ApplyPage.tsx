@@ -5,7 +5,7 @@ import { useMutation, useQuery } from "react-query";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { isLoggedInState } from "../atoms/loginAtom";
-import { userInfoState } from "../atoms/userAtom";
+import { loggedInUserState, userInfoState } from "../atoms/userAtom";
 import FormTitle from "../components/FormTitle";
 import { AppliedUserType, ApplierType, ApplyFormType } from "../types/apply";
 import { ColumnType, ErrorType } from "../types/common";
@@ -54,7 +54,7 @@ type subAnswerType = Map<string, string>;
 function ApplyPage() {
   const { clubID } = useParams();
   const { state } = useLocation();
-  const applierInfo = useRecoilValue(userInfoState);
+  const applierInfo = useRecoilValue(loggedInUserState);
   const navigate = useNavigate();
   const isLoggedIn = useRecoilValue(isLoggedInState);
   // if(!isLoggedIn) {
@@ -127,13 +127,14 @@ function ApplyPage() {
     }
 
     // console.log(tempMoreColumns);
-    if (data) {
+    if (data && applierInfo) {
       const tempApplyInfo: ApplyFormType = {
         clubId: clubID || "",
-        userID: applierInfo.userId,
+        userID: applierInfo.userID,
         studentId: applierInfo.studentId,
         name: applierInfo.name,
         major: applierInfo.major,
+        contact: applierInfo.contact,
         moreColumns: tempMoreColumns,
         documentAnswers: Array.from(answers.values()),
         documentScores: Array.from(

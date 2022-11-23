@@ -137,6 +137,11 @@ export const updateUserColumn = async (
       return error;
     });
 
+export const updateUser = async (userID: string, contact: string) =>
+  axios
+    .patch(GET_ONE_USER_URL.concat(userID), { contact })
+    .then((res) => res.data);
+
 const GET_ONE_CLUB_URL = `${BASE_URL}/clubs/clubs/`;
 
 export const getOneClub = async (clubID: string) =>

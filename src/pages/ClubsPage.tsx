@@ -19,6 +19,7 @@ interface TagType {
 function ClubsPage() {
   const { data, isLoading } = useQuery<ClubType[]>("getAllClubs", getAllClubs, {
     onSuccess(data) {
+      // console.log(data);
       setItems(data);
     },
   });
@@ -46,15 +47,6 @@ function ClubsPage() {
 
   const recruitingClubs = filterRecruitingClubs(items);
 
-  // const [tags, setTags] = useState<TagType[]>([]);
-
-  // useEffect(() => {
-  //   getAllClubTypes()
-  //     .then((data) => {
-  //       setTags(data.data.data as TagType[]);
-  //     })
-  //     .catch(() => alert("알 수 없는 오류가 났습니다."));
-  // }, []);
   const { data: tags } = useQuery<TagType[]>(
     "getAllClubTypes",
     getAllClubTypes,

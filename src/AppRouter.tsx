@@ -42,8 +42,6 @@ import AboutClubManagePage from "./pages/AboutClubManagePage";
 import AboutMakeClubPage from "./pages/AboutMakeClubPage";
 import AboutMyPage from "./pages/AboutMyPage";
 
-
-
 function AppRouter() {
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(isLoggedInState);
   // const setIsLoggedIn = useSetRecoilState(isLoggedInState);
@@ -59,6 +57,7 @@ function AppRouter() {
         studentId: data.authUser.studentId,
         name: data.authUser.name,
         major: data.authUser.major,
+        contact: data.authUser.contact,
       });
       setLoggedInUser(data.authUser);
       // console.log(data);
@@ -66,7 +65,13 @@ function AppRouter() {
     onError: (error: any) => {
       setIsLoggedIn(false);
       setUserName("");
-      setUserInfoState({ userId: "", studentId: "", name: "", major: "" });
+      setUserInfoState({
+        userId: "",
+        studentId: "",
+        name: "",
+        major: "",
+        contact: "",
+      });
     },
   });
 
