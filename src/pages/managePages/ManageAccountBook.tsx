@@ -80,6 +80,8 @@ function Row({ row, rowIndex, budgetID }: RowType) {
   const [dialogOpen, setDialogOpen] = React.useState(false);
   const { clubID } = useParams();
 
+  const queryClient = useQueryClient();
+
   const handleEditBtnClick = () => {
     setDialogOpen(true);
   };
@@ -87,8 +89,13 @@ function Row({ row, rowIndex, budgetID }: RowType) {
   const { mutate: deleteRowMutate } = useMutation(
     () => deleteBudgetRow(rowIndex, budgetID, clubID || ""),
     {
-      onSuccess: (data) => console.log(data),
-      onError: (error) => console.log(error),
+      onSuccess: (data) => {
+        alert("해당 항목을 삭제헸습니다");
+        queryClient.invalidateQueries("getBudgetsByClubID");
+      },
+      onError: (error: any) => {
+        alert(error.response.data.error);
+      },
     }
   );
 
