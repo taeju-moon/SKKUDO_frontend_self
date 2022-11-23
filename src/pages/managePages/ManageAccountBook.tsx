@@ -47,6 +47,8 @@ import UpdateRowDialog from "../../components/accoutBookComponents/UpdateRowDial
 
 const AccountBookPageContainer = styled.div`
   width: 100%;
+  padding-left: 20px;
+  padding-right: 20px;
 `;
 
 const DeleteBtn = styled(Button)({
@@ -204,7 +206,7 @@ function CollapsibleTable() {
     () => getBudgetsByClubID(clubID || ""),
     {
       onSuccess: (data) => {
-        // console.log(data);
+        console.log(data);
       },
       onError: (error: any) => {
         alert(error.response.data.error);

@@ -53,6 +53,8 @@ const TABLE_HEAD = [
   { id: "name", label: "이름", alignRight: false },
   { id: "studentId", label: "학번", alignRight: false },
   { id: "major", label: "학과", alignRight: false },
+  { id: "contact", label: "연락처", alignRight: false },
+
   {
     id: `docTotalScore`,
     label: `서류점수 총합`,
@@ -365,6 +367,7 @@ function ManageRecruit() {
                     studentId,
                     name,
                     major,
+                    contact,
                     userID,
                     moreColumns,
 
@@ -401,6 +404,9 @@ function ManageRecruit() {
 
                       <TableCell sx={{ fontSize: "14px" }} align="left">
                         {major}
+                      </TableCell>
+                      <TableCell sx={{ fontSize: "14px" }} align="left">
+                        {contact}
                       </TableCell>
                       <TableCell sx={{ fontSize: "14px" }} align="left">
                         {documentScores.reduce((a, b) => a + b, 0)}

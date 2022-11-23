@@ -14,6 +14,7 @@ export interface RegisteredClubType {
 }
 
 export interface NewUserType {
+  contact: string;
   name: string;
   studentId: string;
   userID: string;
@@ -26,6 +27,7 @@ export type RegisteredClubs = Map<string, RegisteredClubType>;
 
 export interface UserType {
   _id: string;
+  contact: string;
   studentId: string;
   password: string;
   location: LocationType;
@@ -44,6 +46,7 @@ export interface UserApplierType {
   studentId: string;
   name: string;
   major: string;
+  contact: string;
 }
 
 export interface VerifyUserResponseType {

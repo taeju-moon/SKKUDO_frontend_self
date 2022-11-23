@@ -64,7 +64,18 @@ function SignupPage() {
 
   const handleSignupFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    mutate({ name, studentId, userID, password, location, major });
+    mutate({
+      name,
+      studentId,
+      userID,
+      password,
+      location,
+      major,
+      contact: `${contact.substring(0, 3)}-${contact.substring(
+        3,
+        6
+      )}-${contact.substring(6, 9)}`,
+    });
   };
 
   const handleNameChange = (
@@ -180,11 +191,11 @@ function SignupPage() {
         <SignupInputContainer>
           <TextField
             sx={{ width: "40%" }}
-            label="연락처"
+            label="연락처(숫자만 적어주세요)"
             variant="outlined"
             required
-            // value={}
-            // onChange={}
+            value={contact}
+            onChange={handleContactChange}
             type="number"
           />
         </SignupInputContainer>

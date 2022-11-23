@@ -16,6 +16,9 @@ import { getAppliedUserByID } from "../utils/fetch";
 import { isLoggedInState } from "../atoms/loginAtom";
 import { loggedInUserState } from "../atoms/userAtom";
 import { BASE_URL } from "../utils/fetch";
+import { FaPen } from "react-icons/fa";
+import { motion } from "framer-motion";
+import UserEditDialog from "../components/myPageComponents/UserEditDialog";
 
 const MyPageContainer = styled.div`
   margin: 0 auto;
@@ -63,6 +66,7 @@ const Location = styled.div`
   font-size: 25px;
   font-weight: 600;
   margin-bottom: 30px;
+  display: flex;
 `;
 
 const SectionContainer = styled.div`
@@ -90,11 +94,22 @@ const ClubCardsContainer = styled.div`
   gap: 20px;
 `;
 
+const EditBtnContainer = styled(motion.div)`
+  width: 40px;
+  height: 40px;
+  margin-left: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 7px;
+`;
+
 function MyPage() {
   const navigate = useNavigate();
   const [userClubs, setUserClubs] = useState<RegisteredClubType[]>([]);
   const isLoggedIn = useRecoilValue(isLoggedInState);
   const loggedInUser = useRecoilValue(loggedInUserState);
+  const [dialogOpen, setDialogOpen] = useState(false);
 
   // console.log(loggedInUser);
 
@@ -120,6 +135,9 @@ function MyPage() {
   }, [isLoggedIn, loggedInUser]);
 
   // console.log(userClubs);
+  const handleEditBtnClick = () => {
+    setDialogOpen(true);
+  };
 
   const handleMyClubCardClick = (clubID: string) => {
     navigate(`/club/${clubID}/notice`);
@@ -136,6 +154,16 @@ function MyPage() {
             </RowContainer>
             <StudentID>{`학번 : ${loggedInUser.studentId}`}</StudentID>
             <Location>{`소속 : ${loggedInUser.location}`}</Location>
+            <Location>
+              {`연락처 : ${loggedInUser.contact}`}
+              <EditBtnContainer
+                whileHover={{ backgroundColor: "rgba(0,0,0,0.3)" }}
+                onClick={handleEditBtnClick}
+              >
+                <FaPen />
+              </EditBtnContainer>
+            </Location>
+            <UserEditDialog open={dialogOpen} setOpen={setDialogOpen} />
           </>
         ) : (
           <RowContainer>

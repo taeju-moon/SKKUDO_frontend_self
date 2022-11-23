@@ -40,6 +40,7 @@ const TABLE_HEAD: ITableHeadItem[] = [
   { id: "role", label: "역할", alignRight: false },
   { id: "major", label: "학과", alignRight: false },
   { id: "location", label: "위치", alignRight: false },
+  { id: "contact", label: "연락처", alignRight: false },
 ];
 
 type orderType = "desc" | "asc";
@@ -280,6 +281,7 @@ export default function User() {
                     registeredClubs,
                     location,
                     major,
+                    contact,
                   } = row;
                   const isItemSelected = selected.indexOf(name) !== -1;
 
@@ -319,6 +321,9 @@ export default function User() {
                       </TableCell>
                       <TableCell sx={{ fontSize: "20px" }} align="left">
                         {location}
+                      </TableCell>
+                      <TableCell sx={{ fontSize: "20px" }} align="left">
+                        {contact}
                       </TableCell>
                       {clubID && data
                         ? new Map(Object.entries(registeredClubs))
