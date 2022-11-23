@@ -15,6 +15,7 @@ import { RegisteredClubType } from "../types/user";
 import { getAppliedUserByID } from "../utils/fetch";
 import { isLoggedInState } from "../atoms/loginAtom";
 import { loggedInUserState } from "../atoms/userAtom";
+import { BASE_URL } from "../utils/fetch";
 
 const MyPageContainer = styled.div`
   margin: 0 auto;
@@ -167,7 +168,7 @@ function MyPage() {
                   <CardMedia
                     component="img"
                     height="140"
-                    image={exampleImage}
+                    image={BASE_URL + "/" + club.image}
                     alt="green iguana"
                     sx={{ objectFit: "contain" }}
                   />
