@@ -4,6 +4,7 @@ export interface RegisteredClubType {
   clubId: string;
   clubName: string;
   role: RoleType;
+  image: string;
   moreColumns: {
     column: ColumnType;
     value: String;
