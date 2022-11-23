@@ -34,7 +34,7 @@ axios.defaults.withCredentials = true;
 // const BASE_URL = "http://54.180.91.71:8000";
 export const BASE_URL =
   process.env.NODE_ENV === "production"
-    ? "http://54.180.30.58:8000"
+    ? "http://api.skkudo.link"
     : "http://localhost:8000";
 
 const GET_ALL_CLUB_TYPES_URL = `${BASE_URL}/clubs/clubTypes`;
@@ -116,10 +116,7 @@ export const deleteNoticeTag = async (deleteNoticeTagInfo: DeleteNoticetype) =>
     .delete(GET_ALL_NOTICE_TAGS_URL.concat("/", deleteNoticeTagInfo._id), {
       data: { clubId: deleteNoticeTagInfo.clubID },
     })
-    .then((res) => res.data)
-    .catch((error) => {
-      return error;
-    });
+    .then((res) => res.data);
 
 const GET_ONE_USER_URL = `${BASE_URL}/users/`;
 
