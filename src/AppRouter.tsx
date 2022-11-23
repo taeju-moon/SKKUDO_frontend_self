@@ -42,8 +42,6 @@ import AboutClubManagePage from "./pages/AboutClubManagePage";
 import AboutMakeClubPage from "./pages/AboutMakeClubPage";
 import AboutMyPage from "./pages/AboutMyPage";
 
-
-
 function AppRouter() {
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(isLoggedInState);
   // const setIsLoggedIn = useSetRecoilState(isLoggedInState);

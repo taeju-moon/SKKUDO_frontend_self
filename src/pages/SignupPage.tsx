@@ -35,6 +35,7 @@ function SignupPage() {
   const [password, setPassword] = useState("");
   const [location, setLocation] = useState<LocationType>("인사캠");
   const [major, setMajor] = useState("");
+  const [contact, setContact] = useState("");
   const navigate = useNavigate();
 
   const { mutate, isLoading } = useMutation(
@@ -100,6 +101,12 @@ function SignupPage() {
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     setMajor(event.target.value);
+  };
+
+  const handleContactChange = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setContact(event.target.value);
   };
 
   return (
@@ -170,7 +177,17 @@ function SignupPage() {
             onChange={handleMajorChange}
           />
         </SignupInputContainer>
-
+        <SignupInputContainer>
+          <TextField
+            sx={{ width: "40%" }}
+            label="연락처"
+            variant="outlined"
+            required
+            // value={}
+            // onChange={}
+            type="number"
+          />
+        </SignupInputContainer>
         <Button
           sx={{ position: "absolute", right: "40px", fontSize: "18px" }}
           type="submit"

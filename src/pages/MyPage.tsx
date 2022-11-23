@@ -74,9 +74,11 @@ const SectionContainer = styled.div`
 const Title = styled.div`
   width: 100%;
   max-width: 1024px;
-  font-size: 2.5rem;
+  font-size: 35px;
   color: #0c4426;
-  margin-bottom: 40px;
+  margin-bottom: 30px;
+  font-weight: 600;
+  padding-left: 10px;
 `;
 
 const ClubCardsContainer = styled.div`
@@ -115,6 +117,8 @@ function MyPage() {
       }
     }
   }, [isLoggedIn, loggedInUser]);
+
+  // console.log(userClubs);
 
   const handleMyClubCardClick = (clubID: string) => {
     navigate(`/club/${clubID}/notice`);
