@@ -1,14 +1,19 @@
-// import { faker } from "@faker-js/faker";
-// @mui
 import { useTheme } from "@mui/material/styles";
-import { Grid, Container, Typography } from "@mui/material";
+import {
+  Grid,
+  Container,
+  Typography,
+  CardHeader,
+  Card,
+  Box,
+} from "@mui/material";
 import AppWidgetSummary from "../../components/dashboardAppComponents/AppWidgetSummary";
 import AppTasks from "../../components/dashboardAppComponents/AppTasks";
 import AppWebsiteVisits from "../../components/dashboardAppComponents/AppWebsiteVisits";
 import { useRecoilValue } from "recoil";
 import { currentClubInfoState } from "../../atoms/utilAtom";
 import { useQuery } from "react-query";
-import { UserType } from "../../types/user";
+import { RegisteredClubType, UserType } from "../../types/user";
 import { useParams } from "react-router-dom";
 import {
   getAppliedUserByClubID,
@@ -16,10 +21,13 @@ import {
   getTodosByClubID,
 } from "../../utils/fetch";
 import { AppliedUserType } from "../../types/apply";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { ToDoType } from "../../types/todo";
 import moment from "moment";
 import AppConversionRates from "../../components/dashboardAppComponents/AppConversionRates";
+import ReactApexChart from "react-apexcharts";
+import StringColumnChart from "../../components/dashboardAppComponents/StringColumnChart";
+import BooleanColumnChart from "../../components/dashboardAppComponents/BooleanColumnChart";
 // components
 // import Page from '../components/Page';
 // import Iconify from '../components/Iconify';
@@ -32,16 +40,20 @@ import AppConversionRates from "../../components/dashboardAppComponents/AppConve
 //   AppConversionRates,
 // } from '../sections/@dashboard/app';
 
-// ----------------------------------------------------------------------
-
 export default function DashboardApp() {
   const theme = useTheme();
   const currentClubInfo = useRecoilValue(currentClubInfoState);
   const { clubID } = useParams();
 
-  // useEffect(() => {
-  //   console.log(currentClubInfo);
-  // }, [currentClubInfo]);
+  const [stringColumnsData, setStringColumnsData] = useState(
+    new Map<string, string[]>()
+  );
+  const [numberColumnsData, setNumberColumnsData] = useState(
+    new Map<string, string[]>()
+  );
+  const [booleanColumnsData, setBooleanColumnsData] = useState(
+    new Map<string, string[]>()
+  );
 
   const { data: clubMembersData } = useQuery<UserType[]>(
     "getClubMembers",
@@ -58,6 +70,65 @@ export default function DashboardApp() {
       refetchOnWindowFocus: false,
     }
   );
+
+  useEffect(() => {
+    console.log(currentClubInfo);
+    // console.log(stringColumnsData.get("cmfor"));
+
+    const tempStringColumns = new Map();
+    const tempNumberColumns = new Map();
+    const tempBooleanColumns = new Map();
+
+    if (currentClubInfo) {
+      if (clubMembersData) {
+        clubMembersData.forEach((member) => {
+          Object.values(member.registeredClubs).forEach(
+            (club: RegisteredClubType) => {
+              if (club.clubId === currentClubInfo._id) {
+                club.moreColumns.forEach((col) => {
+                  if (col.column.valueType === "string") {
+                    // console.log(stringColumnsData.get(col.column.key));
+                    if (tempStringColumns.get(col.column.key)) {
+                      tempStringColumns.set(col.column.key, [
+                        ...tempStringColumns.get(col.column.key),
+                        col.value,
+                      ]);
+                    } else {
+                      tempStringColumns.set(col.column.key, [col.value]);
+                    }
+                  } else if (col.column.valueType === "number") {
+                    if (tempNumberColumns.get(col.column.key)) {
+                      tempNumberColumns.set(col.column.key, [
+                        ...tempNumberColumns.get(col.column.key),
+                        col.value,
+                      ]);
+                    } else {
+                      tempNumberColumns.set(col.column.key, [col.value]);
+                    }
+                  } else if (col.column.valueType === "boolean") {
+                    if (tempBooleanColumns.get(col.column.key)) {
+                      tempBooleanColumns.set(col.column.key, [
+                        ...tempBooleanColumns.get(col.column.key),
+                        col.value,
+                      ]);
+                    } else {
+                      tempBooleanColumns.set(col.column.key, [col.value]);
+                    }
+                  }
+                });
+              }
+            }
+          );
+        });
+        setStringColumnsData(tempStringColumns);
+        setNumberColumnsData(tempNumberColumns);
+        setBooleanColumnsData(tempBooleanColumns);
+      }
+    }
+  }, [currentClubInfo, clubMembersData]);
+
+  // console.log(stringColumnsData.entries());
+  // console.log(stringColumnsData.size);
 
   const { data: appliedUsersData } = useQuery<AppliedUserType[]>(
     "getAppliedUserByClubID",
@@ -152,6 +223,43 @@ export default function DashboardApp() {
     return realResult;
   };
 
+  const cOption = {
+    series: [
+      {
+        data: [400, 430, 448, 470, 540, 580, 690, 1100, 1200, 1380],
+      },
+    ],
+    options: {
+      chart: {
+        type: "bar",
+        height: 350,
+      },
+      plotOptions: {
+        bar: {
+          borderRadius: 4,
+          horizontal: true,
+        },
+      },
+      dataLabels: {
+        enabled: false,
+      },
+      xaxis: {
+        categories: [
+          "South Korea",
+          "Canada",
+          "United Kingdom",
+          "Netherlands",
+          "Italy",
+          "France",
+          "Japan",
+          "United States",
+          "China",
+          "Germany",
+        ],
+      },
+    },
+  };
+  console.log(Array.from(stringColumnsData));
   return (
     <Container maxWidth="xl">
       <Typography variant="h4" sx={{ mb: 5 }}>
@@ -248,6 +356,101 @@ export default function DashboardApp() {
             }
           />
         </Grid>
+        {stringColumnsData.size > 0
+          ? Array.from(stringColumnsData).map(([key, value]) => {
+              const names = Array.from(new Set(value));
+              const obj: { [key: string]: number } = {};
+              names.forEach((name) => {
+                obj[name] = value.filter((x) => x === name).length;
+              });
+              console.log(obj);
+              if (obj[""]) {
+                obj["응답 없음"] = obj[""];
+                delete obj[""];
+              }
+
+              return (
+                <Grid key={key} item xs={12} sm={6} md={6}>
+                  <Card>
+                    <CardHeader title={key} />
+                    <Box sx={{ p: 3, pb: 1 }} dir="ltr">
+                      <StringColumnChart
+                        name={key}
+                        data={Object.values(obj)}
+                        categories={Object.keys(obj)}
+                      />
+                    </Box>
+                  </Card>
+                </Grid>
+              );
+            })
+          : null}
+        {numberColumnsData.size > 0
+          ? Array.from(numberColumnsData).map(([key, value]) => {
+              const names = Array.from(new Set(value));
+              const obj: { [key: string]: number } = {};
+              names.forEach((name) => {
+                obj[name] = value.filter((x) => x === name).length;
+              });
+              console.log(obj);
+              if (obj[""]) {
+                obj["응답 없음"] = obj[""];
+                delete obj[""];
+              }
+
+              return (
+                <Grid key={key} item xs={12} sm={6} md={6}>
+                  <AppWebsiteVisits
+                    title={key}
+                    subheader=""
+                    chartLabels={Object.keys(obj)}
+                    chartData={[
+                      {
+                        name: key,
+                        type: "area",
+                        fill: "gradient",
+                        data: Object.values(obj),
+                      },
+                    ]}
+                  />
+                </Grid>
+              );
+            })
+          : null}
+        {booleanColumnsData.size > 0
+          ? Array.from(booleanColumnsData).map(([key, value]) => {
+              const names = Array.from(new Set(value));
+              const obj: { [key: string]: number } = {};
+              names.forEach((name) => {
+                obj[name] = value.filter((x) => x === name).length;
+              });
+              console.log(obj);
+              if (obj[""]) {
+                obj["응답 없음"] = obj[""];
+                delete obj[""];
+              }
+
+              return (
+                <Grid key={key} item xs={12} sm={6} md={6}>
+                  <Card>
+                    <CardHeader title={key} />
+                    <Box sx={{ p: 3, pb: 1 }} dir="ltr">
+                      <BooleanColumnChart
+                        series={Object.values(obj)}
+                        labels={Object.keys(obj)}
+                      />
+                    </Box>
+                  </Card>
+                </Grid>
+              );
+            })
+          : null}
+        {/* <BooleanColumnChart /> */}
+        {/* <ReactApexChart
+          options={cOption.options as any}
+          series={cOption.series}
+          type="bar"
+          height={350} */}
 
         {/* <Grid item xs={12} md={6} lg={4}>
             
