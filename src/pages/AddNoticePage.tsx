@@ -19,6 +19,7 @@ import { useRecoilValue } from "recoil";
 import { userNameState } from "../atoms/userAtom";
 import { createNotice, getNoticeTagsByClubID } from "../utils/fetch";
 import { NoticeTagType } from "../types/notice";
+import ClubDetailHeader from "../components/ClubDetailHeader";
 
 const AddNoticePageContainer = styled("form")({
   width: "100%",
@@ -33,7 +34,7 @@ const AddNoticePageContainer = styled("form")({
 const TitleInput = styled("input")({
   width: "400px",
   height: "50px",
-  marginBottom: "50px",
+  marginBottom: "20px",
   borderRadius: "5px",
   backgroundColor: "#fff",
   border: "2px solid #0c4426",
@@ -43,6 +44,7 @@ const TitleInput = styled("input")({
 
 const ContentInput = styled("textarea")({
   backgroundColor: "#fff",
+  marginTop: "20px",
   border: "2px solid #0c4426",
   fontSize: "1.2rem",
   borderRadius: "5px",
@@ -91,6 +93,7 @@ function AddNoticePage() {
   const userName = useRecoilValue(userNameState);
 
   const [categories, setCategories] = useState<NoticeTagType[]>([]);
+  const [private_, setPrivate] = useState<boolean>(false);
   const [tags, setTags] = useState<string[]>([]);
 
   const theme = useTheme();
@@ -119,6 +122,7 @@ function AddNoticePage() {
         content,
         writer: userName,
         noticeTags: tags,
+        private: private_,
       }),
     {
       onSuccess: (data) => {
@@ -179,8 +183,12 @@ function AddNoticePage() {
   // const { mutate } = useMutation(() => );
   return (
     <AddNoticePageContainer>
-      <TitleInput required onChange={handleTitleChange} />
-
+      <ClubDetailHeader pageType="공지사항" />
+      <TitleInput
+        required
+        onChange={handleTitleChange}
+        placeholder={"공지 제목"}
+      />
       <FormControl sx={{ m: 1, width: "100%", margin: 0 }}>
         <InputLabel
           id="demo-multiple-chip-label"
@@ -220,6 +228,27 @@ function AddNoticePage() {
               {selectedTag}
             </MenuItem>
           ))}
+        </Select>
+      </FormControl>
+      <FormControl fullWidth>
+        <InputLabel
+          id="demo-multiple-chip-label"
+          sx={{ margin: 0, padding: 0 }}
+        >
+          공개 여부
+        </InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={private_}
+          label="공개 여부"
+          onChange={(e) => {
+            const result: boolean = e.target.value === "true" ? true : false;
+            setPrivate(result);
+          }}
+        >
+          <MenuItem value={"false"}>공개</MenuItem>
+          <MenuItem value={"true"}>비공개</MenuItem>
         </Select>
       </FormControl>
       <ContentInput required rows={22} onChange={handleContentChange} />

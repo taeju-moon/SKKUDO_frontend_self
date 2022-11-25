@@ -348,6 +348,7 @@ function NoticePage() {
                           content: notice.content,
                           clubId: notice.clubId,
                           noticeTags: notice.noticeTags,
+                          private: notice.private,
                         })
                       }
                       whileHover={{ backgroundColor: "rgba(0,0,0,0.2)" }}
