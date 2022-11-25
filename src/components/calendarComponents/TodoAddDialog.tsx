@@ -192,9 +192,9 @@ function TodoAddDialog(props: SimpleDialogProps) {
     (newTodo: NewToDoType) => createTodo(newTodo),
     {
       onSuccess: (data) => {
-        console.log(data);
+        // console.log(data);
         // console.log("success");
-        // window.location.reload();
+        window.location.reload();
       },
       onError: (error: any) => {
         alert(error.response.data.error);
