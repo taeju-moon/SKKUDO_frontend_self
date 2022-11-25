@@ -5,7 +5,7 @@ export const AUTH_LABEL_LIST = [
   },
   {
     key: "noticeWrite",
-    label: "공지 쓰기 권한",
+    label: "공지 쓰기 권한 & 숨김 공지 열람 권한",
   },
   {
     key: "userRead",
@@ -25,7 +25,7 @@ export const AUTH_LABEL_LIST = [
   },
   {
     key: "todoWrite",
-    label: "일정 쓰기 권한",
+    label: "일정 쓰기 권한 & 숨김 일정 열람 권한",
   },
   {
     key: "applyRead",

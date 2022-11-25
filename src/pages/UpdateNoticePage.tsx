@@ -17,6 +17,7 @@ import { useMutation, useQuery, useQueryClient } from "react-query";
 import { useNavigate, useParams } from "react-router-dom";
 import { NoticeTagType } from "../types/notice";
 import { getNoticeTagsByClubID, updateNotice } from "../utils/fetch";
+import ClubDetailHeader from "../components/ClubDetailHeader";
 
 const AddNoticePageContainer = styled("form")({
   width: "100%",
@@ -31,7 +32,7 @@ const AddNoticePageContainer = styled("form")({
 const TitleInput = styled("input")({
   width: "400px",
   height: "50px",
-  marginBottom: "30px",
+  marginBottom: "20px",
   borderRadius: "5px",
   backgroundColor: "#fff",
   border: "2px solid #0c4426",
@@ -41,6 +42,7 @@ const TitleInput = styled("input")({
 
 const ContentInput = styled("textarea")({
   backgroundColor: "#fff",
+  marginTop: "20px",
   border: "2px solid #0c4426",
   fontSize: "1.2rem",
   borderRadius: "5px",
@@ -90,6 +92,7 @@ function UpdateNoticePage() {
 
   const [title, setTitle] = useState(noticeData.title);
   const [content, setContent] = useState(noticeData.content);
+  const [private_, setPrivate] = useState<boolean>(noticeData.private);
 
   const [tags, setTags] = useState<string[]>([]);
   const theme = useTheme();
@@ -123,6 +126,7 @@ function UpdateNoticePage() {
         title,
         content,
         noticeTags: tags,
+        private: private_,
       }),
     {
       onSuccess: (data) => {
@@ -154,6 +158,7 @@ function UpdateNoticePage() {
 
   return (
     <AddNoticePageContainer onSubmit={handleNewNoticeSubmit}>
+      <ClubDetailHeader pageType="공지사항" />
       <TitleInput required value={title} onChange={handleTitleChange} />
       <FormControl sx={{ m: 1, width: "100%", margin: 0 }}>
         <InputLabel
@@ -194,6 +199,27 @@ function UpdateNoticePage() {
               {selectedTag}
             </MenuItem>
           ))}
+        </Select>
+      </FormControl>
+      <FormControl fullWidth>
+        <InputLabel
+          id="demo-multiple-chip-label"
+          sx={{ margin: 0, padding: 0 }}
+        >
+          공개 여부
+        </InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={private_}
+          label="공개 여부"
+          onChange={(e) => {
+            const result: boolean = e.target.value === "true" ? true : false;
+            setPrivate(result);
+          }}
+        >
+          <MenuItem value={"false"}>공개</MenuItem>
+          <MenuItem value={"true"}>비공개</MenuItem>
         </Select>
       </FormControl>
       <ContentInput

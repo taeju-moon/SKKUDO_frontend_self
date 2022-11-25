@@ -95,11 +95,11 @@ export default function ManageAuth() {
       return budgetRead;
     } else if (authKey === "budgetWrite") {
       return budgetWrite;
-    } else if (authKey == "appliedUserRead") {
+    } else if (authKey === "appliedUserRead") {
       return appliedUserRead;
-    } else if (authKey == "appliedUserWrite") {
+    } else if (authKey === "appliedUserWrite") {
       return appliedUserWrite;
-    } else if (authKey == "tagWrite") {
+    } else if (authKey === "tagWrite") {
       return tagWrite;
     } else {
       return "";
