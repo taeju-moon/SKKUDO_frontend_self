@@ -87,6 +87,7 @@ function TodoAddDialog(props: SimpleDialogProps) {
 
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [isPrivate, setIsPrivate] = useState(false);
 
   const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
@@ -96,6 +97,14 @@ function TodoAddDialog(props: SimpleDialogProps) {
   const handleContentChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
     setContent(event.target.value);
+  };
+
+  const handleIsPrivateChange = (event: SelectChangeEvent) => {
+    if (event.target.value === "false") {
+      setIsPrivate(false);
+    } else {
+      setIsPrivate(true);
+    }
   };
 
   const [personName, setPersonName] = useState<string[]>([]);
@@ -170,9 +179,10 @@ function TodoAddDialog(props: SimpleDialogProps) {
     if (isTodoUpdate) {
       setTitle(updateTodoInfo.title);
       setContent(updateTodoInfo.content);
+      setIsPrivate(updateTodoInfo.private);
       setPersonName(updateTodoInfo.attendingUsers);
       setTags(updateTodoInfo.tags);
-      // setDate(updateTodoInfo.date);
+
       setStartTime(updateTodoInfo.startTime);
       setEndTime(updateTodoInfo.endTime);
     }
@@ -214,6 +224,7 @@ function TodoAddDialog(props: SimpleDialogProps) {
           clubId: clubID,
           title,
           content,
+          private: isPrivate,
           date: moment(props.date).format("YYYY-MM-DD"),
           startTime,
           endTime,
@@ -229,6 +240,7 @@ function TodoAddDialog(props: SimpleDialogProps) {
           clubId: clubID,
           title,
           content,
+          private: isPrivate,
           date: moment(props.date).format("YYYY-MM-DD"),
           startTime,
           endTime,
@@ -263,15 +275,20 @@ function TodoAddDialog(props: SimpleDialogProps) {
           value={content}
           variant="outlined"
         />
-        {/* <DesktopDatePicker
-          label="날짜 선택"
-          inputFormat="MM/DD/YYYY"
-          value={date}
-          onChange={handleDateChange}
-          renderInput={(params) => (
-            <TextField {...params} sx={{ marginBottom: "40px" }} />
-          )}
-        /> */}
+        <FormControl fullWidth sx={{ marginBottom: "40px" }}>
+          <InputLabel id="demo-simple-select-label">공개 여부</InputLabel>
+          <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            value={isPrivate ? "true" : "false"}
+            label="private"
+            onChange={handleIsPrivateChange}
+          >
+            <MenuItem value={"false"}>공개</MenuItem>
+            <MenuItem value={"true"}>비공개</MenuItem>
+          </Select>
+        </FormControl>
+
         <TimePicker
           label="시작 시간"
           value={startTime}
@@ -289,7 +306,7 @@ function TodoAddDialog(props: SimpleDialogProps) {
           )}
         />
 
-        <FormControl sx={{ m: 1, width: 300 }}>
+        <FormControl sx={{ m: 1, width: 300, marginBottom: "40px" }}>
           <InputLabel id="demo-multiple-chip-label">참여 동아리원</InputLabel>
           <Select
             labelId="demo-multiple-chip-label"
@@ -298,7 +315,6 @@ function TodoAddDialog(props: SimpleDialogProps) {
             value={personName}
             onChange={handleNameChange}
             input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
-            sx={{ marginBottom: "40px" }}
             renderValue={(selected) => (
               <Box
                 sx={{

@@ -245,6 +245,7 @@ function DayDetailBoard({ isDayDetailOpened, date }: DayDetailBoardType) {
                         _id: todo._id,
                         clubId: todo.clubId,
                         title: todo.title,
+                        private: todo.private,
                         content: todo.content,
                         date: moment(todo.date).format("YYYY-MM-DD"),
                         startTime: moment(todo.startTime).format(

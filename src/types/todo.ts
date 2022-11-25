@@ -13,6 +13,7 @@ export interface ToDoType {
   clubId: string;
   writer: UserType;
   title: string;
+  private: boolean;
   content: string;
   date: Date;
   startTime: Date;
@@ -26,6 +27,7 @@ export interface ToDoType {
 export interface NewToDoType {
   clubId: string;
   title: string;
+  private: boolean;
   content: string;
   date: string;
   startTime: string;

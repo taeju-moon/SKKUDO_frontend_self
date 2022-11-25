@@ -18,6 +18,7 @@ export const updateTodoInfoState = atom<UpdateTodoType>({
     _id: "",
     clubId: "",
     title: "",
+    private: false,
     content: "",
     date: "",
     startTime: "",
