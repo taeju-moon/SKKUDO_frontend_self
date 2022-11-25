@@ -21,6 +21,7 @@ import { RecruitType, UpdateClubInfoType } from "../../types/club";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { useParams } from "react-router-dom";
 import { getAllClubTypes, updateClub } from "../../utils/fetch";
+import { currentClubInfoState } from "../../atoms/utilAtom";
 
 interface UpdateDialogType {
   dialogOpen: boolean;
@@ -43,11 +44,32 @@ interface TagType {
 function ProperInput({ keyword, handleClose }: ProperInputType) {
   const { clubID } = useParams();
   const queryClient = useQueryClient();
+  const currentClubInfo = useRecoilValue(currentClubInfoState);
+
   const [name, setName] = React.useState("변경할 이름");
-  const [newType, setNewType] = React.useState("프로그래밍");
+  const [newType, setNewType] = React.useState("");
   const [location, setLocation] = React.useState<LocationType>("인사캠");
   const [recruitType, setRecruitType] = React.useState<RecruitType>("정규모집");
   const [date, setDate] = React.useState<Date>(new Date());
+
+  React.useEffect(() => {
+    if (currentClubInfo) {
+      if (keyword === "name") {
+        setName(currentClubInfo.name);
+      } else if (keyword === "typeName") {
+        setNewType(currentClubInfo.type.name);
+      } else if (keyword === "location") {
+        setLocation(currentClubInfo.location);
+      } else if (keyword === "recruitType") {
+        setRecruitType(currentClubInfo.recruitType);
+      } else if (keyword === "recruitStart") {
+      } else if (keyword === "recruitEnd") {
+      } else {
+        alert("키워드 에러");
+      }
+    }
+    // console.log(currentClubInfo);
+  }, []);
 
   const { data: clubTypeData } = useQuery<TagType[]>(
     "getAllClubTypes",
@@ -70,6 +92,7 @@ function ProperInput({ keyword, handleClose }: ProperInputType) {
   const handleClubTypeChange = (event: SelectChangeEvent) => {
     event.preventDefault();
     setNewType(event.target.value);
+    console.log(newType);
   };
 
   const handleRecruitTypeChange = (event: SelectChangeEvent<RecruitType>) => {
@@ -144,6 +167,9 @@ function ProperInput({ keyword, handleClose }: ProperInputType) {
             label="동아리 주제"
             onChange={handleClubTypeChange}
           >
+            <MenuItem value="" disabled sx={{ display: "none" }}>
+              <em>-</em>
+            </MenuItem>
             {clubTypeData ? (
               clubTypeData.map((type) => (
                 <MenuItem key={type._id} value={type.name}>
