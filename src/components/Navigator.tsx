@@ -68,7 +68,7 @@ const NavigationLink = styled(Link)`
   font-size: 34px;
 `;
 
-const LoginBtn = styled.button`
+const LoginBtn = styled.div`
   position: relative;
   border: none;
   background-color: transparent;
@@ -96,24 +96,18 @@ const LoginOptionContainer = styled.ul<ILoginOptionContainer>`
 `;
 
 const LoginOption = styled(motion.div)`
+  cursor: pointer;
   text-align: start;
   width: 100%;
   background-color: transparent;
+  color: #0c4426;
   border-bottom: 1px solid #0c4426;
   padding: 10px;
   font-size: 20px;
   padding-top: 20px;
   display: flex;
   padding-bottom: 20px;
-`;
-
-const LoginLink = styled(Link)`
-  text-decoration: none;
-  color: #0c4426;
-  font-size: 20px;
   font-weight: 600;
-  width: 100%;
-  height: 100%;
 `;
 
 const UserInfo = styled.h2`
@@ -147,6 +141,14 @@ function Navigator() {
     // window.location.reload();
   };
 
+  const handleLoginOptionClick = () => {
+    navigate("/login");
+  };
+
+  const handleSignupOptionClick = () => {
+    navigate("/signup");
+  };
+
   return (
     <NavigatorContainer isManage={isManage}>
       <ItemsContainer>
@@ -173,21 +175,25 @@ function Navigator() {
           <LoginOptionContainer isLoginOptionOpened={isLoginOptionOpened}>
             {!isLoggedIn ? (
               <>
-                <LoginOption whileHover={{ backgroundColor: "#d4e7c6bf" }}>
-                  <LoginLink to="/login">로그인</LoginLink>
+                <LoginOption
+                  onClick={handleLoginOptionClick}
+                  whileHover={{ backgroundColor: "#d4e7c6bf" }}
+                >
+                  로그인
                 </LoginOption>
-                <LoginOption whileHover={{ backgroundColor: "#d4e7c6bf" }}>
-                  <LoginLink to="/signup">회원가입</LoginLink>
+                <LoginOption
+                  onClick={handleSignupOptionClick}
+                  whileHover={{ backgroundColor: "#d4e7c6bf" }}
+                >
+                  회원가입
                 </LoginOption>
               </>
             ) : (
-              <LoginOption>
-                <div
-                  onClick={handleLogoutBtnClick}
-                  style={{ fontSize: "20px", color: "#0c4426" }}
-                >
-                  로그아웃
-                </div>
+              <LoginOption
+                onClick={handleLogoutBtnClick}
+                whileHover={{ backgroundColor: "#d4e7c6bf" }}
+              >
+                로그아웃
               </LoginOption>
             )}
           </LoginOptionContainer>

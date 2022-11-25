@@ -33,6 +33,7 @@ function SignupPage() {
   const [studentId, setStudentId] = useState("");
   const [userID, setUserID] = useState("");
   const [password, setPassword] = useState("");
+  const [confirm, setConfirm] = useState("");
   const [location, setLocation] = useState<LocationType>("인사캠");
   const [major, setMajor] = useState("");
   const [contact, setContact] = useState("");
@@ -64,6 +65,10 @@ function SignupPage() {
 
   const handleSignupFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    if (password !== confirm) {
+      alert("비밀번호가 일치하지 않습니다. 다시 확인해 주세요");
+      return;
+    }
     mutate({
       name,
       studentId,
@@ -73,8 +78,8 @@ function SignupPage() {
       major,
       contact: `${contact.substring(0, 3)}-${contact.substring(
         3,
-        6
-      )}-${contact.substring(6, 9)}`,
+        7
+      )}-${contact.substring(7, 11)}`,
     });
   };
 
@@ -106,6 +111,12 @@ function SignupPage() {
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     setPassword(event.target.value);
+  };
+
+  const handleConfirmChange = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setConfirm(event.target.value);
   };
 
   const handleMajorChange = (
@@ -154,17 +165,6 @@ function SignupPage() {
             inputProps={{ minLength: 5 }}
           />
           <TextField
-            sx={{ width: "40%" }}
-            label="비밀번호"
-            variant="outlined"
-            required
-            value={password}
-            onChange={handlePasswordChange}
-            inputProps={{ minLength: 5 }}
-          />
-        </SignupInputContainer>
-        <SignupInputContainer>
-          <TextField
             select
             required
             sx={{ width: "40%" }}
@@ -179,6 +179,30 @@ function SignupPage() {
               </MenuItem>
             ))}
           </TextField>
+        </SignupInputContainer>
+        <SignupInputContainer>
+          <TextField
+            sx={{ width: "40%" }}
+            label="비밀번호"
+            variant="outlined"
+            required
+            type="password"
+            value={password}
+            onChange={handlePasswordChange}
+            inputProps={{ minLength: 5 }}
+          />
+          <TextField
+            sx={{ width: "40%" }}
+            label="비밀번호 확인"
+            variant="outlined"
+            required
+            type="password"
+            value={confirm}
+            onChange={handleConfirmChange}
+            inputProps={{ minLength: 5 }}
+          />
+        </SignupInputContainer>
+        <SignupInputContainer>
           <TextField
             sx={{ width: "40%" }}
             label="학과"
@@ -187,8 +211,6 @@ function SignupPage() {
             value={major}
             onChange={handleMajorChange}
           />
-        </SignupInputContainer>
-        <SignupInputContainer>
           <TextField
             sx={{ width: "40%" }}
             label="연락처(숫자만 적어주세요)"

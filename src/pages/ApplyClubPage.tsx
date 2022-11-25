@@ -1,7 +1,14 @@
-import { Button, MenuItem, styled, TextField, Select } from "@mui/material";
+import {
+  Button,
+  MenuItem,
+  styled,
+  TextField,
+  Select,
+  SelectChangeEvent,
+} from "@mui/material";
 import React, { useState, useEffect } from "react";
 import { getAllClubTypes } from "../utils/fetch";
-import { useMutation } from "react-query";
+import { useMutation, useQuery } from "react-query";
 import FormTitle from "../components/FormTitle";
 import { RecruitType } from "../types/club";
 import { LocationType } from "../types/common";
@@ -63,7 +70,7 @@ const recruitTypeList = [
 
 function ApplyClubPage() {
   const [name, setName] = useState("동아리 이름");
-  const [clubType, setClubType] = useState("동아리 주제");
+  const [clubType, setClubType] = useState("프로그래밍");
   const [location, setLocation] = useState<LocationType>("인사캠");
   const [recruitType, setRecruitType] = useState<RecruitType>("상시모집");
   const navigate = useNavigate();
@@ -73,7 +80,7 @@ function ApplyClubPage() {
     {
       //need to fix
       onSuccess: (data) => {
-        console.log(data);
+        // console.log(data);
         alert("새 동아리 신청이 성공적으로 접수 되었습니다!");
         navigate("/");
       },
@@ -94,7 +101,7 @@ function ApplyClubPage() {
     setName(event.target.value);
   };
 
-  const handleClubTypeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleClubTypeChange = (event: SelectChangeEvent) => {
     setClubType(event.target.value);
   };
   const handleLocationChange = (
@@ -112,13 +119,22 @@ function ApplyClubPage() {
   const [value, setValue] = useState<string>("");
   const [tags, setTags] = useState<TagType[]>([]);
 
-  useEffect(() => {
-    getAllClubTypes().then((data) => {
-      const using = data.data.data;
-      setTags(using);
-      setValue(using[0].name);
-    });
-  }, []);
+  const { data } = useQuery<TagType[]>("getAllClubs", getAllClubTypes, {
+    onSuccess: (data) => {
+      console.log(data);
+      setTags(data);
+      setValue(data[0].name);
+    },
+    onError: (error: any) => alert(error.response.data.error),
+  });
+
+  // useEffect(() => {
+  //   getAllClubTypes().then((data) => {
+  //     const using = data.data.data;
+  //     setTags(using);
+  //     setValue(using[0].name);
+  //   });
+  // }, []);
 
   return (
     <>
@@ -136,12 +152,10 @@ function ApplyClubPage() {
           <Select
             labelId="demo-simple-select-helper-label"
             id="demo-simple-select-helper"
-            value={value}
+            value={clubType}
             label="Age"
             sx={{ width: "40%" }}
-            onChange={(e) => {
-              setValue(e.target.value);
-            }}
+            onChange={handleClubTypeChange}
           >
             {tags.length > 0 &&
               tags.map((tag) => (
