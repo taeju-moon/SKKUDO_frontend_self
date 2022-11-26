@@ -222,8 +222,8 @@ function AboutMainPage() {
             맞춤형 관리 서비스를 지원합니다.
             <br />
             동아리의 관리의 필수 기능인 모집 관리, 공지 관리, 일정 관리, 유저
-            관리, 권한 관리에 더해 가계부와 회의록 기능, 관리자가 원하는 열을
-            추가하는 기능까지 모두 포함되어 있습니다.
+            관리, 권한 관리에 더해 가계부와 공지 및 일정 숨김기능, 관리자가
+            원하는 열을 추가하는 기능까지 모두 포함되어 있습니다.
           </SecondMassageContainer>
         </DistinctMassageContainer>
       </DistinctContainer>

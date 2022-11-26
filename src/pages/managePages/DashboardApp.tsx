@@ -262,8 +262,8 @@ export default function DashboardApp() {
   console.log(Array.from(stringColumnsData));
   return (
     <Container maxWidth="xl">
-      <Typography variant="h4" sx={{ mb: 5 }}>
-        Hi, Welcome back
+      <Typography variant="h2" sx={{ mb: 5 }}>
+        동아리 정보를 한눈에, 대시보드
       </Typography>
 
       <Grid container spacing={3}>

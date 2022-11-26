@@ -40,6 +40,7 @@ export default function ColumnCreate() {
       addClubUserColumn(clubId, columnForm)
         .then(() => {
           alert("열을 추가했습니다.");
+          window.location.reload();
         })
         .catch((error) => alert(error.response.data.error));
     }
