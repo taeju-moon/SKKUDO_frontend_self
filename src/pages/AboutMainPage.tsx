@@ -189,7 +189,7 @@ function AboutMainPage() {
         <IconContainer>
           <MainIconContainer>
             <ImWrench size="150px" color="#0c4426"></ImWrench>
-            <MainIConMassageContainer>Cusuomizable</MainIConMassageContainer>
+            <MainIConMassageContainer>Customizable</MainIConMassageContainer>
           </MainIconContainer>
           <MainIconContainer>
             <TiGroupOutline size="150px" color="#0c4426"></TiGroupOutline>
