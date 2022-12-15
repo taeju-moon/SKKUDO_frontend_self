@@ -9,7 +9,6 @@ import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 import ManageRecruit from "./pages/managePages/ManageRecruit";
 import ManageUser from "./pages/managePages/ManageUser";
-
 import MembersPage from "./pages/MembersPage";
 import MyPage from "./pages/MyPage";
 import NoticePage from "./pages/NoticePage";
@@ -44,7 +43,6 @@ import AboutMyPage from "./pages/AboutMyPage";
 
 function AppRouter() {
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(isLoggedInState);
-  // const setIsLoggedIn = useSetRecoilState(isLoggedInState);
   const setUserName = useSetRecoilState(userNameState);
   const setUserInfoState = useSetRecoilState(userInfoState);
   const setLoggedInUser = useSetRecoilState(loggedInUserState);

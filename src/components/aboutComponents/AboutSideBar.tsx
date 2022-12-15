@@ -1,4 +1,4 @@
-import { Collapse, List, ListItemButton, ListItemText } from "@mui/material";
+import { Collapse, List, ListItemButton } from "@mui/material";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
@@ -7,15 +7,19 @@ import styled from "styled-components";
 const AboutSideBarContainer = styled.div`
   display: flex;
   flex-direction: column;
-
   width: 180px;
   height: 100%;
+`;
+
+const NestedListHeader = styled.div`
+  color: #0c4426;
+  font-size: 20px;
+  font-weight: 800;
 `;
 
 const MenuLink = styled(Link)`
   color: #0c4426;
   text-decoration: none;
-  /* text-align: center; */
   font-size: 15px;
   font-weight: 800;
 `;
@@ -27,6 +31,7 @@ function AboutSideBar() {
   const handleClick = () => {
     setOpen(!open);
   };
+
   return (
     <AboutSideBarContainer>
       <List>
@@ -43,15 +48,7 @@ function AboutSideBar() {
           </MenuLink>
         </ListItemButton>
         <ListItemButton onClick={handleClick} sx={{ paddingTop: "15px" }}>
-          <div
-            style={{
-              color: "#0c4426",
-              fontSize: "20px",
-              fontWeight: "800",
-            }}
-          >
-            스꾸도 사용방법
-          </div>
+          <NestedListHeader>스꾸도 사용방법</NestedListHeader>
         </ListItemButton>
         <Collapse in={open}>
           <List>

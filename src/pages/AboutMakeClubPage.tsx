@@ -1,36 +1,21 @@
-//AboutMakeClubPage Page
-
 import styled from "styled-components";
-
 import makeclub from "../assets/images/makeclub/makeclub.png";
 import register from "../assets/images/makeclub/register.png";
 
-const AboutMakeClubPageContainer = styled.div`
-  // 우측으로 쌓기
-  display: flex;
-  padding-left: 20px;
-  padding-right: 20px;
-  flex-direction: column;
-  flex: 1;
-`;
-
 const MakeClubContainer = styled.div`
-  /* border-width: 1px; */
   border-color: #0c4426;
-  display: flex;
-  flex-direction: column;
   padding-top: 5%;
   padding-bottom: 5%;
-  gap: 20px;
 `;
+
 const MakeClubMassageContainer = styled.div`
   text-align: center;
   font-size: 18px;
   line-height: 25px;
   font-weight: 600;
 `;
+
 const MakeClubImageContainer = styled.div`
-  /* padding-left: 5%; */
   margin-top: 5%;
   width: 100%;
   display: flex;
@@ -46,22 +31,21 @@ const RegisterContainer = styled.div`
   padding-top: 5%;
   padding-bottom: 5%;
 `;
+
 const RegisterMassageContainer = styled.div`
-  display: flex;
-  flex-direction: column;
   padding-right: 20px;
   font-size: 17px;
   line-height: 25px;
   font-weight: 600;
 `;
+
 const RegisterImageContainer = styled.div`
   width: 50%;
-  display: flex;
 `;
 
 function AboutMakeClubPage() {
   return (
-    <AboutMakeClubPageContainer>
+    <>
       <MakeClubContainer>
         <MakeClubMassageContainer>
           SKKUDO에서 동아리를 새로 생성하려면 SKKUDO 메인페이지 하단에 있는
@@ -83,7 +67,7 @@ function AboutMakeClubPage() {
           <img src={register}></img>
         </RegisterImageContainer>
       </RegisterContainer>
-    </AboutMakeClubPageContainer>
+    </>
   );
 }
 

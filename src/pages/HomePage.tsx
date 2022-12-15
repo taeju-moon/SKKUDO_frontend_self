@@ -11,14 +11,15 @@ import yul from "../assets/images/yul.png";
 const HomePageContainer = styled.div`
   padding-top: 80px;
 `;
+
 const Banner = styled.div`
   display: flex;
   background-color: white;
   align-items: center;
 `;
+
 const Phrase = styled.div`
   padding-top: 50px;
-
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -33,7 +34,6 @@ const ImgContainer = styled.img`
 
 const LineOne = styled.div`
   font-size: 50px;
-  /* font-family: ; */
 `;
 
 const LineTwo = styled.div`

@@ -9,6 +9,7 @@ const GlobalStyles = createGlobalStyle`
 
 *{
 	font-family: "Roboto", "Nanum Gothic", sans-serif;
+	box-sizing: border-box;
 }
 
 html, body, div, span, applet, object, iframe,
