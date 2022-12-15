@@ -27,6 +27,7 @@ import { getClubMembers, getOneClub } from "../../utils/fetch";
 import { UserType } from "../../types/user";
 import { ClubType } from "../../types/club";
 import { ColumnType } from "../../types/common";
+import { applySortFilter, getComparator } from "../../utils/Sorting";
 
 interface ITableHeadItem {
   id: string;
@@ -43,77 +44,11 @@ const TABLE_HEAD: ITableHeadItem[] = [
   { id: "contact", label: "연락처", alignRight: false },
 ];
 
-type orderType = "desc" | "asc";
 type orderByType = "name" | "studentId" | "role" | "major" | "location";
 type IMoreColumn = {
   column: ColumnType;
   value: String;
 };
-
-function descendingComparator(
-  a: UserType,
-  b: UserType,
-  orderBy: orderByType,
-  clubID: string
-) {
-  if (orderBy == "role") {
-    const beta = new Map(Object.entries(b.registeredClubs)).get(clubID);
-    const alpha = new Map(Object.entries(a.registeredClubs)).get(clubID);
-    if (beta && alpha) {
-      if (beta.role < alpha.role) {
-        return -1;
-      }
-      if (beta.role > alpha.role) {
-        return 1;
-      }
-      return 0;
-    }
-
-    return 0;
-  } else {
-    if (b[orderBy] < a[orderBy]) {
-      return -1;
-    }
-    if (b[orderBy] > a[orderBy]) {
-      return 1;
-    }
-    return 0;
-  }
-}
-
-function getComparator(order: orderType, orderBy: orderByType, clubID: string) {
-  return order === "desc"
-    ? (a: UserType, b: UserType) => descendingComparator(a, b, orderBy, clubID)
-    : (a: UserType, b: UserType) =>
-        -descendingComparator(a, b, orderBy, clubID);
-}
-
-function applySortFilter(
-  array: UserType[] | undefined,
-  comparator: (a: UserType, b: UserType) => number,
-  query: string
-) {
-  if (array) {
-    const stabilizedThis: [UserType, number][] = array.map((el, index) => [
-      el,
-      index,
-    ]);
-    stabilizedThis.sort((a, b) => {
-      const order = comparator(a[0], b[0]);
-      if (order !== 0) return order;
-      return a[1] - b[1];
-    });
-    if (query) {
-      return filter(
-        array,
-        (_user) => _user.name.toLowerCase().indexOf(query.toLowerCase()) !== -1
-      );
-    }
-    return stabilizedThis.map((el) => el[0]);
-  } else {
-    return [];
-  }
-}
 
 export default function User() {
   const [page, setPage] = useState(0);
@@ -256,7 +191,6 @@ export default function User() {
           onFilterName={handleFilterByName}
         />
 
-        {/* <Scrollbar> */}
         <TableContainer sx={{ minWidth: 800 }}>
           <Table>
             <UserListHead
@@ -375,7 +309,6 @@ export default function User() {
             )}
           </Table>
         </TableContainer>
-        {/* </Scrollbar> */}
 
         <TablePagination
           rowsPerPageOptions={[5, 10, 25]}

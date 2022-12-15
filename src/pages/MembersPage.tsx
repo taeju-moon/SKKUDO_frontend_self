@@ -1,4 +1,3 @@
-import { filter } from "lodash";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import {
@@ -11,7 +10,6 @@ import {
   TableContainer,
   TablePagination,
 } from "@mui/material";
-import Scrollbar from "../components/dashboard/Scrollbar";
 import UserListToolbar from "../components/user/UserListToolbar";
 import UserListHead from "../components/user/UserListHead";
 import SearchNotFound from "../components/user/SearchNotFound";
@@ -21,6 +19,7 @@ import { getClubMembers, getOneClub } from "../utils/fetch";
 import { UserType } from "../types/user";
 import { ClubType } from "../types/club";
 import { ColumnType } from "../types/common";
+import { applySortFilter, getComparator } from "../utils/Sorting";
 
 interface ITableHeadItem {
   id: string;
@@ -36,105 +35,12 @@ const TABLE_HEAD: ITableHeadItem[] = [
   { id: "location", label: "위치", alignRight: false },
 ];
 
-type orderType = "desc" | "asc";
 type orderByType = "name" | "studentId" | "role" | "major" | "location";
 
 type IMoreColumn = {
   column: ColumnType;
   value: String;
 };
-
-function descendingComparator(
-  a: UserType,
-  b: UserType,
-  orderBy: orderByType,
-  clubID: string
-) {
-  if (orderBy === "role") {
-    const beta = new Map(Object.entries(b.registeredClubs)).get(clubID);
-    const alpha = new Map(Object.entries(a.registeredClubs)).get(clubID);
-    if (beta && alpha) {
-      if (beta.role < alpha.role) {
-        return -1;
-      }
-      if (beta.role > alpha.role) {
-        return 1;
-      }
-      return 0;
-    }
-
-    return 0;
-  }
-  if (
-    orderBy === "name" ||
-    orderBy === "studentId" ||
-    orderBy === "major" ||
-    orderBy === "location"
-  ) {
-    if (b[orderBy] < a[orderBy]) {
-      return -1;
-    }
-    if (b[orderBy] > a[orderBy]) {
-      return 1;
-    }
-    return 0;
-  }
-
-  const beta = new Map(Object.entries(b.registeredClubs)).get(clubID);
-  const alpha = new Map(Object.entries(a.registeredClubs)).get(clubID);
-
-  const deepBeta = beta.moreColumns.find(
-    (item: any) => item.column.key === orderBy
-  );
-  const deepAlpha = alpha.moreColumns.find(
-    (item: any) => item.column.key === orderBy
-  );
-  if (deepBeta && deepAlpha) {
-    if (deepBeta.value < deepAlpha.value) {
-      return -1;
-    }
-    if (deepBeta.value > deepAlpha.value) {
-      return 1;
-    }
-    return 0;
-  }
-
-  return 0;
-}
-
-function getComparator(order: orderType, orderBy: orderByType, clubID: string) {
-  return order === "desc"
-    ? (a: UserType, b: UserType) => descendingComparator(a, b, orderBy, clubID)
-    : (a: UserType, b: UserType) =>
-        -descendingComparator(a, b, orderBy, clubID);
-}
-
-function applySortFilter(
-  array: UserType[] | undefined,
-  comparator: (a: UserType, b: UserType) => number,
-  query: string
-) {
-  if (array) {
-    const stabilizedThis: [UserType, number][] = array.map((el, index) => [
-      el,
-      index,
-    ]);
-    stabilizedThis.sort((a, b) => {
-      const order = comparator(a[0], b[0]);
-      if (order !== 0) return order;
-      return a[1] - b[1];
-    });
-    if (query) {
-      return filter(
-        array,
-        (_user) => _user.name.toLowerCase().indexOf(query.toLowerCase()) !== -1
-      );
-    }
-    return stabilizedThis.map((el) => el[0]);
-  } else {
-    return [];
-  }
-}
 
 export default function User() {
   const [page, setPage] = useState(0);
@@ -158,7 +64,7 @@ export default function User() {
     () => getClubMembers(clubID || ""),
     {
       onSuccess: (data) => {
-        console.log(data);
+        // console.log(data);
       },
       onError: (error: any) => alert(error.response.data.error),
     }
