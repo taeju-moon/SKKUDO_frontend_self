@@ -11,11 +11,10 @@ import { useQuery } from "react-query";
 import { ToDoType } from "../types/todo";
 import DayDetailBoard from "../components/calendar/DayDetailBoard";
 import TodoCategoryDialog from "../components/calendar/TodoCategoryDialog";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import { dayDetailState } from "../atoms/calendarAtom";
 import { motion } from "framer-motion";
 import { getTodoTagsByClubID } from "../utils/fetch";
-import { relative } from "path";
 
 const CalendarContainer = styled.div`
   padding-top: 40px;
@@ -93,7 +92,7 @@ function CalendarPage() {
   const { clubID } = useParams();
   const [mark, setMark] = useState<string[]>(["2022-10-02", "2022-10-23"]);
 
-  const [dayDetail, setDayDetail] = useRecoilState(dayDetailState);
+  const setDayDetail = useSetRecoilState(dayDetailState);
 
   const [isCategoryDialogOpen, setIsCategoryDialogOpen] = useState(false);
 
@@ -105,7 +104,7 @@ function CalendarPage() {
     setIsCategoryDialogOpen(true);
   };
 
-  const { data, isLoading } = useQuery<ToDoType[]>(
+  const { data } = useQuery<ToDoType[]>(
     "getTodosByClubID",
     () => getTodosByClubID(clubID || ""),
     {

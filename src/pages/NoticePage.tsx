@@ -115,7 +115,7 @@ const Item = styled(Paper)(({ theme }) => ({
   height: "60px",
 }));
 
-const Tag = styled("div")({
+export const Tag = styled("div")({
   height: "100%",
   backgroundColor: "#0c4426",
   color: "white",
