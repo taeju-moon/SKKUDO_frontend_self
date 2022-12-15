@@ -1,11 +1,11 @@
 import { Container, Divider, Stack, Typography } from "@mui/material";
 import moment from "moment";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useQuery } from "react-query";
-import ClubsFilterSidebar from "../components/clubsComponents/ClubsFilterSidebar";
+
 import ClubsList from "../components/clubsComponents/ClubsList";
 import FilterTag from "../components/FilterTag";
-import { ClubType, ClubTypeType } from "../types/club";
+import { ClubType } from "../types/club";
 import { getAllClubs, getAllClubTypes } from "../utils/fetch";
 
 interface TagType {
@@ -21,6 +21,9 @@ function ClubsPage() {
     onSuccess(data) {
       // console.log(data);
       setItems(data);
+    },
+    onError(error: any) {
+      alert(error.response.data.error);
     },
   });
 
@@ -72,19 +75,19 @@ function ClubsPage() {
       </Stack>
 
       <Stack divider={<Divider />}>
-        <div>
+        <>
           <Typography variant="h3" sx={{ mb: 5 }}>
             모든 동아리/학회
           </Typography>
 
           <ClubsList clubs={isLoading ? [] : items!} />
-        </div>
-        <div>
+        </>
+        <>
           <Typography variant="h3" sx={{ mb: 5, marginTop: "40px" }}>
             모집중인 동아리/학회
           </Typography>
           {recruitingClubs ? <ClubsList clubs={recruitingClubs} /> : null}
-        </div>
+        </>
       </Stack>
     </Container>
   );

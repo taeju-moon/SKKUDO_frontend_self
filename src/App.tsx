@@ -17,7 +17,7 @@ function App() {
 
       <ThemeProvider>
         <QueryClientProvider client={queryClient}>
-          <ReactQueryDevtools initialIsOpen={true} />
+          {/* <ReactQueryDevtools initialIsOpen={true} /> */}
           <RecoilRoot>
             <CookiesProvider>
               <LocalizationProvider dateAdapter={AdapterMoment}>
