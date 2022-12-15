@@ -38,6 +38,7 @@ const TABLE_HEAD: ITableHeadItem[] = [
 
 type orderType = "desc" | "asc";
 type orderByType = "name" | "studentId" | "role" | "major" | "location";
+
 type IMoreColumn = {
   column: ColumnType;
   value: String;
@@ -63,7 +64,13 @@ function descendingComparator(
     }
 
     return 0;
-  } else {
+  }
+  if (
+    orderBy === "name" ||
+    orderBy === "studentId" ||
+    orderBy === "major" ||
+    orderBy === "location"
+  ) {
     if (b[orderBy] < a[orderBy]) {
       return -1;
     }
@@ -72,6 +79,27 @@ function descendingComparator(
     }
     return 0;
   }
+
+  const beta = new Map(Object.entries(b.registeredClubs)).get(clubID);
+  const alpha = new Map(Object.entries(a.registeredClubs)).get(clubID);
+
+  const deepBeta = beta.moreColumns.find(
+    (item: any) => item.column.key === orderBy
+  );
+  const deepAlpha = alpha.moreColumns.find(
+    (item: any) => item.column.key === orderBy
+  );
+  if (deepBeta && deepAlpha) {
+    if (deepBeta.value < deepAlpha.value) {
+      return -1;
+    }
+    if (deepBeta.value > deepAlpha.value) {
+      return 1;
+    }
+    return 0;
+  }
+
+  return 0;
 }
 
 function getComparator(order: orderType, orderBy: orderByType, clubID: string) {
@@ -125,7 +153,7 @@ export default function User() {
 
   const { clubID } = useParams();
 
-  const { data, isLoading } = useQuery<UserType[]>(
+  const { data } = useQuery<UserType[]>(
     "getClubMembers",
     () => getClubMembers(clubID || ""),
     {
@@ -137,7 +165,8 @@ export default function User() {
   );
 
   const handleRequestSort = (event: any, property: any) => {
-    const isAsc = orderBy === property && order === "asc";
+    // const isAsc = orderBy === property && order === "asc";
+    const isAsc = order === "asc";
     setOrder(isAsc ? "desc" : "asc");
     setOrderBy(property);
   };
@@ -195,6 +224,7 @@ export default function User() {
       })
       .catch((error) => alert(error.error));
   }, []);
+
   return (
     <Container sx={{ maxWidth: "1024px" }}>
       <ClubDetailHeader pageType={"동아리원"} />
@@ -212,7 +242,6 @@ export default function User() {
           onFilterName={handleFilterByName}
         />
 
-        {/* <Scrollbar> */}
         <TableContainer sx={{ minWidth: 800 }}>
           <Table>
             <UserListHead
@@ -304,7 +333,6 @@ export default function User() {
             )}
           </Table>
         </TableContainer>
-        {/* </Scrollbar> */}
 
         <TablePagination
           rowsPerPageOptions={[5, 10, 25]}
