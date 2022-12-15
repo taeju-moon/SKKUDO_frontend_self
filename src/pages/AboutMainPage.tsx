@@ -1,28 +1,11 @@
-//slogan page
-
-import { useTheme } from "@mui/material";
 import styled from "styled-components";
-import exampleImage from "../assets/images/example.png";
-import AboutSideBar from "../components/aboutComponents/AboutSideBar";
 import { ImWrench } from "react-icons/im";
 import { TiGroupOutline } from "react-icons/ti";
-import { GrAction } from "react-icons/gr";
 import { TbPlugConnected } from "react-icons/tb";
 import myeong from "../assets/images/myeong.jpeg";
 import yul from "../assets/images/yul.png";
 
-const MainContainer = styled.div`
-  /* position: relative; */
-  display: flex;
-  padding-left: 20px;
-  padding-right: 20px;
-  flex: 1;
-
-  overflow-x: visible;
-  flex-direction: column;
-`;
-
-const Hello = styled.div`
+const Intro = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
@@ -31,7 +14,8 @@ const Hello = styled.div`
   font-weight: 700;
   margin-bottom: 100px;
 `;
-const AboutIntroduceContainer = styled.div`
+
+const IntroduceContainer = styled.div`
   border-top-style: solid;
   border-width: 1px;
   border-color: #0c4426;
@@ -52,17 +36,12 @@ const ImageContainer = styled.div`
   justify-content: center;
   align-items: center;
 `;
-const FirstMassageContainer = styled.div`
-  /* display: flex; */
+const Content = styled.div`
   font-size: 18px;
   line-height: 25px;
   font-weight: 600;
 `;
-const SecondMassageContainer = styled.div`
-  font-size: 18px;
-  line-height: 25px;
-  font-weight: 600;
-`;
+
 const SloganContainer = styled.div`
   background-color: #0c4426;
   padding-top: 80px;
@@ -146,11 +125,11 @@ const DistinctMassageContainer = styled.div`
 
 function AboutMainPage() {
   return (
-    <MainContainer>
-      <Hello>안녕하세요, SKKUDO 입니다.</Hello>
-      <AboutIntroduceContainer>
+    <>
+      <Intro>안녕하세요, SKKUDO 입니다.</Intro>
+      <IntroduceContainer>
         <IntroduceMassageContainer>
-          <FirstMassageContainer>
+          <Content>
             동아리 활동은 대학 생활의 꽃이라고도 합니다.
             <br /> 학생들은 대학 생활 동안 단순히 동아리 활동에 참여하는
             것뿐만이 아니라 동아리를 관리하면서 더 많은 것을 배우고, 소통하고,
@@ -163,8 +142,8 @@ function AboutMainPage() {
             낭비하는 학우들의 모습을 보며 SKKUDO는 고민했습니다.
             <br />
             <br />
-          </FirstMassageContainer>
-          <SecondMassageContainer>
+          </Content>
+          <Content>
             동아리 관리자들이 더 효율적으로 동아리를 관리할 수 있는 방법이
             없을까? 동아리 부원들이 더 간편하게 동아리의 공지와 일정을 확인할 수
             있는 방법이 없을까? 동아리에 가입하고 싶은 학생들이 더 쉽게
@@ -172,12 +151,12 @@ function AboutMainPage() {
             <br />
             <br />
             SKKUDO는 이러한 생각으로부터 출발하게 되었습니다.
-          </SecondMassageContainer>
+          </Content>
         </IntroduceMassageContainer>
         <ImageContainer>
           <img src={yul}></img>
         </ImageContainer>
-      </AboutIntroduceContainer>
+      </IntroduceContainer>
       <SloganContainer>
         <SloganMassage>“Customizable, But Easy to Use.”</SloganMassage>
         <SloganMassage style={{ fontSize: "40px" }}>
@@ -206,7 +185,7 @@ function AboutMainPage() {
           <img src={myeong}></img>
         </ImageContainer>
         <DistinctMassageContainer>
-          <FirstMassageContainer>
+          <Content>
             지금까지의 동아리 관리 플랫폼은 모두 동아리 관리자에게 필요한
             서비스를 충분히 제공하지 않았습니다.
             <br />
@@ -215,8 +194,8 @@ function AboutMainPage() {
             사용하기 불편했죠. 우리 모두가 만족할 수 있는 동아리 관리 플랫폼이
             존재하지 않았던 것입니다.
             <br /> 바로 SKKUDO가 등장하기 전까지는 말이죠!
-          </FirstMassageContainer>
-          <SecondMassageContainer>
+          </Content>
+          <Content>
             <br />
             SKKUDO는 동아리마다 각각의 목적에 맞춰 동아리를 관리할 수 있도록
             맞춤형 관리 서비스를 지원합니다.
@@ -224,13 +203,10 @@ function AboutMainPage() {
             동아리의 관리의 필수 기능인 모집 관리, 공지 관리, 일정 관리, 유저
             관리, 권한 관리에 더해 가계부와 회의록 기능, 관리자가 원하는 열을
             추가하는 기능까지 모두 포함되어 있습니다.
-          </SecondMassageContainer>
+          </Content>
         </DistinctMassageContainer>
       </DistinctContainer>
-      {/* <div
-      style={{ height: "500px", width: "100%", backgroundColor: "" }}
-      ></div> */}
-    </MainContainer>
+    </>
   );
 }
 

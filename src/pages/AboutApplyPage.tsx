@@ -1,20 +1,6 @@
-//AboutApplyPage Page
-
-import { useTheme } from "@mui/material";
 import styled from "styled-components";
-import AboutSideBar from "../components/aboutComponents/AboutSideBar";
 import apply1 from "../assets/images/apply/apply1.png";
 import apply2 from "../assets/images/apply/apply2.png";
-import applyfilter from "../assets/images/apply/applyfilter.png";
-import ingclub from "../assets/images/apply/ingclub.png";
-
-const AboutApplyPageContainer = styled.div`
-  display: flex;
-  padding-left: 5%;
-  padding-right: 5%;
-  flex-direction: column;
-  flex: 1;
-`;
 
 const FirstApplyContainer = styled.div`
   display: flex;
@@ -52,11 +38,9 @@ const SecondApplyImageContainer = styled.div`
   display: flex;
 `;
 
-
-
 function AboutApplyPage() {
   return (
-    <AboutApplyPageContainer>
+    <>
       <FirstApplyContainer>
         <FirstApplyMassageContainer>
           <br />
@@ -82,7 +66,7 @@ function AboutApplyPage() {
           기다리기만 하면 됩니다!!
         </SecondApplyMassageContainer>
       </SecondApplyContainer>
-    </AboutApplyPageContainer>
+    </>
   );
 }
 

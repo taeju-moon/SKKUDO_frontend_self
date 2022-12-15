@@ -1,16 +1,9 @@
-//AboutMyPage Page
-
-import { useTheme } from "@mui/material";
 import styled from "styled-components";
-import AboutSideBar from "../components/aboutComponents/AboutSideBar";
 import mypage from "../assets/images/mypage/mypage.png";
 
 const AboutMyPageContainer = styled.div`
-  // 우측으로 쌓기
-
   padding-left: 5%;
   padding-right: 5%;
-
   flex: 1;
 `;
 
@@ -20,6 +13,7 @@ const MyPageContainer = styled.div`
   padding-top: 5%;
   padding-bottom: 5%;
 `;
+
 const MyPageMassageContainer = styled.div`
   font-size: 18px;
   line-height: 50px;
@@ -28,10 +22,10 @@ const MyPageMassageContainer = styled.div`
   text-align: center;
   margin-bottom: 60px;
 `;
+
 const MyPageImageContainer = styled.div`
   padding-left: 5%;
   margin-bottom: 60px;
-  /* height: 400px; */
 `;
 
 function AboutMyPage() {

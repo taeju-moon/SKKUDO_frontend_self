@@ -13,11 +13,22 @@ const AboutContainer = styled.div`
   position: relative;
 `;
 
+const ContentContainer = styled.div`
+  display: flex;
+  padding-left: 20px;
+  padding-right: 20px;
+  flex: 1;
+  flex-direction: column;
+  overflow-x: visible;
+`;
+
 function AboutPage() {
   return (
     <AboutContainer>
       <AboutSideBar />
-      <Outlet />
+      <ContentContainer>
+        <Outlet />
+      </ContentContainer>
     </AboutContainer>
   );
 }
