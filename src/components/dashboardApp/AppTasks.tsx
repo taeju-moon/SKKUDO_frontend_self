@@ -14,7 +14,7 @@ import {
   FormControlLabel,
 } from "@mui/material";
 import Iconify from "../Iconify";
-import MenuPopover from "../dashboardComponents/MenuPopover";
+import MenuPopover from "../dashboard/MenuPopover";
 // components
 // import Iconify from '../../../components/Iconify';
 // import MenuPopover from '../../../components/MenuPopover';

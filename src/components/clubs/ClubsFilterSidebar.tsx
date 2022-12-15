@@ -15,7 +15,7 @@ import {
 } from "@mui/material";
 
 import Iconify from "../Iconify";
-import Scrollbar from "../dashboardComponents/Scrollbar";
+import Scrollbar from "../dashboard/Scrollbar";
 
 // ----------------------------------------------------------------------
 

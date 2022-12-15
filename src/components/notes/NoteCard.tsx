@@ -8,7 +8,7 @@ import { styled } from "@mui/material/styles";
 // components
 // import Label from "../../../components/Label";
 
-import Label from "../userComponents/Label";
+import Label from "../user/Label";
 
 // ----------------------------------------------------------------------
 

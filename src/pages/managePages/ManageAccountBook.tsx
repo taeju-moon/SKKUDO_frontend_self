@@ -43,7 +43,7 @@ import {
   TextField,
 } from "@mui/material";
 import styled from "@emotion/styled";
-import UpdateRowDialog from "../../components/accoutBookComponents/UpdateRowDialog";
+import UpdateRowDialog from "../../components/accoutBook/UpdateRowDialog";
 
 const AccountBookPageContainer = styled.div`
   width: 100%;

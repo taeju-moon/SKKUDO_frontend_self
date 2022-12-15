@@ -13,10 +13,10 @@ import FilterTag from "../components/FilterTag";
 import { useNavigate, useParams } from "react-router-dom";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { useState, useEffect } from "react";
-import NoticeDetail from "../components/noticeComponents/NoticeDetail";
+import NoticeDetail from "../components/notice/NoticeDetail";
 import { useSetRecoilState } from "recoil";
 import { isNoticeDetailOpenState } from "../atoms/utilAtom";
-import CategoryAddDialog from "../components/noticeComponents/CategoryAddDialog";
+import CategoryAddDialog from "../components/notice/CategoryAddDialog";
 import { motion } from "framer-motion";
 import { getNoticeTagsByClubID } from "./../utils/fetch";
 

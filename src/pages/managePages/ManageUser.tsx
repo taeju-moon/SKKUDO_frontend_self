@@ -15,13 +15,13 @@ import {
   TableContainer,
   TablePagination,
 } from "@mui/material";
-import Scrollbar from "../../components/dashboardComponents/Scrollbar";
+import Scrollbar from "../../components/dashboard/Scrollbar";
 import Iconify from "../../components/Iconify";
-import UserListToolbar from "../../components/userComponents/UserListToolbar";
-import UserListHead from "../../components/userComponents/UserListHead";
-import UserMoreMenu from "../../components/userComponents/UserMoreMenu";
-import SearchNotFound from "../../components/userComponents/SearchNotFound";
-import ColumnModal from "../../components/userComponents/ColumnModal/ColumnModal";
+import UserListToolbar from "../../components/user/UserListToolbar";
+import UserListHead from "../../components/user/UserListHead";
+import UserMoreMenu from "../../components/user/UserMoreMenu";
+import SearchNotFound from "../../components/user/SearchNotFound";
+import ColumnModal from "../../components/user/ColumnModal/ColumnModal";
 import { useQuery } from "react-query";
 import { getClubMembers, getOneClub } from "../../utils/fetch";
 import { UserType } from "../../types/user";

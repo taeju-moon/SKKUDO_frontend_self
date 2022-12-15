@@ -17,7 +17,7 @@ import {
   CategoryLabel,
   CategoryList,
   CategoryListItem,
-} from "../noticeComponents/CategoryAddDialog";
+} from "../notice/CategoryAddDialog";
 
 import { DeleteTodoType, ToDoTagType } from "../../types/todo";
 

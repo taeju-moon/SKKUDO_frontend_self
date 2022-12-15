@@ -11,10 +11,10 @@ import {
   TableContainer,
   TablePagination,
 } from "@mui/material";
-import Scrollbar from "../components/dashboardComponents/Scrollbar";
-import UserListToolbar from "../components/userComponents/UserListToolbar";
-import UserListHead from "../components/userComponents/UserListHead";
-import SearchNotFound from "../components/userComponents/SearchNotFound";
+import Scrollbar from "../components/dashboard/Scrollbar";
+import UserListToolbar from "../components/user/UserListToolbar";
+import UserListHead from "../components/user/UserListHead";
+import SearchNotFound from "../components/user/SearchNotFound";
 import ClubDetailHeader from "../components/ClubDetailHeader";
 import { useQuery } from "react-query";
 import { getClubMembers, getOneClub } from "../utils/fetch";

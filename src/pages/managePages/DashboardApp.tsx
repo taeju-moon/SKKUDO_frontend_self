@@ -7,9 +7,9 @@ import {
   Card,
   Box,
 } from "@mui/material";
-import AppWidgetSummary from "../../components/dashboardAppComponents/AppWidgetSummary";
-import AppTasks from "../../components/dashboardAppComponents/AppTasks";
-import AppWebsiteVisits from "../../components/dashboardAppComponents/AppWebsiteVisits";
+import AppWidgetSummary from "../../components/dashboardApp/AppWidgetSummary";
+import AppTasks from "../../components/dashboardApp/AppTasks";
+import AppWebsiteVisits from "../../components/dashboardApp/AppWebsiteVisits";
 import { useRecoilValue } from "recoil";
 import { currentClubInfoState } from "../../atoms/utilAtom";
 import { useQuery } from "react-query";
@@ -24,10 +24,10 @@ import { AppliedUserType } from "../../types/apply";
 import { useEffect, useState } from "react";
 import { ToDoType } from "../../types/todo";
 import moment from "moment";
-import AppConversionRates from "../../components/dashboardAppComponents/AppConversionRates";
+import AppConversionRates from "../../components/dashboardApp/AppConversionRates";
 import ReactApexChart from "react-apexcharts";
-import StringColumnChart from "../../components/dashboardAppComponents/StringColumnChart";
-import BooleanColumnChart from "../../components/dashboardAppComponents/BooleanColumnChart";
+import StringColumnChart from "../../components/dashboardApp/StringColumnChart";
+import BooleanColumnChart from "../../components/dashboardApp/BooleanColumnChart";
 // components
 // import Page from '../components/Page';
 // import Iconify from '../components/Iconify';

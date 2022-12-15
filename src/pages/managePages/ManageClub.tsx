@@ -6,7 +6,7 @@ import { getOneClub, uploadImage, BASE_URL } from "../../utils/fetch";
 import { FaPen } from "react-icons/fa";
 import moment from "moment";
 import { motion } from "framer-motion";
-import UpdateDialog from "../../components/manageClubCompnents/UpdateDialog";
+import UpdateDialog from "../../components/manageClub/UpdateDialog";
 import { useState, useEffect } from "react";
 import { useSetRecoilState } from "recoil";
 import { clubUpdateState } from "../../atoms/alertAtom";

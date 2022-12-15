@@ -18,7 +18,7 @@ import { loggedInUserState } from "../atoms/userAtom";
 import { BASE_URL } from "../utils/fetch";
 import { FaPen } from "react-icons/fa";
 import { motion } from "framer-motion";
-import UserEditDialog from "../components/myPageComponents/UserEditDialog";
+import UserEditDialog from "../components/myPage/UserEditDialog";
 
 const MyPageContainer = styled.div`
   margin: 0 auto;
@@ -110,8 +110,6 @@ function MyPage() {
   const isLoggedIn = useRecoilValue(isLoggedInState);
   const loggedInUser = useRecoilValue(loggedInUserState);
   const [dialogOpen, setDialogOpen] = useState(false);
-
-  // console.log(loggedInUser);
 
   const { data: appliedClubs } = useQuery<RegisteredClubType[]>(
     "getAppliedClubsByID",
