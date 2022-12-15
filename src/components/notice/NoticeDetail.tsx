@@ -14,7 +14,7 @@ const NoticeDetailOverlay = styled.div<NoticeDetailElementType>`
   display: ${(props) => (props.isNoticeDetailOpen ? "block" : "none")};
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.1);
 `;
 
 const NoticeBoard = styled.div<NoticeDetailElementType>`
@@ -72,6 +72,7 @@ const NoticeContent = styled.div`
 `;
 
 function NoticeDetail({ noticeInfo }: { noticeInfo: ClickedNoticeInfoType }) {
+  console.log(noticeInfo);
   const [isNoticeDetailOpen, setIsNoticeDetailOpen] = useRecoilState(
     isNoticeDetailOpenState
   );

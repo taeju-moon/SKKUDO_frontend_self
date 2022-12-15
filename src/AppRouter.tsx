@@ -113,7 +113,7 @@ function AppRouter() {
         />
 
         <Route path="/club/:clubID" element={<ClubDetailPage />}>
-          <Route path="notice" element={<NoticePage />}></Route>
+          <Route path="notice" element={<NoticePage />} />
           <Route path="calendar" element={<CalendarPage />} />
           <Route path="members" element={<MembersPage />} />
           <Route path="notice/add" element={<AddNoticePage />} />

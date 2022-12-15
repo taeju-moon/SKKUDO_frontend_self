@@ -129,17 +129,9 @@ const Tag = styled("div")({
 
 const FilterWrapper = styled("div")({
   position: "absolute",
-  // position: ab
   display: "flex",
-  // width: "1024px",
   left: 0,
   justifyContent: "flex-start",
-});
-
-const FilterWrapperWrapper = styled("div")({
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
 });
 
 function NoticePage() {
@@ -157,9 +149,9 @@ function NoticePage() {
   });
 
   const [clickedNoticeID, setClickedNoticeID] = useState("");
-  const [isOptionOpened, setIsOptionOpened] = useState(false);
   const [usingItems, setUsingItems] = useState<NoticeType[]>([]);
   const [tags, setTags] = useState<TagType[]>([]);
+  const [isOptionOpened, setIsOptionOpened] = useState(false);
   const [clickedNoticeInfo, setClickedNotiiceInfo] =
     useState<ClickedNoticeInfoType>({
       writer: "",
@@ -210,11 +202,9 @@ function NoticePage() {
       },
     }
   );
-  //need to fix this axios error
+
   const handleNoticeDeleteBtnClick = (deleteNoticeInfo: DeleteNoticetype) => {
     mutate(deleteNoticeInfo);
-    // console.log(deleteNoticeInfo.clubID);
-    // console.log(deleteNoticeInfo._id);
   };
   const localStorage = window.localStorage;
 
@@ -229,7 +219,6 @@ function NoticePage() {
     );
     navigate(`${newNoticeInfo.noticeID}`);
   };
-  // console.log(noticeData);
 
   useEffect(() => {
     getNoticeTagsByClubID(clubID as string).then((data) => {
