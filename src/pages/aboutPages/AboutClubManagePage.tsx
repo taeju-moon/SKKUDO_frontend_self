@@ -1,19 +1,19 @@
 //AboutClubManagePage Page
 
 import styled from "styled-components";
-import data from "../assets/images/usermanage/data.png";
-import auth from "../assets/images/usermanage/auth.png";
-import role from "../assets/images/usermanage/role.png";
-import addcol from "../assets/images/usermanage/addcol.png";
-import notice from "../assets/images/notice/notice.png";
-import category from "../assets/images/notice/category.png";
-import member from "../assets/images/member/member.png";
-import calendar from "../assets/images/schedule/calendar.png";
-import dup from "../assets/images/schedule/dup.png";
-import club from "../assets/images/clubmanage/club.png";
-import question from "../assets/images/clubmanage/question.png";
-import ratio from "../assets/images/clubmanage/ratio.png";
-import account from "../assets/images/account/account.png";
+import data from "../../assets/images/usermanage/data.png";
+import auth from "../../assets/images/usermanage/auth.png";
+import role from "../../assets/images/usermanage/role.png";
+import addcol from "../../assets/images/usermanage/addcol.png";
+import notice from "../../assets/images/notice/notice.png";
+import category from "../../assets/images/notice/category.png";
+import member from "../../assets/images/member/member.png";
+import calendar from "../../assets/images/schedule/calendar.png";
+import dup from "../../assets/images/schedule/dup.png";
+import club from "../../assets/images/clubmanage/club.png";
+import question from "../../assets/images/clubmanage/question.png";
+import ratio from "../../assets/images/clubmanage/ratio.png";
+import account from "../../assets/images/account/account.png";
 
 const AboutClubManagePageContainer = styled.div`
   display: flex;

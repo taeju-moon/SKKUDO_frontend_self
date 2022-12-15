@@ -2,8 +2,8 @@ import styled from "styled-components";
 import { ImWrench } from "react-icons/im";
 import { TiGroupOutline } from "react-icons/ti";
 import { TbPlugConnected } from "react-icons/tb";
-import myeong from "../assets/images/myeong.jpeg";
-import yul from "../assets/images/yul.png";
+import myeong from "../../assets/images/myeong.jpeg";
+import yul from "../../assets/images/yul.png";
 
 const Intro = styled.div`
   width: 100%;
