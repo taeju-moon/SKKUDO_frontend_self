@@ -5,7 +5,7 @@ import {
   getAppliedUserByClubID,
   registerClub,
 } from "../../utils/fetch";
-import { Link as RouterLink, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import {
   Card,
   Table,
@@ -19,7 +19,6 @@ import {
   Typography,
   TableContainer,
   TablePagination,
-  styled,
 } from "@mui/material";
 import UserListHead from "../../components/user/UserListHead";
 import { useState, useEffect } from "react";
@@ -66,13 +65,15 @@ const TABLE_HEAD = [
 function ManageRecruit() {
   const { clubID } = useParams();
   const queryClient = useQueryClient();
+  const [scoreDialogOpen, setScoreDialogOpen] = useState(false);
+  const [autoDialogOpen, setAutoDialogOpen] = useState(false);
   const applier = useRecoilValue(applierState);
   const [tableHead, setTableHead] = useState(TABLE_HEAD);
 
   const [clickedAppliedUser, setClickedAppliedUser] =
     useState<AppliedUserType>();
 
-  const { data, isLoading } = useQuery<AppliedUserType[]>(
+  const { data } = useQuery<AppliedUserType[]>(
     "getAppliedUserByClubID",
     () => getAppliedUserByClubID(clubID || ""),
     {
@@ -82,14 +83,8 @@ function ManageRecruit() {
       onError: (error: any) => {
         alert(error.response.data.error);
       },
-      // retryOnMount: false,
-      // refetchOnReconnect: false,
-      // refetchOnMount: false,
     }
   );
-
-  const [scoreDialogOpen, setScoreDialogOpen] = useState(false);
-  const [autoDialogOpen, setAutoDialogOpen] = useState(false);
 
   interface RegisterMutateType {
     userID: string;

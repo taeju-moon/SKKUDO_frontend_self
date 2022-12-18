@@ -72,7 +72,6 @@ const NoticeContent = styled.div`
 `;
 
 function NoticeDetail({ noticeInfo }: { noticeInfo: ClickedNoticeInfoType }) {
-  console.log(noticeInfo);
   const [isNoticeDetailOpen, setIsNoticeDetailOpen] = useRecoilState(
     isNoticeDetailOpenState
   );

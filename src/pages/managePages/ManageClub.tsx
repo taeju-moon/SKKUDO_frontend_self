@@ -7,19 +7,10 @@ import { FaPen } from "react-icons/fa";
 import moment from "moment";
 import { motion } from "framer-motion";
 import UpdateDialog from "../../components/manageClub/UpdateDialog";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useSetRecoilState } from "recoil";
 import { clubUpdateState } from "../../atoms/alertAtom";
-import CardMedia from "@mui/material/CardMedia";
 import { Button, IconButton, Box } from "@mui/material";
-
-interface TagType {
-  _id: string;
-  clubId: string | undefined;
-  name: string;
-  createdAt: Date | undefined;
-  updatedAt: Date | undefined;
-}
 
 const ManageClubContainer = styled.div`
   padding: 50px;
@@ -120,24 +111,6 @@ function ManageClub() {
         <div>동아리 데이터가 없습니다</div>
       ) : (
         <>
-          {/* <IconButton
-            color="primary"
-            aria-label="upload picture"
-            component="label"
-          >
-            <input hidden accept="image/*" type="file" />
-          </IconButton>
-          <form method="post" encType="multipart/form-data">
-            <input
-              className="btn btn-success"
-              type="file"
-              id="file"
-              onChange={onChangeImage}
-            />
-            <button className="btn btn-success" onClick={onImageSubmit}>
-              Upload
-            </button>
-          </form> */}
           <ClubName>
             <Label>{clubData?.name}</Label>
             <BtnContainer
