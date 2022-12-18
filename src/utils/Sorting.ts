@@ -1,5 +1,6 @@
 import { filter } from "lodash";
 import { OrderByType, OrderType, UserType } from "./../types/user";
+
 function descendingComparator(
   a: UserType,
   b: UserType,

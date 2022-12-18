@@ -1,4 +1,3 @@
-import { filter } from "lodash";
 import { useState, useEffect } from "react";
 import { Link as RouterLink, useParams } from "react-router-dom";
 import {
@@ -15,7 +14,6 @@ import {
   TableContainer,
   TablePagination,
 } from "@mui/material";
-import Scrollbar from "../../components/dashboard/Scrollbar";
 import Iconify from "../../components/Iconify";
 import UserListToolbar from "../../components/user/UserListToolbar";
 import UserListHead from "../../components/user/UserListHead";

@@ -3,7 +3,6 @@ import { AppliedUserType } from "../../types/apply";
 import {
   deleteAppliedUser,
   getAppliedUserByClubID,
-  getOneClub,
   registerClub,
 } from "../../utils/fetch";
 import { Link as RouterLink, useParams } from "react-router-dom";
@@ -22,7 +21,6 @@ import {
   TablePagination,
   styled,
 } from "@mui/material";
-import Scrollbar from "../../components/dashboard/Scrollbar";
 import UserListHead from "../../components/user/UserListHead";
 import { useState, useEffect } from "react";
 import UserListToolbar from "../../components/user/UserListToolbar";
@@ -32,7 +30,6 @@ import { RegisterInfoType } from "../../types/user";
 import { HiDocumentText } from "react-icons/hi";
 import DocumentDialog from "../../components/manageAuth/DocumentDialog";
 import { ColumnType } from "../../types/common";
-import { ClubType } from "../../types/club";
 import ApplierForm from "../../components/manageRecruit/ApplierForm";
 import ScoreDialog from "../../components/manageRecruit/ScoreDialog";
 import { useRecoilValue } from "recoil";
@@ -42,12 +39,6 @@ import AutoDialog from "../../components/manageRecruit/AutoDialog";
 
 type orderType = "desc" | "asc";
 type orderByType = "name" | "studentId" | "major";
-
-type TableHeadType = {
-  id: string;
-  label: string;
-  alignRight: boolean;
-};
 
 const TABLE_HEAD = [
   { id: "name", label: "이름", alignRight: false },
