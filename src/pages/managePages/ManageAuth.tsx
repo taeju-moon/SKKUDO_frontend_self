@@ -21,7 +21,7 @@ import { AUTH_LABEL_LIST, AUTH_LIST } from "../../constants/AuthManageContants";
 import { useQuery } from "react-query";
 import { ValidationKeyType, ValidationType } from "../../types/validation";
 import { getValidatonByClubID } from "../../utils/fetch";
-import AlertDialog from "../../components/manageAuth/AuthConfirmAlert";
+import AlertDialog from "../../components/manageAuthComponents/AuthConfirmAlert";
 import { useSetRecoilState } from "recoil";
 import { isAuthConfirmAlertOpenState } from "../../atoms/alertAtom";
 

@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import makeclub from "../../assets/images/makeclub/makeclub.png";
-import register from "..//../assets/images/makeclub/register.png";
+import makeclub from "../assets/images/makeclub/makeclub.png";
+import register from "../assets/images/makeclub/register.png";
 
 const MakeClubContainer = styled.div`
   border-color: #0c4426;

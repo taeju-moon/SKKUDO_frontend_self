@@ -27,33 +27,50 @@ const ItemsContainer = styled.div`
   margin: 0 auto;
   display: flex;
   height: 100%;
-  max-width: 1400px;
+  max-width: 140vw;
 `;
 
 const LogoContainer = styled(Link)`
   height: 100%;
-  width: 200px;
+  width: 10vw;
   text-decoration: none;
   display: flex;
   align-items: center;
-  margin-left: 20px;
-  margin-right: 20px;
+  margin-left: 3vw;
+  margin-right: 5vw;
   justify-content: center;
+   @media screen and (max-width: 768px){
+  margin-left: 8vw;
 `;
 
 const Logo = styled.div`
-  font-size: 55px;
+  font-size: 2.5em;
   color: #dde143;
 `;
 
 const NavigationContainer = styled.nav`
-  margin-left: 40px;
+  margin-left: 44vw;
+   @media all and (max-width: 1824px){
+    margin-left: 40vw;
+  }
+   @media all and (max-width: 1724px){
+    margin-left: 36vw;
+  }
+    @media all and (max-width: 1624px){
+    margin-left: 32vw;
+  }
+   @media all and (max-width: 1024px){
+    margin-left: 20vw;
+  }
+   @media screen and (max-width: 768px){
+  margin-left: 7vw;
+  }
 `;
 
 const NavigationUl = styled.ul`
   display: flex;
   height: 100%;
-  gap: 40px;
+  gap: 5vw;
 `;
 
 const NavigationLi = styled.li`
@@ -65,7 +82,10 @@ const NavigationLi = styled.li`
 const NavigationLink = styled(Link)`
   text-decoration: none;
   color: #dde143;
-  font-size: 34px;
+  font-size: 1.7rem;
+  @media screen and (max-width: 768px){
+    font-size: 1.3rem;
+  }
 `;
 
 const LoginBtn = styled.div`
@@ -73,7 +93,7 @@ const LoginBtn = styled.div`
   border: none;
   background-color: transparent;
   margin-left: auto;
-  margin-right: 20px;
+  margin-right: 2vw;
   color: #dde143;
   display: flex;
   flex-direction: row;
@@ -111,9 +131,14 @@ const LoginOption = styled(motion.div)`
 `;
 
 const UserInfo = styled.h2`
-  font-size: 20px;
+  margin-left: 1vw;
+  font-size: 1.5em;
   color: #dde143;
-  margin-right: 20px;
+  margin-right: 2vw;
+  cursor: pointer;
+   @media screen and (max-width: 768px){
+    font-size: 1.2em;
+  }
 `;
 
 function Navigator() {

@@ -61,13 +61,3 @@ export interface RegisterInfoType {
     value: String;
   }[];
 }
-
-export type OrderType = "desc" | "asc";
-
-export type OrderByType =
-  | "name"
-  | "studentId"
-  | "role"
-  | "major"
-  | "location"
-  | "contact";

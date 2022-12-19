@@ -9,6 +9,7 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import styled from "styled-components";
 import { AiOutlineMenu } from "react-icons/ai";
+
 import { getOneClub } from "../utils/fetch";
 import { useQuery } from "react-query";
 import { ClubType } from "../types/club";

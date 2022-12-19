@@ -18,7 +18,7 @@ import {
 // components
 
 import Iconify from "../Iconify";
-import Scrollbar from "../dashboard/Scrollbar";
+import Scrollbar from "../dashboardComponents/Scrollbar";
 
 // ----------------------------------------------------------------------
 

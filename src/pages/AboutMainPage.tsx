@@ -2,17 +2,17 @@ import styled from "styled-components";
 import { ImWrench } from "react-icons/im";
 import { TiGroupOutline } from "react-icons/ti";
 import { TbPlugConnected } from "react-icons/tb";
-import myeong from "../../assets/images/myeong.jpeg";
-import yul from "../../assets/images/yul.png";
+import myeong from "../assets/images/myeong.jpeg";
+import yul from "../assets/images/yul.png";
 
 const Intro = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 60px;
+  font-size: 3em;
   font-weight: 700;
-  margin-bottom: 100px;
+  margin-bottom: 10vh;
 `;
 
 const IntroduceContainer = styled.div`
@@ -27,11 +27,11 @@ const IntroduceContainer = styled.div`
 const IntroduceMassageContainer = styled.div`
   display: flex;
   flex-direction: column;
-  width: 600px;
+  width: 30vw;
 `;
 const ImageContainer = styled.div`
-  padding: 20px;
-  width: 40%;
+  padding: 2vw;
+  width: 30%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -44,13 +44,13 @@ const Content = styled.div`
 
 const SloganContainer = styled.div`
   background-color: #0c4426;
-  padding-top: 80px;
-  padding-bottom: 80px;
+  padding-top: 10vh;
+  padding-bottom: 10vh;
   display: flex;
   gap: 40px;
   flex-direction: column;
-  width: 500%;
-  margin-left: -208%;
+  width: 149%;
+  margin-left: -21.5vw;
   box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.7);
 `;
 const SloganMassage = styled.div`

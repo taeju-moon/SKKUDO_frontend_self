@@ -16,15 +16,57 @@ import { getAppliedUserByID } from "../utils/fetch";
 import { isLoggedInState } from "../atoms/loginAtom";
 import { loggedInUserState } from "../atoms/userAtom";
 import { BASE_URL } from "../utils/fetch";
-import UserInfoViewer from "../components/myPage/UserInfoViewer";
-import DefaultClubCard from "../components/myPage/DefaultClubCard";
+import { FaPen } from "react-icons/fa";
+import { motion } from "framer-motion";
+import UserEditDialog from "../components/myPageComponents/UserEditDialog";
 
 const MyPageContainer = styled.div`
   margin: 0 auto;
   width: 100%;
   max-width: 1024px;
   padding-top: 80px;
-  padding-bottom: 100px;
+`;
+
+const InfoContainer = styled.div`
+  background-color: #0c4426;
+  border-radius: 10px;
+  width: 100%;
+  margin-top: 100px;
+  padding: 20px;
+  color: #dde143;
+  padding-left: 40px;
+  border: 2px solid;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+`;
+
+const RowContainer = styled.div`
+  display: flex;
+  gap: 40px;
+  align-items: flex-end;
+  margin-bottom: 30px;
+`;
+
+const Name = styled.div`
+  font-size: 40px;
+  font-weight: 700;
+`;
+
+const Major = styled.div`
+  font-size: 25px;
+  font-weight: 600;
+`;
+
+const StudentID = styled.div`
+  font-size: 25px;
+  margin-bottom: 30px;
+  font-weight: 600;
+`;
+
+const Location = styled.div`
+  font-size: 25px;
+  font-weight: 600;
+  margin-bottom: 30px;
+  display: flex;
 `;
 
 const SectionContainer = styled.div`
@@ -52,11 +94,24 @@ const ClubCardsContainer = styled.div`
   gap: 20px;
 `;
 
+const EditBtnContainer = styled(motion.div)`
+  width: 40px;
+  height: 40px;
+  margin-left: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 7px;
+`;
+
 function MyPage() {
   const navigate = useNavigate();
   const [userClubs, setUserClubs] = useState<RegisteredClubType[]>([]);
   const isLoggedIn = useRecoilValue(isLoggedInState);
   const loggedInUser = useRecoilValue(loggedInUserState);
+  const [dialogOpen, setDialogOpen] = useState(false);
+
+  // console.log(loggedInUser);
 
   const { data: appliedClubs } = useQuery<RegisteredClubType[]>(
     "getAppliedClubsByID",
@@ -71,8 +126,7 @@ function MyPage() {
 
   useEffect(() => {
     if (!isLoggedIn) {
-      // navigate("/login");
-      // console.log("nont logged in");
+      navigate("/login");
     } else {
       if (loggedInUser) {
         setUserClubs(Object.values(loggedInUser.registeredClubs));
@@ -80,18 +134,63 @@ function MyPage() {
     }
   }, [isLoggedIn, loggedInUser]);
 
+  // console.log(userClubs);
+  const handleEditBtnClick = () => {
+    setDialogOpen(true);
+  };
+
   const handleMyClubCardClick = (clubID: string) => {
     navigate(`/club/${clubID}/notice`);
   };
 
   return (
     <MyPageContainer>
-      <UserInfoViewer />
+      <InfoContainer>
+        {loggedInUser ? (
+          <>
+            <RowContainer>
+              <Name>{loggedInUser.name}</Name>
+              <Major>{loggedInUser.major}</Major>
+            </RowContainer>
+            <StudentID>{`학번 : ${loggedInUser.studentId}`}</StudentID>
+            <Location>{`소속 : ${loggedInUser.location}`}</Location>
+            <Location>
+              {`연락처 : ${loggedInUser.contact}`}
+              <EditBtnContainer
+                whileHover={{ backgroundColor: "rgba(0,0,0,0.3)" }}
+                onClick={handleEditBtnClick}
+              >
+                <FaPen />
+              </EditBtnContainer>
+            </Location>
+            <UserEditDialog open={dialogOpen} setOpen={setDialogOpen} />
+          </>
+        ) : (
+          <RowContainer>
+            정보를 불러오지 못했습니다. 다시 로그인 해주세요
+          </RowContainer>
+        )}
+      </InfoContainer>
       <SectionContainer>
         <Title>내 동아리</Title>
         <ClubCardsContainer>
           {userClubs.length === 0 ? (
-            <DefaultClubCard text="소속된 동아리가 없습니다" />
+            <Card sx={{ maxWidth: 345 }}>
+              <CardActionArea>
+                <CardMedia
+                  component="img"
+                  height="140"
+                  image={exampleImage}
+                  alt="green iguana"
+                  sx={{ objectFit: "contain" }}
+                />
+                <CardContent>
+                  <Typography variant="h6" component="div">
+                    소속된 동아리가 없습니다.
+                  </Typography>
+                </CardContent>
+              </CardActionArea>
+            </Card>
           ) : (
             userClubs?.map((club) => (
               <Card key={club.clubId} sx={{ width: 345 }}>
@@ -130,11 +229,32 @@ function MyPage() {
         <Title>지원중인 동아리</Title>
         <ClubCardsContainer>
           {appliedClubs && appliedClubs.length === 0 ? (
-            <DefaultClubCard text="지원한 동아리가 없습니다" />
+            <Card sx={{ width: 345 }}>
+              <CardActionArea>
+                <CardMedia
+                  component="img"
+                  height="140"
+                  image={exampleImage}
+                  alt="green iguana"
+                  sx={{ objectFit: "contain" }}
+                />
+                <CardContent>
+                  <Typography variant="h6" component="div">
+                    지원한 동아리가 없습니다.
+                  </Typography>
+                  <Typography
+                    variant="body2"
+                    color="text.secondary"
+                  ></Typography>
+                </CardContent>
+              </CardActionArea>
+            </Card>
           ) : (
             appliedClubs?.map((club) => (
               <Card key={club.clubId} sx={{ width: 345 }}>
-                <CardActionArea>
+                <CardActionArea
+                // onClick={() => handleMyClubCardClick(club.clubId)}
+                >
                   <CardMedia
                     component="img"
                     height="140"

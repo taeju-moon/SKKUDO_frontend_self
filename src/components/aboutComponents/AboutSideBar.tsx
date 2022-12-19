@@ -13,14 +13,14 @@ const AboutSideBarContainer = styled.div`
 
 const NestedListHeader = styled.div`
   color: #0c4426;
-  font-size: 20px;
+  font-size: 1.2rem;
   font-weight: 800;
 `;
 
 const MenuLink = styled(Link)`
   color: #0c4426;
   text-decoration: none;
-  font-size: 15px;
+  font-size: 1rem;
   font-weight: 800;
 `;
 

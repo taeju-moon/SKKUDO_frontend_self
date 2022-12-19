@@ -1,8 +1,8 @@
 import { Container, Stack, Typography } from "@mui/material";
-import NoteFilterSidebar from "../../components/notes/NoteFilterSidebar";
-import NotesList from "../../components/notes/NotesList";
-import NotesSort from "../../components/notes/NotesSort";
-import NoteAddWidget from "../../components/notes/NoteAddWidget";
+import NoteFilterSidebar from "../../components/notesComponents/NoteFilterSidebar";
+import NotesList from "../../components/notesComponents/NotesList";
+import NotesSort from "../../components/notesComponents/NotesSort";
+import NoteAddWidget from "../../components/notesComponents/NoteAddWidget";
 import { useState } from "react";
 
 const PRODUCTS = [

@@ -3,7 +3,7 @@ import moment from "moment";
 import { useState } from "react";
 import { useQuery } from "react-query";
 
-import ClubsList from "../components/clubs/ClubsList";
+import ClubsList from "../components/clubsComponents/ClubsList";
 import FilterTag from "../components/FilterTag";
 import { ClubType } from "../types/club";
 import { getAllClubs, getAllClubTypes } from "../utils/fetch";

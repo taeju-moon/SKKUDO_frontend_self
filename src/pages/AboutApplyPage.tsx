@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import apply1 from "../../assets/images/apply/apply1.png";
-import apply2 from "../../assets/images/apply/apply2.png";
+import apply1 from "../assets/images/apply/apply1.png";
+import apply2 from "../assets/images/apply/apply2.png";
 
 const FirstApplyContainer = styled.div`
   display: flex;

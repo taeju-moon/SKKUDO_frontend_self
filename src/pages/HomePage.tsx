@@ -4,18 +4,20 @@ import { useNavigate } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { isManageState } from "../atoms/NavigatorAtom";
-import QuickLogin from "../components/mainPage/QuickLogin";
+import QuickLogin from "../components/mainPageComponents/QuickLogin";
 import myeong from "../assets/images/myeong.jpeg";
 import yul from "../assets/images/yul.png";
 
 const HomePageContainer = styled.div`
-  padding-top: 80px;
+  padding-top: 7vh;
 `;
 
 const Banner = styled.div`
   display: flex;
   background-color: white;
   align-items: center;
+  height: 65vh;
+ 
 `;
 
 const Phrase = styled.div`
@@ -29,38 +31,50 @@ const Phrase = styled.div`
 `;
 
 const ImgContainer = styled.img`
-  width: 30%;
+  width: 25%;
+    @media screen and (max-width: 1024px){
+  width: 20%;
+  }
+  @media screen and (max-width: 768px){
+  width: 15%;
+  }
 `;
 
-const LineOne = styled.div`
-  font-size: 50px;
-`;
+// const LineOne = styled.div`
+//   font-size: 50px;
+// `;
 
-const LineTwo = styled.div`
-  font-size: 60px;
-`;
+// const LineTwo = styled.div`
+//   font-size: 60px;
+// `;
 
 const Name = styled(motion.div)`
-  font-size: 90px;
+  font-size: 7em;
   font-weight: 700;
+  font-family: 'Poppins', sans-serif;
 `;
 
 const ButtonsContainer = styled.div`
   display: flex;
   justify-content: center;
-  margin-top: 150px;
-  gap: 80px;
+  margin-top: 9vh;
+  gap: 12vw;
 `;
 
 const MainPageBtn = styled(motion.button)`
-  width: 170px;
-  height: 80px;
+  width: 20vw;
+  height: 10vh;
   background-color: #0c4426;
-  border-radius: 5px;
-  font-size: 22px;
+  border-radius: 3vw;
+  font-size: 1.2em;
   border: none;
   color: #dde143;
   font-weight: 800;
+  @media screen and (max-width: 768px){
+    font-size: 1em;
+    border-radius: 8vw;
+    width: 35vw;
+  }
 `;
 
 function HomePage() {
@@ -85,8 +99,6 @@ function HomePage() {
       <Banner>
         <ImgContainer src={myeong} />
         <Phrase>
-          <LineOne>동아리/학회 관리를</LineOne>
-          <LineTwo>손쉽게!!</LineTwo>
           <Name
             initial={{ opacity: 0, scale: 0.5 }}
             animate={{ opacity: 1, scale: 1 }}

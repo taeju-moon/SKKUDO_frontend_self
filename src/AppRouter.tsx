@@ -1,6 +1,6 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Navigator from "./components/Navigator";
-import AboutPage from "./pages/aboutPages/AboutPage";
+import AboutPage from "./pages/AboutPage";
 import CalendarPage from "./pages/CalendarPage";
 import ClubDetailPage from "./pages/ClubDetailPage";
 import ClubManagePage from "./pages/managePages/ClubManagePage";
@@ -35,11 +35,11 @@ import ApplyPage from "./pages/ApplyPage";
 import ManageClub from "./pages/managePages/ManageClub";
 import ProfilePage from "./pages/ProfilePage";
 import ManageAccountBook from "./pages/managePages/ManageAccountBook";
-import AboutMainPage from "./pages/aboutPages/AboutMainPage";
-import AboutApplyPage from "./pages/aboutPages/AboutApplyPage";
-import AboutClubManagePage from "./pages/aboutPages/AboutClubManagePage";
-import AboutMakeClubPage from "./pages/aboutPages/AboutMakeClubPage";
-import AboutMyPage from "./pages/aboutPages/AboutMyPage";
+import AboutMainPage from "./pages/AboutMainPage";
+import AboutApplyPage from "./pages/AboutApplyPage";
+import AboutClubManagePage from "./pages/AboutClubManagePage";
+import AboutMakeClubPage from "./pages/AboutMakeClubPage";
+import AboutMyPage from "./pages/AboutMyPage";
 
 function AppRouter() {
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(isLoggedInState);
@@ -113,7 +113,7 @@ function AppRouter() {
         />
 
         <Route path="/club/:clubID" element={<ClubDetailPage />}>
-          <Route path="notice" element={<NoticePage />} />
+          <Route path="notice" element={<NoticePage />}></Route>
           <Route path="calendar" element={<CalendarPage />} />
           <Route path="members" element={<MembersPage />} />
           <Route path="notice/add" element={<AddNoticePage />} />
