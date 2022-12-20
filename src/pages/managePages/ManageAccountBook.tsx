@@ -3,47 +3,32 @@ import { useParams } from "react-router-dom";
 import {
   createBudget,
   deleteBudget,
-  deleteBudgetRow,
   getBudgetsByClubID,
   updateBudgetRow,
 } from "../../utils/fetch";
 import * as React from "react";
-import Box from "@mui/material/Box";
-import Collapse from "@mui/material/Collapse";
-import IconButton from "@mui/material/IconButton";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
 import {
-  MdOutlineKeyboardArrowDown,
-  MdOutlineKeyboardArrowUp,
-} from "react-icons/md";
-import {
-  BudgetRowType,
   BudgetType,
   NewBudgetRowType,
   NewBudgetType,
 } from "../../types/budget";
-import moment from "moment";
 import {
   Button,
   Dialog,
   DialogActions,
   DialogContent,
   DialogTitle,
-  List,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
   TextField,
 } from "@mui/material";
 import styled from "@emotion/styled";
-import UpdateRowDialog from "../../components/accoutBook/UpdateRowDialog";
+import AccountRow from "../../components/accoutBook/AccountRow";
 
 const AccountBookPageContainer = styled.div`
   width: 100%;
@@ -57,145 +42,16 @@ const DeleteBtn = styled(Button)({
   marginBottom: "50px",
 });
 
-const EditButton = styled(Button)({
-  marginRight: "40px",
-  height: "50px",
-  marginBottom: "10px",
-  width: "90px",
-});
-interface RowType {
-  row: BudgetRowType;
-  rowIndex: number;
-  budgetID: string;
-}
-
 interface MutateType {
   rowIndex: number;
   budgetRowInfo: NewBudgetRowType;
-}
-
-function Row({ row, rowIndex, budgetID }: RowType) {
-  const [open, setOpen] = React.useState(false);
-
-  const [dialogOpen, setDialogOpen] = React.useState(false);
-  const { clubID } = useParams();
-
-  const queryClient = useQueryClient();
-
-  const handleEditBtnClick = () => {
-    setDialogOpen(true);
-  };
-
-  const { mutate: deleteRowMutate } = useMutation(
-    () => deleteBudgetRow(rowIndex, budgetID, clubID || ""),
-    {
-      onSuccess: (data) => {
-        alert("해당 항목을 삭제헸습니다");
-        queryClient.invalidateQueries("getBudgetsByClubID");
-      },
-      onError: (error: any) => {
-        alert(error.response.data.error);
-      },
-    }
-  );
-
-  const handleDeleteBtnClick = () => {
-    deleteRowMutate();
-  };
-  return (
-    <React.Fragment>
-      <TableRow sx={{ "& > *": { borderBottom: "unset" } }}>
-        <TableCell>
-          <IconButton
-            aria-label="expand row"
-            size="small"
-            onClick={() => setOpen(!open)}
-          >
-            {open ? (
-              <MdOutlineKeyboardArrowUp />
-            ) : (
-              <MdOutlineKeyboardArrowDown />
-            )}
-          </IconButton>
-        </TableCell>
-        <TableCell sx={{ fontSize: "20px" }} component="th" scope="row">
-          {moment(row.date).format("YYYY-MM-DD")}
-        </TableCell>
-        <TableCell sx={{ fontSize: "20px" }} align="right">
-          {row.income}
-        </TableCell>
-        <TableCell sx={{ fontSize: "20px" }} align="right">
-          {row.expense}
-        </TableCell>
-        <TableCell sx={{ fontSize: "20px" }} align="right">
-          {row.whom}
-        </TableCell>
-        <TableCell sx={{ fontSize: "20px" }} align="right">
-          {row.content}
-        </TableCell>
-        <TableCell sx={{ fontSize: "20px" }} align="right">
-          {row.balance}
-        </TableCell>
-      </TableRow>
-      <TableRow>
-        <TableCell
-          style={{ paddingBottom: 0, paddingTop: 0, width: "100%" }}
-          colSpan={7}
-        >
-          <Collapse in={open} timeout="auto" unmountOnExit sx={{}}>
-            <List component="div" disablePadding>
-              <ListItemButton sx={{ pl: 4 }}>
-                <ListItemIcon></ListItemIcon>
-                <ListItemText
-                  disableTypography
-                  sx={{ fontSize: "20px" }}
-                  primary={`계좌번호: ${row.account}`}
-                />
-              </ListItemButton>
-            </List>
-
-            <List component="div" disablePadding>
-              <ListItemButton sx={{ pl: 4 }}>
-                <ListItemIcon></ListItemIcon>
-
-                <ListItemText
-                  disableTypography
-                  sx={{ fontSize: "20px" }}
-                  primary={`메모: ${row.note}`}
-                />
-              </ListItemButton>
-            </List>
-            <List component="div" disablePadding sx={{ textAlign: "end" }}>
-              <EditButton
-                onClick={handleDeleteBtnClick}
-                variant="outlined"
-                color="error"
-              >
-                삭제하기
-              </EditButton>
-              <EditButton onClick={handleEditBtnClick} variant="outlined">
-                수정하기
-              </EditButton>
-            </List>
-          </Collapse>
-        </TableCell>
-      </TableRow>
-      <UpdateRowDialog
-        dialogOpen={dialogOpen}
-        setDialogOpen={setDialogOpen}
-        rowIndex={rowIndex}
-        row={row}
-        budgetID={budgetID}
-      />
-    </React.Fragment>
-  );
 }
 
 const NewRowBtn = styled(Button)({
   // widht: "100%",
 });
 
-function CollapsibleTable() {
+function ManageAccountBook() {
   const { clubID } = useParams();
   const queryClient = useQueryClient();
   const [nameDialogOpen, setNameDialogOpen] = React.useState(false);
@@ -363,7 +219,7 @@ function CollapsibleTable() {
             {isLoading
               ? null
               : data?.rows.map((row, index) => (
-                  <Row
+                  <AccountRow
                     key={row._id}
                     row={row}
                     rowIndex={index}
@@ -402,10 +258,6 @@ function CollapsibleTable() {
       </Dialog>
     </AccountBookPageContainer>
   );
-}
-
-function ManageAccountBook() {
-  return <CollapsibleTable />;
 }
 
 export default ManageAccountBook;

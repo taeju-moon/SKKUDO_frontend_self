@@ -35,6 +35,7 @@ import { useRecoilValue } from "recoil";
 import { applierState } from "../../atoms/utilAtom";
 import Iconify from "../../components/Iconify";
 import AutoDialog from "../../components/manageRecruit/AutoDialog";
+import useTablePage from "../../hooks/useTablePage";
 
 type orderType = "desc" | "asc";
 type orderByType = "name" | "studentId" | "major";
@@ -115,12 +116,12 @@ function ManageRecruit() {
     }
   );
 
+  const [page, rowsPerPage, handleChangePage, handleChangeRowsPerPage] =
+    useTablePage();
   const [order, setOrder] = useState<"desc" | "asc">("asc");
   const [orderBy, setOrderBy] = useState<orderByType>("name");
-  const [page, setPage] = useState(0);
-  const [selected, setSelected] = useState<string[]>([]);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
   const [filterName, setFilterName] = useState("");
+  const [selected, setSelected] = useState<string[]>([]);
 
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
@@ -146,15 +147,6 @@ function ManageRecruit() {
       setTableHead(tempHead);
     }
   }, [applier]);
-
-  const handleChangePage = (event: any, newPage: number) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (event: any) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
-  };
 
   const handleClick = (event: any, name: string) => {
     const selectedIndex = selected.indexOf(name);
@@ -287,17 +279,14 @@ function ManageRecruit() {
 
   const handleDocumentBtnClick = (idx: number) => {
     setIsDialogOpen(true);
-    // console.log(data[idx]);
+
     if (filteredUsers) {
-      // console.log(data[idx]);
       setClickedAppliedUser(filteredUsers[idx]);
     }
   };
 
   const handleScoreDialogOpen = (idx: number) => {
     if (filteredUsers) {
-      // console.log(filteredUsers[idx]);
-
       setClickedAppliedUser(filteredUsers[idx]);
     }
     setScoreDialogOpen(true);
@@ -331,7 +320,6 @@ function ManageRecruit() {
           onFilterName={handleFilterByName}
         />
 
-        {/* <Scrollbar> */}
         <TableContainer sx={{ minWidth: 800 }}>
           <Table>
             <UserListHead
@@ -500,7 +488,6 @@ function ManageRecruit() {
             )}
           </Table>
         </TableContainer>
-        {/* </Scrollbar> */}
 
         <TablePagination
           rowsPerPageOptions={[5, 10, 25]}
