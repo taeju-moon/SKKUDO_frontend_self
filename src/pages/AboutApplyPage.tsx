@@ -3,21 +3,32 @@ import apply1 from "../assets/images/apply/apply1.png";
 import apply2 from "../assets/images/apply/apply2.png";
 
 const FirstApplyContainer = styled.div`
-  display: flex;
-  flex-direction: row;
   padding-top: 5%;
   padding-bottom: 5%;
 `;
 const FirstApplyMassageContainer = styled.div`
-  font-size: 18px;
-  line-height: 40px;
+  font-size: 1.5em;
+  line-height: 2em;
   font-weight: 600;
-  padding-right: 20px;
-  width: 50%;
+  margin-left: 17vw;
+  margin-bottom: 10%;
+  width: 80%;
+   @media screen and (max-width: 1660px){
+      margin-left: 10vw;
+  }
+   @media screen and (max-width: 768px){
+      font-size: 1rem;
+      line-height: 2rem;
+      margin-left: 6vw;
+      width: 90%;
+  }
 `;
 const FirstApplyImageContainer = styled.div`
-  display: flex;
-  width: 50%;
+  width: 80%;
+  margin-left: 20%;
+   @media screen and (max-width: 1660px){
+      margin-left: 13%;
+  }
 `;
 const SecondApplyContainer = styled.div`
   display: flex;
@@ -26,16 +37,26 @@ const SecondApplyContainer = styled.div`
   padding-bottom: 5%;
 `;
 const SecondApplyMassageContainer = styled.div`
-  font-size: 18px;
-  line-height: 50px;
+  font-size: 1.5rem;
+  line-height: 3rem;
   font-weight: 600;
   text-align: center;
-  margin-bottom: 60px;
-  margin-top: 40px;
+  margin-bottom: 14vh;
+  margin-top: 5vh;
+   @media screen and (max-width: 768px){
+      font-size: 0.9rem;
+      line-height: 2rem;
+  }
 `;
 const SecondApplyImageContainer = styled.div`
-  padding-left: 5%;
-  display: flex;
+   margin-left: 15%;
+   margin-right: 10vw;
+   display: flex;
+   margin-bottom: 10vh;
+   @media screen and (max-width: 1660px){
+    margin-left: 10%;
+    margin-right: 6vw;
+  }
 `;
 
 function AboutApplyPage() {

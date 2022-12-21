@@ -19,47 +19,71 @@ const LoginPageContainer = styled.div`
 
 const LoginCard = styled.div`
   background-color: #0c4426;
-  width: 600px;
-  height: 300px;
-  border-radius: 5px;
+  width: 33vw;
+  height: 35vh;
+  border-radius: 1vw;
   display: flex;
   flex-direction: column;
   box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.5);
   align-items: center;
+   @media screen and (max-width: 1400px){
+    width: 50vw;
+    height: 35vh;
+  }
+  @media screen and (max-width: 768px){
+    width: 80vw;
+    height: 35vh;
+  }
 `;
 
 const Title = styled.div`
-  font-size: 60px;
-  margin-top: 20px;
+  font-size: 3.3em;
+  margin-top: 4.7vh;
   color: #dde143;
+  font-family: 'Poppins', sans-serif;
 `;
 
 const LoginForm = styled.form`
   display: flex;
-  gap: 20px;
-  margin-top: 20px;
+  gap: 1.3vw;
+  margin-top: 2.5vh;
 `;
 
 const LoginInputContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 2vh;
 `;
 
 const LoginInput = styled.input`
-  height: 30px;
-  width: 250px;
-  font-size: 20px;
+  height: 4vh;
+  width: 13vw;
+  font-size: 1.5em;
+   @media screen and (max-width: 1400px){
+    width: 25vw;
+    font-size: 1em;
+  }
+  @media screen and (max-width: 768px){
+    width: 35vw;
+  }
 `;
 
 const LoginButton = styled(motion.button)`
-  width: 60px;
+  width: 10vw;
+  cursor: pointer;
   color: #dde143;
   background-color: transparent;
   border: 2px solid #dde143;
-  border-radius: 5px;
-  font-weight: 800;
-  font-size: 28px;
+  border-radius: 1vw;
+  font-weight: 600;
+  font-size: 1.7em;
+  font-family: 'Poppins', sans-serif;
+  @media screen and (max-width: 1400px){
+    width: 13vw;
+  }
+  @media screen and (max-width: 768px){
+    width: 15vw;
+  }
 `;
 
 function LoginPage() {
@@ -108,7 +132,7 @@ function LoginPage() {
             type="submit"
             whileHover={{ backgroundColor: "#dde143", color: "#0c4426" }}
           >
-            Log In
+            Login
           </LoginButton>
         </LoginForm>
       </LoginCard>

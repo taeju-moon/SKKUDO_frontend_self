@@ -17,7 +17,6 @@ const Banner = styled.div`
   background-color: white;
   align-items: center;
   height: 65vh;
- 
 `;
 
 const Phrase = styled.div`
@@ -30,15 +29,15 @@ const Phrase = styled.div`
   gap: 40px;
 `;
 
-const ImgContainer = styled.img`
-  width: 25%;
-    @media screen and (max-width: 1024px){
-  width: 20%;
-  }
-  @media screen and (max-width: 768px){
-  width: 15%;
-  }
-`;
+// const ImgContainer = styled.img`
+//   width: 25%;
+//     @media screen and (max-width: 1024px){
+//   width: 20%;
+//   }
+//   @media screen and (max-width: 768px){
+//   display: none;
+//   }
+// `;
 
 // const LineOne = styled.div`
 //   font-size: 50px;
@@ -69,7 +68,8 @@ const MainPageBtn = styled(motion.button)`
   font-size: 1.2em;
   border: none;
   color: #dde143;
-  font-weight: 800;
+  font-weight: 550;
+  cursor: pointer;
   @media screen and (max-width: 768px){
     font-size: 1em;
     border-radius: 8vw;
@@ -97,7 +97,7 @@ function HomePage() {
   return (
     <HomePageContainer>
       <Banner>
-        <ImgContainer src={myeong} />
+        {/* <ImgContainer src={myeong} /> */}
         <Phrase>
           <Name
             initial={{ opacity: 0, scale: 0.5 }}
@@ -107,7 +107,7 @@ function HomePage() {
             SKKUDO
           </Name>
         </Phrase>
-        <ImgContainer src={yul} />
+        {/* <ImgContainer src={yul} /> */}
       </Banner>
       <ButtonsContainer>
         <MainPageBtn

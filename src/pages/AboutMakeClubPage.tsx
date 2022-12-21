@@ -10,9 +10,12 @@ const MakeClubContainer = styled.div`
 
 const MakeClubMassageContainer = styled.div`
   text-align: center;
-  font-size: 18px;
-  line-height: 25px;
+  font-size: 1.2em;
+  line-height: 1em;
   font-weight: 600;
+  @media screen and (max-width: 1024px){
+     font-size: 1em;
+  }
 `;
 
 const MakeClubImageContainer = styled.div`
@@ -30,17 +33,31 @@ const RegisterContainer = styled.div`
   flex-direction: row;
   padding-top: 5%;
   padding-bottom: 5%;
+  @media screen and (max-width: 1024px){
+     display: block;
+  }
 `;
 
 const RegisterMassageContainer = styled.div`
-  padding-right: 20px;
-  font-size: 17px;
-  line-height: 25px;
+  padding-right: 5vw;
+  font-size: 1.2em;
+  line-height: 1.8em;
   font-weight: 600;
+  margin-top: 10vh;
+  text-align: center;
+    @media screen and (max-width: 1024px){
+     font-size: 1em;
+  }
+  @media screen and (max-width: 1724px){
+     margin-top: 0;
+  }
 `;
 
 const RegisterImageContainer = styled.div`
   width: 50%;
+    @media screen and (max-width: 1024px){
+     width: 100%;
+  }
 `;
 
 function AboutMakeClubPage() {

@@ -3,10 +3,11 @@ import styled from "styled-components";
 import AboutSideBar from "../components/aboutComponents/AboutSideBar";
 
 const AboutContainer = styled.div`
+  overflow-x: hidden;
   display: flex;
   background-color: white;
   width: 100%;
-  max-width: 80vw;
+  max-width: 90vw;
   padding-top: 20vh;
   min-height: 100%;
   margin: 0 auto;
