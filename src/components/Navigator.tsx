@@ -16,7 +16,7 @@ interface INavigationConatiner {
 const NavigatorContainer = styled.header<INavigationConatiner>`
   position: fixed;
   width: 100%;
-  height: 80px;
+  height: 8vh;
   background-color: #0c4426;
   display: ${(props) => (props.isManage ? "none" : "block")};
   z-index: 100;
@@ -27,33 +27,43 @@ const ItemsContainer = styled.div`
   margin: 0 auto;
   display: flex;
   height: 100%;
-  max-width: 1400px;
+  max-width: 140vw;
 `;
 
 const LogoContainer = styled(Link)`
   height: 100%;
-  width: 200px;
+  width: 10vw;
   text-decoration: none;
   display: flex;
   align-items: center;
-  margin-left: 20px;
-  margin-right: 20px;
+  margin-left: 2vw;
+  margin-right: 3vw;
   justify-content: center;
+  @media screen and (max-width: 1024px){
+    margin-left: 6vw;
+    margin-right: 7vw;
+  }
+  @media screen and (max-width: 768px){
+   margin-left: 8vw;
+  }
 `;
 
 const Logo = styled.div`
-  font-size: 55px;
+  font-size: 2em;
+  font-family: 'Poppins', sans-serif;
   color: #dde143;
 `;
 
 const NavigationContainer = styled.nav`
-  margin-left: 40px;
+     @media screen and (max-width: 768px){
+      margin-left: 5vw;
+  }
 `;
 
 const NavigationUl = styled.ul`
   display: flex;
   height: 100%;
-  gap: 40px;
+  gap: 3.5vw;
 `;
 
 const NavigationLi = styled.li`
@@ -65,15 +75,20 @@ const NavigationLi = styled.li`
 const NavigationLink = styled(Link)`
   text-decoration: none;
   color: #dde143;
-  font-size: 34px;
+  font-size: 1.3rem;
+  white-space: nowrap;
+  font-family: 'Heebo', sans-serif;
+  @media screen and (max-width: 768px){
+    font-size: 1.2rem;
+  }
 `;
 
 const LoginBtn = styled.div`
   position: relative;
   border: none;
   background-color: transparent;
+  margin-right: 2vw;
   margin-left: auto;
-  margin-right: 20px;
   color: #dde143;
   display: flex;
   flex-direction: row;
@@ -101,19 +116,25 @@ const LoginOption = styled(motion.div)`
   width: 100%;
   background-color: transparent;
   color: #0c4426;
-  border-bottom: 1px solid #0c4426;
+  border-bottom: 0.5px solid #0c4426;
   padding: 10px;
-  font-size: 20px;
-  padding-top: 20px;
+  font-size: 1em;
+  padding-top: 1.2vh;
   display: flex;
-  padding-bottom: 20px;
-  font-weight: 600;
+  padding-bottom: 1.2vh;
+  font-weight: 500;
 `;
 
 const UserInfo = styled.h2`
-  font-size: 20px;
+  font-size: 1.2rem;
+  white-space: nowrap;
+  font-weight: 520;
   color: #dde143;
-  margin-right: 20px;
+  margin-right: 1vw;
+  cursor: pointer;
+   @media screen and (max-width: 768px){
+    font-size: 1.1rem;
+  }
 `;
 
 function Navigator() {
@@ -168,36 +189,35 @@ function Navigator() {
             </NavigationLi>
           </NavigationUl>
         </NavigationContainer>
-
-        <LoginBtn onClick={handleLoginBtnClick}>
-          <UserInfo>{isLoggedIn ? "Hello, " + user : "로그인하세요"}</UserInfo>
-          <IoPersonOutline size="2.3rem" />
-          <LoginOptionContainer isLoginOptionOpened={isLoginOptionOpened}>
-            {!isLoggedIn ? (
-              <>
-                <LoginOption
-                  onClick={handleLoginOptionClick}
-                  whileHover={{ backgroundColor: "#d4e7c6bf" }}
-                >
-                  로그인
-                </LoginOption>
-                <LoginOption
-                  onClick={handleSignupOptionClick}
-                  whileHover={{ backgroundColor: "#d4e7c6bf" }}
-                >
-                  회원가입
-                </LoginOption>
-              </>
-            ) : (
-              <LoginOption
-                onClick={handleLogoutBtnClick}
-                whileHover={{ backgroundColor: "#d4e7c6bf" }}
-              >
-                로그아웃
-              </LoginOption>
-            )}
-          </LoginOptionContainer>
-        </LoginBtn>
+          <LoginBtn onClick={handleLoginBtnClick}>
+                <UserInfo>{isLoggedIn ? "Hello, " + user : "로그인"}</UserInfo>
+                <IoPersonOutline size="2.3em" />
+                <LoginOptionContainer isLoginOptionOpened={isLoginOptionOpened}>
+                  {!isLoggedIn ? (
+                    <>
+                      <LoginOption
+                        onClick={handleLoginOptionClick}
+                        whileHover={{ backgroundColor: "#d4e7c6bf" }}
+                      >
+                        로그인
+                      </LoginOption>
+                      <LoginOption
+                        onClick={handleSignupOptionClick}
+                        whileHover={{ backgroundColor: "#d4e7c6bf" }}
+                      >
+                        회원가입
+                      </LoginOption>
+                    </>
+                  ) : (
+                    <LoginOption
+                      onClick={handleLogoutBtnClick}
+                      whileHover={{ backgroundColor: "#d4e7c6bf" }}
+                    >
+                      로그아웃
+                    </LoginOption>
+                  )}
+                </LoginOptionContainer>
+              </LoginBtn>
       </ItemsContainer>
     </NavigatorContainer>
   );
