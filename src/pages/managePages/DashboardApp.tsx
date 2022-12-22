@@ -13,11 +13,7 @@ import { currentClubInfoState } from "../../atoms/utilAtom";
 import { useQuery } from "react-query";
 import { RegisteredClubType, UserType } from "../../types/user";
 import { useParams } from "react-router-dom";
-import {
-  getAppliedUserByClubID,
-  getClubMembers,
-  getTodosByClubID,
-} from "../../utils/fetch";
+import { getAppliedUserByClubID } from "../../utils/fetch/fetchApply";
 import { AppliedUserType } from "../../types/apply";
 import { useEffect, useState } from "react";
 import { ToDoType } from "../../types/todo";
@@ -32,6 +28,8 @@ import {
   studentIDExample,
   studentMajorData,
 } from "../../utils/makeChartData";
+import { getClubMembers } from "../../utils/fetch/fetchUser";
+import { getTodosByClubID } from "../../utils/fetch/fetchTodo";
 
 export default function DashboardApp() {
   const currentClubInfo = useRecoilValue(currentClubInfoState);
@@ -133,7 +131,7 @@ export default function DashboardApp() {
     }
   );
 
-  const { data: todoData, isLoading } = useQuery<ToDoType[]>(
+  const { data: todoData } = useQuery<ToDoType[]>(
     "getTodosByClubID",
     () => getTodosByClubID(clubID || ""),
     {

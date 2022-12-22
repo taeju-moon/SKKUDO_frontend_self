@@ -1,17 +1,14 @@
 import { useQuery } from "react-query";
 import styled from "styled-components";
-import { getNotAcceptedClubs } from "../../utils/fetch";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import Checkbox from "@mui/material/Checkbox";
-import IconButton from "@mui/material/IconButton";
 import { Box } from "@mui/material";
 import { NotAcceptedClubType } from "../../types/club";
 import NotAcceptedClubDialog from "../../components/admin/NotAcceptedClubDialog";
 import { useState } from "react";
+import { getNotAcceptedClubs } from "../../utils/fetch/fetchClub";
 
 const Title = styled.div`
   width: 100%;

@@ -1,6 +1,9 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { getOneClub, deleteClubUserColumn } from "../../../utils/fetch";
+import {
+  getOneClub,
+  deleteClubUserColumn,
+} from "../../../utils/fetch/fetchClub";
 import {
   styled,
   Select,

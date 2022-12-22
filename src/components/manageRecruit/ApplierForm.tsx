@@ -19,8 +19,7 @@ import {
   deleteApplier,
   getApplierByClubID,
   updateApplier,
-} from "../../utils/fetch";
-
+} from "../../utils/fetch/fetchApply";
 import ListSubheader from "@mui/material/ListSubheader";
 import List from "@mui/material/List";
 import ListItemButton from "@mui/material/ListItemButton";
@@ -31,13 +30,11 @@ import { useState } from "react";
 import { HiOutlineDocument, HiOutlineDocumentAdd } from "react-icons/hi";
 import { TbSpeakerphone } from "react-icons/tb";
 import { MdExpandLess, MdExpandMore } from "react-icons/md";
-
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-
 import Iconify from "../Iconify";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { applierState, currentClubInfoState } from "../../atoms/utilAtom";

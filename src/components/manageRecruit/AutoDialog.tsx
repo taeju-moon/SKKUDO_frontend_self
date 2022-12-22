@@ -11,8 +11,9 @@ import { AppliedUserType } from "../../types/apply";
 import { List, ListItem, ListItemButton } from "@mui/material";
 import { useMutation, useQueryClient } from "react-query";
 import { useParams } from "react-router-dom";
-import { deleteAppliedUser, registerClub } from "../../utils/fetch";
+import { deleteAppliedUser } from "../../utils/fetch/fetchApply";
 import { RegisterInfoType } from "../../types/user";
+import { registerClub } from "../../utils/fetch/fetchUser";
 
 const PortionContainer = styled.div`
   margin-top: 20px;
@@ -52,10 +53,10 @@ export default function AutoDialog({
   const [passNumbers, setPassNumbers] = React.useState(1);
   const [result, setResult] = React.useState<AppliedUserType[]>();
   const queryClient = useQueryClient();
-  const { mutate: deleteMutate, mutateAsync } = useMutation(
+  const { mutate: deleteMutate } = useMutation(
     (applyId: string) => deleteAppliedUser(applyId, clubID || ""),
     {
-      onSuccess: (data, variables) => {
+      onSuccess: (data) => {
         console.log(data);
         // console.log(variables);
         queryClient.invalidateQueries("getAppliedUserByClubID");
@@ -65,7 +66,7 @@ export default function AutoDialog({
       },
     }
   );
-  const { mutate: registerMutate, isError } = useMutation(
+  const { mutate: registerMutate } = useMutation(
     ({ userID, registerInfo, id }: RegisterMutateType) =>
       registerClub(userID, clubID || "", registerInfo),
     {

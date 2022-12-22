@@ -12,7 +12,7 @@ import TableRow from "@mui/material/TableRow";
 import { useState } from "react";
 import { useMutation, useQueryClient } from "react-query";
 import { useParams } from "react-router-dom";
-import { deleteBudgetRow } from "../../utils/fetch";
+import { deleteBudgetRow } from "../../utils/fetch/fetchBudget";
 import {
   MdOutlineKeyboardArrowDown,
   MdOutlineKeyboardArrowUp,

@@ -9,7 +9,7 @@ import { useParams } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { isAuthConfirmAlertOpenState } from "../../atoms/alertAtom";
 import { UpdateValidationType } from "../../types/validation";
-import { updateValidation } from "../../utils/fetch";
+import { updateValidation } from "../../utils/fetch/fetchValidation";
 
 interface AuthConfirmAlertType {
   selectedLabel: string;

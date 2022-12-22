@@ -15,7 +15,7 @@ import useTableHead from "../../hooks/useTableHead";
 import useTablePage from "../../hooks/useTablePage";
 import { ColumnType } from "../../types/common";
 import { UserType } from "../../types/user";
-import { getClubMembers } from "../../utils/fetch";
+import { getClubMembers } from "../../utils/fetch/fetchUser";
 import { applySortFilter, getComparator } from "../../utils/Sorting";
 import SearchNotFound from "./SearchNotFound";
 import UserListHead from "./UserListHead";

@@ -1,13 +1,13 @@
-import { Button, MenuItem, SelectChangeEvent, TextField } from "@mui/material";
+import { Button, MenuItem, TextField } from "@mui/material";
 import React, { useState } from "react";
 import { useMutation } from "react-query";
 import styled from "styled-components";
 import { LocationType } from "../types/common";
-import { createUser } from "../utils/fetch";
 import { NewUserType } from "../types/user";
 import { useNavigate } from "react-router-dom";
 import TopBlank from "../components/TopBlank";
 import FormTitle from "../components/FormTitle";
+import { createUser } from "../utils/fetch/fetchUser";
 
 const SignupPageContainer = styled.form`
   position: relative;
@@ -39,7 +39,7 @@ function SignupPage() {
   const [contact, setContact] = useState("");
   const navigate = useNavigate();
 
-  const { mutate, isLoading } = useMutation(
+  const { mutate } = useMutation(
     (newUser: NewUserType) => createUser(newUser),
     {
       onSuccess: (data) => {

@@ -1,16 +1,14 @@
 import * as React from "react";
 import Button from "@mui/material/Button";
-
 import DialogTitle from "@mui/material/DialogTitle";
 import Dialog from "@mui/material/Dialog";
-
 import { Box, TextField } from "@mui/material";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import {
   createTodoTag,
   deleteTodoTag,
   getTodoTagsByClubID,
-} from "../../utils/fetch";
+} from "../../utils/fetch/fetchTodo";
 import { useParams } from "react-router-dom";
 import {
   CategoryDeleteBtn,

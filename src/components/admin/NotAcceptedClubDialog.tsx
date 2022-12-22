@@ -4,7 +4,6 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import { useState } from "react";
 import { NotAcceptedClubType } from "../../types/club";
 
 interface NotAcceptedClubDialogType {
@@ -18,10 +17,6 @@ export default function NotAcceptedClubDialog({
   setOpen,
   clickedClub,
 }: NotAcceptedClubDialogType) {
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
   const handleClose = () => {
     setOpen(false);
   };
@@ -33,19 +28,37 @@ export default function NotAcceptedClubDialog({
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
     >
-      <DialogTitle id="alert-dialog-title">
-        {clickedClub ? clickedClub.name : "오류"}
-      </DialogTitle>
-      <DialogContent>
-        <DialogContentText id="alert-dialog-description">
-          Let Google help apps determine location. This means sending anonymous
-          location data to Google, even when no apps are running.
-        </DialogContentText>
-      </DialogContent>
+      <DialogTitle id="alert-dialog-title">동아리 신청 내용</DialogTitle>
+      {clickedClub ? (
+        <>
+          <DialogContent sx={{ width: "512px" }}>
+            <DialogContentText id="alert-dialog-description">
+              {`동아리 이름 : ${clickedClub.name}`}
+            </DialogContentText>
+            <DialogContentText id="alert-dialog-description">
+              {`위치 : ${clickedClub.location}`}
+            </DialogContentText>
+            <DialogContentText id="alert-dialog-description">
+              {`모집 방식 : ${clickedClub.recruitType}`}
+            </DialogContentText>
+            <DialogContentText id="alert-dialog-description">
+              {`동아리 주제 : ${clickedClub.type.name}`}
+            </DialogContentText>
+          </DialogContent>
+        </>
+      ) : (
+        <DialogContent sx={{ width: "512px" }}>
+          <DialogContentText id="alert-dialog-description">
+            오류가 생겼습니다.
+          </DialogContentText>
+        </DialogContent>
+      )}
       <DialogActions>
-        <Button onClick={handleClose}>Disagree</Button>
         <Button onClick={handleClose} autoFocus>
-          Agree
+          승인
+        </Button>
+        <Button color="error" onClick={handleClose}>
+          거절
         </Button>
       </DialogActions>
     </Dialog>

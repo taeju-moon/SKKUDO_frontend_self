@@ -3,9 +3,8 @@ import { AppliedUserType } from "../../types/apply";
 import {
   deleteAppliedUser,
   getAppliedUserByClubID,
-  registerClub,
-} from "../../utils/fetch";
-import { Link, useParams } from "react-router-dom";
+} from "../../utils/fetch/fetchApply";
+import { useParams } from "react-router-dom";
 import {
   Card,
   Table,
@@ -36,6 +35,7 @@ import { applierState } from "../../atoms/utilAtom";
 import Iconify from "../../components/Iconify";
 import AutoDialog from "../../components/manageRecruit/AutoDialog";
 import useTablePage from "../../hooks/useTablePage";
+import { registerClub } from "../../utils/fetch/fetchUser";
 
 type orderType = "desc" | "asc";
 type orderByType = "name" | "studentId" | "major";
@@ -91,7 +91,7 @@ function ManageRecruit() {
     userID: string;
     registerInfo: RegisterInfoType;
   }
-  const { mutate: registerMutate, isError } = useMutation(
+  const { mutate: registerMutate } = useMutation(
     ({ userID, registerInfo }: RegisterMutateType) =>
       registerClub(userID, clubID || "", registerInfo),
     {

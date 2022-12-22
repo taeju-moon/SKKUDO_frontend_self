@@ -1,6 +1,5 @@
 import { useRef, useState } from "react";
 import { Link as RouterLink, useParams } from "react-router-dom";
-import { deregisterClub, updateRole } from "../../utils/fetch";
 import {
   Menu,
   MenuItem,
@@ -17,6 +16,7 @@ import {
 import Iconify from "../Iconify";
 import { RoleType } from "../../types/common";
 import { useMutation, useQueryClient } from "react-query";
+import { deregisterClub, updateRole } from "../../utils/fetch/fetchUser";
 // component
 
 const MainWrapper = styled("div")({
@@ -60,8 +60,7 @@ export default function UserMoreMenu({ userID, role }: UserMoreMenuProps) {
   const [updateRoleModalOpen, setUpdateRoleModalOpen] =
     useState<boolean>(false);
   const [updatingRole, setUpdatingRole] = useState<RoleType>(role);
-  const [deregisterClubModalOpen, setDeregisterClubModalOpen] =
-    useState<boolean>(false);
+
   const clubId = useParams().clubID as string;
   const queryClient = useQueryClient();
 

@@ -5,16 +5,18 @@ import "./CustomCalendarStyle.css";
 import moment from "moment";
 import ClubDetailHeader from "../components/ClubDetailHeader";
 import FilterTag from "../components/FilterTag";
-import { getTodosByClubID } from "../utils/fetch";
 import { useParams } from "react-router-dom";
 import { useQuery } from "react-query";
 import { ToDoType } from "../types/todo";
 import DayDetailBoard from "../components/calendar/DayDetailBoard";
 import TodoCategoryDialog from "../components/calendar/TodoCategoryDialog";
-import { useRecoilState, useSetRecoilState } from "recoil";
-import { dayDetailState } from "../atoms/calendarAtom";
+import { useSetRecoilState } from "recoil";
 import { motion } from "framer-motion";
-import { getTodoTagsByClubID } from "../utils/fetch";
+import { dayDetailState } from "../atoms/calendarAtom";
+import {
+  getTodosByClubID,
+  getTodoTagsByClubID,
+} from "../utils/fetch/fetchTodo";
 
 const CalendarContainer = styled.div`
   padding-top: 40px;

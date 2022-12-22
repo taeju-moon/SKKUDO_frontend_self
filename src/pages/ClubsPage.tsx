@@ -6,7 +6,7 @@ import { useQuery } from "react-query";
 import ClubsList from "../components/clubs/ClubsList";
 import FilterTag from "../components/FilterTag";
 import { ClubType } from "../types/club";
-import { getAllClubs, getAllClubTypes } from "../utils/fetch";
+import { getAllClubs, getAllClubTypes } from "../utils/fetch/fetchClub";
 
 interface TagType {
   _id: string;

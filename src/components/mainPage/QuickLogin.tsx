@@ -1,11 +1,10 @@
 import { ButtonGroup, Box, styled } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { loginFromServer } from "../../utils/fetch";
 import { motion } from "framer-motion";
 import { useRecoilState } from "recoil";
 import { isLoggedInState } from "../../atoms/loginAtom";
-import { userNameState } from "../../atoms/userAtom";
 import { useMutation } from "react-query";
+import { loginFromServer } from "../../utils/fetch/fetchAuth";
 
 const MainWrapper = styled("div")({
   width: 170,

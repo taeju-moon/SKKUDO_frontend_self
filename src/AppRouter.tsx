@@ -20,7 +20,6 @@ import DashboardApp from "./pages/managePages/DashboardApp";
 import ApplyClubPage from "./pages/ApplyClubPage";
 import AddNoticePage from "./pages/AddNoticePage";
 import { useMutation } from "react-query";
-import { verifyUser } from "./utils/fetch";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { isLoggedInState } from "./atoms/loginAtom";
 import { useEffect } from "react";
@@ -46,6 +45,7 @@ import AllUsersPage from "./pages/admin/AllUsersPage";
 import AllNoticesPage from "./pages/admin/AllNoticesPage";
 import AllCalendarPage from "./pages/admin/AllCalendarPage";
 import AllClubsPage from "./pages/admin/AllClubsPage";
+import { verifyUser } from "./utils/fetch/fetchAuth";
 
 function AppRouter() {
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(isLoggedInState);

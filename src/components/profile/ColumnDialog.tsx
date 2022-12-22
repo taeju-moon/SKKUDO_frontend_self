@@ -9,7 +9,7 @@ import {
 import { useState } from "react";
 import { useMutation } from "react-query";
 import { useParams } from "react-router-dom";
-import { updateUserColumn } from "../../utils/fetch";
+import { updateUserColumn } from "../../utils/fetch/fetchUser";
 
 interface ColumnDialogType {
   keyword: string;

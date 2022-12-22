@@ -15,8 +15,8 @@ import { useRecoilValue, useSetRecoilState } from "recoil";
 import { loggedInUserState } from "../../atoms/userAtom";
 import { RoleType } from "../../types/common";
 import { useMutation } from "react-query";
-import { logoutFromServer } from "../../utils/fetch";
 import { isLoggedInState } from "../../atoms/loginAtom";
+import { logoutFromServer } from "../../utils/fetch/fetchAuth";
 
 export default function AccountPopover() {
   const { clubID } = useParams();
