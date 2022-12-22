@@ -1,14 +1,14 @@
-import { useEffect, useState } from "react";
-import { Link as RouterLink, useLocation, useParams } from "react-router-dom";
+import { useEffect } from "react";
+import { Link as RouterLink, useLocation } from "react-router-dom";
 import { styled } from "@mui/material/styles";
-import { Box, Link, Drawer, Typography, Avatar } from "@mui/material";
+import { Box, Drawer } from "@mui/material";
 
 import { useRecoilValue } from "recoil";
 import useResponsive from "../hooks/useResponsive";
 import Scrollbar from "../components/dashboard/Scrollbar";
 import NavSection from "../components/dashboard/NavSection";
-import navConfig from "../config/NavConfig";
 import { loggedInUserState } from "../atoms/userAtom";
+import adminNavConfig from "./AdminNavConfig";
 
 const DRAWER_WIDTH = 280;
 
@@ -17,14 +17,6 @@ const RootStyle = styled("div")(({ theme }) => ({
     flexShrink: 0,
     width: DRAWER_WIDTH,
   },
-}));
-
-const AccountStyle = styled("div")(({ theme }) => ({
-  display: "flex",
-  alignItems: "center",
-  padding: theme.spacing(2, 2.5),
-  borderRadius: Number(theme.shape.borderRadius) * 1.5,
-  backgroundColor: theme.palette.grey[500],
 }));
 
 const Logo = styled(RouterLink)({
@@ -43,14 +35,7 @@ export default function AdminSidebar({
   isOpenSidebar,
   onCloseSidebar,
 }: IDashboardSidebar) {
-  const account = {
-    displayName: "Jaydon Frankie",
-    email: "demo@minimals.cc",
-    photoURL: "/static/mock-images/avatars/avatar_default.jpg",
-  };
-
   const { pathname } = useLocation();
-  const { clubID } = useParams();
 
   const isDesktop = useResponsive("up", "lg");
 
@@ -77,23 +62,7 @@ export default function AdminSidebar({
         <Logo to="/">SKKUDO</Logo>
       </Box>
 
-      <Box sx={{ mb: 5, mx: 2.5 }}>
-        <Link underline="none" component={RouterLink} to="#">
-          <AccountStyle>
-            <Avatar src={account.photoURL} alt="photoURL" />
-            <Box sx={{ ml: 2 }}>
-              <Typography variant="h5" sx={{ color: "text.primary" }}>
-                {/* {loggedInUser?.name} */}
-              </Typography>
-              <Typography variant="subtitle1" sx={{ color: "#0c4426" }}>
-                {/* {specificInfo?.role} */}
-              </Typography>
-            </Box>
-          </AccountStyle>
-        </Link>
-      </Box>
-
-      <NavSection navConfig={navConfig} />
+      <NavSection navConfig={adminNavConfig} />
 
       <Box sx={{ flexGrow: 1 }} />
     </Scrollbar>
@@ -124,9 +93,8 @@ export default function AdminSidebar({
             sx: {
               width: DRAWER_WIDTH,
               bgcolor: "#0c4426",
-              borderRight: "1px solid yellow",
+              border: "none",
               color: "#dde143",
-              boxShadow: "-3px 0px 0px 0px #dde143 inset",
             },
           }}
         >

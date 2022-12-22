@@ -9,7 +9,7 @@ import { useMutation } from "react-query";
 
 const MainWrapper = styled("div")({
   width: 170,
-  height: 300,
+  height: 400,
   position: "absolute",
   backgroundColor: "#dde143",
   borderRadius: 5,
@@ -89,16 +89,6 @@ export default function QuickLogin() {
       alert("먼저 로그아웃 해주세요.");
       return;
     }
-    // loginFromServer(usingInfo.userID, usingInfo.password)
-    //   .then((data) => {
-    //     setIsLoggedIn(true);
-    //     setUser(data.data.name);
-    //     alert(
-    //       "테스트 유저로 로그인했습니다. 마이페이지에서 내 동아리 정보를 확인하세요."
-    //     );
-    //     navigate("/myPage");
-    //   })
-    //   .catch((error) => alert("알 수 없는 에러가 발생했습니다."));
     mutate(usingInfo);
   };
   return (
@@ -137,6 +127,12 @@ export default function QuickLogin() {
               onClick={() => handleSubmit(usingInfo[2])}
             >
               부원
+            </SideButton>
+            <SideButton
+              whileHover={{ scale: 1.1 }}
+              onClick={() => navigate("/admin/clubCreate")}
+            >
+              ADMIN
             </SideButton>
           </ButtonWrapper>
         </ButtonGroup>

@@ -8,37 +8,37 @@ const getIcon = (name: string) => (
   <Iconify icon={name} width={22} height={22} />
 );
 
-const navConfig = [
+const adminNavConfig = [
   {
-    title: "dashboard/메인화면",
-    path: "/manage/:clubID/main",
+    title: "동아리 신청서",
+    path: "/admin/clubCreate",
     icon: getIcon("eva:pie-chart-2-fill"),
   },
   {
-    title: "user/멤버관리",
-    path: "/manage/:clubID/user",
+    title: "유저",
+    path: "/admin/allUsers",
     icon: getIcon("eva:people-fill"),
   },
   {
-    title: "Club/동아리관리",
-    path: "/manage/:clubID/club",
+    title: "공지",
+    path: "/admin/allNotices",
     icon: getIcon("eva:shopping-bag-fill"),
   },
   {
-    title: "blog/권한관리",
-    path: "/manage/:clubID/auth",
+    title: "일정",
+    path: "/admin/allCalendar",
     icon: getIcon("eva:file-text-fill"),
   },
   {
-    title: "login/모집관리",
-    path: "/manage/:clubID/recruit",
+    title: "동아리",
+    path: "/admin/allClubs",
     icon: getIcon("eva:lock-fill"),
   },
-  {
-    title: "accountBook/가계부",
-    path: "/manage/:clubID/accountBook",
-    icon: getIcon("fa-solid:money-check-alt"),
-  },
+  // {
+  //   title: "accountBook/가계부",
+  //   path: "/manage/:clubID/accountBook",
+  //   icon: getIcon("fa-solid:money-check-alt"),
+  // },
   // {
   //   title: "Not found/",
   //   path: "/404",
@@ -46,4 +46,4 @@ const navConfig = [
   // },
 ];
 
-export default navConfig;
+export default adminNavConfig;

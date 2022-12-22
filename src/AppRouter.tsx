@@ -42,6 +42,10 @@ import AboutMakeClubPage from "./pages/aboutPages/AboutMakeClubPage";
 import AboutMyPage from "./pages/aboutPages/AboutMyPage";
 import AdminMainPage from "./pages/admin/AdminMainPage";
 import ClubCreatePage from "./pages/admin/ClubCreatePage";
+import AllUsersPage from "./pages/admin/AllUsersPage";
+import AllNoticesPage from "./pages/admin/AllNoticesPage";
+import AllCalendarPage from "./pages/admin/AllCalendarPage";
+import AllClubsPage from "./pages/admin/AllClubsPage";
 
 function AppRouter() {
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(isLoggedInState);
@@ -133,6 +137,10 @@ function AppRouter() {
         </Route>
         <Route path="/admin/" element={<AdminMainPage />}>
           <Route path="clubCreate" element={<ClubCreatePage />} />
+          <Route path="allUsers" element={<AllUsersPage />} />
+          <Route path="allNotices" element={<AllNoticesPage />} />
+          <Route path="allCalendar" element={<AllCalendarPage />} />
+          <Route path="allClubs" element={<AllClubsPage />} />
         </Route>
         <Route path="*" element={<Page404 />} />
       </Routes>
