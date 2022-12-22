@@ -4,6 +4,7 @@ import { Card, Stack, Button, Container, Typography } from "@mui/material";
 import Iconify from "../../components/Iconify";
 import ColumnModal from "../../components/user/ColumnModal/ColumnModal";
 import UserTable from "../../components/user/UserTable";
+import { flexbox } from "@mui/system";
 
 export default function User() {
   const [addColumnModalOpen, setColumnModalOpen] = useState<boolean>(false);
@@ -19,16 +20,19 @@ export default function User() {
         <Typography variant="h4" gutterBottom>
           User
         </Typography>
-        <Button
-          variant="contained"
-          component={RouterLink}
-          to="#"
-          color="success"
-          startIcon={<Iconify icon="eva:plus-fill" />}
-          onClick={() => setColumnModalOpen(true)}
-        >
-          유저 열 추가
-        </Button>
+        <div>
+          <Button
+            variant="contained"
+            component={RouterLink}
+            to="#"
+            color="success"
+            startIcon={<Iconify icon="eva:plus-fill" />}
+            onClick={() => setColumnModalOpen(true)}
+          >
+            유저 열 편집
+          </Button>
+        </div>
+
         <ColumnModal
           addColumnModalOpen={addColumnModalOpen}
           setColumnModalOpen={setColumnModalOpen}
