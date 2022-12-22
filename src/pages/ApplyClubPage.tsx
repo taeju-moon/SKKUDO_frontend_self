@@ -121,20 +121,12 @@ function ApplyClubPage() {
 
   const { data } = useQuery<TagType[]>("getAllClubs", getAllClubTypes, {
     onSuccess: (data) => {
-      console.log(data);
+      // console.log(data);
       setTags(data);
       setValue(data[0].name);
     },
     onError: (error: any) => alert(error.response.data.error),
   });
-
-  // useEffect(() => {
-  //   getAllClubTypes().then((data) => {
-  //     const using = data.data.data;
-  //     setTags(using);
-  //     setValue(using[0].name);
-  //   });
-  // }, []);
 
   return (
     <>

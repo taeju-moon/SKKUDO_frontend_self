@@ -50,6 +50,11 @@ export const getAllClubs = async () =>
 export const createClub = async (newClub: NewClubType) =>
   axios.post(GET_ALL_CLUBS_URL, newClub).then((res) => res.data);
 
+export const getNotAcceptedClubs = async () =>
+  axios
+    .get(GET_ALL_CLUBS_URL.concat("/notAccepted"))
+    .then((res) => res.data.data);
+
 export const uploadImage = async (clubId: string, formData: any) => {
   const result = await axios.post(
     GET_ALL_CLUBS_URL.concat("/upload/", clubId),

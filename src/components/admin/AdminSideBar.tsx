@@ -4,10 +4,10 @@ import { styled } from "@mui/material/styles";
 import { Box, Drawer } from "@mui/material";
 
 import { useRecoilValue } from "recoil";
-import useResponsive from "../hooks/useResponsive";
-import Scrollbar from "../components/dashboard/Scrollbar";
-import NavSection from "../components/dashboard/NavSection";
-import { loggedInUserState } from "../atoms/userAtom";
+import useResponsive from "../../hooks/useResponsive";
+import Scrollbar from "../dashboard/Scrollbar";
+import NavSection from "../dashboard/NavSection";
+import { loggedInUserState } from "../../atoms/userAtom";
 import adminNavConfig from "./AdminNavConfig";
 
 const DRAWER_WIDTH = 280;
