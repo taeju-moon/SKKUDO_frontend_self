@@ -42,6 +42,14 @@ export const updateClub = async (
     .patch(GET_ONE_CLUB_URL.concat(clubID), updateInfo)
     .then((res) => res.data);
 
+export const accpetClub = async (clubID: string) =>
+  axios
+    .patch(GET_ONE_CLUB_URL.concat("accept", "/", clubID), {})
+    .then((res) => res.data);
+
+export const deleteClub = async (clubID: string) =>
+  axios.delete(GET_ONE_CLUB_URL.concat("/", clubID)).then((res) => res.data);
+
 const CLUB_COLUMNS_URL = `${BASE_URL}/clubs/clubs/userColumn`;
 
 export const addClubUserColumn = async (

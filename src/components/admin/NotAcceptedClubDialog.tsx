@@ -4,7 +4,9 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
+import { useMutation, useQueryClient } from "react-query";
 import { NotAcceptedClubType } from "../../types/club";
+import { accpetClub, deleteClub } from "../../utils/fetch/fetchClub";
 
 interface NotAcceptedClubDialogType {
   open: boolean;
@@ -17,14 +19,47 @@ export default function NotAcceptedClubDialog({
   setOpen,
   clickedClub,
 }: NotAcceptedClubDialogType) {
-  const handleClose = () => {
-    setOpen(false);
+  const queryClient = useQueryClient();
+
+  const { mutate: acceptMutate } = useMutation(
+    () => accpetClub(clickedClub!._id),
+    {
+      onSuccess: (data) => {
+        console.log(data);
+        queryClient.invalidateQueries("getNotAcceptedClubs");
+      },
+      onError: (error) => console.log(error),
+    }
+  );
+
+  const { mutate: deleteMutate } = useMutation(
+    () => deleteClub(clickedClub!._id),
+    {
+      onSuccess: (data) => {
+        console.log(data);
+        queryClient.invalidateQueries("getNotAcceptedClubs");
+      },
+      onError: (error) => console.log(error),
+    }
+  );
+
+  const onAcceptBtnClicked = () => {
+    if (clickedClub) {
+      acceptMutate();
+      setOpen(false);
+    }
   };
 
+  const onDeleteBtnClicked = () => {
+    if (clickedClub) {
+      deleteMutate();
+      setOpen(false);
+    }
+  };
   return (
     <Dialog
       open={open}
-      onClose={handleClose}
+      onClose={() => setOpen(false)}
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
     >
@@ -54,10 +89,10 @@ export default function NotAcceptedClubDialog({
         </DialogContent>
       )}
       <DialogActions>
-        <Button onClick={handleClose} autoFocus>
+        <Button onClick={onAcceptBtnClicked} autoFocus>
           승인
         </Button>
-        <Button color="error" onClick={handleClose}>
+        <Button color="error" onClick={onDeleteBtnClicked}>
           거절
         </Button>
       </DialogActions>
