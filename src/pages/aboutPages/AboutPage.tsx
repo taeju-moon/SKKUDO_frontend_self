@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
 import styled from "styled-components";
-import AboutSideBar from "../components/aboutComponents/AboutSideBar";
+import AboutSideBar from "../../components/about/AboutSideBar";
 
 const AboutContainer = styled.div`
   overflow-x: hidden;

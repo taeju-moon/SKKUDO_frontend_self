@@ -16,7 +16,7 @@ import ClubDetailHeader from "../components/ClubDetailHeader";
 import { RegisteredClubType } from "../types/user";
 import { FaPen } from "react-icons/fa";
 import { motion } from "framer-motion";
-import ColumnDialog from "../components/profileComponents/ColumnDialog";
+import ColumnDialog from "../components/profile/ColumnDialog";
 
 const ProfileContainer = styled.div`
   width: 100%;

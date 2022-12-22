@@ -3,10 +3,9 @@ import { AppliedUserType } from "../../types/apply";
 import {
   deleteAppliedUser,
   getAppliedUserByClubID,
-  getOneClub,
   registerClub,
 } from "../../utils/fetch";
-import { Link as RouterLink, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import {
   Card,
   Table,
@@ -20,34 +19,25 @@ import {
   Typography,
   TableContainer,
   TablePagination,
-  styled,
 } from "@mui/material";
-import Scrollbar from "../../components/dashboardComponents/Scrollbar";
-import UserListHead from "../../components/userComponents/UserListHead";
+import UserListHead from "../../components/user/UserListHead";
 import { useState, useEffect } from "react";
-import UserListToolbar from "../../components/userComponents/UserListToolbar";
-import SearchNotFound from "../../components/userComponents/SearchNotFound";
+import UserListToolbar from "../../components/user/UserListToolbar";
+import SearchNotFound from "../../components/user/SearchNotFound";
 import { filter } from "lodash";
 import { RegisterInfoType } from "../../types/user";
 import { HiDocumentText } from "react-icons/hi";
-import DocumentDialog from "../../components/manageAuthComponents/DocumentDialog";
+import DocumentDialog from "../../components/manageAuth/DocumentDialog";
 import { ColumnType } from "../../types/common";
-import { ClubType } from "../../types/club";
-import ApplierForm from "../../components/manageRecruitComponents/ApplierForm";
-import ScoreDialog from "../../components/manageRecruitComponents/ScoreDialog";
+import ApplierForm from "../../components/manageRecruit/ApplierForm";
+import ScoreDialog from "../../components/manageRecruit/ScoreDialog";
 import { useRecoilValue } from "recoil";
 import { applierState } from "../../atoms/utilAtom";
 import Iconify from "../../components/Iconify";
-import AutoDialog from "../../components/manageRecruitComponents/AutoDialog";
+import AutoDialog from "../../components/manageRecruit/AutoDialog";
 
 type orderType = "desc" | "asc";
 type orderByType = "name" | "studentId" | "major";
-
-type TableHeadType = {
-  id: string;
-  label: string;
-  alignRight: boolean;
-};
 
 const TABLE_HEAD = [
   { id: "name", label: "이름", alignRight: false },
@@ -75,13 +65,15 @@ const TABLE_HEAD = [
 function ManageRecruit() {
   const { clubID } = useParams();
   const queryClient = useQueryClient();
+  const [scoreDialogOpen, setScoreDialogOpen] = useState(false);
+  const [autoDialogOpen, setAutoDialogOpen] = useState(false);
   const applier = useRecoilValue(applierState);
   const [tableHead, setTableHead] = useState(TABLE_HEAD);
 
   const [clickedAppliedUser, setClickedAppliedUser] =
     useState<AppliedUserType>();
 
-  const { data, isLoading } = useQuery<AppliedUserType[]>(
+  const { data } = useQuery<AppliedUserType[]>(
     "getAppliedUserByClubID",
     () => getAppliedUserByClubID(clubID || ""),
     {
@@ -91,14 +83,8 @@ function ManageRecruit() {
       onError: (error: any) => {
         alert(error.response.data.error);
       },
-      // retryOnMount: false,
-      // refetchOnReconnect: false,
-      // refetchOnMount: false,
     }
   );
-
-  const [scoreDialogOpen, setScoreDialogOpen] = useState(false);
-  const [autoDialogOpen, setAutoDialogOpen] = useState(false);
 
   interface RegisterMutateType {
     userID: string;

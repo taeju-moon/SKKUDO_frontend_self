@@ -13,10 +13,10 @@ import FilterTag from "../components/FilterTag";
 import { useNavigate, useParams } from "react-router-dom";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { useState, useEffect } from "react";
-import NoticeDetail from "../components/noticeComponents/NoticeDetail";
+import NoticeDetail from "../components/notice/NoticeDetail";
 import { useSetRecoilState } from "recoil";
 import { isNoticeDetailOpenState } from "../atoms/utilAtom";
-import CategoryAddDialog from "../components/noticeComponents/CategoryAddDialog";
+import CategoryAddDialog from "../components/notice/CategoryAddDialog";
 import { motion } from "framer-motion";
 import { getNoticeTagsByClubID } from "./../utils/fetch";
 
@@ -115,7 +115,7 @@ const Item = styled(Paper)(({ theme }) => ({
   height: "60px",
 }));
 
-const Tag = styled("div")({
+export const Tag = styled("div")({
   height: "100%",
   backgroundColor: "#0c4426",
   color: "white",
@@ -129,17 +129,9 @@ const Tag = styled("div")({
 
 const FilterWrapper = styled("div")({
   position: "absolute",
-  // position: ab
   display: "flex",
-  // width: "1024px",
   left: 0,
   justifyContent: "flex-start",
-});
-
-const FilterWrapperWrapper = styled("div")({
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
 });
 
 function NoticePage() {
@@ -157,9 +149,9 @@ function NoticePage() {
   });
 
   const [clickedNoticeID, setClickedNoticeID] = useState("");
-  const [isOptionOpened, setIsOptionOpened] = useState(false);
   const [usingItems, setUsingItems] = useState<NoticeType[]>([]);
   const [tags, setTags] = useState<TagType[]>([]);
+  const [isOptionOpened, setIsOptionOpened] = useState(false);
   const [clickedNoticeInfo, setClickedNotiiceInfo] =
     useState<ClickedNoticeInfoType>({
       writer: "",
@@ -210,11 +202,9 @@ function NoticePage() {
       },
     }
   );
-  //need to fix this axios error
+
   const handleNoticeDeleteBtnClick = (deleteNoticeInfo: DeleteNoticetype) => {
     mutate(deleteNoticeInfo);
-    // console.log(deleteNoticeInfo.clubID);
-    // console.log(deleteNoticeInfo._id);
   };
   const localStorage = window.localStorage;
 
@@ -229,7 +219,6 @@ function NoticePage() {
     );
     navigate(`${newNoticeInfo.noticeID}`);
   };
-  // console.log(noticeData);
 
   useEffect(() => {
     getNoticeTagsByClubID(clubID as string).then((data) => {

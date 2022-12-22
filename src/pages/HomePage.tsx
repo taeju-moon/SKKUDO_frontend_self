@@ -4,9 +4,9 @@ import { useNavigate } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { isManageState } from "../atoms/NavigatorAtom";
-import QuickLogin from "../components/mainPageComponents/QuickLogin";
-import myeong from "../assets/images/myeong.jpeg";
-import yul from "../assets/images/yul.png";
+import QuickLogin from "../components/mainPage/QuickLogin";
+// import myeong from "../assets/images/myeong.jpeg";
+// import yul from "../assets/images/yul.png";
 
 const HomePageContainer = styled.div`
   padding-top: 7vh;

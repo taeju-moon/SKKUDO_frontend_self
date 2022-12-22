@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import mypage from "../assets/images/mypage/mypage.png";
+import mypage from "../../assets/images/mypage/mypage.png";
 
 const AboutMyPageContainer = styled.div`
   padding-left: 5%;
