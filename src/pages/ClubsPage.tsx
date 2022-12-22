@@ -37,8 +37,10 @@ function ClubsPage() {
           return true;
         } else {
           return (
-            today >= club.recruitStart!.substring(0, 10) &&
-            today <= club.recruitEnd!.substring(0, 10)
+            club.recruitStart &&
+            club.recruitEnd &&
+            today >= club.recruitStart.substring(0, 10) &&
+            today <= club.recruitEnd.substring(0, 10)
           );
         }
       });
