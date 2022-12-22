@@ -15,17 +15,20 @@ const MyPageContainer = styled.div`
 `;
 
 const MyPageMassageContainer = styled.div`
-  font-size: 18px;
-  line-height: 50px;
+  font-size: 1.2em;
+  line-height: 2em;
   font-weight: 600;
   width: 100%;
   text-align: center;
-  margin-bottom: 60px;
+  margin-bottom: 10vh;
+   @media screen and (max-width: 1024px){
+     font-size: 1em;
+  }
 `;
 
 const MyPageImageContainer = styled.div`
   padding-left: 5%;
-  margin-bottom: 60px;
+  margin-bottom: 10vh;
 `;
 
 function AboutMyPage() {

@@ -32,10 +32,13 @@ const InfoContainer = styled.div`
 
 const Message = styled.div`
   display: flex;
-  font-size: 18px;
-  line-height: 50px;
+  font-size: 1.2em;
+  line-height: 2.3em;
   font-weight: 600;
   width: 50%;
+  @media screen and (max-width: 1024px){
+     font-size: 0.7em;
+  }
 `;
 
 interface ImageContainerType {

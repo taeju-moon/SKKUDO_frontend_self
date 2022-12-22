@@ -10,9 +10,16 @@ const Intro = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 60px;
+  font-size: 3em;
   font-weight: 700;
-  margin-bottom: 100px;
+  margin-bottom: 10vh;
+  @media screen and (max-width: 1200px){
+    font-size: 1.9em;
+  }
+  @media screen and (max-width: 768px){
+     width: 80%;
+     margin-left: 4vw;
+  }
 `;
 
 const IntroduceContainer = styled.div`
@@ -21,37 +28,50 @@ const IntroduceContainer = styled.div`
   border-color: #0c4426;
   display: flex;
   flex-direction: row;
-  padding-top: 80px;
-  padding-bottom: 80px;
+  padding-top: 10vh;
+  padding-bottom: 10vh;
 `;
 const IntroduceMassageContainer = styled.div`
   display: flex;
   flex-direction: column;
-  width: 600px;
+  width: 40vw;
+   @media screen and (max-width:768px){
+    width: 70vw;
+  }
 `;
 const ImageContainer = styled.div`
-  padding: 20px;
+  padding: 2vw;
   width: 40%;
   display: flex;
   justify-content: center;
   align-items: center;
+  @media screen and (max-width:768px){
+    display: none;
+  }
 `;
 const Content = styled.div`
-  font-size: 18px;
-  line-height: 25px;
+  font-size: 1.2rem;
+  line-height: 2.2rem;
   font-weight: 600;
+    @media screen and (max-width: 768px){
+      font-size: 1rem;
+      line-height: 2rem;
+  }
 `;
 
 const SloganContainer = styled.div`
   background-color: #0c4426;
-  padding-top: 80px;
-  padding-bottom: 80px;
+  padding-top: 10vh;
+  padding-bottom: 10vh;
   display: flex;
   gap: 40px;
   flex-direction: column;
-  width: 500%;
-  margin-left: -208%;
+  width: 139.4%;
+  margin-left: -21.5vw;
   box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.7);
+  @media screen and (max-width: 1200px){
+    display: none;
+  }
 `;
 const SloganMassage = styled.div`
   display: flex;
@@ -59,26 +79,35 @@ const SloganMassage = styled.div`
   color: #dde143;
   font-size: 60px;
   font-weight: 700;
+
+  @media screen and (max-width: 1200px){
+    display: none;
+  }
 `;
 
 const VisionContainer = styled.div`
   border-color: #0c4426;
-  padding-top: 80px;
-  padding-bottom: 80px;
+  padding-top: 10vh;
+  padding-bottom: 10vh;
   display: flex;
   flex-direction: column;
+  @media screen and (max-width: 1200px){
+    display: none;
+  }
 `;
 const VisionMassageContainer = styled.div`
-  padding-bottom: 40px;
+  padding-bottom: 5vh;
   text-align: center;
   font-size: 30px;
   font-weight: 700;
   color: #0c4426;
+  @media screen and (max-width: 1200px){
+    display: none;
+  }
 `;
 const IconContainer = styled.div`
   display: flex;
-  padding-top: 40px;
-
+  padding-top: 5vh;
   flex-direction: row;
   justify-content: center;
 `;
@@ -87,19 +116,19 @@ const MainIconContainer = styled.div`
   padding-right: 5%;
   padding-top: 3%;
   padding-bottom: 3%;
-  margin-left: 20px;
-  margin-right: 20px;
+  margin-left: 3vw;
+  margin-right: 3vw;
   border-style: solid;
   border-width: 1px;
   border-color: #0c4426;
   display: flex;
   flex-direction: column;
-  border-radius: 5px;
+  border-radius: 1rem;
   color: #0c4426;
 `;
 const MainIConMassageContainer = styled.div`
   display: flex;
-  margin-top: 30px;
+  margin-top: 8vh;
   font-weight: 600;
   justify-content: center;
 `;
@@ -112,14 +141,15 @@ const DistinctContainer = styled.div`
   padding-bottom: 5%;
   display: flex;
   flex-direction: row;
+
 `;
 
 const DistinctMassageContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding-left: 10px;
-  padding-right: 10px;
+  padding-left: 3vw;
+  padding-right: 3vw;
   flex: 1;
 `;
 

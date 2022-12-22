@@ -7,21 +7,32 @@ import styled from "styled-components";
 const AboutSideBarContainer = styled.div`
   display: flex;
   flex-direction: column;
-  width: 180px;
+  width: 15vw;
   height: 100%;
 `;
 
 const NestedListHeader = styled.div`
   color: #0c4426;
-  font-size: 20px;
+  font-size: 1.6rem;
+  margin-top: 1vh;
+  margin-left: 1vw;
   font-weight: 800;
+  white-space:nowrap;
+    @media screen and (max-width: 1200px){
+     display: none;
+  }
 `;
 
 const MenuLink = styled(Link)`
   color: #0c4426;
   text-decoration: none;
-  font-size: 15px;
+  font-size: 1.3rem;
+  margin-left: 1vw;
   font-weight: 800;
+  white-space:nowrap;
+    @media screen and (max-width:768px){
+    font-size: 0.8rem;
+  }
 `;
 
 function AboutSideBar() {
