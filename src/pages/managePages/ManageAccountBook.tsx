@@ -44,6 +44,7 @@ import {
 } from "@mui/material";
 import styled from "@emotion/styled";
 import UpdateRowDialog from "../../components/accoutBook/UpdateRowDialog";
+import csvDownload from "json-to-csv-export";
 
 const AccountBookPageContainer = styled.div`
   width: 100%;
@@ -208,6 +209,7 @@ function CollapsibleTable() {
   const handleClose = () => {
     setNameDialogOpen(false);
   };
+
   const { data, isLoading } = useQuery<BudgetType>(
     "getBudgetsByClubID",
     () => getBudgetsByClubID(clubID || ""),
@@ -227,6 +229,28 @@ function CollapsibleTable() {
       cacheTime: Infinity,
     }
   );
+
+  const downloadCSV = async () => {
+    const dataToConvert = {
+      data: data ? data.rows : [],
+      filename: "가계부",
+      delimiter: ",",
+      headers: [
+        "날짜",
+        "수입",
+        "지출",
+        "누가",
+        "내용",
+        "잔고",
+        "메모",
+        "계좌번호",
+        "ID",
+      ],
+    };
+    await csvDownload(dataToConvert);
+    window.location.reload();
+  };
+
   const { mutate: deleteBudgetMutate } = useMutation(
     () => deleteBudget(data?._id || "", clubID || ""),
     {
@@ -336,6 +360,9 @@ function CollapsibleTable() {
           새 가계부 생성
         </DeleteBtn>
       )}
+      <DeleteBtn color="error" variant="contained" onClick={downloadCSV}>
+        Export to CSV
+      </DeleteBtn>
       <TableContainer component={Paper}>
         <Table aria-label="collapsible table">
           <TableHead>
