@@ -5,6 +5,9 @@ import { BASE_URL } from "./fetch";
 
 const GET_ONE_USER_URL = `${BASE_URL}/users/`;
 
+export const getAllUsers = async () =>
+  axios.get(GET_ONE_USER_URL).then((res) => res.data.data);
+
 export const getOneUser = async (userID: string) =>
   axios.get(GET_ONE_USER_URL.concat(userID)).then((res) => res.data.data);
 

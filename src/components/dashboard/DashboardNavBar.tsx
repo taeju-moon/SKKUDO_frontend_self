@@ -27,9 +27,10 @@ const ToolbarStyle = styled(Toolbar)(({ theme }) => ({
 }));
 
 interface IDashboardNavBar {
+  isAdmin: boolean;
   onOpenSidebar(): void;
 }
-function DashboardNavBar({ onOpenSidebar }: IDashboardNavBar) {
+function DashboardNavBar({ isAdmin, onOpenSidebar }: IDashboardNavBar) {
   return (
     <RootStyle>
       <ToolbarStyle>
@@ -47,8 +48,7 @@ function DashboardNavBar({ onOpenSidebar }: IDashboardNavBar) {
           alignItems="center"
           spacing={{ xs: 0.5, sm: 1.5 }}
         >
-          {/* <NotificationsPopover /> */}
-          <AccountPopover />
+          {isAdmin ? null : <AccountPopover />}
         </Stack>
       </ToolbarStyle>
     </RootStyle>
