@@ -48,7 +48,7 @@ export default function UserInfoDialog({
         <Card
           sx={{
             margin: "0 auto",
-            marginTop: "80px",
+
             width: "100%",
             maxWidth: "1024px",
           }}

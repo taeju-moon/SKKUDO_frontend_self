@@ -24,6 +24,8 @@ import UserListHead from "../user/UserListHead";
 import UserListToolbar from "../user/UserListToolbar";
 import UserMoreMenu from "../user/UserMoreMenu";
 import SearchNotFound from "../user/SearchNotFound";
+import UserInfoDialog from "./UserInfoDialog";
+import { IoIosDocument } from "react-icons/io";
 
 type IMoreColumn = {
   column: ColumnType;
@@ -36,12 +38,12 @@ interface UserTableType {
 
 const TABLE_HEAD = [
   { id: "name", label: "이름", alignRight: false },
+  { id: "userID", label: "아이디", alignRight: false },
   { id: "studentId", label: "학번", alignRight: false },
-  { id: "role", label: "역할", alignRight: false },
   { id: "major", label: "학과", alignRight: false },
   { id: "location", label: "위치", alignRight: false },
-  { id: "contact", label: "연락처", alignRight: false },
 ];
+
 export default function AllUsersTable({ isManage }: UserTableType) {
   const { clubID } = useParams();
   const [page, rowsPerPage, handleChangePage, handleChangeRowsPerPage] =
@@ -51,6 +53,14 @@ export default function AllUsersTable({ isManage }: UserTableType) {
 
   const [order, orderBy, filterName, handleRequestSort, handleFilterByName] =
     useOrderWithFilter();
+
+  const [open, setOpen] = useState(false);
+  const [clickedUser, setClickedUser] = useState<UserType>();
+
+  const handleUserItemClick = (user: UserType) => {
+    setOpen(true);
+    setClickedUser(user);
+  };
 
   const { data } = useQuery<UserType[]>("getAllUsers", () => getAllUsers(), {
     onSuccess: (data) => {
@@ -213,17 +223,15 @@ export default function AllUsersTable({ isManage }: UserTableType) {
                       sx={{ fontSize: isManage ? "20px" : "13px" }}
                       align="left"
                     >
-                      {studentId}
+                      {userID}
                     </TableCell>
                     <TableCell
                       sx={{ fontSize: isManage ? "20px" : "13px" }}
                       align="left"
                     >
-                      {clubID && data
-                        ? new Map(Object.entries(registeredClubs)).get(clubID)
-                            ?.role
-                        : ""}
+                      {studentId}
                     </TableCell>
+
                     <TableCell
                       sx={{ fontSize: isManage ? "20px" : "13px" }}
                       align="left"
@@ -236,14 +244,13 @@ export default function AllUsersTable({ isManage }: UserTableType) {
                     >
                       {location}
                     </TableCell>
-                    {isManage && (
-                      <TableCell
-                        sx={{ fontSize: isManage ? "20px" : "13px" }}
-                        align="left"
-                      >
-                        {contact}
-                      </TableCell>
-                    )}
+                    <TableCell
+                      sx={{ fontSize: isManage ? "20px" : "13px" }}
+                      align="left"
+                      onClick={() => handleUserItemClick(row)}
+                    >
+                      <IoIosDocument />
+                    </TableCell>
                     {/* {clubID && data
                       ? new Map(Object.entries(registeredClubs))
                           .get(clubID)
@@ -304,6 +311,8 @@ export default function AllUsersTable({ isManage }: UserTableType) {
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
       />
+
+      <UserInfoDialog open={open} setOpen={setOpen} clickedUser={clickedUser} />
     </>
   );
 }
