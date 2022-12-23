@@ -1,7 +1,6 @@
 import { Paper, Stack, styled } from "@mui/material";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { BiMessageSquareAdd } from "react-icons/bi";
-import { deleteNotice, getNoticesByClubID } from "../utils/fetch";
 import {
   ClickedNoticeInfoType,
   DeleteNoticetype,
@@ -18,7 +17,11 @@ import { useSetRecoilState } from "recoil";
 import { isNoticeDetailOpenState } from "../atoms/utilAtom";
 import CategoryAddDialog from "../components/notice/CategoryAddDialog";
 import { motion } from "framer-motion";
-import { getNoticeTagsByClubID } from "./../utils/fetch";
+import {
+  deleteNotice,
+  getNoticesByClubID,
+  getNoticeTagsByClubID,
+} from "../utils/fetch/fetchNotice";
 
 interface TagType {
   _id: string;

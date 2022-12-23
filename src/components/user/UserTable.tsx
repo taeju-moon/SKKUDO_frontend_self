@@ -16,14 +16,14 @@ import useTableHead from "../../hooks/useTableHead";
 import useTablePage from "../../hooks/useTablePage";
 import { ColumnType, RoleType } from "../../types/common";
 import { UserType } from "../../types/user";
+import { getClubMembers } from "../../utils/fetch/fetchUser";
 import { ClubType } from "../../types/club";
-import { getClubMembers } from "../../utils/fetch";
 import { applySortFilter, getComparator } from "../../utils/Sorting";
 import SearchNotFound from "./SearchNotFound";
 import UserListHead from "./UserListHead";
 import UserListToolbar from "./UserListToolbar";
 import UserMoreMenu from "./UserMoreMenu";
-import { getOneClub } from "../../utils/fetch";
+import { getOneClub } from "../../utils/fetch/fetchClub";
 import csvDownload from "json-to-csv-export";
 
 type IMoreColumn = {

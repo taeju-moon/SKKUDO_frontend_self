@@ -5,16 +5,15 @@ import { useMutation, useQuery } from "react-query";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { isLoggedInState } from "../atoms/loginAtom";
-import { loggedInUserState, userInfoState } from "../atoms/userAtom";
+import { loggedInUserState } from "../atoms/userAtom";
 import FormTitle from "../components/FormTitle";
-import { AppliedUserType, ApplierType, ApplyFormType } from "../types/apply";
-import { ColumnType, ErrorType } from "../types/common";
-import { VerifyUserResponseType } from "../types/user";
+import { ApplierType, ApplyFormType } from "../types/apply";
+import { ColumnType } from "../types/common";
+
 import {
   createAppliedUser,
   getApplierByClubID,
-  verifyUser,
-} from "../utils/fetch";
+} from "../utils/fetch/fetchApply";
 
 const ApplyWrapper = styled("div")({
   paddingTop: "180px",

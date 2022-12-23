@@ -12,10 +12,10 @@ import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import exampleImage from "../assets/images/example.png";
 import { RegisteredClubType } from "../types/user";
-import { getAppliedUserByID } from "../utils/fetch";
+import { getAppliedUserByID } from "../utils/fetch/fetchApply";
 import { isLoggedInState } from "../atoms/loginAtom";
 import { loggedInUserState } from "../atoms/userAtom";
-import { BASE_URL } from "../utils/fetch";
+import { BASE_URL } from "../utils/fetch/fetch";
 import UserInfoViewer from "../components/myPage/UserInfoViewer";
 import DefaultClubCard from "../components/myPage/DefaultClubCard";
 

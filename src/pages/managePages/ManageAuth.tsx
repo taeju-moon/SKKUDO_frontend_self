@@ -1,6 +1,5 @@
-import { Link as RouterLink, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
-// material
 import {
   Container,
   Stack,
@@ -14,13 +13,11 @@ import {
   MenuItem,
   InputLabel,
 } from "@mui/material";
-
 import Select, { SelectChangeEvent } from "@mui/material/Select";
-import { AUTH_LABEL_LIST, AUTH_LIST } from "../../constants/AuthManageContants";
-
+import { AUTH_LABEL_LIST } from "../../constants/AuthManageContants";
 import { useQuery } from "react-query";
 import { ValidationKeyType, ValidationType } from "../../types/validation";
-import { getValidatonByClubID } from "../../utils/fetch";
+import { getValidatonByClubID } from "../../utils/fetch/fetchValidation";
 import AlertDialog from "../../components/manageAuth/AuthConfirmAlert";
 import { useSetRecoilState } from "recoil";
 import { isAuthConfirmAlertOpenState } from "../../atoms/alertAtom";

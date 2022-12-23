@@ -2,7 +2,7 @@ import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { ClubType } from "../../types/club";
-import { getOneClub, uploadImage, BASE_URL } from "../../utils/fetch";
+import { getOneClub } from "../../utils/fetch/fetchClub";
 import { FaPen } from "react-icons/fa";
 import moment from "moment";
 import { motion } from "framer-motion";
@@ -10,7 +10,9 @@ import UpdateDialog from "../../components/manageClub/UpdateDialog";
 import { useState } from "react";
 import { useSetRecoilState } from "recoil";
 import { clubUpdateState } from "../../atoms/alertAtom";
-import { Button, IconButton, Box } from "@mui/material";
+import { Button, Box } from "@mui/material";
+import { uploadImage } from "../../utils/fetch/fetchClub";
+import { BASE_URL } from "../../utils/fetch/fetch";
 
 const ManageClubContainer = styled.div`
   padding: 50px;
@@ -86,7 +88,6 @@ function ManageClub() {
     setClubUpdate({ keyword });
   };
 
-  const [value, setValue] = useState<string>(clubData?.type.name as string);
   const [file, setFile] = useState();
 
   const onChangeImage = (e: any) => {

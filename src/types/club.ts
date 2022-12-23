@@ -7,7 +7,7 @@ export interface ClubType {
   _id: string;
   name: string;
   location: LocationType;
-  initializer:UserType;
+  initializer: string;
   image: string;
   type: ClubTypeType;
   userColumns: ColumnType[];
@@ -26,6 +26,16 @@ export interface NewClubType {
     name: string;
   };
   recruitType: RecruitType;
+}
+
+export interface NotAcceptedClubType {
+  accpeted: boolean;
+  name: string;
+  location: string;
+  recruitType: RecruitType;
+  type: ClubTypeType;
+  userColumn: ColumnType[];
+  _id: string;
 }
 export interface ClubTypeType {
   _id: string;

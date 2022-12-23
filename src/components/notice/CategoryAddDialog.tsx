@@ -4,14 +4,15 @@ import DialogTitle from "@mui/material/DialogTitle";
 import Dialog from "@mui/material/Dialog";
 import { Box, TextField } from "@mui/material";
 import { useMutation, useQuery, useQueryClient } from "react-query";
+
+import { useParams } from "react-router-dom";
+import styled from "@emotion/styled";
+import { DeleteNoticetype, NoticeTagType } from "../../types/notice";
 import {
   createNoticeTag,
   deleteNoticeTag,
   getNoticeTagsByClubID,
-} from "../../utils/fetch";
-import { useParams } from "react-router-dom";
-import styled from "@emotion/styled";
-import { DeleteNoticetype, NoticeTagType } from "../../types/notice";
+} from "../../utils/fetch/fetchNotice";
 
 export const CategoryList = styled.ul`
   width: 100%;

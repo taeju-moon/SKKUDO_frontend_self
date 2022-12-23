@@ -19,8 +19,9 @@ import { LocationType } from "../../types/common";
 import { RecruitType, UpdateClubInfoType } from "../../types/club";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { useParams } from "react-router-dom";
-import { getAllClubTypes, updateClub } from "../../utils/fetch";
+import { updateClub } from "../../utils/fetch/fetchClub";
 import { currentClubInfoState } from "../../atoms/utilAtom";
+import { getAllClubTypes } from "../../utils/fetch/fetchClub";
 
 interface UpdateDialogType {
   dialogOpen: boolean;

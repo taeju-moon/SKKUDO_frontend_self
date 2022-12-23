@@ -4,11 +4,10 @@ import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import { BudgetRowType, NewBudgetRowType } from "../../types/budget";
 import { useMutation, useQueryClient } from "react-query";
-import { updateBudgetRow } from "../../utils/fetch";
+import { updateBudgetRow } from "../../utils/fetch/fetchBudget";
 import { useParams } from "react-router-dom";
 import { DesktopDatePicker } from "@mui/x-date-pickers";
 

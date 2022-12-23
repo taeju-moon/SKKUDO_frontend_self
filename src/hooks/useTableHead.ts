@@ -1,6 +1,6 @@
 import { ClubType } from "./../types/club";
 import { useParams } from "react-router-dom";
-import { getOneClub } from "./../utils/fetch";
+import { getOneClub } from "./../utils/fetch/fetchClub";
 import { useEffect, useState } from "react";
 
 interface ITableHeadItem {

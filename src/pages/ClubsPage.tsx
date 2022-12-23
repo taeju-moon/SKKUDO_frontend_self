@@ -6,7 +6,7 @@ import { useQuery } from "react-query";
 import ClubsList from "../components/clubs/ClubsList";
 import FilterTag from "../components/FilterTag";
 import { ClubType } from "../types/club";
-import { getAllClubs, getAllClubTypes } from "../utils/fetch";
+import { getAllClubs, getAllClubTypes } from "../utils/fetch/fetchClub";
 
 interface TagType {
   _id: string;
@@ -37,8 +37,10 @@ function ClubsPage() {
           return true;
         } else {
           return (
-            today >= club.recruitStart!.substring(0, 10) &&
-            today <= club.recruitEnd!.substring(0, 10)
+            club.recruitStart &&
+            club.recruitEnd &&
+            today >= club.recruitStart.substring(0, 10) &&
+            today <= club.recruitEnd.substring(0, 10)
           );
         }
       });

@@ -10,7 +10,7 @@ import {
   InputLabel,
   Button,
 } from "@mui/material";
-import { addClubUserColumn } from "../../../utils/fetch";
+import { addClubUserColumn } from "../../../utils/fetch/fetchClub";
 
 import { ColumnType, NewColumnType } from "../../../types/common";
 
