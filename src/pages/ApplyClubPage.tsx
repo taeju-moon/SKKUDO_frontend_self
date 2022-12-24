@@ -6,14 +6,15 @@ import {
   Select,
   SelectChangeEvent,
 } from "@mui/material";
-import React, { useState, useEffect } from "react";
-import { getAllClubTypes } from "../utils/fetch";
+import React, { useState } from "react";
+
 import { useMutation, useQuery } from "react-query";
 import FormTitle from "../components/FormTitle";
 import { RecruitType } from "../types/club";
 import { LocationType } from "../types/common";
-import { createClub } from "../utils/fetch";
+
 import { useNavigate } from "react-router-dom";
+import { createClub, getAllClubTypes } from "../utils/fetch/fetchClub";
 
 interface TagType {
   _id: string;
@@ -121,20 +122,12 @@ function ApplyClubPage() {
 
   const { data } = useQuery<TagType[]>("getAllClubs", getAllClubTypes, {
     onSuccess: (data) => {
-      console.log(data);
+      // console.log(data);
       setTags(data);
       setValue(data[0].name);
     },
     onError: (error: any) => alert(error.response.data.error),
   });
-
-  // useEffect(() => {
-  //   getAllClubTypes().then((data) => {
-  //     const using = data.data.data;
-  //     setTags(using);
-  //     setValue(using[0].name);
-  //   });
-  // }, []);
 
   return (
     <>

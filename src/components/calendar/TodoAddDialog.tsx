@@ -16,16 +16,9 @@ import {
   Button,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import moment from "moment";
 import { useMutation, useQuery } from "react-query";
 import { useParams } from "react-router-dom";
-import {
-  createTodo,
-  getClubMembers,
-  getTodoTagsByClubID,
-  updateTodo,
-} from "../../utils/fetch";
 import { UserType } from "../../types/user";
 import { NewToDoType, ToDoTagType, UpdateTodoType } from "../../types/todo";
 import { TimePicker } from "@mui/x-date-pickers";
@@ -34,6 +27,12 @@ import {
   isTodoUpdateState,
   updateTodoInfoState,
 } from "../../atoms/calendarAtom";
+import { getClubMembers } from "../../utils/fetch/fetchUser";
+import {
+  createTodo,
+  getTodoTagsByClubID,
+  updateTodo,
+} from "../../utils/fetch/fetchTodo";
 
 const NewTodoForm = styled.form`
   display: flex;
@@ -110,18 +109,20 @@ function TodoAddDialog(props: SimpleDialogProps) {
   const [personName, setPersonName] = useState<string[]>([]);
   const [tags, setTags] = useState<string[]>([]);
 
-  const { data: memebersData, isLoading: isMembersLoading } = useQuery<
-    UserType[]
-  >("getClubMembers", () => getClubMembers(clubID || ""), {
-    onSuccess: (data) => {
-      const temp: string[] = [];
-      data.forEach((member) => temp.push(member.name));
-      names = temp;
-    },
-    onError: (error: any) => alert(error.response.data.error),
-  });
+  const { data: memebersData } = useQuery<UserType[]>(
+    "getClubMembers",
+    () => getClubMembers(clubID || ""),
+    {
+      onSuccess: (data) => {
+        const temp: string[] = [];
+        data.forEach((member) => temp.push(member.name));
+        names = temp;
+      },
+      onError: (error: any) => alert(error.response.data.error),
+    }
+  );
 
-  const { data: tagsData, isLoading: isTagsLoading } = useQuery<ToDoTagType[]>(
+  const { data: tagsData } = useQuery<ToDoTagType[]>(
     "getTodoTagsByClubID",
     () => getTodoTagsByClubID(clubID || ""),
     {
@@ -139,12 +140,6 @@ function TodoAddDialog(props: SimpleDialogProps) {
   const handleClose = () => {
     onClose();
   };
-
-  const [date, setDate] = useState<string | null>("");
-
-  // const handleDateChange = (newDate: string | null) => {
-  //   setDate(moment(newDate).format("YYYY-MM-DD"));
-  // };
 
   const [startTime, setStartTime] = useState<string | null>("");
 

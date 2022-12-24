@@ -5,10 +5,10 @@ import { useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { isManageState } from "../atoms/NavigatorAtom";
 import { useMutation } from "react-query";
-import { logoutFromServer } from "../utils/fetch";
 import { isLoggedInState } from "../atoms/loginAtom";
 import { userNameState } from "../atoms/userAtom";
 import { motion } from "framer-motion";
+import { logoutFromServer } from "../utils/fetch/fetchAuth";
 
 interface INavigationConatiner {
   isManage: boolean;
@@ -39,24 +39,24 @@ const LogoContainer = styled(Link)`
   margin-left: 2vw;
   margin-right: 3vw;
   justify-content: center;
-  @media screen and (max-width: 1024px){
+  @media screen and (max-width: 1024px) {
     margin-left: 6vw;
     margin-right: 7vw;
   }
-  @media screen and (max-width: 768px){
-   margin-left: 8vw;
+  @media screen and (max-width: 768px) {
+    margin-left: 8vw;
   }
 `;
 
 const Logo = styled.div`
   font-size: 2em;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   color: #dde143;
 `;
 
 const NavigationContainer = styled.nav`
-     @media screen and (max-width: 768px){
-      margin-left: 5vw;
+  @media screen and (max-width: 768px) {
+    margin-left: 5vw;
   }
 `;
 
@@ -77,8 +77,8 @@ const NavigationLink = styled(Link)`
   color: #dde143;
   font-size: 1.3rem;
   white-space: nowrap;
-  font-family: 'Heebo', sans-serif;
-  @media screen and (max-width: 768px){
+  font-family: "Heebo", sans-serif;
+  @media screen and (max-width: 768px) {
     font-size: 1.2rem;
   }
 `;
@@ -132,14 +132,14 @@ const UserInfo = styled.h2`
   color: #dde143;
   margin-right: 1vw;
   cursor: pointer;
-   @media screen and (max-width: 768px){
+  @media screen and (max-width: 768px) {
     font-size: 1.1rem;
   }
 `;
 
 function Navigator() {
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(isLoggedInState);
-  const [user, setUser] = useRecoilState(userNameState);
+  const user = useRecoilValue(userNameState);
   const [isLoginOptionOpened, setIsLoginOptionOpened] = useState(false);
   const isManage = useRecoilValue(isManageState);
   const handleLoginBtnClick = () => {
@@ -189,35 +189,35 @@ function Navigator() {
             </NavigationLi>
           </NavigationUl>
         </NavigationContainer>
-          <LoginBtn onClick={handleLoginBtnClick}>
-                <UserInfo>{isLoggedIn ? "Hello, " + user : "로그인"}</UserInfo>
-                <IoPersonOutline size="2.3em" />
-                <LoginOptionContainer isLoginOptionOpened={isLoginOptionOpened}>
-                  {!isLoggedIn ? (
-                    <>
-                      <LoginOption
-                        onClick={handleLoginOptionClick}
-                        whileHover={{ backgroundColor: "#d4e7c6bf" }}
-                      >
-                        로그인
-                      </LoginOption>
-                      <LoginOption
-                        onClick={handleSignupOptionClick}
-                        whileHover={{ backgroundColor: "#d4e7c6bf" }}
-                      >
-                        회원가입
-                      </LoginOption>
-                    </>
-                  ) : (
-                    <LoginOption
-                      onClick={handleLogoutBtnClick}
-                      whileHover={{ backgroundColor: "#d4e7c6bf" }}
-                    >
-                      로그아웃
-                    </LoginOption>
-                  )}
-                </LoginOptionContainer>
-              </LoginBtn>
+        <LoginBtn onClick={handleLoginBtnClick}>
+          <UserInfo>{isLoggedIn ? "Hello, " + user : "로그인"}</UserInfo>
+          <IoPersonOutline size="2.3em" />
+          <LoginOptionContainer isLoginOptionOpened={isLoginOptionOpened}>
+            {!isLoggedIn ? (
+              <>
+                <LoginOption
+                  onClick={handleLoginOptionClick}
+                  whileHover={{ backgroundColor: "#d4e7c6bf" }}
+                >
+                  로그인
+                </LoginOption>
+                <LoginOption
+                  onClick={handleSignupOptionClick}
+                  whileHover={{ backgroundColor: "#d4e7c6bf" }}
+                >
+                  회원가입
+                </LoginOption>
+              </>
+            ) : (
+              <LoginOption
+                onClick={handleLogoutBtnClick}
+                whileHover={{ backgroundColor: "#d4e7c6bf" }}
+              >
+                로그아웃
+              </LoginOption>
+            )}
+          </LoginOptionContainer>
+        </LoginBtn>
       </ItemsContainer>
     </NavigatorContainer>
   );

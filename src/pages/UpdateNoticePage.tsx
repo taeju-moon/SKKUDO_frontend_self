@@ -16,8 +16,11 @@ import React, { useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { useNavigate, useParams } from "react-router-dom";
 import { NoticeTagType } from "../types/notice";
-import { getNoticeTagsByClubID, updateNotice } from "../utils/fetch";
 import ClubDetailHeader from "../components/ClubDetailHeader";
+import {
+  getNoticeTagsByClubID,
+  updateNotice,
+} from "../utils/fetch/fetchNotice";
 
 const AddNoticePageContainer = styled("form")({
   width: "100%",
@@ -104,7 +107,7 @@ function UpdateNoticePage() {
     setTags(typeof value === "string" ? value.split(",") : value);
   };
 
-  const { data, isLoading } = useQuery<NoticeTagType[]>(
+  const { data } = useQuery<NoticeTagType[]>(
     "getNoticeTagsByClubID",
     () => getNoticeTagsByClubID(clubID || ""),
     {

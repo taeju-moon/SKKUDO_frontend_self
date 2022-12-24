@@ -16,7 +16,7 @@ import {
   updateTodoInfoState,
 } from "../../atoms/calendarAtom";
 import { DeleteTodoType, ToDoType, UpdateTodoType } from "../../types/todo";
-import { deleteTodo } from "../../utils/fetch";
+import { deleteTodo } from "../../utils/fetch/fetchTodo";
 import { MdExpandLess, MdExpandMore } from "react-icons/md";
 import moment from "moment";
 import { Tag } from "../../pages/NoticePage";

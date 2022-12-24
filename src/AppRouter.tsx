@@ -20,7 +20,6 @@ import DashboardApp from "./pages/managePages/DashboardApp";
 import ApplyClubPage from "./pages/ApplyClubPage";
 import AddNoticePage from "./pages/AddNoticePage";
 import { useMutation } from "react-query";
-import { verifyUser } from "./utils/fetch";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { isLoggedInState } from "./atoms/loginAtom";
 import { useEffect } from "react";
@@ -40,6 +39,13 @@ import AboutApplyPage from "./pages/aboutPages/AboutApplyPage";
 import AboutClubManagePage from "./pages/aboutPages/AboutClubManagePage";
 import AboutMakeClubPage from "./pages/aboutPages/AboutMakeClubPage";
 import AboutMyPage from "./pages/aboutPages/AboutMyPage";
+import AdminMainPage from "./pages/admin/AdminMainPage";
+import ClubCreatePage from "./pages/admin/ClubCreatePage";
+import AllUsersPage from "./pages/admin/AllUsersPage";
+import AllNoticesPage from "./pages/admin/AllNoticesPage";
+import AllCalendarPage from "./pages/admin/AllCalendarPage";
+import AllClubsPage from "./pages/admin/AllClubsPage";
+import { verifyUser } from "./utils/fetch/fetchAuth";
 
 function AppRouter() {
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(isLoggedInState);
@@ -128,6 +134,13 @@ function AppRouter() {
           <Route path="notes" element={<ManageNotes />} />
           <Route path="club" element={<ManageClub />} />
           <Route path="accountBook" element={<ManageAccountBook />} />
+        </Route>
+        <Route path="/admin/" element={<AdminMainPage />}>
+          <Route path="clubCreate" element={<ClubCreatePage />} />
+          <Route path="allUsers" element={<AllUsersPage />} />
+          <Route path="allNotices" element={<AllNoticesPage />} />
+          <Route path="allCalendar" element={<AllCalendarPage />} />
+          <Route path="allClubs" element={<AllClubsPage />} />
         </Route>
         <Route path="*" element={<Page404 />} />
       </Routes>

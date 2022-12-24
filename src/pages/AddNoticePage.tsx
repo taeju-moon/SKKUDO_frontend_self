@@ -17,9 +17,12 @@ import { useMutation, useQuery, useQueryClient } from "react-query";
 import { useNavigate, useParams } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { userNameState } from "../atoms/userAtom";
-import { createNotice, getNoticeTagsByClubID } from "../utils/fetch";
 import { NoticeTagType } from "../types/notice";
 import ClubDetailHeader from "../components/ClubDetailHeader";
+import {
+  createNotice,
+  getNoticeTagsByClubID,
+} from "../utils/fetch/fetchNotice";
 
 const AddNoticePageContainer = styled("form")({
   width: "100%",
@@ -92,14 +95,13 @@ function AddNoticePage() {
   const [content, setContent] = useState("");
   const userName = useRecoilValue(userNameState);
 
-  const [categories, setCategories] = useState<NoticeTagType[]>([]);
   const [private_, setPrivate] = useState<boolean>(false);
   const [tags, setTags] = useState<string[]>([]);
 
   const theme = useTheme();
   const queryClient = useQueryClient();
 
-  const { data, isLoading } = useQuery<NoticeTagType[]>(
+  const { data } = useQuery<NoticeTagType[]>(
     "getNoticeTagsByClubID",
     () => getNoticeTagsByClubID(clubID || ""),
     {
@@ -149,25 +151,8 @@ function AddNoticePage() {
   };
 
   const handleNewNoticeSubmit = () => {
-    const selectedTags: NoticeTagType[] = [];
-
     if (data) {
       mutate();
-    }
-  };
-
-  const handleCategoryDeleteBtnClick = (
-    event: React.MouseEvent<HTMLElement>,
-    category: NoticeTagType
-  ) => {
-    event.preventDefault();
-    const idx = categories.indexOf(category);
-    if (idx === -1) {
-      console.log("nocategory found");
-    } else {
-      let newCategories = [...categories];
-      newCategories.splice(idx, 1);
-      setCategories(newCategories);
     }
   };
 

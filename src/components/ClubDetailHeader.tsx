@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
 import { ClubType } from "../types/club";
-import { getOneClub } from "../utils/fetch";
+import { getOneClub } from "../utils/fetch/fetchClub";
 
 const ClubHeader = styled("div")({
   // paddingTop: "10px",

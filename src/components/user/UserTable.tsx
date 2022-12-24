@@ -6,6 +6,7 @@ import {
   TableCell,
   TableContainer,
   TablePagination,
+  Button,
 } from "@mui/material";
 import { useState } from "react";
 import { useQuery } from "react-query";
@@ -13,14 +14,17 @@ import { useParams } from "react-router-dom";
 import useOrderWithFilter from "../../hooks/useOrderWithFilter";
 import useTableHead from "../../hooks/useTableHead";
 import useTablePage from "../../hooks/useTablePage";
-import { ColumnType } from "../../types/common";
+import { ColumnType, RoleType } from "../../types/common";
 import { UserType } from "../../types/user";
-import { getClubMembers } from "../../utils/fetch";
+import { getClubMembers } from "../../utils/fetch/fetchUser";
+import { ClubType } from "../../types/club";
 import { applySortFilter, getComparator } from "../../utils/Sorting";
 import SearchNotFound from "./SearchNotFound";
 import UserListHead from "./UserListHead";
 import UserListToolbar from "./UserListToolbar";
 import UserMoreMenu from "./UserMoreMenu";
+import { getOneClub } from "../../utils/fetch/fetchClub";
+import csvDownload from "json-to-csv-export";
 
 type IMoreColumn = {
   column: ColumnType;
@@ -96,6 +100,52 @@ export default function UserTable({ isManage }: UserTableType) {
     setSelected(newSelected);
   };
 
+  const downloadCSV = async () => {
+    const rangedArray = filteredUsers.map((item: UserType) => {
+      const newObject: any = {
+        name: item.name,
+        studentId: item.studentId,
+        role: new Map(Object.entries(item.registeredClubs)).get(
+          clubID as string
+        )?.role,
+        major: item.major,
+        location: item.location,
+        contact: item.contact,
+      };
+      new Map(Object.entries(item.registeredClubs))
+        .get(clubID as string)
+        ?.moreColumns.forEach((item: IMoreColumn) => {
+          newObject[item.column.key] = item.value;
+        });
+      return newObject;
+    });
+
+    const club: ClubType = await getOneClub(clubID as string);
+
+    let usingHeaders: string[] = [
+      "이름",
+      "학번",
+      "역할",
+      "학과",
+      "위치",
+      "연락처",
+    ];
+
+    usingHeaders = [
+      ...usingHeaders,
+      ...club.userColumns.map((item) => item.key),
+    ];
+
+    const dataToConvert = {
+      data: rangedArray,
+      filename: "동아리원",
+      delimiter: ",",
+      headers: usingHeaders,
+    };
+
+    csvDownload(dataToConvert);
+  };
+
   return (
     <>
       <UserListToolbar
@@ -105,6 +155,7 @@ export default function UserTable({ isManage }: UserTableType) {
       />
 
       <TableContainer sx={{ minWidth: 800 }}>
+        <Button onClick={downloadCSV}>export to CSV</Button>
         <Table>
           <UserListHead
             isManaging={isManage}

@@ -8,9 +8,8 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogTitle from "@mui/material/DialogTitle";
 import { useRecoilValue } from "recoil";
 import { applierState } from "../../atoms/utilAtom";
-import styled from "styled-components";
 import { useMutation } from "react-query";
-import { updateAppliedUser } from "../../utils/fetch";
+import { updateAppliedUser } from "../../utils/fetch/fetchApply";
 import { AppliedUserType, UpdateAppliedUserType } from "../../types/apply";
 import { useParams } from "react-router-dom";
 

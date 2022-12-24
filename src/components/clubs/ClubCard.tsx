@@ -4,7 +4,7 @@ import Sunkyun from "./../../assets/images/sunkyun.png";
 import { styled } from "@mui/material/styles";
 import { ClubType } from "../../types/club";
 import { motion } from "framer-motion";
-import { BASE_URL } from "../../utils/fetch";
+import { BASE_URL } from "../../utils/fetch/fetch";
 
 const ProductImgStyle = styled("img")({
   top: 0,

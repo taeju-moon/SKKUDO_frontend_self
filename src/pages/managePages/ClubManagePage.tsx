@@ -6,7 +6,7 @@ import { styled } from "@mui/material/styles";
 import DashboardNavBar from "../../components/dashboard/DashboardNavBar";
 import DashboardSidebar from "../../components/dashboard/DashboardSideBar";
 import { useQuery } from "react-query";
-import { getOneClub } from "../../utils/fetch";
+import { getOneClub } from "../../utils/fetch/fetchClub";
 import { currentClubInfoState } from "../../atoms/utilAtom";
 import { ClubType } from "../../types/club";
 
