@@ -5,10 +5,16 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import { useMutation, useQueryClient } from "react-query";
-import { NotAcceptedClubType } from "../../types/club";
+import { useQueryClient } from "react-query";
 import { UserType } from "../../types/user";
-import { accpetClub, deleteClub } from "../../utils/fetch/fetchClub";
+import ListSubheader from "@mui/material/ListSubheader";
+import List from "@mui/material/List";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import Collapse from "@mui/material/Collapse";
+import { MdExpandLess, MdExpandMore } from "react-icons/md";
+import { useState } from "react";
 
 interface UserInfoDialogType {
   open: boolean;
@@ -23,19 +29,12 @@ export default function UserInfoDialog({
 }: UserInfoDialogType) {
   const queryClient = useQueryClient();
 
-  // const onAcceptBtnClicked = () => {
-  //   if (clickedClub) {
+  const [collapseOpen, setCollapseOpen] = useState(false);
 
-  //     setOpen(false);
-  //   }
-  // };
+  const handleClick = () => {
+    setCollapseOpen(!collapseOpen);
+  };
 
-  // const onDeleteBtnClicked = () => {
-  //   if (clickedClub) {
-
-  //     setOpen(false);
-  //   }
-  // };
   return (
     <Dialog
       open={open}
@@ -54,23 +53,39 @@ export default function UserInfoDialog({
           }}
         >
           <DialogContent sx={{ width: "512px" }}>
-            <DialogContentText id="alert-dialog-description">
-              {`유저 이름 : ${clickedUser.name}`}
-            </DialogContentText>
-            <DialogContentText id="alert-dialog-description">
-              {`학과 : ${clickedUser.major}`}
-            </DialogContentText>
-            <DialogContentText id="alert-dialog-description">
-              {`연락처 : ${clickedUser.contact}`}
-            </DialogContentText>
-            <DialogContentText id="alert-dialog-description">
-              {`아이디 : ${clickedUser.userID}`}
-            </DialogContentText>
-            <DialogContentText id="alert-dialog-description">
-              {`가입된 동아리 : ${Object.values(clickedUser.registeredClubs)
-                .map((club) => club.clubName)
-                .join(", ")}`}
-            </DialogContentText>
+            <List
+              sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}
+              component="nav"
+              aria-labelledby="nested-list-subheader"
+            >
+              <ListItemButton>
+                <ListItemText primary={`유저 이름 : ${clickedUser.name}`} />
+              </ListItemButton>
+              <ListItemButton>
+                <ListItemText primary={`학과 : ${clickedUser.major}`} />
+              </ListItemButton>
+              <ListItemButton>
+                <ListItemText primary={`연락처 : ${clickedUser.contact}`} />
+              </ListItemButton>
+              <ListItemButton>
+                <ListItemText primary={`아이디 : ${clickedUser.userID}`} />
+              </ListItemButton>
+              <ListItemButton onClick={handleClick}>
+                <ListItemText primary="가입된 동아리" />
+                {collapseOpen ? <MdExpandLess /> : <MdExpandMore />}
+              </ListItemButton>
+              <Collapse in={collapseOpen} timeout="auto" unmountOnExit>
+                <List component="div" disablePadding>
+                  {Object.values(clickedUser.registeredClubs).map((club) => (
+                    <ListItemButton sx={{ pl: 4 }}>
+                      <ListItemText
+                        primary={`${club.clubName} : ${club.role}`}
+                      />
+                    </ListItemButton>
+                  ))}
+                </List>
+              </Collapse>
+            </List>
           </DialogContent>
         </Card>
       ) : (
@@ -80,10 +95,6 @@ export default function UserInfoDialog({
           </DialogContentText>
         </DialogContent>
       )}
-      <DialogActions>
-        <Button autoFocus>승인</Button>
-        <Button color="error">거절</Button>
-      </DialogActions>
     </Dialog>
   );
 }
