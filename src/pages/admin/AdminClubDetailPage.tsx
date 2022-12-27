@@ -9,11 +9,18 @@ import { BASE_URL } from "../../utils/fetch/fetch";
 import { getOneClub } from "../../utils/fetch/fetchClub";
 import Sunkyun from "./../../assets/images/sunkyun.png";
 import { getClubMembers } from "../../utils/fetch/fetchUser";
+import { AiTwotoneSetting } from "react-icons/ai";
+import { useState } from "react";
 
+const PageContainer = styled.div`
+  position: relative;
+  width: 100%;
+  max-width: 1024px;
+  margin: 0 auto;
+`;
 const ClubInfoContainer = styled.div`
   margin: 0 auto;
   width: 100%;
-  max-width: 1024px;
 `;
 
 const ClubImage = styled.img`
@@ -27,7 +34,27 @@ const ClubInfo = styled.div`
   background-color: whitesmoke;
 `;
 
+const SettingBtn = styled.button`
+  position: absolute;
+  border: none;
+  background-color: transparent;
+  top: 0;
+  right: 0;
+  width: 30px;
+  height: 30px;
+`;
+
+const OptionContainer = styled.ul<{ isSettingOpen: boolean }>`
+  position: absolute;
+  width: 80px;
+  height: 200px;
+  background-color: white;
+  display: ${(props) => (props.isSettingOpen ? "block" : "none")};
+`;
+const Option = styled.li``;
+
 export default function AdminClubDetailPage() {
+  const [isSettingOpen, setIsSettingOpen] = useState(false);
   const { clubID } = useParams();
   const { data: clubData } = useQuery<ClubType>(
     "getOneClub",
@@ -47,9 +74,16 @@ export default function AdminClubDetailPage() {
     }
   );
 
+  const handleSettingBtnClick = () => {
+    setIsSettingOpen(!isSettingOpen);
+  };
   return (
-    <>
+    <PageContainer>
       <PageTitle>동아리 세부사항</PageTitle>
+      <SettingBtn onClick={handleSettingBtnClick}>
+        <AiTwotoneSetting size="30px" />
+        <OptionContainer isSettingOpen={isSettingOpen}></OptionContainer>
+      </SettingBtn>
       {clubData && (
         <ClubInfoContainer>
           <Grid container spacing={4}>
@@ -81,6 +115,6 @@ export default function AdminClubDetailPage() {
           </Grid>
         </ClubInfoContainer>
       )}
-    </>
+    </PageContainer>
   );
 }
