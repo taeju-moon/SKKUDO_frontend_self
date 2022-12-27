@@ -46,6 +46,7 @@ import AllNoticesPage from "./pages/admin/AllNoticesPage";
 import AllCalendarPage from "./pages/admin/AllCalendarPage";
 import AllClubsPage from "./pages/admin/AllClubsPage";
 import { verifyUser } from "./utils/fetch/fetchAuth";
+import AdminClubDetailPage from "./pages/admin/AdminClubDetailPage";
 
 function AppRouter() {
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(isLoggedInState);
@@ -141,6 +142,7 @@ function AppRouter() {
           <Route path="allNotices" element={<AllNoticesPage />} />
           <Route path="allCalendar" element={<AllCalendarPage />} />
           <Route path="allClubs" element={<AllClubsPage />} />
+          <Route path="clubDetail/:clubID" element={<AdminClubDetailPage />} />
         </Route>
         <Route path="*" element={<Page404 />} />
       </Routes>
