@@ -23,7 +23,7 @@ const ApplyWrapper = styled("div")({
 const ApplyClubPageContainer = styled("form")({
   paddingTop: "50px",
   width: "100%",
-  maxWidth: "1024px",
+  maxWidth: "70%",
   backgroundColor: "#fff",
   borderRadius: "3px",
   margin: "0 auto",

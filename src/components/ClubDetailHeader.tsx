@@ -5,17 +5,16 @@ import { ClubType } from "../types/club";
 import { getOneClub } from "../utils/fetch/fetchClub";
 
 const ClubHeader = styled("div")({
-  // paddingTop: "10px",
   display: "flex",
   width: "100%",
-  maxWidth: "1024px",
+  maxWidth: "70%",
   margin: "0 auto",
-  gap: "30px",
-  fontSize: "45px",
+  gap: "2%",
+  fontSize: "2.2vw",
   color: "#0C4426",
   borderBottom: "4px solid #0C4426",
-  paddingBottom: "15px",
-  marginBottom: "20px",
+  paddingBottom: "1%",
+  marginBottom: "1%",
 });
 
 interface ClubDetailHeaderType {
