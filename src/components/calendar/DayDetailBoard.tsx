@@ -17,8 +17,8 @@ const BoardContainer = styled.div<IDayDetailOverlay>`
   transform: translateX(-50%);
   left: 50%;
   width: 100%;
-  max-width: 1024px;
-  height: 800px;
+  max-width: 70%;
+  height: 80%;
   background-color: white;
   display: ${(props) => (props.isDayDetailOpened ? "flex" : "none")};
   flex-direction: column;

@@ -22,13 +22,16 @@ import DefaultClubCard from "../components/myPage/DefaultClubCard";
 const MyPageContainer = styled.div`
   margin: 0 auto;
   width: 100%;
-  max-width: 1024px;
-  padding-top: 80px;
-  padding-bottom: 100px;
+  max-width: 55vw;
+  padding-top: 10vh;
+  padding-bottom: 10vh;
+  @media screen and (max-width: 1024px){
+    max-width: 90vw;
+  }
 `;
 
 const SectionContainer = styled.div`
-  margin-top: 60px;
+  margin-top: 9vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -36,20 +39,20 @@ const SectionContainer = styled.div`
 
 const Title = styled.div`
   width: 100%;
-  max-width: 1024px;
-  font-size: 35px;
+  max-width: 55vw;
+  font-size: 2em;
   color: #0c4426;
-  margin-bottom: 30px;
+  margin-bottom: 5vh;
   font-weight: 600;
-  padding-left: 10px;
+  padding-left: 0.5vw;
 `;
 
 const ClubCardsContainer = styled.div`
   width: 100%;
-  max-width: 1024px;
+  max-width: 55vw;
   flex-wrap: wrap;
   display: flex;
-  gap: 20px;
+  gap: 0.5vw;
 `;
 
 function MyPage() {

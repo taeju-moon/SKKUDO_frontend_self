@@ -28,7 +28,7 @@ const Header = styled("div")({
   position: "relative",
   display: "flex",
   width: "100%",
-  maxWidth: "1024px",
+  maxWidth: "70%",
   margin: "0 auto",
   justifyContent: "flex-end",
   flexDirection: "row",
@@ -47,7 +47,7 @@ const AddCategoryBtn = styled(motion.button)({
   width: "160px",
   border: "2px solid ",
   borderRadius: "10px",
-  fontSize: "20px",
+  fontSize: "1vw",
 });
 
 export interface IDayDetailOverlay {

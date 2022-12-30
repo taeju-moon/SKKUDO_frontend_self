@@ -16,7 +16,7 @@ import { motion } from "framer-motion";
 
 const NavigatorContainer = styled.div`
   width: 100%;
-  max-width: 1024px;
+  max-width: 70%;
   margin: 0 auto;
   display: flex;
   justify-content: flex-end;
