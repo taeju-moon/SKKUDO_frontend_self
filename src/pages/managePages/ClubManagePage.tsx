@@ -60,7 +60,7 @@ function ClubManagePage() {
 
   return (
     <RootStyle>
-      <DashboardNavBar onOpenSidebar={() => setOpen(true)} />
+      <DashboardNavBar isAdmin={false} onOpenSidebar={() => setOpen(true)} />
       <DashboardSidebar
         isOpenSidebar={open}
         onCloseSidebar={() => setOpen(false)}
