@@ -41,7 +41,7 @@ const NewTodoForm = styled.form`
 `;
 
 const NewTodoInput = styled(TextField)`
-  width: 400px;
+  width: 80%;
   margin-bottom: 40px;
 `;
 

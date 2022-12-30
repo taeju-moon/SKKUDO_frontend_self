@@ -35,11 +35,11 @@ const BtnContainer = styled("div")({
   position: "relative",
   display: "flex",
   width: "100%",
-  maxWidth: "1024px",
+  maxWidth: "70%",
   margin: "0 auto",
   justifyContent: "flex-end",
-  gap: "20px",
-  marginTop: "80px",
+  gap: "1%",
+  marginTop: "2%",
 });
 
 const AddCategoryBtn = styled(motion.button)({
@@ -48,7 +48,7 @@ const AddCategoryBtn = styled(motion.button)({
   fontWeight: "600",
   paddingLeft: "10px",
   paddingRight: "10px",
-  fontSize: "20px",
+  fontSize: "1vw",
   border: "2px solid ",
   borderRadius: "10px",
 });
@@ -74,7 +74,7 @@ const NoticeTitle = styled(motion.div)({
   alignItems: "center",
   justifyContent: "flex-start",
   paddingLeft: "40px",
-  fontSize: "25px",
+  fontSize: "1vw",
 });
 
 interface OptionContainerType {
@@ -104,7 +104,7 @@ const Option = styled(motion.div)({
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
-  fontSize: "16px",
+  fontSize: "1vw",
   fontWeight: "600",
 });
 
@@ -124,7 +124,7 @@ export const Tag = styled("div")({
   color: "white",
   borderRadius: "4px",
   padding: "5px",
-  fontSize: "15px",
+  fontSize: "1vw",
   display: "flex",
   justifyContent: "center",
   alignItems: "center",

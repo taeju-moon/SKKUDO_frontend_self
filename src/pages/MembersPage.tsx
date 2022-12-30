@@ -4,14 +4,14 @@ import UserTable from "../components/user/UserTable";
 
 export default function User() {
   return (
-    <Container sx={{ maxWidth: "1024px" }}>
+    <Container sx={{ maxWidth: "70%" }}>
       <ClubDetailHeader pageType={"동아리원"} />
       <Card
         sx={{
           margin: "0 auto",
           marginTop: "80px",
           width: "100%",
-          maxWidth: "1024px",
+          maxWidth: "100%",
         }}
       >
         <UserTable isManage={false} />

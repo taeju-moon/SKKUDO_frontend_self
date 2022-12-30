@@ -20,7 +20,7 @@ import ColumnDialog from "../components/profile/ColumnDialog";
 
 const ProfileContainer = styled.div`
   width: 100%;
-  max-width: 1024px;
+  max-width: 70%;
   margin: 0 auto;
   margin-top: 40px;
 `;
@@ -89,6 +89,7 @@ function ProfilePage() {
                 <TableCell
                   align="right"
                   sx={{
+                    width: "50%",
                     textAlign: "center",
                     fontSize: "22px",
                     fontWeight: "600",
