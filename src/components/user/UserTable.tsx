@@ -25,6 +25,7 @@ import UserListToolbar from "./UserListToolbar";
 import UserMoreMenu from "./UserMoreMenu";
 import { getOneClub } from "../../utils/fetch/fetchClub";
 import csvDownload from "json-to-csv-export";
+import Paper from "@mui/material/Paper";
 
 type IMoreColumn = {
   column: ColumnType;
@@ -154,9 +155,9 @@ export default function UserTable({ isManage }: UserTableType) {
         onFilterName={handleFilterByName}
       />
 
-      <TableContainer sx={{ minWidth: 800 }}>
+      <TableContainer component={Paper} sx={{ tableLayout: "auto" }}>
         <Button onClick={downloadCSV}>export to CSV</Button>
-        <Table>
+        <Table sx={{ overflowX: "scroll" }}>
           <UserListHead
             isManaging={isManage}
             order={order}

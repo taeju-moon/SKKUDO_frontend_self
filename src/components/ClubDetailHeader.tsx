@@ -7,7 +7,7 @@ import { getOneClub } from "../utils/fetch/fetchClub";
 const ClubHeader = styled("div")({
   display: "flex",
   width: "100%",
-  maxWidth: "70%",
+  maxWidth: "80%",
   margin: "0 auto",
   gap: "2%",
   fontSize: "calc(20px + 1.8vw)",

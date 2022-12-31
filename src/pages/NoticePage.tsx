@@ -277,7 +277,7 @@ function NoticePage() {
               spacing={1}
               sx={{
                 width: "100%",
-                maxWidth: "70%",
+                maxWidth: "80%",
                 // paddingLeft: "10px",
                 // paddingRight: "10px",
               }}

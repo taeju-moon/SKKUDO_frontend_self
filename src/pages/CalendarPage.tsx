@@ -44,10 +44,11 @@ const AddCategoryBtn = styled(motion.button)({
   marginLeft: "10px",
   marginBottom: "0px",
   height: "50px",
-  width: "160px",
+  width: "120px",
   border: "2px solid ",
   borderRadius: "10px",
-  fontSize: "1vw",
+  fontSize: "calc(12px+ 1vw)",
+  marginTop: "8px",
 });
 
 export interface IDayDetailOverlay {
