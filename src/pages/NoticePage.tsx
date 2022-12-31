@@ -74,7 +74,7 @@ const NoticeTitle = styled(motion.div)({
   alignItems: "center",
   justifyContent: "flex-start",
   paddingLeft: "40px",
-  fontSize: "1vw",
+  fontSize: "1.3vw",
 });
 
 interface OptionContainerType {
@@ -273,7 +273,12 @@ function NoticePage() {
             <Stack
               key={notice._id}
               spacing={1}
-              sx={{ width: "100%", maxWidth: "1024px" }}
+              sx={{
+                width: "100%",
+                maxWidth: "70%",
+                // paddingLeft: "10px",
+                // paddingRight: "10px",
+              }}
             >
               <Stack
                 sx={{
