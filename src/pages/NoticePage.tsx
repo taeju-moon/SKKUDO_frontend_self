@@ -51,11 +51,13 @@ const AddCategoryBtn = styled(motion.button)({
   fontSize: "1vw",
   border: "2px solid ",
   borderRadius: "10px",
+  marginTop: "8px",
 });
 
 const AddIconContainer = styled(motion.div)({
   display: "flex",
   justifyContent: "right",
+  marginTop: "8px",
 });
 
 const OptionBtn = styled(motion.button)({
