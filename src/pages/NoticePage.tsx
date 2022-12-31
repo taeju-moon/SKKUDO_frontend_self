@@ -51,11 +51,13 @@ const AddCategoryBtn = styled(motion.button)({
   fontSize: "1vw",
   border: "2px solid ",
   borderRadius: "10px",
+  marginTop: "8px",
 });
 
 const AddIconContainer = styled(motion.div)({
   display: "flex",
   justifyContent: "right",
+  marginTop: "8px",
 });
 
 const OptionBtn = styled(motion.button)({
@@ -74,7 +76,7 @@ const NoticeTitle = styled(motion.div)({
   alignItems: "center",
   justifyContent: "flex-start",
   paddingLeft: "40px",
-  fontSize: "1vw",
+  fontSize: "1.3vw",
 });
 
 interface OptionContainerType {
@@ -273,7 +275,12 @@ function NoticePage() {
             <Stack
               key={notice._id}
               spacing={1}
-              sx={{ width: "100%", maxWidth: "1024px" }}
+              sx={{
+                width: "100%",
+                maxWidth: "80%",
+                // paddingLeft: "10px",
+                // paddingRight: "10px",
+              }}
             >
               <Stack
                 sx={{

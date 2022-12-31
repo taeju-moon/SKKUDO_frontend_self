@@ -22,7 +22,7 @@ const NoticeBoard = styled.div<NoticeDetailElementType>`
   top: 10%;
   transform: translateX(-50%);
   left: 50%;
-  width: 100%;
+  width: 90%;
   max-width: 1024px;
   height: 800px;
   background-color: white;
@@ -42,7 +42,7 @@ const NoticeTitle = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 35px;
+  font-size: calc(12px + 1.3vw);
   margin-bottom: 20px;
 `;
 const NoticeTagsContainer = styled.div`
@@ -68,7 +68,7 @@ const NoticeContent = styled.div`
   border: 1px solid;
   flex: 1;
   padding: 20px;
-  font-size: 25px;
+  font-size: calc(12px + 1.2vw);
 `;
 
 function NoticeDetail({ noticeInfo }: { noticeInfo: ClickedNoticeInfoType }) {
