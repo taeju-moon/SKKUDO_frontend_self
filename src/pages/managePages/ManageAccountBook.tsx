@@ -41,6 +41,7 @@ const DeleteBtn = styled(Button)({
   float: "right",
   fontSize: "20px",
   marginBottom: "50px",
+  marginLeft: "20px",
 });
 
 interface MutateType {
@@ -216,7 +217,7 @@ function ManageAccountBook() {
           새 가계부 생성
         </DeleteBtn>
       )}
-      <DeleteBtn color="error" variant="contained" onClick={downloadCSV}>
+      <DeleteBtn variant="contained" onClick={downloadCSV}>
         Export to CSV
       </DeleteBtn>
       <TableContainer component={Paper}>
