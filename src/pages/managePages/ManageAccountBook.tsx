@@ -200,15 +200,14 @@ function ManageAccountBook() {
 
   return (
     <AccountBookPageContainer>
-      {data ? (
-        <DeleteBtn
-          color="error"
-          variant="contained"
-          onClick={handleDeleteBtnClick}
-        >
-          가계부 삭제
-        </DeleteBtn>
-      ) : (
+      {data ? // <DeleteBtn
+      //   color="error"
+      //   variant="contained"
+      //   onClick={handleDeleteBtnClick}
+      // >
+      //   가계부 삭제
+      // </DeleteBtn>
+      null : (
         <DeleteBtn
           color="success"
           variant="contained"
