@@ -81,8 +81,6 @@ function NoticeDetail({ noticeInfo }: { noticeInfo: ClickedNoticeInfoType }) {
     setIsNoticeDetailOpen(false);
   };
 
-  console.log(noticeInfo.content);
-
   return (
     <>
       <NoticeDetailOverlay
