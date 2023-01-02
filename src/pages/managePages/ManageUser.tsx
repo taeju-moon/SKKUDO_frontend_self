@@ -4,7 +4,6 @@ import { Card, Stack, Button, Container, Typography } from "@mui/material";
 import Iconify from "../../components/Iconify";
 import ColumnModal from "../../components/user/ColumnModal/ColumnModal";
 import UserTable from "../../components/user/UserTable";
-import { flexbox } from "@mui/system";
 
 export default function User() {
   const [addColumnModalOpen, setColumnModalOpen] = useState<boolean>(false);

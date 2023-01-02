@@ -52,7 +52,7 @@ export default function UserTable({ isManage }: UserTableType) {
     () => getClubMembers(clubID || ""),
     {
       onSuccess: (data) => {
-        console.log(data);
+        // console.log(data);
       },
       onError: (error: any) => alert(error.response.data.error),
     }
