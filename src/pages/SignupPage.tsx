@@ -48,6 +48,8 @@ function SignupPage() {
       },
       onError: (error: any) => {
         alert(error.response.data.error);
+        console.log(error);
+        console.log("duplicate");
       },
     }
   );
