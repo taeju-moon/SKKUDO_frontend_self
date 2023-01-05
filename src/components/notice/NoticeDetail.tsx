@@ -71,6 +71,14 @@ const NoticeContent = styled.div`
   font-size: calc(12px + 1.2vw);
   overflow-y: scroll;
   white-space: pre;
+  &::-webkit-scrollbar {
+    width: 6px;
+    margin-right: 10px;
+  }
+  &::-webkit-scrollbar-thumb {
+    border-radius: 2px;
+    background: #ccc;
+  }
 `;
 
 function NoticeDetail({ noticeInfo }: { noticeInfo: ClickedNoticeInfoType }) {

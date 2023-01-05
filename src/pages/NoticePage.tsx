@@ -278,8 +278,6 @@ function NoticePage() {
               sx={{
                 width: "100%",
                 maxWidth: "80%",
-                // paddingLeft: "10px",
-                // paddingRight: "10px",
               }}
             >
               <Stack
