@@ -154,6 +154,7 @@ function SignupPage() {
             required
             value={studentId}
             onChange={handleStudentIdChange}
+            inputProps={{ minLength: 10, maxLength: 10 }}
           />
         </SignupInputContainer>
         <SignupInputContainer>
@@ -220,7 +221,7 @@ function SignupPage() {
             required
             value={contact}
             onChange={handleContactChange}
-            type="number"
+            inputProps={{ minLength: 11, maxLength: 11, pattern: "[0-9]+" }}
           />
         </SignupInputContainer>
         <Button
