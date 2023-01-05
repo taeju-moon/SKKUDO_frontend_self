@@ -14,7 +14,6 @@ import { BsThreeDotsVertical } from "react-icons/bs";
 import { useState, useEffect } from "react";
 import NoticeDetail from "../components/notice/NoticeDetail";
 import { useSetRecoilState } from "recoil";
-import { isNoticeDetailOpenState } from "../atoms/utilAtom";
 import CategoryAddDialog from "../components/notice/CategoryAddDialog";
 import { motion } from "framer-motion";
 import {
@@ -165,7 +164,7 @@ function NoticePage() {
       noticeTags: [],
     });
 
-  const setIsNoticeDetailOpen = useSetRecoilState(isNoticeDetailOpenState);
+  const [detailOpened, setDetailOpened] = useState(false);
 
   const [isCategoryDialogOpen, setIsCategoryDialogOpen] = useState(false);
 
@@ -192,7 +191,7 @@ function NoticePage() {
     noticeTags: string[]
   ) => {
     setClickedNotiiceInfo({ writer, title, content, noticeTags });
-    setIsNoticeDetailOpen(true);
+    setDetailOpened(true);
     setIsOptionOpened((prev) => !prev);
   };
 
@@ -359,7 +358,11 @@ function NoticePage() {
           ))
         )}
       </Stack>
-      <NoticeDetail noticeInfo={clickedNoticeInfo} />
+      <NoticeDetail
+        noticeInfo={clickedNoticeInfo}
+        detailOpened={detailOpened}
+        setDetailOpened={setDetailOpened}
+      />
     </>
   );
 }

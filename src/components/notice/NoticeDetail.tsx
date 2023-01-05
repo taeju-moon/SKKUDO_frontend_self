@@ -1,7 +1,5 @@
 import { Chip } from "@mui/material";
-import { useRecoilState } from "recoil";
 import styled from "styled-components";
-import { isNoticeDetailOpenState } from "../../atoms/utilAtom";
 import { ClickedNoticeInfoType } from "../../types/notice";
 
 interface NoticeDetailElementType {
@@ -81,21 +79,30 @@ const NoticeContent = styled.div`
   }
 `;
 
-function NoticeDetail({ noticeInfo }: { noticeInfo: ClickedNoticeInfoType }) {
-  const [isNoticeDetailOpen, setIsNoticeDetailOpen] = useRecoilState(
-    isNoticeDetailOpenState
-  );
+interface NoticeDetailType {
+  noticeInfo: ClickedNoticeInfoType;
+  detailOpened: boolean;
+  setDetailOpened: React.Dispatch<React.SetStateAction<boolean>>;
+}
+function NoticeDetail({
+  noticeInfo,
+  detailOpened,
+  setDetailOpened,
+}: NoticeDetailType) {
+  // const [isNoticeDetailOpen, setIsNoticeDetailOpen] = useRecoilState(
+  //   isNoticeDetailOpenState
+  // );
   const handleOverlayClick = () => {
-    setIsNoticeDetailOpen(false);
+    setDetailOpened(false);
   };
 
   return (
     <>
       <NoticeDetailOverlay
-        isNoticeDetailOpen={isNoticeDetailOpen}
+        isNoticeDetailOpen={detailOpened}
         onClick={handleOverlayClick}
       />
-      <NoticeBoard isNoticeDetailOpen={isNoticeDetailOpen}>
+      <NoticeBoard isNoticeDetailOpen={detailOpened}>
         <NoticeTitle>{noticeInfo.title}</NoticeTitle>
         <NoticeTagsContainer>
           {noticeInfo.noticeTags.map((tag) => (
