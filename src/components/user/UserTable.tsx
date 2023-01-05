@@ -26,6 +26,11 @@ import UserMoreMenu from "./UserMoreMenu";
 import { getOneClub } from "../../utils/fetch/fetchClub";
 import csvDownload from "json-to-csv-export";
 import Paper from "@mui/material/Paper";
+import styled from "styled-components";
+
+const TableCard = styled.div`
+  position: relative;
+`;
 
 type IMoreColumn = {
   column: ColumnType;
@@ -35,6 +40,7 @@ type IMoreColumn = {
 interface UserTableType {
   isManage: boolean;
 }
+
 export default function UserTable({ isManage }: UserTableType) {
   const { clubID } = useParams();
   const [page, rowsPerPage, handleChangePage, handleChangeRowsPerPage] =
@@ -52,7 +58,7 @@ export default function UserTable({ isManage }: UserTableType) {
     () => getClubMembers(clubID || ""),
     {
       onSuccess: (data) => {
-        console.log(data);
+        // console.log(data);
       },
       onError: (error: any) => alert(error.response.data.error),
     }
@@ -148,7 +154,7 @@ export default function UserTable({ isManage }: UserTableType) {
   };
 
   return (
-    <>
+    <TableCard>
       <UserListToolbar
         numSelected={selected.length}
         filterName={filterName}
@@ -156,7 +162,12 @@ export default function UserTable({ isManage }: UserTableType) {
       />
 
       <TableContainer component={Paper} sx={{ tableLayout: "auto" }}>
-        <Button onClick={downloadCSV}>export to CSV</Button>
+        <Button
+          onClick={downloadCSV}
+          sx={{ position: "absolute", top: 20, right: 20 }}
+        >
+          export to CSV
+        </Button>
         <Table sx={{ overflowX: "scroll" }}>
           <UserListHead
             isManaging={isManage}
@@ -303,6 +314,6 @@ export default function UserTable({ isManage }: UserTableType) {
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
       />
-    </>
+    </TableCard>
   );
 }

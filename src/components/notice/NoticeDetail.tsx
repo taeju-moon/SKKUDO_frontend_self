@@ -69,6 +69,8 @@ const NoticeContent = styled.div`
   flex: 1;
   padding: 20px;
   font-size: calc(12px + 1.2vw);
+  overflow-y: scroll;
+  white-space: pre;
 `;
 
 function NoticeDetail({ noticeInfo }: { noticeInfo: ClickedNoticeInfoType }) {
