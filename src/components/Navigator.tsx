@@ -159,7 +159,6 @@ function Navigator() {
   const handleLogoutBtnClick = () => {
     logoutMutate();
     navigate("/");
-    // window.location.reload();
   };
 
   const handleLoginOptionClick = () => {
