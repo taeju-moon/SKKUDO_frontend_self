@@ -16,7 +16,7 @@ import React, { useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { useNavigate, useParams } from "react-router-dom";
 import { useRecoilValue } from "recoil";
-import { userNameState } from "../atoms/userAtom";
+import { userInfoState } from "../atoms/userAtom";
 import { NoticeTagType } from "../types/notice";
 import ClubDetailHeader from "../components/ClubDetailHeader";
 import {
@@ -93,7 +93,7 @@ function AddNoticePage() {
   const { clubID } = useParams();
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const userName = useRecoilValue(userNameState);
+  const user = useRecoilValue(userInfoState);
 
   const [private_, setPrivate] = useState<boolean>(false);
   const [tags, setTags] = useState<string[]>([]);
@@ -122,7 +122,7 @@ function AddNoticePage() {
         clubId: clubID || "",
         title,
         content,
-        writer: userName,
+        writer: user.name,
         noticeTags: tags,
         private: private_,
       }),

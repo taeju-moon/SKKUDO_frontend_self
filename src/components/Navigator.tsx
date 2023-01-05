@@ -6,7 +6,7 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import { isManageState } from "../atoms/NavigatorAtom";
 import { useMutation } from "react-query";
 import { isLoggedInState } from "../atoms/loginAtom";
-import { userNameState } from "../atoms/userAtom";
+import { userInfoState } from "../atoms/userAtom";
 import { motion } from "framer-motion";
 import { logoutFromServer } from "../utils/fetch/fetchAuth";
 
@@ -139,7 +139,7 @@ const UserInfo = styled.h2`
 
 function Navigator() {
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(isLoggedInState);
-  const user = useRecoilValue(userNameState);
+  const user = useRecoilValue(userInfoState);
   const [isLoginOptionOpened, setIsLoginOptionOpened] = useState(false);
   const isManage = useRecoilValue(isManageState);
   const handleLoginBtnClick = () => {
@@ -159,7 +159,6 @@ function Navigator() {
   const handleLogoutBtnClick = () => {
     logoutMutate();
     navigate("/");
-    // window.location.reload();
   };
 
   const handleLoginOptionClick = () => {
@@ -190,7 +189,7 @@ function Navigator() {
           </NavigationUl>
         </NavigationContainer>
         <LoginBtn onClick={handleLoginBtnClick}>
-          <UserInfo>{isLoggedIn ? "Hello, " + user : "로그인"}</UserInfo>
+          <UserInfo>{isLoggedIn ? "Hello, " + user.name : "로그인"}</UserInfo>
           <IoPersonOutline size="2.3em" />
           <LoginOptionContainer isLoginOptionOpened={isLoginOptionOpened}>
             {!isLoggedIn ? (
