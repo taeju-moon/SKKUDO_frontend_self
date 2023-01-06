@@ -53,6 +53,21 @@ export const deregisterClub = async (userID: string, clubID: string) =>
     .patch(CREATE_USER_URL.concat("/club/deregister/", userID, "/", clubID), {})
     .then((res) => res.data);
 
+export const deregisterClubOneSelf = async (userID: string, clubID: string) =>
+  axios
+    .patch(
+      CREATE_USER_URL.concat("/club/deregister/self/", userID, "/", clubID),
+      {}
+    )
+    .then((res) => res.data);
+
+export const deregisterClubByAdmin = async (userID: string, clubID: string) =>
+  axios
+    .patch(
+      CREATE_USER_URL.concat("/club/deregister/admin/", userID, "/", clubID)
+    )
+    .then((res) => res.data);
+
 export const UPDATE_ROLE_URL = `${BASE_URL}/users/club/role`;
 
 export const updateRole = async (

@@ -27,8 +27,6 @@ export default function PrivateRoute() {
         contact: data.authUser.contact,
       });
       setLoggedInUser(data.authUser);
-      console.log("mutate executed");
-      // console.log(data);
     },
     onError: (error: any) => {
       setIsLoggedIn(false);
@@ -40,7 +38,6 @@ export default function PrivateRoute() {
         major: "",
         contact: "",
       });
-      console.log("mutate executed");
     },
   });
 

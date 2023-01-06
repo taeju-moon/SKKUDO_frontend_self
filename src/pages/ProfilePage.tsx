@@ -1,4 +1,5 @@
 import {
+  Button,
   Paper,
   Table,
   TableBody,
@@ -17,12 +18,14 @@ import { RegisteredClubType } from "../types/user";
 import { FaPen } from "react-icons/fa";
 import { motion } from "framer-motion";
 import ColumnDialog from "../components/profile/ColumnDialog";
+import DeregisterDialog from "../components/profile/DeregisterDialog";
 
 const ProfileContainer = styled.div`
   width: 100%;
   max-width: 70%;
   margin: 0 auto;
   margin-top: 40px;
+  position: relative;
 `;
 
 const Name = styled.span`
@@ -49,6 +52,7 @@ function ProfilePage() {
   const loggedInUser = useRecoilValue(loggedInUserState);
   const [clubProfile, setClubProfile] = useState<RegisteredClubType>();
   const [keyword, setKeyword] = useState("");
+  const [deregisterDialogOpen, setDeregisterDialogOpen] = useState(false);
 
   useEffect(() => {
     if (loggedInUser) {
@@ -65,10 +69,26 @@ function ProfilePage() {
     setDialogOpen(true);
     setKeyword(selectedKeyword);
   };
+
+  const handleDeregisterBtnClcik = () => {
+    setDeregisterDialogOpen(true);
+  };
   return (
     <>
       <ClubDetailHeader pageType="내 프로필" />
       <ProfileContainer>
+        <Button
+          color="error"
+          variant="contained"
+          onClick={handleDeregisterBtnClcik}
+          sx={{ position: "absolute", right: 0 }}
+        >
+          탈퇴
+        </Button>
+        <DeregisterDialog
+          open={deregisterDialogOpen}
+          setOpen={setDeregisterDialogOpen}
+        />
         <Name>{loggedInUser?.name}</Name>
         <Role>{clubProfile?.role}</Role>
 

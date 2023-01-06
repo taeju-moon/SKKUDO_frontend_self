@@ -1,21 +1,24 @@
-import { Card } from "@mui/material";
-import Button from "@mui/material/Button";
+import { Button, Card } from "@mui/material";
 import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import { useQueryClient } from "react-query";
 import { UserType } from "../../types/user";
-import ListSubheader from "@mui/material/ListSubheader";
 import List from "@mui/material/List";
 import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import Collapse from "@mui/material/Collapse";
 import { MdExpandLess, MdExpandMore } from "react-icons/md";
 import { useState } from "react";
+import styled from "styled-components";
+import AdminDeregisterDialog from "./AdminDeregisterDialog";
 
+const CollapseItem = styled.div`
+  height: 33px;
+  box-sizing: border-box;
+  padding-left: 16px;
+  display: flex;
+`;
 interface UserInfoDialogType {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -27,12 +30,15 @@ export default function UserInfoDialog({
   setOpen,
   clickedUser,
 }: UserInfoDialogType) {
-  const queryClient = useQueryClient();
-
   const [collapseOpen, setCollapseOpen] = useState(false);
+  const [deregisterDialogOpen, setDeregisterDialogOpen] = useState(false);
 
   const handleClick = () => {
     setCollapseOpen(!collapseOpen);
+  };
+
+  const handleDeregisterBtnClick = () => {
+    setDeregisterDialogOpen(true);
   };
 
   return (
@@ -77,11 +83,20 @@ export default function UserInfoDialog({
               <Collapse in={collapseOpen} timeout="auto" unmountOnExit>
                 <List component="div" disablePadding>
                   {Object.values(clickedUser.registeredClubs).map((club) => (
-                    <ListItemButton sx={{ pl: 4 }}>
+                    <CollapseItem key={club._id}>
                       <ListItemText
                         primary={`${club.clubName} : ${club.role}`}
                       />
-                    </ListItemButton>
+                      <Button color="error" onClick={handleDeregisterBtnClick}>
+                        탈퇴
+                      </Button>
+                      <AdminDeregisterDialog
+                        open={deregisterDialogOpen}
+                        setOpen={setDeregisterDialogOpen}
+                        userId={clickedUser.userID}
+                        clubID={club._id}
+                      />
+                    </CollapseItem>
                   ))}
                 </List>
               </Collapse>
