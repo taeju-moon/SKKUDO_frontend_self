@@ -106,6 +106,9 @@ export default function TodoDetailDialog({
         )}
       </DialogContent>
       <DialogActions>
+        <Button onClick={handleClose} color="error" autoFocus>
+          삭제하기
+        </Button>
         <Button onClick={handleClose} autoFocus>
           닫기
         </Button>
