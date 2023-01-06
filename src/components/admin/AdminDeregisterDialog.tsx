@@ -27,8 +27,6 @@ export default function AdminDeregisterDialog({
   userId,
   clubID,
 }: DeregisterDialogType) {
-  console.log(userId);
-  console.log(clubID);
   const { mutate } = useMutation(() => deregisterClubByAdmin(userId, clubID), {
     onSuccess: (data) => {
       console.log(data);

@@ -89,9 +89,6 @@ function NoticeDetail({
   detailOpened,
   setDetailOpened,
 }: NoticeDetailType) {
-  // const [isNoticeDetailOpen, setIsNoticeDetailOpen] = useRecoilState(
-  //   isNoticeDetailOpenState
-  // );
   const handleOverlayClick = () => {
     setDetailOpened(false);
   };

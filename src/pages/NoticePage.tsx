@@ -13,7 +13,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { useState, useEffect } from "react";
 import NoticeDetail from "../components/notice/NoticeDetail";
-import { useSetRecoilState } from "recoil";
 import CategoryAddDialog from "../components/notice/CategoryAddDialog";
 import { motion } from "framer-motion";
 import {

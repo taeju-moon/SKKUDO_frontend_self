@@ -21,6 +21,8 @@ import { getAllNotices } from "../../utils/fetch/fetchNotice";
 import { NoticeType } from "../../types/notice";
 import { OrderType } from "../../types/user";
 import { filter } from "lodash";
+import { ClickedNoticeInfoType } from "../../types/notice";
+import NoticeDetail from "../notice/NoticeDetail";
 
 const TABLE_HEAD = [
   { id: "title", label: "제목", alignRight: false },
@@ -31,6 +33,13 @@ export default function AllNoticeTable() {
   const [order, setOrder] = useState<"desc" | "asc">("asc");
   const [orderBy, setOrderBy] = useState<"title" | "writer">("title");
   const [filterName, setFilterName] = useState("");
+  const [clickedNoticeInfo, setClickedNotiiceInfo] =
+    useState<ClickedNoticeInfoType>({
+      writer: "",
+      title: "",
+      content: "",
+      noticeTags: [],
+    });
 
   const handleRequestSort = (event: any, property: any) => {
     const isAsc = order === "asc";
@@ -47,12 +56,6 @@ export default function AllNoticeTable() {
   const [selected, setSelected] = useState<string[]>([]);
 
   const [open, setOpen] = useState(false);
-  const [clickedUser, setClickedUser] = useState<UserType>();
-
-  const handleUserItemClick = (user: UserType) => {
-    setOpen(true);
-    setClickedUser(user);
-  };
 
   const { data } = useQuery<NoticeType[]>("getAllNotices", getAllNotices, {
     onSuccess: (data) => console.log(data),
@@ -171,6 +174,11 @@ export default function AllNoticeTable() {
     csvDownload(dataToConvert);
   };
 
+  const handleRowClick = (clickedNoticeInfo: ClickedNoticeInfoType) => {
+    setClickedNotiiceInfo(clickedNoticeInfo);
+    setOpen(true);
+  };
+
   return (
     <>
       <UserListToolbar
@@ -196,7 +204,7 @@ export default function AllNoticeTable() {
             {filteredUsers
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((row) => {
-                const { _id, title, writer } = row;
+                const { _id, title, writer, noticeTags, content } = row;
                 const isItemSelected = selected.indexOf(title) !== -1;
 
                 return (
@@ -207,6 +215,9 @@ export default function AllNoticeTable() {
                     role="checkbox"
                     selected={isItemSelected}
                     aria-checked={isItemSelected}
+                    onClick={() =>
+                      handleRowClick({ writer, title, content, noticeTags })
+                    }
                   >
                     <TableCell padding="checkbox">
                       <Checkbox
@@ -259,8 +270,11 @@ export default function AllNoticeTable() {
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
       />
-
-      <UserInfoDialog open={open} setOpen={setOpen} clickedUser={clickedUser} />
+      <NoticeDetail
+        noticeInfo={clickedNoticeInfo}
+        detailOpened={open}
+        setDetailOpened={setOpen}
+      />
     </>
   );
 }
