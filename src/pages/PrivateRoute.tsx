@@ -3,7 +3,7 @@ import { useCookies } from "react-cookie";
 import { useMutation } from "react-query";
 import { Navigate } from "react-router-dom";
 import { Outlet } from "react-router-dom";
-import { useRecoilState, useSetRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 import { isLoggedInState } from "../atoms/loginAtom";
 import { loggedInUserState, userInfoState } from "../atoms/userAtom";
 import { VerifyUserResponseType } from "../types/user";
@@ -11,7 +11,7 @@ import { verifyUser } from "../utils/fetch/fetchAuth";
 
 export default function PrivateRoute() {
   const [cookies, setCookies, removeCoolies] = useCookies(["x_auth"]);
-  const [isLoggedIn, setIsLoggedIn] = useRecoilState(isLoggedInState);
+  const setIsLoggedIn = useSetRecoilState(isLoggedInState);
 
   const setUserInfoState = useSetRecoilState(userInfoState);
   const setLoggedInUser = useSetRecoilState(loggedInUserState);
@@ -27,8 +27,6 @@ export default function PrivateRoute() {
         contact: data.authUser.contact,
       });
       setLoggedInUser(data.authUser);
-      console.log("mutate executed");
-      // console.log(data);
     },
     onError: (error: any) => {
       setIsLoggedIn(false);
@@ -40,7 +38,6 @@ export default function PrivateRoute() {
         major: "",
         contact: "",
       });
-      console.log("mutate executed");
     },
   });
 

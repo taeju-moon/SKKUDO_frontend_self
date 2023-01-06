@@ -13,24 +13,15 @@ import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
 import useOrderWithFilter from "../../hooks/useOrderWithFilter";
 import useTablePage from "../../hooks/useTablePage";
-import { ColumnType, RoleType } from "../../types/common";
 import { UserType } from "../../types/user";
 import { getAllUsers } from "../../utils/fetch/fetchUser";
-import { ClubType } from "../../types/club";
 import { applySortFilter, getComparator } from "../../utils/Sorting";
-import { getOneClub } from "../../utils/fetch/fetchClub";
 import csvDownload from "json-to-csv-export";
 import UserListHead from "../user/UserListHead";
 import UserListToolbar from "../user/UserListToolbar";
-import UserMoreMenu from "../user/UserMoreMenu";
 import SearchNotFound from "../user/SearchNotFound";
 import UserInfoDialog from "./UserInfoDialog";
 import { IoIosDocument } from "react-icons/io";
-
-type IMoreColumn = {
-  column: ColumnType;
-  value: String;
-};
 
 interface UserTableType {
   isManage: boolean;
@@ -251,35 +242,6 @@ export default function AllUsersTable({ isManage }: UserTableType) {
                     >
                       <IoIosDocument />
                     </TableCell>
-                    {/* {clubID && data
-                      ? new Map(Object.entries(registeredClubs))
-                          .get(clubID)
-                          .moreColumns.map((item: IMoreColumn, index: any) => {
-                            return (
-                              <TableCell
-                                sx={{ fontSize: isManage ? "20px" : "13px" }}
-                                key={index}
-                                align="left"
-                              >
-                                {item.value}
-                              </TableCell>
-                            );
-                          })
-                      : ""}
-                    {isManage && (
-                      <TableCell align="right">
-                        <UserMoreMenu
-                          userID={userID}
-                          role={
-                            clubID && data
-                              ? new Map(Object.entries(registeredClubs)).get(
-                                  clubID
-                                )?.role
-                              : ""
-                          }
-                        />
-                      </TableCell>
-                    )} */}
                   </TableRow>
                 );
               })}

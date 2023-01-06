@@ -1,6 +1,4 @@
-import { useQuery } from "react-query";
 import { PageTitle } from "../../components/admin/PageTitle";
-import { getAllNotices } from "../../utils/fetch/fetchNotice";
 import AllNoticeTable from "../../components/admin/AllNoticeTable";
 import { Box } from "@mui/material";
 
