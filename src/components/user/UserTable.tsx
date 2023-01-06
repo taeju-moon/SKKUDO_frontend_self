@@ -14,7 +14,7 @@ import { useParams } from "react-router-dom";
 import useOrderWithFilter from "../../hooks/useOrderWithFilter";
 import useTableHead from "../../hooks/useTableHead";
 import useTablePage from "../../hooks/useTablePage";
-import { ColumnType, RoleType } from "../../types/common";
+import { ColumnType } from "../../types/common";
 import { UserType } from "../../types/user";
 import { getClubMembers } from "../../utils/fetch/fetchUser";
 import { ClubType } from "../../types/club";
