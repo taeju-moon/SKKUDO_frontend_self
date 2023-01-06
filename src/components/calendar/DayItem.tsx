@@ -70,7 +70,7 @@ export default function DayItem({ todo, setDialogOpen }: DayItemType) {
     setOpen(!open);
   };
   return (
-    <ItemContainer key={todo._id}>
+    <ItemContainer>
       <ListItemButton
         onClick={() => handleClick(todo._id)}
         sx={{ padding: "20px" }}

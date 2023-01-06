@@ -11,12 +11,10 @@ import {
 import { useState } from "react";
 import { useQuery } from "react-query";
 import useTablePage from "../../hooks/useTablePage";
-import { UserType } from "../../types/user";
 import csvDownload from "json-to-csv-export";
 import UserListHead from "../user/UserListHead";
 import UserListToolbar from "../user/UserListToolbar";
 import SearchNotFound from "../user/SearchNotFound";
-import UserInfoDialog from "./UserInfoDialog";
 import { getAllNotices } from "../../utils/fetch/fetchNotice";
 import { NoticeType } from "../../types/notice";
 import { OrderType } from "../../types/user";
