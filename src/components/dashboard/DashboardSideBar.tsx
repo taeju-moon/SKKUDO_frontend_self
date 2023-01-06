@@ -51,7 +51,7 @@ export default function DashboardSidebar({
     photoURL: "/static/mock-images/avatars/avatar_default.jpg",
   };
 
-  const { pathname } = useLocation();
+  // const { pathname } = useLocation();
   const { clubID } = useParams();
 
   const isDesktop = useResponsive("up", "lg");
@@ -78,7 +78,7 @@ export default function DashboardSidebar({
         moreColumns: registedClubs.get(clubID || "").moreColumns,
       });
     }
-  }, [pathname, loggedInUser]);
+  }, [loggedInUser]);
 
   const renderContent = (
     <Scrollbar
@@ -96,9 +96,13 @@ export default function DashboardSidebar({
       </Box>
 
       <Box sx={{ mb: 5, mx: 2.5 }}>
-        <Link underline="none" component={RouterLink} to="#">
+        <Link
+          underline="none"
+          component={RouterLink}
+          to={`/club/${clubID}/profile`}
+        >
           <AccountStyle>
-            <Avatar src={account.photoURL} alt="photoURL" />
+            <Avatar src={account.photoURL} alt="" />
             <Box sx={{ ml: 2 }}>
               <Typography variant="h5" sx={{ color: "text.primary" }}>
                 {loggedInUser?.name}

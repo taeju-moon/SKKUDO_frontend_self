@@ -204,14 +204,14 @@ export default function UserTable({ isManage }: UserTableType) {
                     selected={isItemSelected}
                     aria-checked={isItemSelected}
                   >
-                    {isManage && (
+                    {/* {isManage && (
                       <TableCell padding="checkbox">
                         <Checkbox
                           checked={isItemSelected}
                           onChange={(event) => handleClick(event, name)}
                         />
                       </TableCell>
-                    )}
+                    )} */}
 
                     <TableCell
                       sx={{ fontSize: isManage ? "20px" : "13px" }}
