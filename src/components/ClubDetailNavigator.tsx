@@ -51,6 +51,9 @@ const NavigateToManagePageButton = styled.button`
   border: none;
   text-align: start;
   padding-left: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   :hover {
     background-color: #fbf7f7;
@@ -115,7 +118,6 @@ function ClubDetailNavigator() {
             color: "#0c4426",
             fontWeight: 800,
             fontSize: "22px",
-            marginTop: "20px",
             paddingLeft: "10px",
           }}
         >
