@@ -94,7 +94,7 @@ export default function UserInfoDialog({
                         open={deregisterDialogOpen}
                         setOpen={setDeregisterDialogOpen}
                         userId={clickedUser.userID}
-                        clubID={club._id}
+                        clubID={club.clubId}
                       />
                     </CollapseItem>
                   ))}
