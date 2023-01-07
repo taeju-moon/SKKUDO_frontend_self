@@ -123,8 +123,13 @@ function LoginPage() {
         <Title>SKKUDO</Title>
         <LoginForm onSubmit={handleSubmit}>
           <LoginInputContainer>
-            <LoginInput minLength={5} onChange={handleIDChange}></LoginInput>
             <LoginInput
+              required
+              minLength={5}
+              onChange={handleIDChange}
+            ></LoginInput>
+            <LoginInput
+              required
               minLength={5}
               type="password"
               onChange={handlePWChange}

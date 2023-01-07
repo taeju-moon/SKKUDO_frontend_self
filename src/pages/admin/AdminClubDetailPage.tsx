@@ -32,6 +32,11 @@ const ClubImage = styled.img`
 const ClubInfo = styled.div`
   height: 180px;
   background-color: whitesmoke;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 600;
+  font-size: 30px;
 `;
 
 const SettingBtn = styled.button`
@@ -47,15 +52,24 @@ const SettingBtn = styled.button`
 const OptionContainer = styled.ul<{ isSettingOpen: boolean }>`
   position: absolute;
   width: 80px;
-  height: 200px;
+  height: 210px;
   background-color: white;
   display: ${(props) => (props.isSettingOpen ? "block" : "none")};
 `;
-const Option = styled.li``;
+const Option = styled.li`
+  height: 70px;
+  background-color: aliceblue;
+  font-size: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 600;
+`;
 
 export default function AdminClubDetailPage() {
   const [isSettingOpen, setIsSettingOpen] = useState(false);
   const { clubID } = useParams();
+  console.log(clubID);
   const { data: clubData } = useQuery<ClubType>(
     "getOneClub",
     () => getOneClub(clubID || ""),
@@ -77,12 +91,15 @@ export default function AdminClubDetailPage() {
   const handleSettingBtnClick = () => {
     setIsSettingOpen(!isSettingOpen);
   };
+
   return (
     <PageContainer>
       <PageTitle>동아리 세부사항</PageTitle>
       <SettingBtn onClick={handleSettingBtnClick}>
         <AiTwotoneSetting size="30px" />
-        <OptionContainer isSettingOpen={isSettingOpen}></OptionContainer>
+        <OptionContainer isSettingOpen={isSettingOpen}>
+          <Option>삭제</Option>
+        </OptionContainer>
       </SettingBtn>
       {clubData && (
         <ClubInfoContainer>
@@ -109,7 +126,7 @@ export default function AdminClubDetailPage() {
             </Grid>
             {userData && (
               <Grid item xs={6}>
-                <ClubInfo>{userData.length}</ClubInfo>
+                <ClubInfo>{`동아리원 수 : ${userData.length}`}</ClubInfo>
               </Grid>
             )}
           </Grid>

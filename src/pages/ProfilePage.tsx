@@ -22,7 +22,7 @@ import DeregisterDialog from "../components/profile/DeregisterDialog";
 
 const ProfileContainer = styled.div`
   width: 100%;
-  max-width: 70%;
+  max-width: 80%;
   margin: 0 auto;
   margin-top: 40px;
   position: relative;

@@ -19,7 +19,7 @@ const ClubHeader = styled("div")({
 });
 
 interface ClubDetailHeaderType {
-  pageType: "공지사항" | "일정" | "동아리원" | "내 프로필";
+  pageType: string;
 }
 function ClubDetailHeader({ pageType }: ClubDetailHeaderType) {
   const { clubID } = useParams();

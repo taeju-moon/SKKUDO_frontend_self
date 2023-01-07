@@ -35,8 +35,9 @@ const AddNoticePageContainer = styled("form")({
 });
 
 const TitleInput = styled("input")({
-  width: "400px",
+  width: "80%",
   height: "50px",
+  margin: "0 auto",
   marginBottom: "20px",
   borderRadius: "5px",
   backgroundColor: "#fff",
@@ -47,11 +48,13 @@ const TitleInput = styled("input")({
 
 const ContentInput = styled("textarea")({
   backgroundColor: "#fff",
+  margin: "0 auto",
   marginTop: "20px",
   border: "2px solid #0c4426",
   fontSize: "1.2rem",
   borderRadius: "5px",
   padding: "10px",
+  width: "80%",
 });
 
 const ButtonContainer = styled("div")({
@@ -168,13 +171,13 @@ function AddNoticePage() {
   // const { mutate } = useMutation(() => );
   return (
     <AddNoticePageContainer>
-      <ClubDetailHeader pageType="공지사항" />
+      <ClubDetailHeader pageType="공지사항 추가" />
       <TitleInput
         required
         onChange={handleTitleChange}
         placeholder={"공지 제목"}
       />
-      <FormControl sx={{ m: 1, width: "100%", margin: 0 }}>
+      <FormControl sx={{ m: 1, width: "80%", margin: "0 auto" }}>
         <InputLabel
           id="demo-multiple-chip-label"
           sx={{ margin: 0, padding: 0 }}
@@ -215,7 +218,7 @@ function AddNoticePage() {
           ))}
         </Select>
       </FormControl>
-      <FormControl fullWidth>
+      <FormControl sx={{ m: 1, width: "80%", margin: "0 auto" }}>
         <InputLabel
           id="demo-multiple-chip-label"
           sx={{ margin: 0, padding: 0 }}

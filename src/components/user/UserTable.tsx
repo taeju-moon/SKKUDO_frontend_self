@@ -14,7 +14,7 @@ import { useParams } from "react-router-dom";
 import useOrderWithFilter from "../../hooks/useOrderWithFilter";
 import useTableHead from "../../hooks/useTableHead";
 import useTablePage from "../../hooks/useTablePage";
-import { ColumnType, RoleType } from "../../types/common";
+import { ColumnType } from "../../types/common";
 import { UserType } from "../../types/user";
 import { getClubMembers } from "../../utils/fetch/fetchUser";
 import { ClubType } from "../../types/club";
@@ -43,6 +43,7 @@ interface UserTableType {
 
 export default function UserTable({ isManage }: UserTableType) {
   const { clubID } = useParams();
+  console.log(clubID);
   const [page, rowsPerPage, handleChangePage, handleChangeRowsPerPage] =
     useTablePage();
 
@@ -204,14 +205,14 @@ export default function UserTable({ isManage }: UserTableType) {
                     selected={isItemSelected}
                     aria-checked={isItemSelected}
                   >
-                    {isManage && (
+                    {/* {isManage && (
                       <TableCell padding="checkbox">
                         <Checkbox
                           checked={isItemSelected}
                           onChange={(event) => handleClick(event, name)}
                         />
                       </TableCell>
-                    )}
+                    )} */}
 
                     <TableCell
                       sx={{ fontSize: isManage ? "20px" : "13px" }}

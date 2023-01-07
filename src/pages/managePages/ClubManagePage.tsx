@@ -39,6 +39,7 @@ function ClubManagePage() {
   const navigate = useNavigate();
 
   const { clubID } = useParams();
+
   const { data } = useQuery<ClubType>(
     "getOneClub",
     () => getOneClub(clubID || ""),
