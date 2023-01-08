@@ -29,9 +29,12 @@ const MenuLink = styled(Link)`
   font-size: 1.3rem;
   margin-left: 1vw;
   font-weight: 800;
-  white-space:nowrap;
-    @media screen and (max-width:768px){
+  white-space: nowrap;
+  @media screen and (max-width: 768px) {
     font-size: 0.8rem;
+  }
+  @media screen and (max-width: 490px) {
+    font-size: 10%;
   }
 `;
 

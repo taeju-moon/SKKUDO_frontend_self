@@ -109,7 +109,7 @@ function CategoryAddDialog(props: SimpleDialogProps) {
         sx={{
           display: "flex",
           flexDirection: "column",
-          width: "400px",
+          width: "100%",
           padding: "50px",
         }}
         noValidate

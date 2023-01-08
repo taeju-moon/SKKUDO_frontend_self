@@ -74,7 +74,7 @@ const NoticeTitle = styled(motion.div)({
   alignItems: "center",
   justifyContent: "flex-start",
   paddingLeft: "40px",
-  fontSize: "1vw",
+  fontSize: "100%",
 });
 
 interface OptionContainerType {
@@ -124,7 +124,7 @@ export const Tag = styled("div")({
   color: "white",
   borderRadius: "4px",
   padding: "5px",
-  fontSize: "1vw",
+  fontSize: "90%",
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
@@ -252,7 +252,7 @@ function NoticePage() {
           카테고리 추가
         </AddCategoryBtn>
         <AddIconContainer whileHover={{ scale: 1.1 }}>
-          <BiMessageSquareAdd size="2.5rem" onClick={onNoticeAddBtnClicked} />
+          <BiMessageSquareAdd size="2rem" onClick={onNoticeAddBtnClicked} />
         </AddIconContainer>
       </BtnContainer>
       <CategoryAddDialog open={isCategoryDialogOpen} onClose={handleClose} />
@@ -273,7 +273,7 @@ function NoticePage() {
             <Stack
               key={notice._id}
               spacing={1}
-              sx={{ width: "100%", maxWidth: "1024px" }}
+              sx={{ width: "100%", maxWidth: "70vw" }}
             >
               <Stack
                 sx={{

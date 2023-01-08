@@ -46,17 +46,27 @@ const LogoContainer = styled(Link)`
   @media screen and (max-width: 768px) {
     margin-left: 8vw;
   }
+  @media screen and (max-width: 490px) {
+    margin-left: 10%;
+    width: 3vw;
+  }
 `;
 
 const Logo = styled.div`
   font-size: 2em;
   font-family: "Poppins", sans-serif;
   color: #dde143;
+  @media screen and (max-width: 490px) {
+    font-size: 80%;
+  }
 `;
 
 const NavigationContainer = styled.nav`
   @media screen and (max-width: 768px) {
     margin-left: 5vw;
+  }
+  @media screen and (max-width: 490px) {
+    margin-left: 2%;
   }
 `;
 
@@ -81,6 +91,9 @@ const NavigationLink = styled(Link)`
   @media screen and (max-width: 768px) {
     font-size: 1.2rem;
   }
+  @media screen and (max-width: 490px) {
+    font-size: 15%;
+  }
 `;
 
 const LoginBtn = styled.div`
@@ -94,6 +107,9 @@ const LoginBtn = styled.div`
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  @media screen and (max-width: 490px) {
+    margin-left: auto;
+  }
 `;
 
 interface ILoginOptionContainer {
@@ -108,6 +124,9 @@ const LoginOptionContainer = styled.ul<ILoginOptionContainer>`
   top: 70px;
   border-radius: 5px;
   display: ${(props) => (props.isLoginOptionOpened ? "block" : "none")};
+  @media screen and (max-width: 490px) {
+    width: 80px;
+  }
 `;
 
 const LoginOption = styled(motion.div)`
@@ -123,6 +142,9 @@ const LoginOption = styled(motion.div)`
   display: flex;
   padding-bottom: 1.2vh;
   font-weight: 500;
+  @media screen and (max-width: 490px) {
+    font-size: 15%;
+  }
 `;
 
 const UserInfo = styled.h2`
@@ -134,6 +156,9 @@ const UserInfo = styled.h2`
   cursor: pointer;
   @media screen and (max-width: 768px) {
     font-size: 1.1rem;
+  }
+  @media screen and (max-width: 490px) {
+    font-size: 25%;
   }
 `;
 
@@ -191,7 +216,7 @@ function Navigator() {
         </NavigationContainer>
         <LoginBtn onClick={handleLoginBtnClick}>
           <UserInfo>{isLoggedIn ? "Hello, " + user : "로그인"}</UserInfo>
-          <IoPersonOutline size="2.3em" />
+          <IoPersonOutline size="35%" />
           <LoginOptionContainer isLoginOptionOpened={isLoginOptionOpened}>
             {!isLoggedIn ? (
               <>

@@ -28,17 +28,26 @@ const RowContainer = styled.div`
 const Name = styled.div`
   font-size: 40px;
   font-weight: 700;
+  @media screen and (max-width: 490px) {
+    font-size: 150%;
+  }
 `;
 
 const Major = styled.div`
   font-size: 25px;
   font-weight: 600;
+  @media screen and (max-width: 490px) {
+    font-size: 100%;
+  }
 `;
 
 const StudentID = styled.div`
   font-size: 25px;
   margin-bottom: 30px;
   font-weight: 600;
+  @media screen and (max-width: 490px) {
+    font-size: 100%;
+  }
 `;
 
 const Location = styled.div`
@@ -46,6 +55,9 @@ const Location = styled.div`
   font-weight: 600;
   margin-bottom: 30px;
   display: flex;
+  @media screen and (max-width: 490px) {
+    font-size: 100%;
+  }
 `;
 
 const EditBtnContainer = styled(motion.div)`
@@ -56,6 +68,10 @@ const EditBtnContainer = styled(motion.div)`
   justify-content: center;
   align-items: center;
   border-radius: 7px;
+  @media screen and (max-width: 490px) {
+    width:10%;
+    height:10%;
+  }
 `;
 
 export default function UserInfoViewer() {

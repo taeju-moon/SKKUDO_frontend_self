@@ -4,7 +4,7 @@ import UserTable from "../components/user/UserTable";
 
 export default function User() {
   return (
-    <Container sx={{ maxWidth: "70%" }}>
+    <Container sx={{ maxWidth: "100%" }}>
       <ClubDetailHeader pageType={"동아리원"} />
       <Card
         sx={{

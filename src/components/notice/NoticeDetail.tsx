@@ -22,9 +22,9 @@ const NoticeBoard = styled.div<NoticeDetailElementType>`
   top: 10%;
   transform: translateX(-50%);
   left: 50%;
-  width: 100%;
+  width: 90%;
   max-width: 1024px;
-  height: 800px;
+  height: 80%;
   background-color: white;
   border-radius: 20px;
   display: ${(props) => (props.isNoticeDetailOpen ? "flex" : "none")};
@@ -42,7 +42,7 @@ const NoticeTitle = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 35px;
+  font-size: 90%;
   margin-bottom: 20px;
 `;
 const NoticeTagsContainer = styled.div`
@@ -57,7 +57,7 @@ const NoticeTagsContainer = styled.div`
 const NoticeWriter = styled.div`
   width: 100%;
   text-align: end;
-  font-size: 20px;
+  font-size: 90%;
   padding-right: 40px;
   margin-bottom: 20px;
 `;
@@ -68,7 +68,7 @@ const NoticeContent = styled.div`
   border: 1px solid;
   flex: 1;
   padding: 20px;
-  font-size: 25px;
+  font-size: 90%;
 `;
 
 function NoticeDetail({ noticeInfo }: { noticeInfo: ClickedNoticeInfoType }) {
@@ -96,7 +96,7 @@ function NoticeDetail({ noticeInfo }: { noticeInfo: ClickedNoticeInfoType }) {
                 backgroundColor: "#0c4426",
                 color: "#dde143",
                 padding: "10px",
-                fontSize: "15px",
+                fontSize: "80%",
               }}
             />
           ))}
