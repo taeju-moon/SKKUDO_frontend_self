@@ -12,58 +12,53 @@ import { useState } from "react";
 import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
 import useOrderWithFilter from "../../hooks/useOrderWithFilter";
-import useTableHead from "../../hooks/useTableHead";
 import useTablePage from "../../hooks/useTablePage";
-import { ColumnType } from "../../types/common";
 import { UserType } from "../../types/user";
-import { getClubMembers } from "../../utils/fetch/fetchUser";
-import { ClubType } from "../../types/club";
+import { getAllUsers } from "../../utils/fetch/fetchUser";
 import { applySortFilter, getComparator } from "../../utils/Sorting";
-import SearchNotFound from "./SearchNotFound";
-import UserListHead from "./UserListHead";
-import UserListToolbar from "./UserListToolbar";
-import UserMoreMenu from "./UserMoreMenu";
-import { getOneClub } from "../../utils/fetch/fetchClub";
 import csvDownload from "json-to-csv-export";
-import Paper from "@mui/material/Paper";
-import styled from "styled-components";
-
-const TableCard = styled.div`
-  position: relative;
-`;
-
-type IMoreColumn = {
-  column: ColumnType;
-  value: String;
-};
+import UserListHead from "../user/UserListHead";
+import UserListToolbar from "../user/UserListToolbar";
+import SearchNotFound from "../user/SearchNotFound";
+import UserInfoDialog from "./UserInfoDialog";
+import { IoIosDocument } from "react-icons/io";
 
 interface UserTableType {
   isManage: boolean;
 }
 
-export default function UserTable({ isManage }: UserTableType) {
+const TABLE_HEAD = [
+  { id: "name", label: "이름", alignRight: false },
+  { id: "userID", label: "아이디", alignRight: false },
+  { id: "studentId", label: "학번", alignRight: false },
+  { id: "major", label: "학과", alignRight: false },
+  { id: "location", label: "위치", alignRight: false },
+];
+
+export default function AllUsersTable({ isManage }: UserTableType) {
   const { clubID } = useParams();
-  console.log(clubID);
   const [page, rowsPerPage, handleChangePage, handleChangeRowsPerPage] =
     useTablePage();
 
   const [selected, setSelected] = useState<string[]>([]);
 
-  const tableHead = useTableHead(isManage);
-
   const [order, orderBy, filterName, handleRequestSort, handleFilterByName] =
     useOrderWithFilter();
 
-  const { data } = useQuery<UserType[]>(
-    "getClubMembers",
-    () => getClubMembers(clubID || ""),
-    {
-      onSuccess: (data) => {
-        // console.log(data);
-      },
-      onError: (error: any) => alert(error.response.data.error),
-    }
-  );
+  const [open, setOpen] = useState(false);
+  const [clickedUser, setClickedUser] = useState<UserType>();
+
+  const handleUserItemClick = (user: UserType) => {
+    setOpen(true);
+    setClickedUser(user);
+  };
+
+  const { data } = useQuery<UserType[]>("getAllUsers", () => getAllUsers(), {
+    onSuccess: (data) => {
+      console.log(data);
+    },
+    onError: (error: any) => alert(error.response.data.error),
+  });
 
   const handleSelectAllClick = (event: any) => {
     if (event.target.checked) {
@@ -113,36 +108,36 @@ export default function UserTable({ isManage }: UserTableType) {
       const newObject: any = {
         name: item.name,
         studentId: item.studentId,
-        role: new Map(Object.entries(item.registeredClubs)).get(
-          clubID as string
-        )?.role,
+        // role: new Map(Object.entries(item.registeredClubs)).get(
+        //   clubID as string
+        // )?.role,
         major: item.major,
         location: item.location,
         contact: item.contact,
       };
-      new Map(Object.entries(item.registeredClubs))
-        .get(clubID as string)
-        ?.moreColumns.forEach((item: IMoreColumn) => {
-          newObject[item.column.key] = item.value;
-        });
+      // new Map(Object.entries(item.registeredClubs))
+      //   .get(clubID as string)
+      //   ?.moreColumns.forEach((item: IMoreColumn) => {
+      //     newObject[item.column.key] = item.value;
+      //   });
       return newObject;
     });
 
-    const club: ClubType = await getOneClub(clubID as string);
+    // const club: ClubType = await getOneClub(clubID as string);
 
     let usingHeaders: string[] = [
       "이름",
       "학번",
-      "역할",
+      // "역할",
       "학과",
       "위치",
       "연락처",
     ];
 
-    usingHeaders = [
-      ...usingHeaders,
-      ...club.userColumns.map((item) => item.key),
-    ];
+    // usingHeaders = [
+    //   ...usingHeaders,
+    //   ...club.userColumns.map((item) => item.key),
+    // ];
 
     const dataToConvert = {
       data: rangedArray,
@@ -155,26 +150,21 @@ export default function UserTable({ isManage }: UserTableType) {
   };
 
   return (
-    <TableCard>
+    <>
       <UserListToolbar
         numSelected={selected.length}
         filterName={filterName}
         onFilterName={handleFilterByName}
       />
 
-      <TableContainer component={Paper} sx={{ tableLayout: "auto" }}>
-        <Button
-          onClick={downloadCSV}
-          sx={{ position: "absolute", top: 20, right: 20 }}
-        >
-          export to CSV
-        </Button>
-        <Table sx={{ overflowX: "scroll" }}>
+      <TableContainer sx={{ minWidth: 800 }}>
+        <Button onClick={downloadCSV}>export to CSV</Button>
+        <Table>
           <UserListHead
             isManaging={isManage}
             order={order}
             orderBy={orderBy}
-            headLabel={tableHead}
+            headLabel={TABLE_HEAD}
             rowCount={data?.length || 0}
             numSelected={selected.length}
             onRequestSort={handleRequestSort}
@@ -205,14 +195,14 @@ export default function UserTable({ isManage }: UserTableType) {
                     selected={isItemSelected}
                     aria-checked={isItemSelected}
                   >
-                    {/* {isManage && (
+                    {isManage && (
                       <TableCell padding="checkbox">
                         <Checkbox
                           checked={isItemSelected}
                           onChange={(event) => handleClick(event, name)}
                         />
                       </TableCell>
-                    )} */}
+                    )}
 
                     <TableCell
                       sx={{ fontSize: isManage ? "20px" : "13px" }}
@@ -224,17 +214,15 @@ export default function UserTable({ isManage }: UserTableType) {
                       sx={{ fontSize: isManage ? "20px" : "13px" }}
                       align="left"
                     >
-                      {studentId}
+                      {userID}
                     </TableCell>
                     <TableCell
                       sx={{ fontSize: isManage ? "20px" : "13px" }}
                       align="left"
                     >
-                      {clubID && data
-                        ? new Map(Object.entries(registeredClubs)).get(clubID)
-                            ?.role
-                        : ""}
+                      {studentId}
                     </TableCell>
+
                     <TableCell
                       sx={{ fontSize: isManage ? "20px" : "13px" }}
                       align="left"
@@ -247,43 +235,13 @@ export default function UserTable({ isManage }: UserTableType) {
                     >
                       {location}
                     </TableCell>
-                    {isManage && (
-                      <TableCell
-                        sx={{ fontSize: isManage ? "20px" : "13px" }}
-                        align="left"
-                      >
-                        {contact}
-                      </TableCell>
-                    )}
-                    {clubID && data
-                      ? new Map(Object.entries(registeredClubs))
-                          .get(clubID)
-                          .moreColumns.map((item: IMoreColumn, index: any) => {
-                            return (
-                              <TableCell
-                                sx={{ fontSize: isManage ? "20px" : "13px" }}
-                                key={index}
-                                align="left"
-                              >
-                                {item.value}
-                              </TableCell>
-                            );
-                          })
-                      : ""}
-                    {isManage && (
-                      <TableCell align="right">
-                        <UserMoreMenu
-                          userID={userID}
-                          role={
-                            clubID && data
-                              ? new Map(Object.entries(registeredClubs)).get(
-                                  clubID
-                                )?.role
-                              : ""
-                          }
-                        />
-                      </TableCell>
-                    )}
+                    <TableCell
+                      sx={{ fontSize: isManage ? "20px" : "13px" }}
+                      align="left"
+                      onClick={() => handleUserItemClick(row)}
+                    >
+                      <IoIosDocument />
+                    </TableCell>
                   </TableRow>
                 );
               })}
@@ -315,6 +273,8 @@ export default function UserTable({ isManage }: UserTableType) {
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
       />
-    </TableCard>
+
+      <UserInfoDialog open={open} setOpen={setOpen} clickedUser={clickedUser} />
+    </>
   );
 }

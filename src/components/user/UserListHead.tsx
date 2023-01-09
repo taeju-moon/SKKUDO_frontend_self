@@ -66,7 +66,7 @@ export default function UserListHead({
   return (
     <TableHead>
       <TableRow>
-        {isManaging ? (
+        {/* {isManaging ? (
           <TableCell padding="checkbox">
             <Checkbox
               indeterminate={numSelected > 0 && numSelected < rowCount}
@@ -76,7 +76,7 @@ export default function UserListHead({
           </TableCell>
         ) : (
           ""
-        )}
+        )} */}
 
         {headLabel.map((headCell) => (
           <TableCell

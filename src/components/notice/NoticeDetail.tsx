@@ -1,7 +1,5 @@
 import { Chip } from "@mui/material";
-import { useRecoilState } from "recoil";
 import styled from "styled-components";
-import { isNoticeDetailOpenState } from "../../atoms/utilAtom";
 import { ClickedNoticeInfoType } from "../../types/notice";
 
 interface NoticeDetailElementType {
@@ -14,7 +12,7 @@ const NoticeDetailOverlay = styled.div<NoticeDetailElementType>`
   display: ${(props) => (props.isNoticeDetailOpen ? "block" : "none")};
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.1);
+  background-color: rgba(0, 0, 0, 0.3);
 `;
 
 const NoticeBoard = styled.div<NoticeDetailElementType>`
@@ -42,7 +40,7 @@ const NoticeTitle = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 90%;
+  font-size: calc(12px + 1.3vw);
   margin-bottom: 20px;
 `;
 const NoticeTagsContainer = styled.div`
@@ -68,24 +66,40 @@ const NoticeContent = styled.div`
   border: 1px solid;
   flex: 1;
   padding: 20px;
-  font-size: 90%;
+  font-size: calc(12px + 1.2vw);
+  overflow-y: scroll;
+  white-space: pre;
+  &::-webkit-scrollbar {
+    width: 6px;
+    margin-right: 10px;
+  }
+  &::-webkit-scrollbar-thumb {
+    border-radius: 2px;
+    background: #ccc;
+  }
 `;
 
-function NoticeDetail({ noticeInfo }: { noticeInfo: ClickedNoticeInfoType }) {
-  const [isNoticeDetailOpen, setIsNoticeDetailOpen] = useRecoilState(
-    isNoticeDetailOpenState
-  );
+interface NoticeDetailType {
+  noticeInfo: ClickedNoticeInfoType;
+  detailOpened: boolean;
+  setDetailOpened: React.Dispatch<React.SetStateAction<boolean>>;
+}
+function NoticeDetail({
+  noticeInfo,
+  detailOpened,
+  setDetailOpened,
+}: NoticeDetailType) {
   const handleOverlayClick = () => {
-    setIsNoticeDetailOpen(false);
+    setDetailOpened(false);
   };
 
   return (
     <>
       <NoticeDetailOverlay
-        isNoticeDetailOpen={isNoticeDetailOpen}
+        isNoticeDetailOpen={detailOpened}
         onClick={handleOverlayClick}
       />
-      <NoticeBoard isNoticeDetailOpen={isNoticeDetailOpen}>
+      <NoticeBoard isNoticeDetailOpen={detailOpened}>
         <NoticeTitle>{noticeInfo.title}</NoticeTitle>
         <NoticeTagsContainer>
           {noticeInfo.noticeTags.map((tag) => (

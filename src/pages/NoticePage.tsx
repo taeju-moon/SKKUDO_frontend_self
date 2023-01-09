@@ -13,8 +13,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { useState, useEffect } from "react";
 import NoticeDetail from "../components/notice/NoticeDetail";
-import { useSetRecoilState } from "recoil";
-import { isNoticeDetailOpenState } from "../atoms/utilAtom";
 import CategoryAddDialog from "../components/notice/CategoryAddDialog";
 import { motion } from "framer-motion";
 import {
@@ -51,11 +49,13 @@ const AddCategoryBtn = styled(motion.button)({
   fontSize: "1vw",
   border: "2px solid ",
   borderRadius: "10px",
+  marginTop: "8px",
 });
 
 const AddIconContainer = styled(motion.div)({
   display: "flex",
   justifyContent: "right",
+  marginTop: "8px",
 });
 
 const OptionBtn = styled(motion.button)({
@@ -163,7 +163,7 @@ function NoticePage() {
       noticeTags: [],
     });
 
-  const setIsNoticeDetailOpen = useSetRecoilState(isNoticeDetailOpenState);
+  const [detailOpened, setDetailOpened] = useState(false);
 
   const [isCategoryDialogOpen, setIsCategoryDialogOpen] = useState(false);
 
@@ -190,7 +190,7 @@ function NoticePage() {
     noticeTags: string[]
   ) => {
     setClickedNotiiceInfo({ writer, title, content, noticeTags });
-    setIsNoticeDetailOpen(true);
+    setDetailOpened(true);
     setIsOptionOpened((prev) => !prev);
   };
 
@@ -273,7 +273,10 @@ function NoticePage() {
             <Stack
               key={notice._id}
               spacing={1}
-              sx={{ width: "100%", maxWidth: "70vw" }}
+              sx={{
+                width: "100%",
+                maxWidth: "80%",
+              }}
             >
               <Stack
                 sx={{
@@ -354,7 +357,11 @@ function NoticePage() {
           ))
         )}
       </Stack>
-      <NoticeDetail noticeInfo={clickedNoticeInfo} />
+      <NoticeDetail
+        noticeInfo={clickedNoticeInfo}
+        detailOpened={detailOpened}
+        setDetailOpened={setDetailOpened}
+      />
     </>
   );
 }

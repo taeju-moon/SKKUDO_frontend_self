@@ -43,7 +43,7 @@ export default function UserEditDialog({ open, setOpen }: UserEditDialogType) {
   const handleContactSubmit = () => {
     if (loggedInUser) {
       mutate();
-      window.location.reload();
+      // window.location.reload();
     }
   };
 
@@ -54,22 +54,24 @@ export default function UserEditDialog({ open, setOpen }: UserEditDialogType) {
   return (
     <Dialog open={open} onClose={handleClose}>
       <DialogTitle width="500px">연락처 수정 (번호만 입력해주세요)</DialogTitle>
-      <DialogContent>
-        <TextField
-          autoFocus
-          margin="dense"
-          id="name"
-          label="연락처"
-          type="number"
-          fullWidth
-          variant="standard"
-          onChange={handleContactChange}
-        />
-      </DialogContent>
-      <DialogActions>
-        <Button onClick={handleClose}>취소</Button>
-        <Button onClick={handleContactSubmit}>수정</Button>
-      </DialogActions>
+      <form onSubmit={handleContactSubmit}>
+        <DialogContent>
+          <TextField
+            autoFocus
+            margin="dense"
+            id="name"
+            label="연락처"
+            fullWidth
+            variant="standard"
+            onChange={handleContactChange}
+            inputProps={{ minLength: 11, maxLength: 11, pattern: "[0-9]+" }}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>취소</Button>
+          <Button type="submit">수정</Button>
+        </DialogActions>
+      </form>
     </Dialog>
   );
 }

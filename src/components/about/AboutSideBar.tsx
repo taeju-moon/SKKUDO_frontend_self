@@ -13,14 +13,11 @@ const AboutSideBarContainer = styled.div`
 
 const NestedListHeader = styled.div`
   color: #0c4426;
-  font-size: 1.6rem;
+  font-size: 20px;
   margin-top: 1vh;
   margin-left: 1vw;
   font-weight: 800;
-  white-space:nowrap;
-    @media screen and (max-width: 1200px){
-     display: none;
-  }
+  white-space: nowrap;
 `;
 
 const MenuLink = styled(Link)`
@@ -61,7 +58,13 @@ function AboutSideBar() {
             소개
           </MenuLink>
         </ListItemButton>
-        <ListItemButton onClick={handleClick} sx={{ paddingTop: "15px" }}>
+        <ListItemButton
+          onClick={handleClick}
+          sx={{
+            paddingTop: "15px",
+            "@media screen and (max-width: 1200px)": { display: "none" },
+          }}
+        >
           <NestedListHeader>스꾸도 사용방법</NestedListHeader>
         </ListItemButton>
         <Collapse in={open}>

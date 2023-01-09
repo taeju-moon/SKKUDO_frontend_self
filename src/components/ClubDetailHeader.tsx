@@ -7,7 +7,7 @@ import { getOneClub } from "../utils/fetch/fetchClub";
 const ClubHeader = styled("div")({
   display: "flex",
   width: "100%",
-  maxWidth: "70%",
+  maxWidth: "80%",
   margin: "0 auto",
   gap: "2%",
   fontSize: "calc(10px + 1.8vw)",
@@ -15,10 +15,11 @@ const ClubHeader = styled("div")({
   borderBottom: "4px solid #0C4426",
   paddingBottom: "1%",
   marginBottom: "1%",
+  fontWeight: 800,
 });
 
 interface ClubDetailHeaderType {
-  pageType: "공지사항" | "일정" | "동아리원" | "내 프로필";
+  pageType: string;
 }
 function ClubDetailHeader({ pageType }: ClubDetailHeaderType) {
   const { clubID } = useParams();
@@ -36,8 +37,8 @@ function ClubDetailHeader({ pageType }: ClubDetailHeaderType) {
   );
   return (
     <ClubHeader>
-      <h1>{clubData?.name}</h1>
-      <h4>{pageType}</h4>
+      <div>{clubData?.name}</div>
+      <div>{pageType}</div>
     </ClubHeader>
   );
 }

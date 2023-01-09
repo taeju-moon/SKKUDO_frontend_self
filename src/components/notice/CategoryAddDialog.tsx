@@ -118,7 +118,7 @@ function CategoryAddDialog(props: SimpleDialogProps) {
       >
         <TextField
           id="outlined-basic"
-          label="Outlined"
+          label="새 카테고리"
           variant="outlined"
           onChange={handleCategoryInputChange}
           value={newCategory}
@@ -129,7 +129,7 @@ function CategoryAddDialog(props: SimpleDialogProps) {
           sx={{ color: "white", marginTop: "20px" }}
           type="submit"
         >
-          Success
+          추가
         </Button>
       </Box>
       <CategoryList>
@@ -144,7 +144,7 @@ function CategoryAddDialog(props: SimpleDialogProps) {
                 color="error"
                 onClick={() => handleCategoryDeleteBtnClick(category._id)}
               >
-                Delete
+                삭제
               </CategoryDeleteBtn>
             </CategoryListItem>
           ))
