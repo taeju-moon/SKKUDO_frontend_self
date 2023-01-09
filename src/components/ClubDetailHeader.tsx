@@ -10,7 +10,7 @@ const ClubHeader = styled("div")({
   maxWidth: "80%",
   margin: "0 auto",
   gap: "2%",
-  fontSize: "calc(15px + 1.8vw)",
+  fontSize: "calc(10px + 1.8vw)",
   color: "#0C4426",
   borderBottom: "4px solid #0C4426",
   paddingBottom: "1%",

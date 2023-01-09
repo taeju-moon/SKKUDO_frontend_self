@@ -29,11 +29,11 @@ const ProfileContainer = styled.div`
 `;
 
 const Name = styled.span`
-  font-size: 40px;
+  font-size: 160%;
   margin-right: 20px;
 `;
 const Role = styled.span`
-  font-size: 30px;
+  font-size: 150%;
   font-weight: 600;
 `;
 

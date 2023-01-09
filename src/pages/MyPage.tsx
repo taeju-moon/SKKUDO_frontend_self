@@ -25,7 +25,7 @@ const MyPageContainer = styled.div`
   max-width: 55vw;
   padding-top: 10vh;
   padding-bottom: 10vh;
-  @media screen and (max-width: 1024px){
+  @media screen and (max-width: 1024px) {
     max-width: 90vw;
   }
 `;
@@ -53,6 +53,9 @@ const ClubCardsContainer = styled.div`
   flex-wrap: wrap;
   display: flex;
   gap: 0.5vw;
+  @media screen and (max-width: 490px) {
+    max-width: 100%;
+  }
 `;
 
 function MyPage() {

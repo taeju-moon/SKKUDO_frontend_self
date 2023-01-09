@@ -22,7 +22,7 @@ const NoticeBoard = styled.div<NoticeDetailElementType>`
   left: 50%;
   width: 90%;
   max-width: 1024px;
-  height: 800px;
+  height: 80%;
   background-color: white;
   border-radius: 20px;
   display: ${(props) => (props.isNoticeDetailOpen ? "flex" : "none")};
@@ -55,7 +55,7 @@ const NoticeTagsContainer = styled.div`
 const NoticeWriter = styled.div`
   width: 100%;
   text-align: end;
-  font-size: 20px;
+  font-size: 90%;
   padding-right: 40px;
   margin-bottom: 20px;
 `;
@@ -110,7 +110,7 @@ function NoticeDetail({
                 backgroundColor: "#0c4426",
                 color: "#dde143",
                 padding: "10px",
-                fontSize: "15px",
+                fontSize: "80%",
               }}
             />
           ))}

@@ -132,7 +132,7 @@ function ClubDetailNavigator() {
         whileHover={{ backgroundColor: "rgba(0,0,0,0.4)" }}
         onClick={() => toggleDrawer(true)}
       >
-        <AiOutlineMenu size="2.5rem" />
+        <AiOutlineMenu size="3vh" />
       </NavigationButton>
       <Drawer anchor="right" open={state} onClose={() => toggleDrawer(false)}>
         {list()}

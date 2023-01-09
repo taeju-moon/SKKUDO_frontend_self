@@ -5,8 +5,8 @@ import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { isManageState } from "../atoms/NavigatorAtom";
 import QuickLogin from "../components/mainPage/QuickLogin";
-// import myeong from "../assets/images/myeong.jpeg";
-// import yul from "../assets/images/yul.png";
+import myeong from "../assets/images/myeong.jpeg";
+import yul from "../assets/images/yul.png";
 
 const HomePageContainer = styled.div`
   padding-top: 7vh;
@@ -29,15 +29,15 @@ const Phrase = styled.div`
   gap: 40px;
 `;
 
-// const ImgContainer = styled.img`
-//   width: 25%;
-//     @media screen and (max-width: 1024px){
-//   width: 20%;
-//   }
-//   @media screen and (max-width: 768px){
-//   display: none;
-//   }
-// `;
+const ImgContainer = styled.img`
+  width: 25%;
+    @media screen and (max-width: 1024px){
+  width: 20%;
+  }
+  @media screen and (max-width: 768px){
+  display: none;
+  }
+`;
 
 // const LineOne = styled.div`
 //   font-size: 50px;
@@ -50,7 +50,10 @@ const Phrase = styled.div`
 const Name = styled(motion.div)`
   font-size: 7em;
   font-weight: 700;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
+  @media screen and (max-width: 490px) {
+    font-size: 4em;
+  }
 `;
 
 const ButtonsContainer = styled.div`
@@ -58,6 +61,9 @@ const ButtonsContainer = styled.div`
   justify-content: center;
   margin-top: 9vh;
   gap: 12vw;
+  @media screen and (max-width: 490px) {
+    gap: 10%;
+  }
 `;
 
 const MainPageBtn = styled(motion.button)`
@@ -70,10 +76,14 @@ const MainPageBtn = styled(motion.button)`
   color: #dde143;
   font-weight: 550;
   cursor: pointer;
-  @media screen and (max-width: 768px){
+  @media screen and (max-width: 768px) {
     font-size: 1em;
     border-radius: 8vw;
     width: 35vw;
+  }
+  @media screen and (max-width: 490px) {
+    width: 30%;
+    font-size: 80%;
   }
 `;
 
@@ -97,7 +107,7 @@ function HomePage() {
   return (
     <HomePageContainer>
       <Banner>
-        {/* <ImgContainer src={myeong} /> */}
+        <ImgContainer src={myeong} />
         <Phrase>
           <Name
             initial={{ opacity: 0, scale: 0.5 }}
@@ -107,7 +117,7 @@ function HomePage() {
             SKKUDO
           </Name>
         </Phrase>
-        {/* <ImgContainer src={yul} /> */}
+        <ImgContainer src={yul} />
       </Banner>
       <ButtonsContainer>
         <MainPageBtn

@@ -30,6 +30,9 @@ const MenuLink = styled(Link)`
   @media screen and (max-width: 768px) {
     font-size: 0.8rem;
   }
+  @media screen and (max-width: 490px) {
+    font-size: 10%;
+  }
 `;
 
 function AboutSideBar() {
